@@ -1,4 +1,4 @@
-package models.cards;
+package models;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ import java.io.IOException;
 public class SaveData {
 
     private ArrayList<User> allUsers = new ArrayList<>();
-    private HashSet<Card> allCards = new Hashset<>();
+    private HashSet<Card> allCards = new HashSet<>();
     private ArrayList<Deck> allDecks = new ArrayList<>();
 
     private void run() {
@@ -57,12 +57,8 @@ public class SaveData {
     }
 
     private void saveAllUsers() {
-        try {
             File makeDirection = new File("Data");
             makeDirection.mkdir();
-        }   catch (IOException error) {
-            System.out.println("cannot save the Data !");
-        }
 
         allUsers = User.getSortedUsers();
         for (int i = 0 ; i < allUsers.size() ; i++)

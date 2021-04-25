@@ -1,6 +1,8 @@
-package models.cards;
+package models;
 
 import java.util.ArrayList;
+import models.cards.Card;
+
 
 public class User {
 
@@ -30,7 +32,7 @@ public class User {
         setMoney(0);
     }
 
-    public static void loadUsers(ArrayList<User> allUsers) {
+    public static void loadUsers() {
         SaveData saveData = new SaveData();
         allUsers = saveData.loadAllUsers();
     }
@@ -142,6 +144,18 @@ public class User {
 
     public int getMoney() {
         return this.money;
+    }
+
+    public void addCard(Card card) {
+        this.userCards.add(card);
+    }
+
+    public void addDeck(Deck deck) {
+        this.userDecks.add(deck);
+    }
+
+    public void removeDeck(Deck deck) {
+        this.userDecks.remove(deck);
     }
 
     public void changePassword(String password) {
