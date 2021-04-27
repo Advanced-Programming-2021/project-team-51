@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 import models.cards.Card;
 
-
 public class User {
 
     public static ArrayList<User> allUsers;
@@ -32,28 +31,34 @@ public class User {
         setMoney(0);
     }
 
-    public static void loadUsers() {
-        SaveData saveData = new SaveData();
-        allUsers = saveData.loadAllUsers();
+    public void loadUser(int score, int money, Deck activeDeck, ArrayList<Card> userCards, ArrayList<Deck> userDecks) {
+        setActiveDeck(activeDeck);
+        setScore(score);
+        setMoney(money);
+        setUserCards(userCards);
+        setUserDecks(userDecks);
     }
 
     public static User getUserByUserName(String userName) {
-        for (int i = 0 ; i < allUsers.size() ; i++)
-            if (allUsers.get(i).getUserName().equals(userName)) return allUsers.get(i);
-        
+        for (int i = 0; i < allUsers.size(); i++)
+            if (allUsers.get(i).getUserName().equals(userName))
+                return allUsers.get(i);
+
         return null;
     }
 
     public static boolean isUserNameTaken(String userName) {
-        for (int i = 0 ; i < allUsers.size() ; i++)
-            if (allUsers.get(i).getUserName().equals(userName)) return true;
+        for (int i = 0; i < allUsers.size(); i++)
+            if (allUsers.get(i).getUserName().equals(userName))
+                return true;
 
         return false;
     }
 
     public static boolean isNickNameTaken(String nickName) {
-        for (int i = 0 ; i < allUsers.size() ; i++)
-            if (allUsers.get(i).getNickName().equals(nickName)) return true;
+        for (int i = 0; i < allUsers.size(); i++)
+            if (allUsers.get(i).getNickName().equals(nickName))
+                return true;
 
         return false;
     }
@@ -64,26 +69,38 @@ public class User {
     }
 
     private static void sortUsers(ArrayList<User> allUsers) {
-        for (int i = 1 ; i < allUsers.size() ; i++) {
+        for (int i = 1; i < allUsers.size(); i++) {
             User user = allUsers.get(i);
             int j = i - 1;
-                while (j >= 0 && !User.compareTwoUsers(allUsers.get(j), user)) {
-                    allUsers.set(j + 1, allUsers.get(j));
-                    j--;
-                }
-                allUsers.set(j + 1, user);
+            while (j >= 0 && !User.compareTwoUsers(allUsers.get(j), user)) {
+                allUsers.set(j + 1, allUsers.get(j));
+                j--;
+            }
+            allUsers.set(j + 1, user);
         }
     }
 
     private static boolean compareTwoUsers(User first, User second) {
-        if (first.getScore() > second.getScore()) return true;
-        else if (first.getScore() < second.getScore()) return false;
-        else if (first.getNickName().compareTo(second.getNickName()) < 0) return true;
-        else return false;
+        if (first.getScore() > second.getScore())
+            return true;
+        else if (first.getScore() < second.getScore())
+            return false;
+        else if (first.getNickName().compareTo(second.getNickName()) < 0)
+            return true;
+        else
+            return false;
+    }
+
+    private void setUserDecks(ArrayList<Deck> decks) {
+        this.userDecks = decks;
     }
 
     public ArrayList<Deck> getUserDecks() {
         return this.userDecks;
+    }
+
+    private void setUserCards(ArrayList<Card> cards) {
+        this.userCards = cards;
     }
 
     public ArrayList<Card> getUserCards() {
@@ -133,7 +150,7 @@ public class User {
     private void setScore(int amount) {
         this.score = amount;
     }
-    
+
     public int getScore() {
         return this.score;
     }
