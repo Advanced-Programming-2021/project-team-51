@@ -1,12 +1,22 @@
 package models.cards;
 
 public enum Icon {
-    EQUIP,
-    FIELD,
-    QUICK_PLAY,
-    RITUAL,
-    CONTINUOUS,
-    COUNTER,
-    NORMAL,
-    UNTITRAP;
+    EQUIP("Equip"),
+    FIELD("Field"),
+    QUICK_PLAY("Quick-Play"),
+    RITUAL("Ritual"),
+    CONTINUOUS("Continuous"),
+    COUNTER("Counter"),
+    NORMAL("Normal"),
+    UNTITRAP("Untitrap");
+
+    private final String label;
+
+    Icon(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
 }

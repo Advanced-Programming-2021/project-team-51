@@ -6,7 +6,7 @@ public abstract class Card {
 
     private static final HashSet<Card> allCards = new HashSet<>();
     protected static int cardCounter = 0;
-    protected int cardNumber;
+    private int cardNumber;
     private String name;
     private String description;
     private CardType cardType;
@@ -23,11 +23,18 @@ public abstract class Card {
         return null;
     }
 
+    public static Card getCardByName(String name) {
+        for (Card card : allCards) {
+            if (card.name.equals(name))
+                return card;
+        }
+        return null;
+    }
     public static HashSet<Card> getAllCards() {
         return allCards;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
@@ -35,7 +42,7 @@ public abstract class Card {
         return this.name;
     }
 
-    public void setDescription(String description) {
+    protected void setDescription(String description) {
         this.description = description;
     }
 
@@ -43,7 +50,7 @@ public abstract class Card {
         return this.description;
     }
 
-    public void setCardType(CardType cardType) {
+    protected void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
@@ -51,7 +58,7 @@ public abstract class Card {
         return this.cardType;
     }
 
-    public void setPrice(int price) {
+    protected void setPrice(int price) {
         this.price = price;
     }
 
@@ -85,6 +92,10 @@ public abstract class Card {
 
     public int getCardNumber() {
         return this.cardNumber;
+    }
+
+    protected void setCardNumber(int cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     abstract public String toString();

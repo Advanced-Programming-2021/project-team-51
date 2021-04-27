@@ -15,13 +15,25 @@ public class MonsterCard extends Card{
     private Mode mode;
     private boolean hasAttacked;
 
-    public MonsterCard() {
-        // #TODO : complete constructor
+    public MonsterCard(String name, String description, int price, int level, Attribute attribute, MonsterType monsterType,
+                       int attackPoint, int defensePoint, boolean hasRitualSummon, boolean hasEffect) {
+        this.setName(name);
+        this.setDescription(description);
+        this.setPrice(price);
+        this.setLevel(level);
+        this.setAttribute(attribute);
+        this.setCardType(CardType.MONSTER);
+        this.setMonsterType(monsterType);
+        this.setAttackPoint(attackPoint);
+        this.setDefensePoint(defensePoint);
+        this.setHasRitualSummon(hasRitualSummon);
+        this.setHasEffect(hasEffect);
+        this.setCardNumber(++cardCounter);
     }
 
     public static MonsterCard getMonsterCardByNumber(int number) {
         for (MonsterCard monsterCard : allMonsterCards) {
-            if (monsterCard.cardNumber == number)
+            if (monsterCard.getCardNumber() == number)
                 return monsterCard;
         }
         return null;
@@ -31,7 +43,7 @@ public class MonsterCard extends Card{
         return allMonsterCards;
     }
 
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         this.level = level;
     }
 
@@ -39,7 +51,7 @@ public class MonsterCard extends Card{
         return this.level;
     }
 
-    public void setAttribute(Attribute attribute) {
+    private void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
 
@@ -47,7 +59,7 @@ public class MonsterCard extends Card{
         return this.attribute;
     }
 
-    public void setMonsterType(MonsterType monsterType) {
+    private void setMonsterType(MonsterType monsterType) {
         this.monsterType = monsterType;
     }
 
@@ -55,7 +67,7 @@ public class MonsterCard extends Card{
         return this.monsterType;
     }
 
-    public void setAttackPoint(int attackPoint) {
+    private void setAttackPoint(int attackPoint) {
         this.attackPoint = attackPoint;
     }
 
@@ -63,7 +75,7 @@ public class MonsterCard extends Card{
         return this.attackPoint;
     }
 
-    public void setDefensePoint(int defensePoint) {
+    private void setDefensePoint(int defensePoint) {
         this.defensePoint = defensePoint;
     }
 
@@ -71,7 +83,7 @@ public class MonsterCard extends Card{
         return this.defensePoint;
     }
 
-    public void setHasRitualSummon(boolean hasRitualSummon) {
+    private void setHasRitualSummon(boolean hasRitualSummon) {
         this.hasRitualSummon = hasRitualSummon;
     }
 
@@ -79,7 +91,7 @@ public class MonsterCard extends Card{
         return this.hasRitualSummon;
     }
 
-    public void setHasEffect(boolean hasEffect) {
+    private void setHasEffect(boolean hasEffect) {
         this.hasEffect = hasEffect;
     }
 
@@ -105,7 +117,11 @@ public class MonsterCard extends Card{
 
     @Override
     public String toString() {
-        // #TODO : Define printing format for monster cards.
-        return null;
+        return "Name: " + this.getName() + "\n" +
+                "Level: " + this.getLevel() + "\n" +
+                "Type: " + this.getMonsterType().getLabel() + "\n" +
+                "ATK: " + this.getAttackPoint() + "\n" +
+                "DEF: " + this.getDefensePoint() + "\n" +
+                "Description: " + this.getDescription();
     }
 }
