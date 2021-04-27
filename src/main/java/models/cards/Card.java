@@ -1,10 +1,11 @@
 package models.cards;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public abstract class Card {
 
-    private static final HashSet<Card> allCards = new HashSet<>();
+    private static final ArrayList<Card> allCards = new ArrayList<>();
     protected static int cardCounter = 0;
     private int cardNumber;
     private String name;
@@ -30,7 +31,7 @@ public abstract class Card {
         }
         return null;
     }
-    public static HashSet<Card> getAllCards() {
+    public static ArrayList<Card> getAllCards() {
         return allCards;
     }
 

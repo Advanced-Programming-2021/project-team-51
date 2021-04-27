@@ -1,10 +1,11 @@
 package models.cards;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class MonsterCard extends Card{
 
-    private static final HashSet<MonsterCard> allMonsterCards = new HashSet<>();
+    private static final ArrayList<MonsterCard> allMonsterCards = new ArrayList<>();
     private int level;
     private Attribute attribute;
     private MonsterType monsterType;
@@ -39,7 +40,7 @@ public class MonsterCard extends Card{
         return null;
     }
 
-    public static HashSet<MonsterCard> getAllMonsterCards() {
+    public static ArrayList<MonsterCard> getAllMonsterCards() {
         return allMonsterCards;
     }
 

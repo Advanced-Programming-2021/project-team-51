@@ -1,9 +1,11 @@
 package models.cards;
 
+import javax.crypto.AEADBadTagException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class SpellTrapCard extends Card{
-    private static final HashSet<SpellTrapCard> allSpellTrapCards = new HashSet<>();
+    private static final ArrayList<SpellTrapCard> allSpellTrapCards = new ArrayList<>();
     Icon icon;
 
     public SpellTrapCard(String name, String description, int price, CardType cardType, Icon icon) {
@@ -23,7 +25,7 @@ public class SpellTrapCard extends Card{
         return null;
     }
 
-    public static HashSet<SpellTrapCard> getAllSpellTrapCards() {
+    public static ArrayList<SpellTrapCard> getAllSpellTrapCards() {
         return allSpellTrapCards;
     }
 
