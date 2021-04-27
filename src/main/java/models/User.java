@@ -115,7 +115,7 @@ public class User {
         return this.userName;
     }
 
-    private void setNickName(String nickName) {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
@@ -123,7 +123,7 @@ public class User {
         return this.nickName;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -131,7 +131,7 @@ public class User {
         return this.password;
     }
 
-    private void setBoard(Board board) {
+    public void setBoard(Board board) {
         this.userBoard = board;
     }
 
@@ -139,7 +139,7 @@ public class User {
         return this.userBoard;
     }
 
-    private void setActiveDeck(Deck deck) {
+    public void setActiveDeck(Deck deck) {
         this.activeDeck = deck;
     }
 
@@ -147,7 +147,7 @@ public class User {
         return this.activeDeck;
     }
 
-    private void setScore(int amount) {
+    public void setScore(int amount) {
         this.score = amount;
     }
 
@@ -155,7 +155,7 @@ public class User {
         return this.score;
     }
 
-    private void setMoney(int amount) {
+    public void setMoney(int amount) {
         this.money = amount;
     }
 

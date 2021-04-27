@@ -50,7 +50,7 @@ public class Deck {
         return false;
     }
 
-    private boolean hasEnoughSpace(String mainOrSide) {
+    public boolean hasEnoughSpace(String mainOrSide) {
         if (mainOrSide.equals("main") && mainDeckCards.size() > 59)
             return false;
         else if (sideDeckCards.size() > 14)
@@ -59,7 +59,7 @@ public class Deck {
         return true;
     }
 
-    private boolean hasEnoughSpace(Card card) {
+    public boolean hasEnoughSpace(Card card) {
         if (cardsAmount.get(card) > 2)
             return false;
 
@@ -117,7 +117,7 @@ public class Deck {
         this.cardsAmount = cards;
     }
 
-    private void addCardToDeck(String mainOrSide, Card card) {
+    public void addCardToDeck(String mainOrSide, Card card) {
         if (hasUsedBefore(card))
             cardsAmount.put(card, cardsAmount.get(card) + 1);
         else
@@ -128,7 +128,7 @@ public class Deck {
             sideDeckCards.add(card);
     }
 
-    private void removeCardFromDeck(String mainOrSide, Card card) {
+    public void removeCardFromDeck(String mainOrSide, Card card) {
         cardsAmount.put(card, cardsAmount.get(card) - 1);
         if (mainOrSide.equals("main")) {
             for (int i = 0; i < mainDeckCards.size(); i++)
@@ -145,7 +145,7 @@ public class Deck {
         }
     }
 
-    private void removeDeck() {
+    public void removeDeck() {
         this.owner.removeDeck(this);
         allDecks.remove(this);
     }

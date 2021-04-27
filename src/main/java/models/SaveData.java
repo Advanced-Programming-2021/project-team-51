@@ -20,8 +20,11 @@ public class SaveData {
     private HashSet<Card> allCards = new HashSet<>();
     private ArrayList<Deck> allDecks = new ArrayList<>();
 
-    private void run() {
-        saveAllUsers();
+    public SaveData(boolean isEndingTheProgram) {
+        if (isEndingTheProgram)
+            saveAllUsers();
+        else
+            loadAllUsers();
     }
 
     private String saveUserCards(User user) {
@@ -124,7 +127,7 @@ public class SaveData {
 
     private ArrayList<Deck> loadUserDecks(String[] decks, User owner) {
         ArrayList<Deck> userDecks = new ArrayList<>();
-        for (int i = 0 ; i < decks.length ; i++) {
+        for (int i = 0; i < decks.length; i++) {
             Pattern pattern = Pattern.compile("(.*)_deck: {(.*)}");
             Matcher matcher = pattern.matcher(decks[i]);
             if (matcher.find()) {
