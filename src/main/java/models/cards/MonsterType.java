@@ -7,7 +7,7 @@ public enum MonsterType {
     AQUA("Aqua"),
     BEAST("Beast"),
     PYRO("Pyro"),
-    SPELL_CASTER("Spell-Caster"),
+    SPELL_CASTER("Spellcaster"),
     THUNDER("Thunder"),
     DRAGON("Dragon"),
     MACHINE("Machine"),
@@ -15,7 +15,7 @@ public enum MonsterType {
     INSECT("Insect"),
     CYBERSE("Cyberse"),
     FAIRY("Fairy"),
-    ;
+    SEA_SERPENT("Sea Serpent");
 
     private final String label;
 

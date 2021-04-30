@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public abstract class Card {
 
-    private static final ArrayList<Card> allCards = new ArrayList<>();
+    protected static final ArrayList<Card> allCards = new ArrayList<>();
     protected static int cardCounter = 0;
     private int cardNumber;
     private String name;

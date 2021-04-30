@@ -15,6 +15,8 @@ public class SpellTrapCard extends Card{
         this.setCardType(cardType);
         this.setIcon(icon);
         this.setCardNumber(++cardCounter);
+        allSpellTrapCards.add(this);
+        allCards.add(this);
     }
 
     public static SpellTrapCard getSpellTrapCardByNumber(int number) {
