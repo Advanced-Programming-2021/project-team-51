@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -15,10 +14,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class SaveData {
-
-    private ArrayList<User> allUsers = new ArrayList<>();
-    private HashSet<Card> allCards = new HashSet<>();
-    private ArrayList<Deck> allDecks = new ArrayList<>();
 
     public SaveData(boolean isEndingTheProgram) {
         if (isEndingTheProgram)
@@ -62,6 +57,7 @@ public class SaveData {
                 userFileWrite.append("\nactivedeck: " + user.getActiveDeck().getName() + "\n");
             userFileWrite.append(saveUserDecks(user));
             userFileWrite.append("usercards: {" + saveUserCards(user) + "}");
+            userFileWrite.close();
         } catch (IOException error) {
             System.out.println("cannot save all Data !");
         }
@@ -71,7 +67,7 @@ public class SaveData {
         File makeDirection = new File("Data");
         makeDirection.mkdir();
 
-        allUsers = User.getSortedUsers();
+        ArrayList<User> allUsers = User.getSortedUsers();
         for (int i = 0; i < allUsers.size(); i++)
             saveUser(allUsers.get(i), i);
     }
