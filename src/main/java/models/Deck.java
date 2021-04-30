@@ -117,20 +117,24 @@ public class Deck {
         this.cardsAmount = cards;
     }
 
-    public void addCardToDeck(String mainOrSide, Card card) {
+    public HashMap<Card, Integer> getCardsAmount() {
+        return this.cardsAmount;
+    }
+
+    public void addCardToDeck(boolean isMain, Card card) {
         if (hasUsedBefore(card))
             cardsAmount.put(card, cardsAmount.get(card) + 1);
         else
             cardsAmount.put(card, 1);
-        if (mainOrSide.equals("main"))
+        if (isMain)
             mainDeckCards.add(card);
         else
             sideDeckCards.add(card);
     }
 
-    public void removeCardFromDeck(String mainOrSide, Card card) {
+    public void removeCardFromDeck(boolean isMain, Card card) {
         cardsAmount.put(card, cardsAmount.get(card) - 1);
-        if (mainOrSide.equals("main")) {
+        if (isMain) {
             for (int i = 0; i < mainDeckCards.size(); i++)
                 if (mainDeckCards.get(i).getName().equals(card.getName())) {
                     mainDeckCards.remove(i);
