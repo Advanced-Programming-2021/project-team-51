@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import models.cards.Card;
+import models.cards.MakeCards;
 
 import java.lang.StringBuilder;
 import java.io.File;
@@ -72,6 +73,10 @@ public class SaveData {
             saveUser(allUsers.get(i), i);
     }
 
+    private Card loadUserCard(String cardName) {
+        return MakeCards.makeCard(cardName);
+    }
+
     private Card loadCard(String cardName) {
         return Card.getCardByName(cardName);
     }
@@ -117,7 +122,7 @@ public class SaveData {
     private ArrayList<Card> loadUserCards(String[] cards) {
         ArrayList<Card> userCards = new ArrayList<>();
         for (int i = 0; i < cards.length; i++)
-            userCards.add(loadCard(cards[i]));
+            userCards.add(loadUserCard(cards[i]));
         return userCards;
     }
 
