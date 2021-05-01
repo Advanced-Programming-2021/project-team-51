@@ -1,10 +1,9 @@
-package programController;
+package main.java.programController;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-/*-------------------REMEMBER TO CORRECT SHORT FORMS----------------------*/
 
 
 public class Regex {
@@ -26,34 +25,29 @@ public class Regex {
 
     /*---CREATE USER---*/
 
-    public static String createUser1 = "^user create --username (\\S+) --nickname (\\S+) --password (\\S+)$";
-    public static String createUser1Short = "^user create -u (\\S+) -n (\\S+) -p (\\S+)$";
-    public static String createUser2 = "^user create --username (\\S+) --password (\\S+) --nickname (\\S+)$";
-    public static String createUser2Short = "^user create -u (\\S+) -p (\\S+) -n (\\S+)$";
-    public static String createUser3 = "^user create --nickname (\\S+) --username (\\S+) --password (\\S+)$";
-    public static String createUser3Short = "^user create -n (\\S+) -u (\\S+) -p (\\S+)$";
-    public static String createUser4 = "^user create --nickname (\\S+) --password (\\S+) --username (\\S+)$";
-    public static String createUser4Short = "^user create -n (\\S+) -p (\\S+) -u (\\S+)$";
-    public static String createUser5 = "^user create --password (\\S+) --nickname (\\S+) --username (\\S+)$";
-    public static String createUser5Short = "^user create -p (\\S+) -n (\\S+) -u (\\S+)$";
-    public static String createUser6 = "^user create --password (\\S+) --username (\\S+) --nickname (\\S+)$";
-    public static String createUser6Short = "^user create -p (\\S+) -u (\\S+) -n (\\S+)$";
+    public static String createUser1 = "^user create (--username|-u) (\\S+) (--nickname|-n) (\\S+) (--password|-p) (\\S+)$";
+    public static String createUser2 = "^user create (--username|-u) (\\S+) (--password|-p) (\\S+) (--nickname|-n) (\\S+)$";
+    public static String createUser3 = "^user create (--nickname|-n) (\\S+) (--username|-u) (\\S+) (--password|-p) (\\S+)$";
+    public static String createUser4 = "^user create (--nickname|-n) (\\S+) (--password|-p) (\\S+) (--username|-u) (\\S+)$";
+    public static String createUser5 = "^user create (--password|-p) (\\S+) (--nickname|-n) (\\S+) (--username|-u) (\\S+)$";
+    public static String createUser6 = "^user create (--password|-p) (\\S+) (--nickname|-n) (\\S+) (--username|-u) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---LOGOUT,SHOW SCOREBOARD,CHANGE PROFILE---*/
 
     public static String userLogout = "^user logout$";
     public static String showScoreboard = "^scoreboard show$";
-    public static String changeProfile = "^profile change --nickname (\\S+)$";
-    public static String changeProfileShort = "^profile change -n (\\S+)$";
+    public static String changeProfile = "^profile change (--nickname|-n) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---CHANGE PASS---*/
 
-    public static String changePass1 = "^profile change --password --current (\\S+) --new (\\S+)$";
-    public static String changePass1Short = "^profile change -p -c (\\S+) -n (\\S+)$";
-    public static String changePass2= "^profile change --new (\\S+) --password --current (\\S+)$";
-    public static String changePass2Short= "^profile change -n (\\S+) -p -c (\\S+)$";
+    public static String changePass1 = "^profile change (--password|-p) (--current|-c) (\\S+) (--new|-n) (\\S+)$";
+    public static String changePass2 = "^profile change (--password|-p) (--new|-n) (\\S+) (--current|-c) (\\S+)$";
+    public static String changePass3 = "^profile change (--current|-c) (\\S+) (--password|-p) (--new|-n) (\\S+)$";
+    public static String changePass4 = "^profile change (--current|-c) (\\S+) (--new|-n) (\\S+) (--password|-p)$";
+    public static String changePass5 = "^profile change (--new|-n) (\\S+) (--password|-p) (--current|-c) (\\S+)$";
+    public static String changePass6 = "^profile change (--new|-n) (\\S+) (--current|-c) (\\S+) (--password|-p)$";
     //----------------------------------------------------------------------------------------------
 
     /*---DECK CREATION,DELETION,ACTIVATION---*/
@@ -65,38 +59,29 @@ public class Regex {
 
     /*---ADD CARD TO DECK---*/
 
-    public static String addCardToDeck1 = "^deck add-card --card (\\S+) --deck (\\S+)( --side)?$";
-    public static String addCardToDeck1Short = "^deck add-card -c (\\S+) -d (\\S+)( -s)?$";
-    public static String addCardToDeck2 = "^deck add-card --card (\\S+)( --side)? --deck (\\S+)$";
-    public static String addCardToDeck2Short = "^deck add-card -c (\\S+)( -s)? -d (\\S+)$";
-    public static String addCardToDeck3 = "^deck add-card --deck (\\S+) --card (\\S+)( --side)?$";
-    public static String addCardToDeck3Short = "^deck add-card -d (\\S+) -c (\\S+)( -s)?$";
-    public static String addCardToDeck4 = "^deck add-card --deck (\\S+)( --side)? --card (\\S+)$";
-    public static String addCardToDeck4Short = "^deck add-card -d (\\S+)( -s)? -c (\\S+)$";
-    public static String addCardToDeck5 = "^deck add-card( --side)? --deck (\\S+) --card (\\S+)$";
-    public static String addCardToDeck5Short = "^deck add-card( -s)? -d (\\S+) -c (\\S+)$";
-    public static String addCardToDeck6 = "^deck add-card( --side)? --card (\\S+) --deck (\\S+)$";
-    public static String addCardToDeck6Short = "^deck add-card( -s)? -c (\\S+) -d (\\S+)$";
+    public static String addCardToDeck1 = "^deck add-card (--card|-c) (\\S+) (--deck|-d) (\\S+)( --side| -s)?$";
+    public static String addCardToDeck2 = "^deck add-card (--card|-c) (\\S+)( --side| -s)? (--deck|-d) (\\S+)$";
+    public static String addCardToDeck3 = "^deck add-card (--deck|-d) (\\S+) (--card|-c) (\\S+)( --side| -s)?$";
+    public static String addCardToDeck4 = "^deck add-card (--deck|-d) (\\S+)( --side| -s)? (--card|-c) (\\S+)$";
+    public static String addCardToDeck5 = "^deck add-card( --side| -s)? (--deck|-d) (\\S+) (--card|-c) (\\S+)$";
+    public static String addCardToDeck6 = "^deck add-card( --side| -s)? (--card|-c) (\\S+) (--deck|-d) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---REMOVE CARD FROM DECK---*/
 
-    public static String removeCardFromDeck1 = "^deck rm-card (--card|-c) (\\S+) (--deck|-d) (\\S+)( --side|-s)?$";
-    public static String removeCardFromDeck2 = "^deck rm-card (--card|-c) (\\S+)( --side|-s)? (--deck|-d) (\\S+)$";
-    public static String removeCardFromDeck3 = "^deck rm-card (--deck|-d) (\\S+) (--card|-c) (\\S+)( --side|-s)?$";
-    public static String removeCardFromDeck4 = "^deck rm-card --deck (\\S+)( --side)? --card (\\S+)$";
-    public static String removeCardFromDeck4Short = "^deck rm-card -d (\\S+)( -s)? -c (\\S+)$";
-    public static String removeCardFromDeck5 = "^deck rm-card( --side)? --deck (\\S+) --card (\\S+)$";
-    public static String removeCardFromDeck5Short = "^deck rm-card( -s)? -d (\\S+) -c (\\S+)$";
-    public static String removeCardFromDeck6 = "^deck rm-card( --side)? --card (\\S+) --deck (\\S+)$";
-    public static String removeCardFromDeck6Short = "^deck rm-card( -s)? -c (\\S+) -d (\\S+)$";
+    public static String removeCardFromDeck1 = "^deck rm-card (--card|-c) (\\S+) (--deck|-d) (\\S+)( --side| -s)?$";
+    public static String removeCardFromDeck2 = "^deck rm-card (--card|-c) (\\S+)( --side| -s)? (--deck|-d) (\\S+)$";
+    public static String removeCardFromDeck3 = "^deck rm-card (--deck|-d) (\\S+) (--card|-c) (\\S+)( --side| -s)?$";
+    public static String removeCardFromDeck4 = "^deck rm-card (--deck|-d) (\\S+)( --side| -s)? (--card|-c) (\\S+)$";
+    public static String removeCardFromDeck5 = "^deck rm-card( --side| -s)? (--deck|-d) (\\S+) (--card|-c) (\\S+)$";
+    public static String removeCardFromDeck6 = "^deck rm-card( --side| -s)? (--card|-c) (\\S+) (--deck|-d) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---SHOW DECK---*/
 
     public static String showAllDecks = "^deck show (--all|-a)$";
-    public static String showOptionalDeck1 = "^deck show (--deck-name|-d) (\\S+)( --side|-s)?$";
-    public static String showOptionalDeck2 = "^deck show( --side|-s)? (--deck-name|-d) (\\S+)$";
+    public static String showOptionalDeck1 = "^deck show (--deck-name|-d) (\\S+)( --side| -s)?$";
+    public static String showOptionalDeck2 = "^deck show( --side| -s)? (--deck-name|-d) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---SHOW CARD,BUY CARD---*/
@@ -108,35 +93,23 @@ public class Regex {
 
     /*---DUEL MULTI---*/
 
-    public static String duelMultiplayer1 = "^duel --new --second-player (\\S+) --rounds (1|3)$";
-    public static String duelMultiplayer1Short = "^duel -n -sp (\\S+) -r (1|3)$";
-    public static String duelMultiplayer2 = "^duel --new --rounds (1|3) --second-player (\\S+)$";
-    public static String duelMultiplayer2Short = "^duel -n -r (1|3) -sp (\\S+)$";
-    public static String duelMultiplayer3 = "^duel --second-player (\\S+) --new --rounds (1|3)$";
-    public static String duelMultiplayer3Short = "^duel -sp (\\S+) -n -r (1|3)$";
-    public static String duelMultiplayer4 = "^duel --second-player (\\S+) --rounds (1|3) --new$";
-    public static String duelMultiplayer4Short = "^duel -sp (\\S+) -r (1|3) -n$";
-    public static String duelMultiplayer5 = "^duel --rounds (1|3) --second-player (\\S+) --new$";
-    public static String duelMultiplayer5Short = "^duel -r (1|3) -sp (\\S+) -n$";
-    public static String duelMultiplayer6 = "^duel --rounds (1|3) --new --second-player (\\S+)$";
-    public static String duelMultiplayer6Short = "^duel -r (1|3) -n -sp (\\S+)$";
+    public static String duelMultiplayer1 = "^duel (--new|-n) (--second-player|-sp) (\\S+) (--rounds|-r) (1|3)$";
+    public static String duelMultiplayer2 = "^duel (--new|-n) (--rounds|-r) (1|3) (--second-player|-sp) (\\S+)$";
+    public static String duelMultiplayer3 = "^duel (--second-player|-sp) (\\S+) (--new|-n) (--rounds|-r) (1|3)$";
+    public static String duelMultiplayer4 = "^duel (--second-player|-sp) (\\S+) (--rounds|-r) (1|3) (--new|-n)$";
+    public static String duelMultiplayer5 = "^duel (--rounds|-r) (1|3) (--second-player|-sp) (\\S+) (--new|-n)$";
+    public static String duelMultiplayer6 = "^duel (--rounds|-r) (1|3) (--new|-n) (--second-player|-sp) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---DUEL SINGLE---*/
 
     //What is sort form of ai?:|
-    public static String duelSingerPlayer1 = "^duel --new --ai --rounds (1|3)$";
-    public static String duelSingerPlayer1Short = "^duel -n --ai -r (1|3)$";
-    public static String duelSingerPlayer2 = "^duel --new --rounds (1|3) --ai$";
-    public static String duelSingerPlayer2Short = "^duel -n -r (1|3) --ai$";
-    public static String duelSingerPlayer3 = "^duel --ai --new --rounds (1|3)$";
-    public static String duelSingerPlayer3Short = "^duel --ai -n -r (1|3)$";
-    public static String duelSingerPlayer4 = "^duel --ai --rounds (1|3) --new$";
-    public static String duelSingerPlayer4Short = "^duel --ai -r (1|3) -n$";
-    public static String duelSingerPlayer5 = "^duel --rounds (1|3) --new --ai$";
-    public static String duelSingerPlayer5Short = "^duel -r (1|3) -n --ai$";
-    public static String duelSingerPlayer6 = "^duel --rounds (1|3) --ai --new$";
-    public static String duelSingerPlayer6Short = "^duel -r (1|3) --ai -n$";
+    public static String duelSingerPlayer1 = "^duel (--new|-n) (--ai|-ai) (--rounds|-r) (1|3)$";
+    public static String duelSingerPlayer2 = "^duel (--new|-n) (--rounds|-r) (1|3) (--ai|-ai)$";
+    public static String duelSingerPlayer3 = "^duel (--ai|-ai) (--new|-n) (--rounds|-r) (1|3)$";
+    public static String duelSingerPlayer4 = "^duel (--ai|-ai) (--rounds|-r) (1|3) (--new|-n)$";
+    public static String duelSingerPlayer5 = "^duel (--rounds|-r) (1|3) (--new|-n) (--ai|-ai)$";
+    public static String duelSingerPlayer6 = "^duel (--rounds|-r) (1|3) (--ai|-ai) (--new|-n)$";
     //----------------------------------------------------------------------------------------------
 
     /*---SELECTION AND DESELECTION---*/

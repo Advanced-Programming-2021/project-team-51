@@ -1,8 +1,8 @@
-package programController;
+package main.java.programController;
 
-import menu.*;
 
-import java.awt.*;
+
+import main.java.programController.menu.*;
 import java.util.Scanner;
 
 public class ProgramController {

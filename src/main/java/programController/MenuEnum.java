@@ -1,4 +1,4 @@
-package programController;
+package main.java.programController;
 
 public enum MenuEnum {
     LOGIN_MENU,
