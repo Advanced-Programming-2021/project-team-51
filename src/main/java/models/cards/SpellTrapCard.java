@@ -1,19 +1,19 @@
 package models.cards;
 
-import javax.crypto.AEADBadTagException;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class SpellTrapCard extends Card{
     private static final ArrayList<SpellTrapCard> allSpellTrapCards = new ArrayList<>();
     Icon icon;
+    boolean isLimited;
 
-    public SpellTrapCard(String name, String description, int price, CardType cardType, Icon icon) {
+    public SpellTrapCard(String name, String description, int price, CardType cardType, Icon icon, boolean isLimited) {
         this.setName(name);
         this.setDescription(description);
         this.setPrice(price);
         this.setCardType(cardType);
         this.setIcon(icon);
+        this.setLimited(isLimited);
         this.setCardNumber(++cardCounter);
         allSpellTrapCards.add(this);
         allCards.add(this);
@@ -37,6 +37,14 @@ public class SpellTrapCard extends Card{
 
     public Icon getIcon() {
         return this.icon;
+    }
+
+    private void setLimited(boolean isLimited) {
+        this.isLimited = isLimited;
+    }
+
+    public boolean getLimited() {
+        return this.isLimited;
     }
 
     @Override
