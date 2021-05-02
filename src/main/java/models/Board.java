@@ -24,15 +24,16 @@ public class Board {
     private int lifePoints;
     private int counter = 0;
 
-    public Board(User user) {
-        Deck newDeck = new Deck("", user, user.getActiveDeck().getMainDeck(), user.getActiveDeck().getSideDeck(),
-                user.getActiveDeck().getCardsAmount());
+    public Board(User user, Card side, Card main) {
+        Deck newDeck = (Deck) user.getActiveDeck().clone();
         user.setBoard(this);
         setOwner(user);
         setFieldZone(null);
         setDeck(newDeck);
         setSuijinEffect(false);
         setLifePoints(8000);
+        if (side != null && main != null)
+            changeDeck(side, main);
         shuffleDeck();
         beginDeck();
     }

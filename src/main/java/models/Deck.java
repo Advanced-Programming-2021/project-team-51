@@ -18,6 +18,11 @@ public class Deck {
         allDecks = new ArrayList<>();
     }
 
+    protected Object clone() {
+        Deck newDeck = new Deck(this.name, this.owner, this.mainDeckCards, this.sideDeckCards, this.cardsAmount);
+        return newDeck;
+    }
+
     public Deck(String name, User owner) {
         allDecks.add(this);
         setName(name);
