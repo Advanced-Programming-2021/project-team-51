@@ -55,13 +55,18 @@ public class Deck {
         return false;
     }
 
-    public boolean hasEnoughSpace(String mainOrSide) {
-        if (mainOrSide.equals("main") && mainDeckCards.size() > 59)
-            return false;
-        else if (sideDeckCards.size() > 14)
-            return false;
+    public boolean isMainFull() {
+        if (mainDeckCards.size() > 59)
+            return true;
 
-        return true;
+        return false;
+    }
+
+    public boolean isSideFull() {
+        if (sideDeckCards.size() > 14)
+            return true;
+
+        return false;
     }
 
     public boolean hasEnoughSpace(Card card) {
@@ -73,6 +78,22 @@ public class Deck {
 
     private boolean hasUsedBefore(Card card) {
         for (Card key : cardsAmount.keySet())
+            if (key.getName().equals(card.getName()))
+                return true;
+
+        return false;
+    }
+
+    public boolean isThisCardUsedInMain(Card card) {
+        for (Card key : mainDeckCards)
+            if (key.getName().equals(card.getName()))
+                return true;
+
+        return false;
+    }
+
+    public boolean isThisCardUsedInSide(Card card) {
+        for (Card key : mainDeckCards)
             if (key.getName().equals(card.getName()))
                 return true;
 
