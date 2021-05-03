@@ -107,6 +107,22 @@ public class User {
         return this.userCards;
     }
 
+    public Card getUserCardByName(String name) {
+        for (Card card : userCards)
+            if (card.getName().equals(name))
+                return card;
+
+        return null;
+    }
+
+    public Deck getUserDeckByName(String name) {
+        for (Deck deck : userDecks)
+            if (deck.getName().equals(name))
+                return deck;
+
+        return null;
+    }
+
     private void setUserName(String userName) {
         this.userName = userName;
     }
