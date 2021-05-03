@@ -65,7 +65,7 @@ public class ProfileMenu {
         }
     }
     private void changeNickname(String newNickname){
-        if (User.isUserNameTaken(newNickname)){
+        if (User.isNickNameTaken(newNickname)){
             System.out.println("user with nickname" + newNickname + "already exists");
         }
         else{
