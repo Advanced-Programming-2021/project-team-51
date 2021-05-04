@@ -64,11 +64,11 @@ public class User {
     }
 
     public static ArrayList<User> getSortedUsers() {
-        sortUsers(allUsers);
+        sortUsers();
         return allUsers;
     }
 
-    private static void sortUsers(ArrayList<User> allUsers) {
+    private static void sortUsers() {
         for (int i = 1; i < allUsers.size(); i++) {
             User user = allUsers.get(i);
             int j = i - 1;

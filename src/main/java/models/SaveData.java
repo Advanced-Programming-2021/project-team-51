@@ -16,11 +16,31 @@ import java.io.IOException;
 
 public class SaveData {
 
-    public SaveData(boolean isEndingTheProgram) {
-        if (isEndingTheProgram)
-            saveAllUsers();
-        else
-            loadAllUsers();
+    public void saveCustomCard(File file, Card card) {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.append(card.getName() + "\n");
+            fileWriter.close();
+        } catch (IOException error) {
+            System.out.println("can't save the card!");
+        }
+    }
+
+    public ArrayList<Card> loadCustomCards(File file) {
+        ArrayList<Card> cards = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(file);
+            char[] dataArray = new char[10000];
+            fileReader.read(dataArray);
+            fileReader.close();
+            String[] cardNames = String.valueOf(dataArray).split("\n");
+            for (int i = 0; i < cardNames.length; i++)
+                cards.add(Card.getCardByName(cardNames[i]));
+        } catch (IOException error) {
+            System.out.println("can't load the cards!");
+        }
+
+        return cards;
     }
 
     private String saveUserCards(User user) {
@@ -64,7 +84,7 @@ public class SaveData {
         }
     }
 
-    private void saveAllUsers() {
+    public void saveAllUsers() {
         File makeDirection = new File("Data");
         makeDirection.mkdir();
 
