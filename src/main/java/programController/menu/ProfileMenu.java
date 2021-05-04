@@ -1,17 +1,22 @@
-package programController.menu;
+package main.java.programController.menu;
 
 
-/*------------------CURRENT USER NOT FIXED-------------*/
 
 
-import models.User;
-import programController.ProgramController;
+
+import main.java.User;
+import main.java.programController.ProgramController;
+import main.java.programController.StatusEnum;
+
 
 import java.util.regex.Matcher;
 
 public class ProfileMenu {
     private User currentUser;
 
+    public ProfileMenu(User currentUser){
+        this.currentUser = currentUser;
+    }
 
     public void run(String command){
         Matcher matcher;
@@ -68,15 +73,15 @@ public class ProfileMenu {
         }
         else{
             currentUser.setNickName(newNickname);
-            System.out.println(main.java.programController.StatusEnum.CHANGE_NICKNAME_SUCCESSFULLY);
+            System.out.println(StatusEnum.CHANGE_NICKNAME_SUCCESSFULLY);
         }
     }
     private void changePass(String oldPass,String newPass){
         if (!currentUser.getPassword().equals(oldPass)){
-            System.out.println(main.java.programController.StatusEnum.CURRENT_PASSWORD_INVALIDITY);
+            System.out.println(StatusEnum.CURRENT_PASSWORD_INVALIDITY);
         }
         else if (currentUser.getPassword().equals(newPass)){
-            System.out.println(main.java.programController.StatusEnum.ENTER_A_NEW_PASSWORD);
+            System.out.println(StatusEnum.ENTER_A_NEW_PASSWORD);
         }
         else{
             currentUser.changePassword(newPass);

@@ -1,7 +1,9 @@
 package main.java.programController.menu;
 
-import main.java.models.User;
-import main.java.models.cards.Card;
+
+
+import main.java.User;
+import main.java.Card;
 import main.java.programController.MenuEnum;
 import main.java.programController.ProgramController;
 import main.java.programController.Regex;
@@ -14,12 +16,14 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 
 
-/*------------------CURRENT USER NOT FIXED-------------*/
 
 
 
 public class ShopMenu {
     private User currentUser;
+    public ShopMenu(User currentUser){
+        this.currentUser = currentUser;
+    }
     public void run(String command){
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command,Regex.buyCard)).matches()){
@@ -71,11 +75,10 @@ public class ShopMenu {
         return (Card.getAllCards().contains(cardName));
     }
     private boolean doesUserHaveEnoughMoney(String cardName){
-        Card card = Card.getCardByName(cardName);
-        return  (card.getPrice() <= currentUser.getMoney());
+        return  (Card.getCardByName(cardName).getPrice() <= currentUser.getMoney());
     }
     private HashMap<String,String> allCards(){
-            Iterator<Card> it = Card.getAllCards().iterator();
+            Iterator<Card> it =Card.getAllCards().iterator();
             HashMap<String,String> cardNameAndDescription = new HashMap<>();
             while (it.hasNext()){
                 String cardName = it.next().getName();
@@ -83,6 +86,7 @@ public class ShopMenu {
                 cardNameAndDescription.put(cardName,description);
             }
             return cardNameAndDescription;
+
 
     }
 }

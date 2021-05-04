@@ -10,10 +10,8 @@ public class Regex {
 
     /*---LOGIN---*/
 
-    public static String loginUser1 = "^user login --username (\\S+) --password (\\S+)$";
-    public static String loginUser1Short = "^user login -u (\\S+) -p (\\S+)$";
-    public static String loginUser2 = "^user login --password (\\S+) (\\S+) --username (\\S+)$";
-    public static String loginUser2Short = "^user login -p (\\S+) -u (\\S+)$";
+    public static String loginUser1 = "^user login (--username|-u) (\\S+) (--password|-p) (\\S+)$";
+    public static String loginUser2 = "^user login (--password|-p) (\\S+) (--username|-u) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---ENTER MENU,EXIT MENU,SHOW MENU---*/
@@ -30,7 +28,7 @@ public class Regex {
     public static String createUser3 = "^user create (--nickname|-n) (\\S+) (--username|-u) (\\S+) (--password|-p) (\\S+)$";
     public static String createUser4 = "^user create (--nickname|-n) (\\S+) (--password|-p) (\\S+) (--username|-u) (\\S+)$";
     public static String createUser5 = "^user create (--password|-p) (\\S+) (--nickname|-n) (\\S+) (--username|-u) (\\S+)$";
-    public static String createUser6 = "^user create (--password|-p) (\\S+) (--nickname|-n) (\\S+) (--username|-u) (\\S+)$";
+    public static String createUser6 = "^user create (--password|-p) (\\S+) (--username|-u) (\\S+) (--nickname|-n) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---LOGOUT,SHOW SCOREBOARD,CHANGE PROFILE---*/
