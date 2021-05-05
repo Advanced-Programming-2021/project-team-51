@@ -1,40 +1,37 @@
 package main.java.programController.menu;
 
+
+
+
+//--------FAGHAT ALEPHNA----------------------
+
+
+import main.java.cards.CardType;
 import main.java.models.Deck;
 import main.java.models.User;
 import main.java.models.cards.Card;
-import main.java.programController.MenuEnum;
-import main.java.programController.ProgramController;
-import main.java.programController.Regex;
 import main.java.programController.StatusEnum;
 
 import java.util.regex.Matcher;
-
-
-/*-----------------IS MAIN DECK FULL: WE CANT DISTINGUISH MAIN IS FULL OR SIDE---------------*/
-/*-----------------doesCardExist: WE CANT DISTINGUISH MAIN OR SIDE---------------*/
-/*------------------isThereThreeCards METHOD NOT FIXED YET------------------------*/
-
-
 
 public class DeckMenu {
     private User currentUser;
 
     public void run(String command) {
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.createDeck)).matches()){
+        if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.createDeck)).matches()){
             String deckName = matcher.group(1);
             createDeck(deckName);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.deleteDeck)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.deleteDeck)).matches()){
             String deckName = matcher.group(1);
             deleteDeck(deckName);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.activateDeck)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.activateDeck)).matches()){
             String deckName = matcher.group(1);
             activateDeck(deckName);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck1)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck1)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -46,7 +43,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck2)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck2)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
@@ -58,7 +55,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck3)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck3)).matches()){
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -70,7 +67,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck4)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck4)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -82,7 +79,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck5)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck5)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
@@ -94,7 +91,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck6)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck6)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -106,7 +103,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck1)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck1)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -118,7 +115,7 @@ public class DeckMenu {
             }
             removeCardFromDeck(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck2)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck2)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
@@ -131,7 +128,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck3)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck3)).matches()){
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -144,7 +141,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck4)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck4)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -157,7 +154,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck5)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck5)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
@@ -170,7 +167,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck6)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck6)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -183,65 +180,49 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showAllDecks)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showAllDecks)).matches()){
             showAllUserDecks();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showOptionalDeck1)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showOptionalDeck1)).matches()){
             String deckName = matcher.group(2);
             String mainOrSide;
             if (matcher.group(3) == null){
-                mainOrSide = "main";
+                mainOrSide = "Main";
             }
             else{
-                mainOrSide = "side";
+                mainOrSide = "Side";
             }
             showOptionalDeck(deckName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showOptionalDeck2)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showOptionalDeck2)).matches()){
             String deckName = matcher.group(3);
             String mainOrSide;
             if (matcher.group(1) == null){
-                mainOrSide = "main";
+                mainOrSide = "Main";
             }
             else{
-                mainOrSide = "side";
+                mainOrSide = "Side";
             }
             showOptionalDeck(deckName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showAllUserCards)).matches()){
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showAllUserCards)).matches()){
             showAllCards();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()) {
-            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.exitMenu)).matches()) {
+            main.java.programController.ProgramController.currentMenu = main.java.programController.MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()) {
-            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.enterMenu)).matches()) {
+            System.out.println(main.java.programController.StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()) {
+        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showCurrentMenu)).matches()) {
             System.out.println("Deck");
         }
         else {
-            System.out.println(StatusEnum.INVALID_COMMAND);
+            System.out.println(main.java.programController.StatusEnum.INVALID_COMMAND);
         }
     }
 
 
-    private Deck getDeckByName(String deckName){
-        for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-            if (currentUser.getUserDecks().get(i).getName().equals(deckName)){
-                return currentUser.getUserDecks().get(i);
-            }
-        }
-        return null;
-    }
-    private Card getCardByName(String cardName){
-        for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-            if (currentUser.getUserCards().get(i).getName().equals(cardName)){
-                return currentUser.getUserCards().get(i);
-            }
-        }
-        return null;
-    }
 
 
     private void createDeck(String deckName) {
@@ -253,42 +234,13 @@ public class DeckMenu {
             System.out.println(StatusEnum.DECK_CREATE_SUCCESSFULLY);
         }
     }
-    private boolean doesDeckExist(String deckName) {
-        for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-            if (currentUser.getUserDecks().get(i).getName().equals(deckName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean doesCardExist(String cardName) {
-        for (int i = 0; i < currentUser.getUserCards().size(); i++) {
-            if (currentUser.getUserCards().get(i).getName().equals(cardName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean isMainDeckFull(String deckName,String mainOrSide){
-        for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-            if (currentUser.getUserDecks().get(i).getName().equals(deckName)) {
-                if (currentUser.getUserDecks().get(i).hasEnoughSpace(mainOrSide)){
-                    return  true;
-            }
-        }
-    }
-        return false;
-    }
-    private boolean isThereThreeCards(String deckName,String mainOrSide){
-        return  true;
-    }//-------------PROBLEM-------
-    private boolean doesCardExistInDeck(String  deckName,String cardName){return true;}//--------------PROBLEM--------------
     private void deleteDeck(String deckName){
         if (!doesDeckExist(deckName)){
             System.out.println("deck with name" + deckName + "does not exist");
         }
         else{
-            currentUser.removeDeck(getDeckByName(deckName));
+            Deck.getDeckByName(deckName).removeDeck();
+            System.out.println(StatusEnum.DECK_DELETED_SUCCESSFULLY);
         }
     }
     private void activateDeck(String deckName){
@@ -296,9 +248,47 @@ public class DeckMenu {
             System.out.println("deck with name" + deckName + "does not exist");
         }
         else {
-            currentUser.setActiveDeck(getDeckByName(deckName));
-            System.out.println(StatusEnum.DECK_CREATE_SUCCESSFULLY);
+            currentUser.setActiveDeck(Deck.getDeckByName(deckName));
+            System.out.println(main.java.programController.StatusEnum.DECK_CREATE_SUCCESSFULLY);
         }
+    }
+    private boolean doesDeckExist(String deckName) {
+        for (Deck deck: currentUser.getUserDecks()) {
+            if (deck.getName().equals(deckName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean doesCardExist(String cardName) {
+        for (Card card: currentUser.getUserCards()
+             ) {
+            if (card.getName().equals(cardName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean isMainDeckFull(String deckName){
+        if (Deck.getDeckByName(deckName).isMainFull()){
+            return true;
+        }
+        return false;
+    }
+    private boolean isSideDeckFull(String deckName){
+        if (Deck.getDeckByName(deckName).isSideFull()){
+            return true;
+        }
+        return false;
+    }
+    private boolean isThereThreeCards(String deckName,String cardName){
+        if (Deck.getDeckByName(deckName).hasEnoughSpace(Card.getCardByName(cardName))){
+            return false;
+        }
+
+        return  true;
     }
     private void addCard(String deckName,String cardName,String mainOrSide){
         if (!doesCardExist(cardName)){
@@ -307,50 +297,121 @@ public class DeckMenu {
         else if (!doesDeckExist(deckName)){
             System.out.println("deck with name"+ deckName +"does not exist");
         }
-        else if (!isMainDeckFull(deckName,mainOrSide)){
-            System.out.println("<main/side> deck is full");//---------------------PROBLEM-----------------------------
+        else if (!isMainDeckFull(deckName) && mainOrSide.equals("main")){
+            System.out.println("main deck is full");
         }
-        else if(isThereThreeCards(deckName,mainOrSide)){
-            //-------------PROBLEM-------------
+        else if (!isSideDeckFull(deckName) && mainOrSide.equals("side")){
+            System.out.println("side deck is full");
+        }
+        else if(isThereThreeCards(deckName,cardName)){
+            System.out.println("there are already three cards with name" + cardName + "in deck" + deckName);
         }
         else {
-            for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-                if (currentUser.getUserDecks().get(i).getName().equals(deckName)){
-                    currentUser.getUserDecks().get(i).addCardToDeck(mainOrSide, Card.getCardByName(cardName));
-                    System.out.println(StatusEnum.CARD_ADDED_TO_DECK_SUCCESSFULLY);
-                    break;
-                }
+            boolean isMain;
+            if (mainOrSide.equals("main")){
+                isMain = true;
             }
+            else{
+                isMain = false;
+            }
+            currentUser.getUserDeckByName(deckName).addCardToDeck(isMain,currentUser.getUserCardByName(cardName));
         }
-    }//----------------PROBLEM-------------
+    }
+
+
+    //INJA TOO YE ELSE IF MOMKENE DOTA PRINT BEDE-----------------------------
     private void removeCardFromDeck(String deckName,String cardName,String mainOrSide){
         if (!doesDeckExist(deckName)){
             System.out.println("deck with name" + deckName + "does not exist");
         }
         else if(!doesCardExistInDeck(deckName,cardName)){
-            System.out.println("card with name <card name> does not exist in <main/side> deck");//------------PROBLEM--------
-        }
-        else{
-            for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-                if (currentUser.getUserDecks().get(i).getName().equals(deckName)){
-                    currentUser.getUserDecks().get(i).removeCardFromDeck(mainOrSide,getCardByName(cardName));
-                    System.out.println(StatusEnum.CARD_ADDED_TO_DECK_SUCCESSFULLY);
-                    break;
-                }
+            //    //INJA TOO YE ELSE IF MOMKENE DOTA PRINT BEDE-----------------------------
+            if (!currentUser.getUserDeckByName(deckName).isThisCardUsedInMain(currentUser.getUserCardByName(cardName))){
+                System.out.println("card with name" + cardName + "does not exist in main deck");
+            }
+            if (!currentUser.getUserDeckByName(deckName).isThisCardUsedInSide(currentUser.getUserCardByName(cardName))){
+                System.out.println("card with name" + cardName + "does not exist in side deck");
+
             }
         }
+        else{
+            boolean isMain;
+            if (mainOrSide.equals("main")){
+                isMain = true;
+            }
+            else{
+                isMain = false;
+            }
+            currentUser.getUserDeckByName(deckName).removeCardFromDeck(isMain,currentUser.getUserCardByName(cardName));
+            System.out.println(StatusEnum.CARD_REMOVED_SUCCESSFULLY);
+        }
     }
+    private boolean doesCardExistInDeck(String  deckName,String cardName){
+        if (currentUser.getUserDeckByName(deckName).isThisCardUsedInMain(currentUser.getUserCardByName(cardName)) || currentUser.getUserDeckByName(deckName).isThisCardUsedInSide(currentUser.getUserCardByName(cardName))){
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
     private void showAllUserDecks(){
         System.out.println("Decks:");
         System.out.println(currentUser.getActiveDeck().toString());
         System.out.println("Other decks:");
         for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
             System.out.println(currentUser.getUserCards().get(i).toString());
-
-
         }
     }//--------------------IT'S NOT ALPHABETIC YET----------------------
-    private void showOptionalDeck(String deckName,String mainOrSide){}//--------------ISN''T FIXED YET-------------
+    private void showOptionalDeck(String deckName,String mainOrSide){
+        System.out.println("Deck: " + deckName);
+        System.out.println(mainOrSide + "deck:");
+        System.out.println("Monsters:");
+        if (mainOrSide.equals("Main")) {
+            for (int i = 0; i < currentUser.getUserDeckByName(deckName).getMainDeck().size(); i++) {
+                if (currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getCardType().equals(CardType.MONSTER)){
+                    String cardName = currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getName();
+                    String cardDescription = currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getDescription();
+                    System.out.println(cardName + ": " + cardDescription);
+                }
+            }
+            System.out.println("Spell and Traps:");
+            for (int i = 0; i < currentUser.getUserDeckByName(deckName).getMainDeck().size(); i++) {
+                if (currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getCardType().equals(CardType.SPELL) || currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getCardType().equals(CardType.TRAP)){
+                    String cardName = currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getName();
+                    String cardDescription = currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getDescription();
+                    System.out.println(cardName + ": " + cardDescription);
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < currentUser.getUserDeckByName(deckName).getSideDeck().size(); i++) {
+                if (currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getCardType().equals(CardType.MONSTER)){
+                    String cardName = currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getName();
+                    String cardDescription = currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getDescription();
+                    System.out.println(cardName + ": " + cardDescription);
+                }
+            }
+            System.out.println("Spell and Traps:");
+            for (int i = 0; i < currentUser.getUserDeckByName(deckName).getSideDeck().size(); i++) {
+                if (currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getCardType().equals(CardType.SPELL) || currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getCardType().equals(CardType.TRAP)){
+                    String cardName = currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getName();
+                    String cardDescription = currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getDescription();
+                    System.out.println(cardName + ": " + cardDescription);
+                }
+            }
+        }
+
+
+    }//--------------------IT'S NOT ALPHABETIC YET----------------------
     private void showAllCards(){
         for (int i = 0; i < currentUser.getUserCards().size(); i++) {
             System.out.println(currentUser.getUserCards().get(i).getName()+":"+currentUser.getUserCards().get(i).getDescription());

@@ -75,7 +75,7 @@ public enum StatusEnum {
     DEFENSE_POSITION_DESTROYED_DH("the defense position monster is destroyed"),
     NO_CARD_DESTROYED_EQUAL_DEFENSES_DH("no card is destroyed"),
     NO_CARD_DESTROYED_NON_EQUAL_DEFENSES_DH(""),//SKIP--------------------------
-    ACTIVATE_NONE_SPELL_CARD("activate effect is only for spell cards."),
+    ACTIVATE_NONE_SPELL_CARD("activate effect is only for spell "),
     CANT_ACTIVATE_EFFECT("you can’t activate an effect on this turn"),
     CARD_ALREADY_ACTIVATED("you have already activated this card"),
     SPELL_CARD_ZONE_FULL("spell card zone is full"),

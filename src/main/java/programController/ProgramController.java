@@ -3,6 +3,8 @@ package main.java.programController;
 
 
 import main.java.programController.menu.*;
+import programController.menu.DeckMenu;
+
 import java.util.Scanner;
 
 public class ProgramController {
@@ -20,33 +22,33 @@ public class ProgramController {
 
 
     public void run() {
-        while(currentMenu!=MenuEnum.EXIT){
+        while(currentMenu!= main.java.programController.MenuEnum.EXIT){
             String command = scanner.nextLine();
-            if (currentMenu == MenuEnum.LOGIN_MENU) {
+            if (currentMenu == main.java.programController.MenuEnum.LOGIN_MENU) {
                 loginMenu.run(command);
             }
-            else if(currentMenu == MenuEnum.MAIN_MENU){
+            else if(currentMenu == main.java.programController.MenuEnum.MAIN_MENU){
                 mainMenu.run(command);
             }
-            else if (currentMenu == MenuEnum.SHOP_MENU){
+            else if (currentMenu == main.java.programController.MenuEnum.SHOP_MENU){
                 shopMenu.run(command);
             }
-            else if (currentMenu == MenuEnum.SCOREBOARD){
+            else if (currentMenu == main.java.programController.MenuEnum.SCOREBOARD){
                 scoreboard.run(command);
             }
-            else if (currentMenu == MenuEnum.DECK_MENU){
+            else if (currentMenu == main.java.programController.MenuEnum.DECK_MENU){
                 deckMenu.run(command);
             }
-            else if (currentMenu == MenuEnum.CHEAT_MENU){
+            else if (currentMenu == main.java.programController.MenuEnum.CHEAT_MENU){
                 cheatMenu.run(command);
             }
-            else if(currentMenu == MenuEnum.IMPORT_EXPORT){
+            else if(currentMenu == main.java.programController.MenuEnum.IMPORT_EXPORT){
                 importexport.run(command);
             }
-            else if (currentMenu == MenuEnum.PROFILE_MENU){
+            else if (currentMenu == main.java.programController.MenuEnum.PROFILE_MENU){
                 profileMenu.run(command);
             }
-            else if (currentMenu == MenuEnum.DUEL){
+            else if (currentMenu == main.java.programController.MenuEnum.DUEL){
                 duel.run(command);
             }
 

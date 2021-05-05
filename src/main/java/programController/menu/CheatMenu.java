@@ -1,6 +1,6 @@
 package main.java.programController.menu;
 
-import main.java.models.User;
+import main.java.User;
 import main.java.programController.MenuEnum;
 import main.java.programController.ProgramController;
 import main.java.programController.Regex;
