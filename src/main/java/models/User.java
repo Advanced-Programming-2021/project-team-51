@@ -1,6 +1,8 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import models.cards.Card;
 
 public class User {
@@ -95,7 +97,28 @@ public class User {
         this.userDecks = decks;
     }
 
+    private void sortUserDecks() {
+        String[] deckNames = new String[userDecks.size()];
+        for (int i = 0; i < deckNames.length; i++)
+            deckNames[i] = userDecks.get(i).getName();
+
+        Arrays.sort(deckNames);
+        for (int i = 0; i < deckNames.length; i++)
+            userDecks.set(i, Deck.getDeckByName(deckNames[i]));
+    }
+
+    private void sortUserCards() {
+        String[] cardNames = new String[userCards.size()];
+        for (int i = 0; i < cardNames.length; i++)
+            cardNames[i] = userCards.get(i).getName();
+
+        Arrays.sort(cardNames);
+        for (int i = 0; i < cardNames.length; i++)
+            userCards.set(i, Card.getCardByName(cardNames[i]));
+    }
+
     public ArrayList<Deck> getUserDecks() {
+        sortUserDecks();
         return this.userDecks;
     }
 
@@ -104,6 +127,7 @@ public class User {
     }
 
     public ArrayList<Card> getUserCards() {
+        sortUserCards();
         return this.userCards;
     }
 
