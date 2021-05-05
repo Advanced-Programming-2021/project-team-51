@@ -70,6 +70,26 @@ public class User {
         return allUsers;
     }
 
+    private void sortUserDecks() {
+        String[] deckNames = new String[userDecks.size()];
+        for (int i = 0; i < deckNames.length; i++)
+            deckNames[i] = userDecks.get(i).getName();
+
+        Arrays.sort(deckNames);
+        for (int i = 0; i < deckNames.length; i++)
+            userDecks.set(i, Deck.getDeckByName(deckNames[i]));
+    }
+
+    private void sortUserCards() {
+        String[] cardNames = new String[userCards.size()];
+        for (int i = 0; i < cardNames.length; i++)
+            cardNames[i] = userCards.get(i).getName();
+
+        Arrays.sort(cardNames);
+        for (int i = 0; i < cardNames.length; i++)
+            userCards.set(i, Card.getCardByName(cardNames[i]));
+    }
+
     private static void sortUsers() {
         for (int i = 1; i < allUsers.size(); i++) {
             User user = allUsers.get(i);
@@ -95,26 +115,6 @@ public class User {
 
     private void setUserDecks(ArrayList<Deck> decks) {
         this.userDecks = decks;
-    }
-
-    private void sortUserDecks() {
-        String[] deckNames = new String[userDecks.size()];
-        for (int i = 0; i < deckNames.length; i++)
-            deckNames[i] = userDecks.get(i).getName();
-
-        Arrays.sort(deckNames);
-        for (int i = 0; i < deckNames.length; i++)
-            userDecks.set(i, Deck.getDeckByName(deckNames[i]));
-    }
-
-    private void sortUserCards() {
-        String[] cardNames = new String[userCards.size()];
-        for (int i = 0; i < cardNames.length; i++)
-            cardNames[i] = userCards.get(i).getName();
-
-        Arrays.sort(cardNames);
-        for (int i = 0; i < cardNames.length; i++)
-            userCards.set(i, Card.getCardByName(cardNames[i]));
     }
 
     public ArrayList<Deck> getUserDecks() {
