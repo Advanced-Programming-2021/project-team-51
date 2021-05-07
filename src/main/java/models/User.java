@@ -41,6 +41,10 @@ public class User {
         setUserDecks(userDecks);
     }
 
+    public static void loadAllUsers(ArrayList<User> users) {
+        allUsers = users;
+    }
+
     public static User getUserByUserName(String userName) {
         for (int i = 0; i < allUsers.size(); i++)
             if (allUsers.get(i).getUserName().equals(userName))

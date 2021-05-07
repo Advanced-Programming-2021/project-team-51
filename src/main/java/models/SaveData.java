@@ -1,208 +1,156 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import org.kie.commons.java.nio.file.Files;
+import org.kie.commons.java.nio.file.Paths;
 
 import models.cards.Card;
-import models.cards.MakeCards;
+import models.cards.MonsterCard;
+import models.cards.SpellTrapCard;
 
-import java.lang.StringBuilder;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class SaveData {
 
-    public void saveCustomCard(File file, Card card) {
+    public void saveCustomCard(Card card) {
         try {
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.append(card.getName() + "\n");
+            File file = new File("C:\\YuGiOhData\\savedCards");
+            String[] fileNames = file.list();
+            int key = 0;
+            for (int i = 0; i < fileNames.length; i++) {
+                boolean isThere = false;
+                for (int j = 0; j < fileNames.length; j++)
+                    if (fileNames[j].equals("card" + i))
+                        isThere = true;
+
+                if (!isThere) {
+                    key = i;
+                    break;
+                }
+            }
+            FileWriter fileWriter = new FileWriter("C:\\YuGiOhData\\savedCards\\card" + key);
+            fileWriter.write(card.getName() + ": " + card.getDescription());
             fileWriter.close();
         } catch (IOException error) {
             System.out.println("can't save the card!");
         }
     }
 
-    public ArrayList<Card> loadCustomCards(File file) {
+    public ArrayList<Card> loadCustomCards() {
         ArrayList<Card> cards = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(file);
-            char[] dataArray = new char[10000];
-            fileReader.read(dataArray);
-            fileReader.close();
-            String[] cardNames = String.valueOf(dataArray).split("\n");
-            for (int i = 0; i < cardNames.length; i++)
-                cards.add(Card.getCardByName(cardNames[i]));
-        } catch (IOException error) {
-            System.out.println("can't load the cards!");
-        }
-
+            File file = new File("C:\\YuGiOhData\\savedCards");
+            String[] fileNames = file.list();
+            for (int i = 0; i < fileNames.length; i++) {
+                String cardName = new String(Files.readAllBytes(Paths.get(fileNames[i])));
+                cards.add(Card.getCardByName(cardName));
+            }
         return cards;
     }
 
-    private String saveUserCards(User user) {
-        StringBuilder stringCards = new StringBuilder();
-        ArrayList<Card> userCards = user.getUserCards();
-        for (int i = 0; i < userCards.size(); i++) {
-            if (i > 0)
-                stringCards.append(", " + userCards.get(i).getName());
-            else
-                stringCards.append(userCards.get(i).getName());
-        }
+    public void save() {
+        File makeDirection = new File("C:\\YuGiOhData");
+        if (!makeDirection.isDirectory())
+            makeDirection.mkdir();
 
-        return stringCards.toString();
-    }
-
-    private String saveUserDecks(User user) {
-        StringBuilder stringDecks = new StringBuilder();
-        ArrayList<Deck> userDecks = user.getUserDecks();
-        for (int i = 0; i < userDecks.size(); i++)
-            stringDecks.append(userDecks.get(i).getName() + "_deck: {" + userDecks.get(i).saveString() + "}\n");
-
-        return stringDecks.toString();
-    }
-
-    private void saveUser(User user, int counter) {
-        try {
-            File userFile = new File("Data\\usr_" + (counter + 1));
-            userFile.createNewFile();
-            FileWriter userFileWrite = new FileWriter(userFile);
-            userFileWrite.write("username: " + user.getUserName() + "\nnickname: " + user.getNickName() + "\npassword: "
-                    + user.getPassword() + "\nscore: " + user.getScore() + "\t\tmoney: " + user.getMoney());
-            if (user.getActiveDeck() == null)
-                userFileWrite.append("\nactivedeck: \n");
-            else
-                userFileWrite.append("\nactivedeck: " + user.getActiveDeck().getName() + "\n");
-            userFileWrite.append(saveUserDecks(user));
-            userFileWrite.append("usercards: {" + saveUserCards(user) + "}");
-            userFileWrite.close();
-        } catch (IOException error) {
-            System.out.println("cannot save all Data !");
-        }
+            saveAllCards();
+            saveAllDecks();
+            saveAllUsers();
     }
 
     public void saveAllUsers() {
-        File makeDirection = new File("Data");
-        makeDirection.mkdir();
-
         ArrayList<User> allUsers = User.getSortedUsers();
-        for (int i = 0; i < allUsers.size(); i++)
-            saveUser(allUsers.get(i), i);
-    }
-
-    private Card loadUserCard(String cardName) {
-        return MakeCards.makeCard(cardName);
-    }
-
-    private Card loadCard(String cardName) {
-        return Card.getCardByName(cardName);
-    }
-
-    private boolean hasUsedBefore(Card card, HashMap<Card, Integer> cards) {
-        for (Card key : cards.keySet())
-            if (key.getName().equals(card.getName()))
-                return true;
-
-        return false;
-    }
-
-    private Deck loadDeck(String deckCards, String deckName, User owner) {
-        ArrayList<Card> mainCards = new ArrayList<>();
-        ArrayList<Card> sideCards = new ArrayList<>();
-        HashMap<Card, Integer> cards = new HashMap<>();
-        Pattern pattern = Pattern.compile("Main = {(.*)}, Side = {(.*)}");
-        Matcher matcher = pattern.matcher(deckCards);
-        if (matcher.find()) {
-            String[] mainCardNames = matcher.group(1).split(", ");
-            String[] sideCardNames = matcher.group(2).split(", ");
-
-            for (int i = 0; i < mainCardNames.length; i++) {
-                mainCards.add(loadCard(mainCardNames[i]));
-                if (hasUsedBefore(loadCard(mainCardNames[i]), cards))
-                    cards.put(loadCard(mainCardNames[i]), cards.get(loadCard(mainCardNames[i])) + 1);
-                else
-                    cards.put(loadCard(mainCardNames[i]), 1);
-            }
-            for (int i = 0; i < sideCardNames.length; i++) {
-                sideCards.add(loadCard(sideCardNames[i]));
-                if (hasUsedBefore(loadCard(mainCardNames[i]), cards))
-                    cards.put(loadCard(mainCardNames[i]), cards.get(loadCard(mainCardNames[i])) + 1);
-                else
-                    cards.put(loadCard(mainCardNames[i]), 1);
-            }
-        }
-        Deck deck = new Deck(deckName, owner, mainCards, sideCards, cards);
-
-        return deck;
-    }
-
-    private ArrayList<Card> loadUserCards(String[] cards) {
-        ArrayList<Card> userCards = new ArrayList<>();
-        for (int i = 0; i < cards.length; i++)
-            userCards.add(loadUserCard(cards[i]));
-        return userCards;
-    }
-
-    private ArrayList<Deck> loadUserDecks(String[] decks, User owner) {
-        ArrayList<Deck> userDecks = new ArrayList<>();
-        for (int i = 0; i < decks.length; i++) {
-            Pattern pattern = Pattern.compile("(.*)_deck: {(.*)}");
-            Matcher matcher = pattern.matcher(decks[i]);
-            if (matcher.find()) {
-                String deckName = matcher.group(1);
-                String deckCards = matcher.group(2);
-                userDecks.add(loadDeck(deckCards, deckName, owner));
-            }
-        }
-
-        return userDecks;
-    }
-
-    private void loadUser(FileReader file) {
         try {
-            Pattern pattern = Pattern.compile(
-                    "username: (.*)\nnickname: (.*)\npassword: (.*)\nscore: (.*)\t\tmoney: (.*)\nactivedeck: (.*)\n(.*)usercards: {(.*)}");
-            char[] fileData = new char[10000];
-            file.read(fileData);
-            String fileDataString = String.valueOf(fileData);
-            Matcher matcher = pattern.matcher(fileDataString);
-            if (matcher.find()) {
-                String username = matcher.group(1);
-                String nickname = matcher.group(2);
-                String password = matcher.group(3);
-                User user = new User(username, nickname, password);
-                int score = Integer.parseInt(matcher.group(4));
-                int money = Integer.parseInt(matcher.group(5));
-                Deck activeDeck = Deck.getDeckByName(matcher.group(6));
-                String[] decksStrings = matcher.group(7).split("\n");
-                String[] cardsStrings = matcher.group(8).split(", ");
-                ArrayList<Card> userCards = loadUserCards(cardsStrings);
-                ArrayList<Deck> userDecks = loadUserDecks(decksStrings, user);
-                user.loadUser(score, money, activeDeck, userCards, userDecks);
-            }
-        } catch (IOException error) {
-            System.out.println("There's a problem while loading the Data");
+            FileWriter writer = new FileWriter("C:\\YuGiOhData\\users.DAT");
+            writer.write(new Gson().toJson(allUsers));
+            writer.close();
+        } catch (Exception error) {
+            System.out.println("Couldn't save Data!");
         }
+        
     }
 
-    public void loadAllUsers() {
-        File directory = new File("Data");
-        if (directory.isDirectory()) {
-            String[] filenames = directory.list();
-            for (int i = 0; i < filenames.length; i++) {
-                try {
-                    FileReader file = new FileReader("Data\\" + filenames[i]);
-                    loadUser(file);
-                } catch (IOException error) {
-                    System.out.println("Some of Files can't open !");
-                }
-            }
-        } else {
-            System.out.println("can't load Data !");
+    public void saveAllCards() {
+        ArrayList<Card> allCards = Card.getAllCards();
+        try {
+            FileWriter writer = new FileWriter("C:\\YuGiOhData\\cards.DAT");
+            writer.write(new Gson().toJson(allCards));
+            writer.close();
+            saveMonsters();
+            saveSpellsAndTraps();
+        } catch (Exception error) {
+            System.out.println("Couldn't save Data!");
         }
+        
+    }
 
+    public void saveSpellsAndTraps() {
+        ArrayList<SpellTrapCard> allSpellsAndTraps = SpellTrapCard.getAllSpellTrapCards();
+        try {
+            FileWriter writer = new FileWriter("C:\\YuGiOhData\\spells&traps.DAT");
+            writer.write(new Gson().toJson(allSpellsAndTraps));
+            writer.close();
+        } catch (Exception error) {
+            System.out.println("Couldn't save Data!");
+        }
+        
+    }
+
+    public void saveMonsters() {
+        ArrayList<MonsterCard> allMonsters = MonsterCard.getAllMonsterCards();
+        try {
+            FileWriter writer = new FileWriter("C:\\YuGiOhData\\monsters.DAT");
+            writer.write(new Gson().toJson(allMonsters));
+            writer.close();
+        } catch (Exception error) {
+            System.out.println("Couldn't save Data!");
+        }
+        
+    }
+
+    public void saveAllDecks() {
+        ArrayList<Deck> allDecks = Deck.getAllDecks();
+        try {
+            FileWriter writer = new FileWriter("C:\\YuGiOhData\\decks.DAT");
+            writer.write(new Gson().toJson(allDecks));
+            writer.close();
+        } catch (Exception error) {
+            System.out.println("Couldn't save Data!");
+        }
+        
+    }
+
+    public void load() {
+        File makeDirection = new File("C:\\YuGiOhData");
+        if (makeDirection.isDirectory()) {
+
+            loadCards();
+            loadDecks();
+            loadUsers();
+        }
+            
+    }
+
+    public void loadCards() {
+
+    }
+
+    public void loadDecks() {
+        String jsonDecks = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\decks.DAT")));
+        ArrayList<Deck> decks = new ArrayList<>();
+        decks = new Gson().fromJson(jsonDecks, new TypeToken<List<Deck>>(){}.getType());
+        Deck.loadAllDecks(decks);
+    }
+
+    public void loadUsers() {
+        String jsonUsers = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\users.DAT")));
+        ArrayList<User> users = new ArrayList<>();
+        users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>(){}.getType());
+        User.loadAllUsers(users);
     }
 }

@@ -39,6 +39,10 @@ public class Deck {
         setCardsAmount(cards);
     }
 
+    public static void loadAllDecks(ArrayList<Deck> decks) {
+        allDecks = decks;
+    }
+
     public static Deck getDeckByName(String name) {
         for (int i = 0; i < allDecks.size(); i++)
             if (allDecks.get(i).getName().equals(name))
@@ -105,6 +109,10 @@ public class Deck {
             return true;
 
         return false;
+    }
+
+    public static ArrayList<Deck> getAllDecks() {
+        return allDecks;
     }
 
     private void setName(String name) {
