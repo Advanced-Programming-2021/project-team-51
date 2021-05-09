@@ -1,12 +1,15 @@
-package main.java.programController.menu;
+package controller.menu;
 
 
 
-import main.java.User;
-import main.java.programController.MenuEnum;
-import main.java.programController.ProgramController;
-import main.java.programController.Regex;
-import main.java.programController.StatusEnum;
+
+
+import controller.MenuEnum;
+import controller.ProgramController;
+import controller.StatusEnum;
+import models.User;
+import view.Regex;
+
 import java.util.regex.Matcher;
 
 
@@ -20,16 +23,16 @@ public class Scoreboard {
     }
     public void run(String command){
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command,Regex.showScoreboard)).matches()){
+        if ((matcher = Regex.getMatcher(command, Regex.showScoreboard)).matches()){
             showScoreboard();
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.exitMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()){
            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.enterMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.showCurrentMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()){
             System.out.println("Scoreboard");
         }
         else{

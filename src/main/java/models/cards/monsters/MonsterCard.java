@@ -1,11 +1,13 @@
-package models.cards;
+package models.cards.monsters;
+
+import models.cards.Card;
+import models.cards.CardType;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
-public class MonsterCard extends Card{
+public class MonsterCard extends Card {
 
-    private static final ArrayList<MonsterCard> allMonsterCards = new ArrayList<>();
+    private static ArrayList<MonsterCard> allMonsterCards = new ArrayList<>();
     private int level;
     private Attribute attribute;
     private MonsterType monsterType;
@@ -32,6 +34,20 @@ public class MonsterCard extends Card{
         allCards.add(this);
     }
 
+    public MonsterCard(String name, String description, int price, int level, Attribute attribute, MonsterType monsterType,
+                       int attackPoint, int defensePoint, Trait trait, int cardNumber) {
+        this.setName(name);
+        this.setDescription(description);
+        this.setPrice(price);
+        this.setLevel(level);
+        this.setAttribute(attribute);
+        this.setCardType(CardType.MONSTER);
+        this.setMonsterType(monsterType);
+        this.setAttackPoint(attackPoint);
+        this.setDefensePoint(defensePoint);
+        this.setTrait(trait);
+        this.setCardNumber(cardNumber);
+    }
     public static MonsterCard getMonsterCardByNumber(int number) {
         for (MonsterCard monsterCard : allMonsterCards) {
             if (monsterCard.getCardNumber() == number)
@@ -42,6 +58,16 @@ public class MonsterCard extends Card{
 
     public static ArrayList<MonsterCard> getAllMonsterCards() {
         return allMonsterCards;
+    }
+
+    public static void setAllMonsterCards(ArrayList<MonsterCard> cards) {
+        allMonsterCards = cards;
+    }
+
+    @Override
+    public Object clone() {
+        return new MonsterCard(this.getName(), this.getDescription(), this.getPrice(), this.getLevel(), this.getAttribute(),
+                this.getMonsterType(), this.getAttackPoint(), this.getDefensePoint(), this.getTrait(), this.getCardNumber());
     }
 
     private void setLevel(int level) {

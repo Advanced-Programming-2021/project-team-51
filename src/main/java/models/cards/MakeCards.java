@@ -1,5 +1,12 @@
 package models.cards;
 
+import models.cards.monsters.Attribute;
+import models.cards.monsters.MonsterCard;
+import models.cards.monsters.MonsterType;
+import models.cards.monsters.Trait;
+import models.cards.spelltrap.Icon;
+import models.cards.spelltrap.SpellTrapCard;
+
 public class MakeCards {
     public static Card makeCard(String name) {
         Card card = makeNormalMonsterCard(name);

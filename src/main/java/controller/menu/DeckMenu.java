@@ -1,16 +1,16 @@
-package main.java.programController.menu;
-
-
+package controller.menu;
 
 
 //--------FAGHAT ALEPHNA----------------------
 
-
-import main.java.cards.CardType;
-import main.java.models.Deck;
-import main.java.models.User;
-import main.java.models.cards.Card;
-import main.java.programController.StatusEnum;
+import controller.MenuEnum;
+import controller.ProgramController;
+import controller.StatusEnum;
+import models.Deck;
+import models.User;
+import models.cards.Card;
+import models.cards.CardType;
+import view.Regex;
 
 import java.util.regex.Matcher;
 
@@ -19,19 +19,19 @@ public class DeckMenu {
 
     public void run(String command) {
         Matcher matcher;
-        if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.createDeck)).matches()){
+        if ((matcher = Regex.getMatcher(command, Regex.createDeck)).matches()){
             String deckName = matcher.group(1);
             createDeck(deckName);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.deleteDeck)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.deleteDeck)).matches()){
             String deckName = matcher.group(1);
             deleteDeck(deckName);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.activateDeck)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.activateDeck)).matches()){
             String deckName = matcher.group(1);
             activateDeck(deckName);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck1)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck1)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -43,7 +43,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck2)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck2)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
@@ -55,7 +55,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck3)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck3)).matches()){
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -67,7 +67,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck4)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck4)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -79,7 +79,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck5)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck5)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
@@ -91,7 +91,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.addCardToDeck6)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck6)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -103,7 +103,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck1)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck1)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -115,7 +115,7 @@ public class DeckMenu {
             }
             removeCardFromDeck(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck2)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck2)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
@@ -128,7 +128,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck3)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck3)).matches()){
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -141,7 +141,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck4)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck4)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -154,7 +154,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck5)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck5)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
@@ -167,7 +167,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.removeCardFromDeck6)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck6)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -180,10 +180,10 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showAllDecks)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.showAllDecks)).matches()){
             showAllUserDecks();
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showOptionalDeck1)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.showOptionalDeck1)).matches()){
             String deckName = matcher.group(2);
             String mainOrSide;
             if (matcher.group(3) == null){
@@ -194,7 +194,7 @@ public class DeckMenu {
             }
             showOptionalDeck(deckName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showOptionalDeck2)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.showOptionalDeck2)).matches()){
             String deckName = matcher.group(3);
             String mainOrSide;
             if (matcher.group(1) == null){
@@ -205,24 +205,22 @@ public class DeckMenu {
             }
             showOptionalDeck(deckName,mainOrSide);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showAllUserCards)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.showAllUserCards)).matches()){
             showAllCards();
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.exitMenu)).matches()) {
-            main.java.programController.ProgramController.currentMenu = main.java.programController.MenuEnum.MAIN_MENU;
+        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()) {
+            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.enterMenu)).matches()) {
-            System.out.println(main.java.programController.StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
+        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()) {
+            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
         }
-        else if ((matcher = main.java.programController.Regex.getMatcher(command, main.java.programController.Regex.showCurrentMenu)).matches()) {
+        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()) {
             System.out.println("Deck");
         }
         else {
-            System.out.println(main.java.programController.StatusEnum.INVALID_COMMAND);
+            System.out.println(StatusEnum.INVALID_COMMAND);
         }
     }
-
-
 
 
     private void createDeck(String deckName) {
@@ -249,7 +247,7 @@ public class DeckMenu {
         }
         else {
             currentUser.setActiveDeck(Deck.getDeckByName(deckName));
-            System.out.println(main.java.programController.StatusEnum.DECK_CREATE_SUCCESSFULLY);
+            System.out.println(StatusEnum.DECK_CREATE_SUCCESSFULLY);
         }
     }
     private boolean doesDeckExist(String deckName) {

@@ -18,8 +18,13 @@ public class Deck {
         allDecks = new ArrayList<>();
     }
 
-    protected Object clone() {
-        Deck newDeck = new Deck(this.name, this.owner, this.mainDeckCards, this.sideDeckCards, this.cardsAmount);
+    protected Object clone() throws CloneNotSupportedException {
+        Object clone = super.clone();
+        Deck newDeck = new Deck(this.name, this.owner, this.cardsAmount);
+        for (Card mainDeckCard : this.mainDeckCards)
+            newDeck.addCardToDeck(true, (Card)mainDeckCard.clone());
+        for (Card sideDeckCard : this.sideDeckCards)
+            newDeck.addCardToDeck(false, (Card)sideDeckCard.clone());
         return newDeck;
     }
 
@@ -36,6 +41,12 @@ public class Deck {
         setOwner(owner);
         setMainDeck(mainDeck);
         setSideDeck(sideDeck);
+        setCardsAmount(cards);
+    }
+
+    public Deck(String name, User owner, HashMap<Card, Integer> cards) {
+        setName(name);
+        setOwner(owner);
         setCardsAmount(cards);
     }
 

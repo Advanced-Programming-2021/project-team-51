@@ -1,11 +1,12 @@
-package main.java.programController.menu;
+package controller.menu;
 
 
-import main.java.models.User;
-import main.java.programController.MenuEnum;
-import main.java.programController.ProgramController;
-import main.java.programController.Regex;
-import main.java.programController.StatusEnum;
+import controller.MenuEnum;
+import controller.ProgramController;
+import controller.StatusEnum;
+import models.User;
+import view.Regex;
+
 
 import java.util.regex.Matcher;
 

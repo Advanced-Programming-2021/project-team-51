@@ -1,9 +1,9 @@
 package models;
 
 import models.cards.Card;
-import models.cards.Mode;
-import models.cards.MonsterCard;
-import models.cards.SpellTrapCard;
+import models.cards.monsters.Mode;
+import models.cards.monsters.MonsterCard;
+import models.cards.spelltrap.SpellTrapCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +24,7 @@ public class Board {
     private int lifePoints;
     private int counter = 0;
 
-    public Board(User user, Card side, Card main) {
+    public Board(User user, Card side, Card main) throws CloneNotSupportedException {
         Deck newDeck = (Deck) user.getActiveDeck().clone();
         user.setBoard(this);
         setOwner(user);

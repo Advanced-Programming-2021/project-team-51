@@ -1,4 +1,4 @@
-package models.cards;
+package models.cards.monsters;
 
 public enum Mode {
     ATTACK,

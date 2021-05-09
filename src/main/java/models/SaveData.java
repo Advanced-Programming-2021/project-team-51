@@ -9,8 +9,8 @@ import org.kie.commons.java.nio.file.Files;
 import org.kie.commons.java.nio.file.Paths;
 
 import models.cards.Card;
-import models.cards.MonsterCard;
-import models.cards.SpellTrapCard;
+import models.cards.monsters.MonsterCard;
+import models.cards.spelltrap.SpellTrapCard;
 
 import java.io.File;
 import java.io.FileWriter;

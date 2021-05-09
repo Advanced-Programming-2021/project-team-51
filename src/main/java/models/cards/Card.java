@@ -1,11 +1,10 @@
 package models.cards;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public abstract class Card {
 
-    protected static final ArrayList<Card> allCards = new ArrayList<>();
+    protected static ArrayList<Card> allCards = new ArrayList<>();
     protected static int cardCounter = 0;
     private int cardNumber;
     private String name;
@@ -33,6 +32,10 @@ public abstract class Card {
     }
     public static ArrayList<Card> getAllCards() {
         return allCards;
+    }
+
+    public static void setAllCards(ArrayList<Card> cards) {
+        allCards = cards;
     }
 
     protected void setName(String name) {
@@ -100,4 +103,6 @@ public abstract class Card {
     }
 
     abstract public String toString();
+
+    abstract public Object clone();
 }

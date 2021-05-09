@@ -1,4 +1,4 @@
-package models.cards;
+package models.cards.spelltrap;
 
 public enum Icon {
     EQUIP("Equip"),

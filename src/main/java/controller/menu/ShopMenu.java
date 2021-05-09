@@ -1,13 +1,16 @@
-package main.java.programController.menu;
+package controller.menu;
 
 
 
-import main.java.User;
-import main.java.Card;
-import main.java.programController.MenuEnum;
-import main.java.programController.ProgramController;
-import main.java.programController.Regex;
-import main.java.programController.StatusEnum;
+
+
+import controller.MenuEnum;
+import controller.ProgramController;
+import controller.StatusEnum;
+import models.User;
+import models.cards.Card;
+import models.cards.MakeCards;
+import view.Regex;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,13 +29,13 @@ public class ShopMenu {
     }
     public void run(String command){
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command,Regex.buyCard)).matches()){
+        if ((matcher = Regex.getMatcher(command, Regex.buyCard)).matches()){
             String cardName = matcher.group(1);
             if (!isCardExist(cardName)){
-                System.out.println(StatusEnum.INVALID_CARD_IN_SHOP);
+                System.out.println(controller.StatusEnum.INVALID_CARD_IN_SHOP);
             }
             else if (!doesUserHaveEnoughMoney(cardName)) {
-                System.out.println(StatusEnum.NOT_ENOUGH_MONEY);
+                System.out.println(controller.StatusEnum.NOT_ENOUGH_MONEY);
             }
             else {
                 buyCard(cardName);
@@ -41,13 +44,13 @@ public class ShopMenu {
         else if ((matcher = Regex.getMatcher(command,Regex.showCardsInShop)).matches()){
             showCardsInShop();
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.exitMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()){
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.enterMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.showCurrentMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()){
             System.out.println("Shop");
         }
         else{
@@ -56,7 +59,7 @@ public class ShopMenu {
 
     }
     private void buyCard(String cardName){
-        Card card = Card.getCardByName(cardName);
+        Card card = MakeCards.makeCard(cardName);
         currentUser.addCard(card);
         int cardPrice = card.getPrice();
         int userMoney = currentUser.getMoney();

@@ -1,4 +1,4 @@
-package models.cards;
+package models.cards.monsters;
 
 public enum MonsterType {
     BEAST_WARRIOR("Beast-Warrior"),
