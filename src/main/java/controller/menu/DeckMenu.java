@@ -228,7 +228,7 @@ public class DeckMenu {
             System.out.println("deck with name" + deckName + "already exists");
         }
         else{
-            currentUser.addDeck(new Deck(deckName, currentUser));
+            currentUser.addDeck(new Deck(deckName, currentUser.getUserName()));
             System.out.println(StatusEnum.DECK_CREATE_SUCCESSFULLY);
         }
     }
