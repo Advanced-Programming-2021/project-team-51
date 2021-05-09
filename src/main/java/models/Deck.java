@@ -12,7 +12,7 @@ public class Deck {
     private ArrayList<Card> sideDeckCards = new ArrayList<>();
     private HashMap<Card, Integer> cardsAmount = new HashMap<>();
     private String name;
-    private User owner;
+    private String ownerName;
 
     static {
         allDecks = new ArrayList<>();
@@ -20,7 +20,7 @@ public class Deck {
 
     protected Object clone() throws CloneNotSupportedException {
         Object clone = super.clone();
-        Deck newDeck = new Deck(this.name, this.owner, this.cardsAmount);
+        Deck newDeck = new Deck(this.name, this.ownerName, this.cardsAmount);
         for (Card mainDeckCard : this.mainDeckCards)
             newDeck.addCardToDeck(true, (Card)mainDeckCard.clone());
         for (Card sideDeckCard : this.sideDeckCards)
@@ -28,25 +28,25 @@ public class Deck {
         return newDeck;
     }
 
-    public Deck(String name, User owner) {
+    public Deck(String name, String ownerName) {
         allDecks.add(this);
         setName(name);
-        setOwner(owner);
+        setOwner(ownerName);
     }
 
-    public Deck(String name, User owner, ArrayList<Card> mainDeck, ArrayList<Card> sideDeck,
+    public Deck(String name, String ownerName, ArrayList<Card> mainDeck, ArrayList<Card> sideDeck,
             HashMap<Card, Integer> cards) {
         allDecks.add(this);
         setName(name);
-        setOwner(owner);
+        setOwner(ownerName);
         setMainDeck(mainDeck);
         setSideDeck(sideDeck);
         setCardsAmount(cards);
     }
 
-    public Deck(String name, User owner, HashMap<Card, Integer> cards) {
+    public Deck(String name, String ownerName, HashMap<Card, Integer> cards) {
         setName(name);
-        setOwner(owner);
+        setOwner(ownerName);
         setCardsAmount(cards);
     }
 
@@ -134,12 +134,12 @@ public class Deck {
         return this.name;
     }
 
-    private void setOwner(User owner) {
-        this.owner = owner;
+    private void setOwner(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public User getOwner() {
-        return this.owner;
+        return User.getUserByUserName(this.ownerName);
     }
 
     private void setMainDeck(ArrayList<Card> mainCards) {
@@ -195,7 +195,7 @@ public class Deck {
     }
 
     public void removeDeck() {
-        this.owner.removeDeck(this);
+        User.getUserByUserName(ownerName).removeDeck(this);
         allDecks.remove(this);
     }
 

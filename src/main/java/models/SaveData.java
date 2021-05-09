@@ -137,7 +137,10 @@ public class SaveData {
     }
 
     public void loadCards() {
-
+        String jsonCards = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\cards.DAT")));
+        ArrayList<Card> cards = new ArrayList<>();
+        cards = new Gson().fromJson(jsonCards, new TypeToken<List<Card>>(){}.getType());
+        Card.setAllCards(cards);
     }
 
     public void loadDecks() {
