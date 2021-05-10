@@ -11,7 +11,6 @@ public class User {
     private ArrayList<Card> userCards = new ArrayList<>();
     private ArrayList<Deck> userDecks = new ArrayList<>();
     private Deck activeDeck;
-    private Board userBoard;
     private String userName;
     private String nickName;
     private String password;
@@ -25,7 +24,6 @@ public class User {
     public User(String userName, String nickName, String password) {
         allUsers.add(this);
         setActiveDeck(null);
-        setBoard(null);
         setUserName(userName);
         setNickName(nickName);
         setPassword(password);
@@ -173,14 +171,6 @@ public class User {
 
     public String getPassword() {
         return this.password;
-    }
-
-    public void setBoard(Board board) {
-        this.userBoard = board;
-    }
-
-    public Board getBoard() {
-        return this.userBoard;
     }
 
     public void setActiveDeck(Deck deck) {

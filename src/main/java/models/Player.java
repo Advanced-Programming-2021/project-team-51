@@ -8,14 +8,17 @@ public class Player {
     private Board playerBoard;
     private String userName;
     private String nickName;
-    private int lifePoint;
 
     static {
         allPlayers = new ArrayList<>();
     }
 
-    public Player(User user, Deck deck) {
+    public Player(User user) throws CloneNotSupportedException {
         allPlayers.add(this);
+        setPlayerDeck(user.getActiveDeck());
+        setPlayerBoard(new Board(this));
+        setUserName(user.getUserName());
+        setNickName(user.getNickName());
     }
 
     public static ArrayList<Player> getAllPlayers() {
@@ -50,7 +53,7 @@ public class Player {
         return this.userName;
     }
 
-    private void setUserName() {
+    private void setUserName(String userName) {
         this.userName = userName;
     }
 
@@ -60,13 +63,5 @@ public class Player {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    public int getLifePoint() {
-        return this.lifePoint;
-    }
-
-    public void setLifePoint(int lifePoint) {
-        this.lifePoint = lifePoint;
     }
 }

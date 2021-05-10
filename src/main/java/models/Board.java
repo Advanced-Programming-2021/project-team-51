@@ -17,25 +17,37 @@ public class Board {
     private ArrayList<Card> blackPendantEquipped = new ArrayList<>();
     private ArrayList<Card> unitedWeStandEquipped = new ArrayList<>();
     private ArrayList<Card> cardsInHand = new ArrayList<>();
-    private User owner;
+    private Player owner;
     private Card fieldZone;
     private Deck deck;
     private boolean isSuijinEffected;
     private int lifePoints;
     private int counter = 0;
 
-    public Board(User user, Card side, Card main) throws CloneNotSupportedException {
-        Deck newDeck = (Deck) user.getActiveDeck().clone();
-        user.setBoard(this);
-        setOwner(user);
+    public Board(Player owner) throws CloneNotSupportedException {
+        setOwner(owner);
         setFieldZone(null);
-        setDeck(newDeck);
+        setDeck((Deck) owner.getPlayerDeck().clone());
         setSuijinEffect(false);
         setLifePoints(8000);
-        if (side != null && main != null)
+        shuffleDeck();
+        beginDeck();
+    }
+
+    public void resetTheBoard(Card main, Card side) throws CloneNotSupportedException {
+        removeCopiedDeck();
+        setFieldZone(null);
+        setDeck((Deck) owner.getPlayerDeck().clone());
+        setSuijinEffect(false);
+        setLifePoints(8000);
+        if (main != null && side != null) 
             changeDeck(side, main);
         shuffleDeck();
         beginDeck();
+    }
+
+    public void removeCopiedDeck() {
+        this.deck.removeCopiedDeck();
     }
 
     public void setSuijinEffect(boolean effect) {
@@ -62,11 +74,11 @@ public class Board {
         return this.deck;
     }
 
-    private void setOwner(User user) {
-        this.owner = user;
+    private void setOwner(Player owner) {
+        this.owner = owner;
     }
 
-    public User getOwner() {
+    public Player getOwner() {
         return this.owner;
     }
 

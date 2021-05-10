@@ -199,6 +199,10 @@ public class Deck {
         allDecks.remove(this);
     }
 
+    public void removeCopiedDeck() {
+        allDecks.remove(this);
+    }
+
     public String saveString() {
         StringBuilder stringDeck = new StringBuilder();
         stringDeck.append("Main = {");
