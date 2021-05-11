@@ -4,6 +4,7 @@ import models.cards.Card;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
+import controller.duel.AI;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,13 +35,23 @@ public class Board {
         beginDeck();
     }
 
+    public Board(AI bot) throws CloneNotSupportedException {
+        setOwner(null);
+        setFieldZone(null);
+        setDeck((Deck) bot.getDeck().clone());
+        setSuijinEffect(false);
+        setLifePoints(8000);
+        shuffleDeck();
+        beginDeck();
+    }
+
     public void resetTheBoard(Card main, Card side) throws CloneNotSupportedException {
         removeCopiedDeck();
         setFieldZone(null);
         setDeck((Deck) owner.getPlayerDeck().clone());
         setSuijinEffect(false);
         setLifePoints(8000);
-        if (main != null && side != null) 
+        if (main != null && side != null)
             changeDeck(side, main);
         shuffleDeck();
         beginDeck();
@@ -88,6 +99,26 @@ public class Board {
 
     public Card getFieldZone() {
         return this.fieldZone;
+    }
+
+    public ArrayList<Card> getHandCards() {
+        return this.cardsInHand;
+    }
+
+    public ArrayList<MonsterCard> getMonsterCards() {
+        return this.monsterBoard;
+    }
+
+    public boolean hasSpellTrapZoneSpace() {
+        if (spellAndTrapBoard.size() == 5)
+            return false;
+        return true;
+    }
+
+    public boolean hasMonsterZoneSpace() {
+        if (monsterBoard.size() == 5)
+            return false;
+        return true;
     }
 
     public void summonOrSetMonser(int index) {
