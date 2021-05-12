@@ -115,7 +115,7 @@ public class Deck {
         return false;
     }
 
-    private boolean isDeckValid() {
+    public boolean isDeckValid() {
         if (mainDeckCards.size() > 39)
             return true;
 

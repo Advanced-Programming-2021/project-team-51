@@ -4,10 +4,11 @@ import models.cards.Card;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
-import controller.duel.AI;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import controller.duel.singlePlayer.AI;
 
 public class Board {
 
@@ -107,6 +108,14 @@ public class Board {
 
     public ArrayList<MonsterCard> getMonsterCards() {
         return this.monsterBoard;
+    }
+
+    public ArrayList<SpellTrapCard> getSpellTrapCards() {
+        return this.spellAndTrapBoard;
+    }
+
+    public ArrayList<Card> getGraveyardCards() {
+        return this.graveyard;
     }
 
     public boolean hasSpellTrapZoneSpace() {
