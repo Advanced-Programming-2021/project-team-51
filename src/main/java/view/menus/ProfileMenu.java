@@ -1,22 +1,23 @@
-package controller.menu;
+package view.menus;
 
-
-/*------------------CURRENT USER NOT FIXED-------------*/
-
-
+import controller.menucontroller.ProfileMenuController;
 import models.User;
-import controller.MenuEnum;
-import controller.ProgramController;
+import view.MenuEnum;
+import view.ProgramController;
 import view.Regex;
-import controller.StatusEnum;
+import view.StatusEnum;
 
 import java.util.regex.Matcher;
 
 public class ProfileMenu {
-    private User currentUser;
 
+    User currentUser;
+    ProfileMenuController profileMenuController;
 
     public void run(String command){
+
+        profileMenuController = new ProfileMenuController(currentUser);
+
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command, Regex.changePass1)).matches()){
             String oldPass = matcher.group(3);
@@ -65,25 +66,12 @@ public class ProfileMenu {
             System.out.println(StatusEnum.INVALID_COMMAND);
         }
     }
-    private void changeNickname(String newNickname){
-        if (User.isNickNameTaken(newNickname)){
-            System.out.println("user with nickname" + newNickname + "already exists");
-        }
-        else{
-            currentUser.setNickName(newNickname);
-            System.out.println(StatusEnum.CHANGE_NICKNAME_SUCCESSFULLY);
-        }
+
+    private void changePass(String oldPass, String newPass) {
+        System.out.println(profileMenuController.changePass(oldPass, newPass));
     }
-    private void changePass(String oldPass,String newPass){
-        if (!currentUser.getPassword().equals(oldPass)){
-            System.out.println(StatusEnum.CURRENT_PASSWORD_INVALIDITY);
-        }
-        else if (currentUser.getPassword().equals(newPass)){
-            System.out.println(StatusEnum.ENTER_A_NEW_PASSWORD);
-        }
-        else{
-            currentUser.changePassword(newPass);
-        }
+
+    private void changeNickname(String newNickname) {
+        System.out.println(profileMenuController.changeNickname(newNickname));
     }
 }
-

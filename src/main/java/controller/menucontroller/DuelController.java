@@ -1,10 +1,9 @@
-package controller.menu;
+package controller.menucontroller;
 
-import controller.MenuEnum;
-import controller.ProgramController;
-import controller.StatusEnum;
+import controller.duel.singlePlayer.EasyBot;
+import view.StatusEnum;
 import controller.duel.AI;
-import controller.duel.EasyBot;
+//import controller.duel.EasyBot;
 import controller.duel.HardBot;
 import models.Board;
 import models.Player;
@@ -13,10 +12,9 @@ import models.cards.Card;
 import view.Regex;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 
-public class Duel {
+public class DuelController {
     private ArrayList<Integer> attackedCards;
     private ArrayList<Card> lastRoundGraveyards;
     private Player player1;
@@ -39,8 +37,8 @@ public class Duel {
 
 
     //------------------------Need to be checked------------------------
-    public Duel() throws CloneNotSupportedException {
-        this.currentUser = LoginMenu.currentUser;
+    public DuelController() throws CloneNotSupportedException {
+        this.currentUser = LoginMenuController.currentUser;
     }
 
 

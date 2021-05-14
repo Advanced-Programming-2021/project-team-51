@@ -2,11 +2,16 @@ package models.cards.spelltrap;
 
 import models.cards.Card;
 import models.cards.CardType;
+import models.cards.monsters.MonsterCard;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SpellTrapCard extends Card {
     private static ArrayList<SpellTrapCard> allSpellTrapCards = new ArrayList<>();
+    private static final ArrayList<SpellTrapCard> allSpellTrapCardsToShow = new ArrayList<>();
     Icon icon;
     boolean isLimited;
 
@@ -32,6 +37,11 @@ public class SpellTrapCard extends Card {
         this.setCardNumber(cardNumber);
     }
 
+    private SpellTrapCard(String name, int price) {
+        this.setName(name);
+        this.setPrice(price);
+    }
+
     public static SpellTrapCard getSpellTrapCardByNumber(int number) {
         for (SpellTrapCard spellTrapCard : allSpellTrapCards) {
             if (spellTrapCard.getCardNumber() == number)
@@ -42,6 +52,19 @@ public class SpellTrapCard extends Card {
 
     public static ArrayList<SpellTrapCard> getAllSpellTrapCards() {
         return allSpellTrapCards;
+    }
+
+    public static ArrayList<SpellTrapCard> getAllSpellTrapCardsToShow() throws IOException {
+        if (allSpellTrapCardsToShow.size() > 0)
+            return allSpellTrapCardsToShow;
+
+        String line = "";
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("SpellTrap.csv"));
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] values = line.split(",");
+            allSpellTrapCardsToShow.add(new SpellTrapCard(values[0], Integer.parseInt(values[5])));
+        }
+        return allSpellTrapCardsToShow;
     }
 
     public static void setAllSpellTrapCards(ArrayList<SpellTrapCard> cards) {

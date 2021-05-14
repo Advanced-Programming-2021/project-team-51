@@ -1,20 +1,13 @@
-package controller.menu;
+package view.menus;
+
+import view.MenuEnum;
+import view.ProgramController;
+import view.Regex;
+import view.StatusEnum;
 
 import java.util.regex.Matcher;
 
-
-/*----------------------CURRENT USER ISN'T FIXED-----------------------*/
-/*----------------------METHODS ARE EMPTY-----------------------*/
-
-import models.User;
-import controller.MenuEnum;
-import controller.ProgramController;
-import view.Regex;
-import controller.StatusEnum;
-
 public class CheatMenu {
-    private User currentUser;
-
     public void run(String command){
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command, Regex.cheatIncreaseMoney)).matches()){
@@ -44,8 +37,16 @@ public class CheatMenu {
             System.out.println(StatusEnum.INVALID_COMMAND);
         }
     }
-    private void increaseMoney(int amount){}
-    private void selectMoreCards(String cardName){}
-    private void increaseLP(int amount){}
-    private void setWinner(String nickname){}
+
+    private void increaseMoney(Integer amount) {
+    }
+
+    private void increaseLP(Integer amount) {
+    }
+
+    private void selectMoreCards(String cardName) {
+    }
+
+    private void setWinner(String nickname) {
+    }
 }

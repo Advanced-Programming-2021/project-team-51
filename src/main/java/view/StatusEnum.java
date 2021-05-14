@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 
 /*-------------------REMEMBER TO CORRECT SKIPS----------------------*/
@@ -26,7 +26,8 @@ public enum StatusEnum {
     CARD_ADDED_TO_DECK_SUCCESSFULLY("card added to deck successfully"),
     NO_EXISTENCE_OF_A_CARD_IN_STORAGE(""),//SKIP--------------------------
     NO_EXISTENCE_OF_A_CARD_IN_MAIN_OR_SIDE_DECK(""),//SKIP--------------------------
-    DECK_IS_FULL(""),//SKIP--------------------------
+    FULL_MAIN_DECK("main deck is full"),
+    FULL_SIDE_DECK("side deck is full"),
     EXISTENCE_OF_THREE_CARD_WITH_THE_SAME_NAME(""),//SKIP--------------------------
     CARD_REMOVED_SUCCESSFULLY("card removed form deck successfully"),
     INVALID_CARD_IN_SHOP("there is no card with this name"),
@@ -93,10 +94,9 @@ public enum StatusEnum {
     GRAVE_YARD_EMPTY("graveyard empty"),
     CARD_NOT_VISIBLE("card is not visible"),
     WIN_THE_GAME(""),//SKIP--------------------------
-    WIN_THE_MATCH("");//SKIP--------------------------
-
-
-   private String status;
+    WIN_THE_MATCH(""),
+    CARD_BOUGHT_SUCCESSFULLY("you bought the card successfully");
+    private String status;
 
     StatusEnum(String status){
         setStatus(status);

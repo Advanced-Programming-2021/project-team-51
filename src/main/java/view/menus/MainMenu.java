@@ -1,9 +1,10 @@
-package controller.menu;
+package view.menus;
 
 
-import controller.MenuEnum;
-import controller.ProgramController;
-import controller.StatusEnum;
+import controller.menucontroller.LoginMenuController;
+import view.MenuEnum;
+import view.ProgramController;
+import view.StatusEnum;
 import models.User;
 import view.Regex;
 
@@ -12,9 +13,11 @@ import java.util.regex.Matcher;
 
 public class MainMenu {
     private User currentUser;
+
     public MainMenu(){
-        this.currentUser = LoginMenu.currentUser;
+        this.currentUser = LoginMenuController.currentUser;
     }
+
     public void run(String command){
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()){
@@ -23,7 +26,7 @@ public class MainMenu {
                ProgramController.currentMenu = MenuEnum.DUEL;
             }
             else if (menuToEnter.equals("Deck")){
-                controller.ProgramController.currentMenu = MenuEnum.DECK_MENU;
+                ProgramController.currentMenu = MenuEnum.DECK_MENU;
             }
             else if (menuToEnter.equals("Scoreboard")){
                 ProgramController.currentMenu = MenuEnum.SCOREBOARD;
@@ -45,8 +48,8 @@ public class MainMenu {
             System.out.println("Main Menu");
         }
         else if((matcher = Regex.getMatcher(command,Regex.userLogout)).matches()){
-            LoginMenu.currentUser = null;
-            LoginMenu.isLoggedOn = false;
+            LoginMenuController.currentUser = null;
+            LoginMenuController.isLoggedOn = false;
             ProgramController.currentMenu = MenuEnum.LOGIN_MENU;
             System.out.println(StatusEnum.USER_LOGOUT_SUCCESSFULLY);
         }

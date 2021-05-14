@@ -3,11 +3,15 @@ package models.cards.monsters;
 import models.cards.Card;
 import models.cards.CardType;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MonsterCard extends Card {
 
     private static ArrayList<MonsterCard> allMonsterCards = new ArrayList<>();
+    private static final ArrayList<MonsterCard> allMonsterCardsToShow = new ArrayList<>();
     private int level;
     private Attribute attribute;
     private MonsterType monsterType;
@@ -48,6 +52,12 @@ public class MonsterCard extends Card {
         this.setTrait(trait);
         this.setCardNumber(cardNumber);
     }
+
+    private MonsterCard(String name, int price) {
+        this.setPrice(price);
+        this.setName(name);
+    }
+
     public static MonsterCard getMonsterCardByNumber(int number) {
         for (MonsterCard monsterCard : allMonsterCards) {
             if (monsterCard.getCardNumber() == number)
@@ -58,6 +68,19 @@ public class MonsterCard extends Card {
 
     public static ArrayList<MonsterCard> getAllMonsterCards() {
         return allMonsterCards;
+    }
+
+    public static ArrayList<MonsterCard> getAllMonsterCardsToShow() throws IOException {
+        if (allMonsterCardsToShow.size() > 0)
+            return allMonsterCardsToShow;
+
+        String line = "";
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("Monster.csv"));
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] values = line.split(",");
+            allMonsterCardsToShow.add(new MonsterCard(values[0], Integer.parseInt(values[8])));
+        }
+        return allMonsterCardsToShow;
     }
 
     public static void setAllMonsterCards(ArrayList<MonsterCard> cards) {

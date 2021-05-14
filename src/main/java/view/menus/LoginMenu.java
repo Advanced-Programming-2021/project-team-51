@@ -1,24 +1,21 @@
-package controller.menu;
+package view.menus;
 
-
-import controller.MenuEnum;
-import controller.ProgramController;
-import controller.StatusEnum;
-import models.User;
+import controller.menucontroller.LoginMenuController;
+import view.MenuEnum;
+import view.ProgramController;
 import view.Regex;
-
+import view.StatusEnum;
 
 import java.util.regex.Matcher;
 
-
-//-----------------------------------PLEASE LOGIN FIRST NOT FIXED-------------------
-
 public class LoginMenu {
-    public static User currentUser;
-    public static boolean isLoggedOn = false;
 
+    LoginMenuController loginMenuController;
 
     public void run(String command){
+
+        loginMenuController = new LoginMenuController();
+
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command,Regex.loginUser1)).matches()){
             String username = matcher.group(2);
@@ -79,50 +76,15 @@ public class LoginMenu {
             System.exit(0);
         }
         else{
-            System.out.println(StatusEnum.INVALID_COMMAND);
+            System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
         }
     }
 
-    private boolean deosUserExist(String username){
-        for (User user: User.allUsers) {
-            if (user.getUserName().equals(username)){
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean isPasswoerCorrect(String username , String password){
-        if (User.getUserByUserName(username).getPassword().equals(password)){
-            return true;
-        }
-        return false;
-    }
-    private void loginUSer(String username , String password){
-        if (!deosUserExist(username)){
-            System.out.println(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH);
-        }
-        else if (!isPasswoerCorrect(username,password)){
-            System.out.println(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH);
-        }
-        else{
-            currentUser = User.getUserByUserName(username);
-            isLoggedOn = true;
-            System.out.println(StatusEnum.USER_LOGIN_SUCCESSFULLY);
-        }
-    }
-    private void createUser(String username, String nickname , String password){
-        if (User.isUserNameTaken(username)){
-            System.out.println("user with username" + username + "already exists");
-        }
-        else if (User.isNickNameTaken(nickname)){
-            System.out.println("user with nickname" + nickname + "already exists");
-        }
-        else{
-            currentUser = new User(username,nickname,password);
-            System.out.println(StatusEnum.USER_LOGIN_SUCCESSFULLY);
-        }
+    private void loginUSer(String username, String password) {
+        System.out.println(loginMenuController.loginUSer(username, password));
     }
 
-
-
+    private void createUser(String username, String nickname, String password) {
+        System.out.println(loginMenuController.createUser(username, nickname, password));
+    }
 }

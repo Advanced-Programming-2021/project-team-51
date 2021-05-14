@@ -1,26 +1,23 @@
-package controller.menu;
+package view.menus;
 
 
-
-
-
-import controller.MenuEnum;
-import controller.ProgramController;
-import controller.StatusEnum;
+import view.MenuEnum;
+import view.ProgramController;
+import view.StatusEnum;
 import models.User;
 import view.Regex;
 
 import java.util.regex.Matcher;
 
 
+public class ScoreboardMenu {
 
-
-
-public class Scoreboard {
     private User currentUser;
-    public Scoreboard(User currentUser){
+
+    public ScoreboardMenu(User currentUser){
         this.currentUser = currentUser;
     }
+
     public void run(String command){
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command, Regex.showScoreboard)).matches()){
