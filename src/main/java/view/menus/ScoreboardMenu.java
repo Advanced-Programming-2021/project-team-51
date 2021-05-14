@@ -1,6 +1,7 @@
 package view.menus;
 
 
+import controller.menucontroller.LoginMenuController;
 import view.MenuEnum;
 import view.ProgramController;
 import view.StatusEnum;
@@ -14,8 +15,8 @@ public class ScoreboardMenu {
 
     private User currentUser;
 
-    public ScoreboardMenu(User currentUser){
-        this.currentUser = currentUser;
+    public ScoreboardMenu(){
+        this.currentUser = LoginMenuController.currentUser;
     }
 
     public void run(String command){

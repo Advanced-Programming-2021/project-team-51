@@ -1,6 +1,6 @@
 package controller.menucontroller;
 
-import controller.duel.singlePlayer.EasyBot;
+import controller.duel.EasyBot;
 import view.StatusEnum;
 import controller.duel.AI;
 //import controller.duel.EasyBot;
@@ -277,7 +277,92 @@ public class DuelController {
                 }
             }
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer2)).matches()){
+            String difficulty = matcher.group(6);
+            Integer rounds = Integer.parseInt(matcher.group(3));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer3)).matches()){
+            String difficulty = matcher.group(4);
+            Integer rounds = Integer.parseInt(matcher.group(6));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer4)).matches()){
+            String difficulty = matcher.group(3);
+            Integer rounds = Integer.parseInt(matcher.group(6));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer5)).matches()){
+            String difficulty = matcher.group(3);
+            Integer rounds = Integer.parseInt(matcher.group(5));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer6)).matches()){
+            String difficulty = matcher.group(5);
+            Integer rounds = Integer.parseInt(matcher.group(3));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer7)).matches()){
             String difficulty = matcher.group(6);
             Integer rounds = Integer.parseInt(matcher.group(4));
             if (rounds!=1 && rounds!=3){
@@ -294,8 +379,263 @@ public class DuelController {
                 }
             }
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer8)).matches()){
             String difficulty = matcher.group(6);
+            Integer rounds = Integer.parseInt(matcher.group(3));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer9)).matches()){
+            String difficulty = matcher.group(4);
+            Integer rounds = Integer.parseInt(matcher.group(6));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer9)).matches()){
+            String difficulty = matcher.group(4);
+            Integer rounds = Integer.parseInt(matcher.group(6));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer10)).matches()){
+            String difficulty = matcher.group(3);
+            Integer rounds = Integer.parseInt(matcher.group(6));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer11)).matches()){
+            String difficulty = matcher.group(3);
+            Integer rounds = Integer.parseInt(matcher.group(5));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer12)).matches()){
+            String difficulty = matcher.group(5);
+            Integer rounds = Integer.parseInt(matcher.group(3));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer13)).matches()){
+            String difficulty = matcher.group(6);
+            Integer rounds = Integer.parseInt(matcher.group(2));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer14)).matches()){
+            String difficulty = matcher.group(6);
+            Integer rounds = Integer.parseInt(matcher.group(2));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer15)).matches()){
+            String difficulty = matcher.group(5);
+            Integer rounds = Integer.parseInt(matcher.group(2));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer16)).matches()){
+            String difficulty = matcher.group(4);
+            Integer rounds = Integer.parseInt(matcher.group(2));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer17)).matches()){
+            String difficulty = matcher.group(4);
+            Integer rounds = Integer.parseInt(matcher.group(2));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer18)).matches()){
+            String difficulty = matcher.group(5);
+            Integer rounds = Integer.parseInt(matcher.group(2));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer19)).matches()){
+            String difficulty = matcher.group(2);
+            Integer rounds = Integer.parseInt(matcher.group(6));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer20)).matches()){
+            String difficulty = matcher.group(2);
+            Integer rounds = Integer.parseInt(matcher.group(6));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer21)).matches()){
+            String difficulty = matcher.group(2);
+            Integer rounds = Integer.parseInt(matcher.group(5));
+            if (rounds!=1 && rounds!=3){
+                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
+            }
+            else{
+                this.rounds = rounds;
+                this.player1 = new Player(currentUser);
+                if (difficulty.equals("easy")){
+                    this.bot = new EasyBot();//----------
+                }
+                else{
+                    this.bot = new HardBot();//----------
+                }
+            }
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer22)).matches()){
+            String difficulty = matcher.group(2);
             Integer rounds = Integer.parseInt(matcher.group(4));
             if (rounds!=1 && rounds!=3){
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
@@ -311,8 +651,8 @@ public class DuelController {
                 }
             }
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer23)).matches()){
+            String difficulty = matcher.group(2);
             Integer rounds = Integer.parseInt(matcher.group(4));
             if (rounds!=1 && rounds!=3){
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
@@ -328,9 +668,9 @@ public class DuelController {
                 }
             }
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
+        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer24)).matches()){
+            String difficulty = matcher.group(2);
+            Integer rounds = Integer.parseInt(matcher.group(5));
             if (rounds!=1 && rounds!=3){
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
             }
@@ -345,227 +685,7 @@ public class DuelController {
                 }
             }
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
-        else if ((matcher = Regex.getMatcher(command,Regex.duelSinglePlayer1)).matches()){
-            String difficulty = matcher.group(6);
-            Integer rounds = Integer.parseInt(matcher.group(4));
-            if (rounds!=1 && rounds!=3){
-                System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
-            }
-            else{
-                this.rounds = rounds;
-                this.player1 = new Player(currentUser);
-                if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
-                }
-                else{
-                    this.bot = new HardBot();//----------
-                }
-            }
-        }
+
 
 
     }
@@ -574,8 +694,6 @@ public class DuelController {
         this.status = status;
     }
     private void resetTheGraveyard(){}
-    private boolean isGameStarted(){return true;}
-    private boolean isGameEnded(){return true;}
     private boolean isRondEnded(){return true;}
     private void giveMoney(){}
     private void giveScore(){}

@@ -3,6 +3,7 @@ package view;
 import view.MenuEnum;
 import view.menus.*;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ProgramController {
@@ -13,40 +14,43 @@ public class ProgramController {
     ShopMenu shopMenu;
     ScoreboardMenu scoreboardMenu ;
     DeckMenu deckMenu;
-    CheatMenu cheatMenu;
     ImportExportMenu importExportMenu;
     ProfileMenu profileMenu;
     DuelMenu duelMenu;
 
 
-    public void run() throws CloneNotSupportedException {
+    public void run() throws CloneNotSupportedException, IOException {
         while(currentMenu!= MenuEnum.EXIT){
             String command = scanner.nextLine();
             if (currentMenu == MenuEnum.LOGIN_MENU) {
                 loginMenu.run(command);
             }
             else if(currentMenu == MenuEnum.MAIN_MENU){
+                mainMenu = new MainMenu();
                 mainMenu.run(command);
             }
             else if (currentMenu == MenuEnum.SHOP_MENU){
+                shopMenu = new ShopMenu();
                 shopMenu.run(command);
             }
             else if (currentMenu == MenuEnum.SCOREBOARD){
+                scoreboardMenu = new ScoreboardMenu();
                 scoreboardMenu.run(command);
             }
             else if (currentMenu == MenuEnum.DECK_MENU){
+                deckMenu = new DeckMenu();
                 deckMenu.run(command);
             }
-            else if (currentMenu == MenuEnum.CHEAT_MENU){
-                cheatMenu.run(command);
-            }
             else if(currentMenu == MenuEnum.IMPORT_EXPORT){
+                importExportMenu = new ImportExportMenu();
                 importExportMenu.run(command);
             }
             else if (currentMenu == MenuEnum.PROFILE_MENU){
+                profileMenu = new ProfileMenu();
                 profileMenu.run(command);
             }
             else if (currentMenu == MenuEnum.DUEL){
+                duelMenu = new DuelMenu();
                 duelMenu.run(command);
             }
 
