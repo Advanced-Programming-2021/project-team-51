@@ -93,7 +93,7 @@ public class MonsterCard extends Card {
                 this.getMonsterType(), this.getAttackPoint(), this.getDefensePoint(), this.getTrait(), this.getCardNumber());
     }
 
-    private void setLevel(int level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -101,7 +101,7 @@ public class MonsterCard extends Card {
         return this.level;
     }
 
-    private void setAttribute(Attribute attribute) {
+    public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
 
@@ -109,7 +109,7 @@ public class MonsterCard extends Card {
         return this.attribute;
     }
 
-    private void setMonsterType(MonsterType monsterType) {
+    public void setMonsterType(MonsterType monsterType) {
         this.monsterType = monsterType;
     }
 
@@ -117,7 +117,7 @@ public class MonsterCard extends Card {
         return this.monsterType;
     }
 
-    private void setAttackPoint(int attackPoint) {
+    public void setAttackPoint(int attackPoint) {
         this.attackPoint = attackPoint;
     }
 
@@ -125,7 +125,7 @@ public class MonsterCard extends Card {
         return this.attackPoint;
     }
 
-    private void setDefensePoint(int defensePoint) {
+    public void setDefensePoint(int defensePoint) {
         this.defensePoint = defensePoint;
     }
 
@@ -133,7 +133,7 @@ public class MonsterCard extends Card {
         return this.defensePoint;
     }
 
-    private void setTrait(Trait trait) {
+    public void setTrait(Trait trait) {
         this.trait = trait;
     }
 

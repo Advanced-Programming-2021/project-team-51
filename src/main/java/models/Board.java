@@ -130,12 +130,12 @@ public class Board {
         return true;
     }
 
-    public void summonOrSetMonser(int index) {
+    public void summonOrSetMonster(int index) {
         monsterBoard.add((MonsterCard) cardsInHand.get(index));
         removeCardsFromHand(index);
     }
 
-    public void removeMonser(int index) {
+    public void removeMonster(int index) {
         addToGraveyard(monsterBoard.get(index));
         monsterBoard.remove(index);
     }

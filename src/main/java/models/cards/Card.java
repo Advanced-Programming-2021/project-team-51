@@ -39,7 +39,7 @@ public abstract class Card {
         allCards = cards;
     }
 
-    protected void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -47,7 +47,7 @@ public abstract class Card {
         return this.name;
     }
 
-    protected void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -55,7 +55,7 @@ public abstract class Card {
         return this.description;
     }
 
-    protected void setCardType(CardType cardType) {
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
@@ -63,7 +63,7 @@ public abstract class Card {
         return this.cardType;
     }
 
-    protected void setPrice(int price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

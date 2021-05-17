@@ -30,7 +30,7 @@ public class HardBot extends AI {
 
             if (monster.getAttackPoint() < monster.getDefensePoint())
             this.board.getHandCards().get(index).setIsHidden(true);
-            this.board.summonOrSetMonser(index);
+            this.board.summonOrSetMonster(index);
         }
     }
 
@@ -47,14 +47,14 @@ public class HardBot extends AI {
                 opponentMonsterPower = opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getDefensePoint();
             if (opponentMonsterPower > aiMonsterPower) {
                 this.board.setLifePoints(this.board.getLifePoints() + aiMonsterPower - opponentMonsterPower);
-                this.board.removeMonser(monsterIndex);
+                this.board.removeMonster(monsterIndex);
             } else if (opponentMonsterPower < aiMonsterPower) {
                 opponent.getPlayerBoard().setLifePoints(
                         opponent.getPlayerBoard().getLifePoints() + opponentMonsterPower - aiMonsterPower);
-                opponent.getPlayerBoard().removeMonser(opponentIndex);
+                opponent.getPlayerBoard().removeMonster(opponentIndex);
             } else {
-                opponent.getPlayerBoard().removeMonser(opponentIndex);
-                this.board.removeMonser(monsterIndex);
+                opponent.getPlayerBoard().removeMonster(opponentIndex);
+                this.board.removeMonster(monsterIndex);
             }
         }
     }

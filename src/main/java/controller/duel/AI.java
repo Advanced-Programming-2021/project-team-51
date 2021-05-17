@@ -92,7 +92,7 @@ abstract public class AI {
                 index = i;
             }
         if (index != -1)
-            this.board.removeMonser(index);
+            this.board.removeMonster(index);
     }
 
     protected int getBestMonsterCard(ArrayList<Card> cards) {
