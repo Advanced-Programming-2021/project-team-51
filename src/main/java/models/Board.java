@@ -15,9 +15,10 @@ public class Board {
     private ArrayList<MonsterCard> monsterBoard = new ArrayList<>();
     private ArrayList<SpellTrapCard> spellAndTrapBoard = new ArrayList<>();
     private ArrayList<Card> graveyard = new ArrayList<>();
-    private ArrayList<Card> swordOfDarkDestructionEquipped = new ArrayList<>();
-    private ArrayList<Card> blackPendantEquipped = new ArrayList<>();
-    private ArrayList<Card> unitedWeStandEquipped = new ArrayList<>();
+    private MonsterCard swordOfDarkDestructionEquipped;
+    private MonsterCard blackPendantEquipped;
+    private MonsterCard unitedWeStandEquipped;
+    private MonsterCard magnumShieldEquipped;
     private ArrayList<Card> cardsInHand = new ArrayList<>();
     private Player owner;
     private Card fieldZone;
@@ -31,6 +32,10 @@ public class Board {
         setFieldZone(null);
         setDeck((Deck) owner.getPlayerDeck().clone());
         setSuijinEffect(false);
+        setEquippedBlackPendant(null);
+        setEquippedMagnumShield(null);
+        setEquippedSwordOfDarkDestruction(null);
+        setEquippedUnitedWeStand(null);
         setLifePoints(8000);
         shuffleDeck();
         beginDeck();
@@ -41,6 +46,10 @@ public class Board {
         setFieldZone(null);
         setDeck((Deck) bot.getDeck().clone());
         setSuijinEffect(false);
+        setEquippedBlackPendant(null);
+        setEquippedMagnumShield(null);
+        setEquippedSwordOfDarkDestruction(null);
+        setEquippedUnitedWeStand(null);
         setLifePoints(8000);
         shuffleDeck();
         beginDeck();
@@ -51,6 +60,10 @@ public class Board {
         setFieldZone(null);
         setDeck((Deck) owner.getPlayerDeck().clone());
         setSuijinEffect(false);
+        setEquippedBlackPendant(null);
+        setEquippedMagnumShield(null);
+        setEquippedSwordOfDarkDestruction(null);
+        setEquippedUnitedWeStand(null);
         setLifePoints(8000);
         if (main != null && side != null)
             changeDeck(side, main);
@@ -118,6 +131,22 @@ public class Board {
         return this.graveyard;
     }
 
+    public MonsterCard getSwordOfDarkDestructionEquipped() {
+        return this.swordOfDarkDestructionEquipped;
+    }
+
+    public MonsterCard getBlackPendantEquipped() {
+        return this.blackPendantEquipped;
+    }
+
+    public MonsterCard getUnitedWeStandEquipped() {
+        return this.unitedWeStandEquipped;
+    }
+
+    public MonsterCard getMagnumShieldEquipped() {
+        return this.magnumShieldEquipped;
+    }
+
     public boolean hasSpellTrapZoneSpace() {
         if (spellAndTrapBoard.size() == 5)
             return false;
@@ -130,12 +159,12 @@ public class Board {
         return true;
     }
 
-    public void summonOrSetMonser(int index) {
+    public void summonOrSetMonster(int index) {
         monsterBoard.add((MonsterCard) cardsInHand.get(index));
         removeCardsFromHand(index);
     }
 
-    public void removeMonser(int index) {
+    public void removeMonster(int index) {
         addToGraveyard(monsterBoard.get(index));
         monsterBoard.remove(index);
     }
@@ -213,28 +242,20 @@ public class Board {
 
     }
 
-    public void addCardToSwordOfDarkDestruction(Card card) {
-        swordOfDarkDestructionEquipped.add(card);
+    public void setEquippedSwordOfDarkDestruction(MonsterCard monster) {
+        this.swordOfDarkDestructionEquipped = monster;
     }
 
-    public void resetSwordOfDardDestruction() {
-        swordOfDarkDestructionEquipped.clear();
+    public void setEquippedBlackPendant(MonsterCard monster) {
+        this.blackPendantEquipped = monster;
     }
 
-    public void addCardToBlackPendant(Card card) {
-        blackPendantEquipped.add(card);
+    public void setEquippedUnitedWeStand(MonsterCard monster) {
+        this.unitedWeStandEquipped = monster;
     }
 
-    public void resetBlackPendant() {
-        blackPendantEquipped.clear();
-    }
-
-    public void addCardToUnitedWeStand(Card card) {
-        unitedWeStandEquipped.add(card);
-    }
-
-    public void resetUnitedWeStand() {
-        unitedWeStandEquipped.clear();
+    public void setEquippedMagnumShield(MonsterCard monster) {
+        this.magnumShieldEquipped = monster;
     }
 
     public String toString() {

@@ -1,6 +1,7 @@
 package controller.duel.singlePlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import controller.duel.GamePhase;
 import models.Deck;
@@ -12,6 +13,7 @@ import models.cards.monsters.Attribute;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
 import models.cards.monsters.MonsterType;
+import models.cards.monsters.Trait;
 import models.cards.spelltrap.Icon;
 import models.cards.spelltrap.SpellTrapCard;
 
@@ -51,6 +53,10 @@ abstract public class AI {
 
     public Player getOpponent() {
         return this.opponent;
+    }
+
+    public void destroyGeneratedDeck() {
+        this.deck.removeCopiedDeck();
     }
 
     protected int getTrapCard(ArrayList<Card> cards) {
@@ -123,7 +129,7 @@ abstract public class AI {
                 index = i;
             }
         if (index != -1)
-            this.board.removeMonser(index);
+            this.board.removeMonster(index);
     }
 
     protected int getBestMonsterCard(ArrayList<Card> cards) {
@@ -157,6 +163,34 @@ abstract public class AI {
             }
 
         return index;
+    }
+
+    protected int getBestDarkMonster(ArrayList<MonsterCard> monsters) {
+        int maximum = 0;
+        int index = -1;
+        for (int i = 0; i < monsters.size(); i++)
+            if (monsters.get(i).getAttribute() == Attribute.DARK && monsters.get(i).getAttackPoint() > maximum) {
+                maximum = monsters.get(i).getAttackPoint();
+                index = i;
+            }
+
+        return index;
+    }
+
+    protected boolean isThereASetWithValueOfLevel(ArrayList<MonsterCard> cards, int level) {
+        if (level == 0) return true;
+        if (cards.size() == 0) return false;
+
+        ArrayList<MonsterCard> newCards = cards;
+
+        for (int i = 0 ; i < cards.size(); i++) {
+            newCards.remove(i);
+            if (cards.get(i).getLevel() > level) continue;
+            else
+            return isThereASetWithValueOfLevel(newCards, level - cards.get(i).getLevel());
+        }
+
+        return false;
     }
 
     protected ReasonableLevel isReasonableToAttack(MonsterCard aiMonster, MonsterCard opponentMonster) {
@@ -213,7 +247,7 @@ abstract public class AI {
         return -1;
     }
 
-    protected ReasonableLevel isThisReasonableToActive(String name, Board opponentBoard, GamePhase phase) {
+    protected ReasonableLevel isSpellReasonableToActive(String name, Board opponentBoard, GamePhase phase) {
         switch (name) {
             case "Monster Reborn":
                 ArrayList<Card> graveyardCards = new ArrayList<>();
@@ -230,6 +264,75 @@ abstract public class AI {
                 return isReasonableToActiveRaigeki();
             case "Change of Heart":
                 return isReasonableToActiveChangeOfHeart(phase);
+            case "Swords of Revealing Light":
+                return isReasonableToActiveSwordsOfRevealingLight();
+            case "Harpie's Feather Duster":
+                return isReasonableToActiveHarpiesFeatherDuster();
+            case "Dark Hole":
+                return isReasonableToActiveDarkHole();
+            case "Supply Squad":
+                return isReasonableToActiveSupplySquad();
+            case "Spell Absorption":
+                return ReasonableLevel.REASONABLE_FOR_HARD;
+            case "Messenger of peace":
+                return isReasonableToActiveMessengerOfPeace();
+            case "Twin Twisters":
+                return isReasonableToActiveTwinTwisters();
+            case "Mystical space typhoon":
+                return isReasonableToActiveMysticalSpaceTyphoon();
+            case "Ring of defense":
+                return isReasonableToActiveRingOfDefense();
+            case "Yami":
+                return isReasonableToActiveYami();
+            case "Forest":
+                return isReasonableToActiveForest();
+            case "Closed Forest":
+                return isReasonableToActiveClosedForest();
+            case "Umiiruka":
+                return isReasonableToActiveUmiiruka();
+            case "Sword of dark destruction":
+                return isReasonableToActiveSwordOfDarkDestruction();
+            case "Black Pendant":
+                return isReasonableToActiveBlackPendant();
+            case "United We Stand":
+                return isReasonableToActiveUnitedWeStand();
+            case "Magnum Shield":
+                return isReasonableToActiveMagnumShield();
+            case "Advanced Ritual Art":
+                return isReasonableToActiveAdvancedRitualArt();
+            default:
+                return ReasonableLevel.NOT_REASONABLE;
+        }
+    }
+
+    protected ReasonableLevel isTrapReasonableToActive(String name, Board opponentBoard, GamePhase phase) {
+        switch (name) {
+            case "Trap Hole":
+                return isReasonableToActiveTrapHole();
+            case "Mirror Force":
+                return isReasonableToActiveMirrorForce();
+            case "Magic Cylinder":
+                return isReasonableToActiveMagicCylinder();
+            case "Mind Crush":
+                return isReasonableToActiveMindCrush();
+            case "Torrential Tribute":
+                return isReasonableToActiveTorrentialTribute();
+            case "Time Seal":
+                return isReasonableToActiveTimeSeal();
+            case "Negate Attack":
+                return isReasonableToActiveNegateAttack();
+            case "Solemn Warning":
+                return isReasonableToActiveSolemnWarning();
+            case "Magic Jamamer":
+                return isReasonableToActiveMagicJamamer();
+            case "Call of The Haunted":
+                return isReasonableToActiveCallOfTheHaunted();
+            case "Vanity's Emptiness":
+                return isReasonableToActiveVanitysEmptiness();
+            case "Wall of Revealing Light":
+                return isReasonableToActiveWallOfRevealingLight();
+            default:
+                return ReasonableLevel.NOT_REASONABLE;
         }
     }
 
@@ -250,11 +353,16 @@ abstract public class AI {
         }
     }
 
-    /*------ Spell & Trap Checkings ------*/
-    /*------ Spell & Trap Checkings ------*/
-    /*------ Spell & Trap Checkings ------*/
-    /*------ Spell & Trap Checkings ------*/
-    /*------ Spell & Trap Checkings ------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
+    /*------spell & trap checking------*/
 
     public ReasonableLevel isReasonableToActiveMonsterReborn(ArrayList<Card> graveyardCards) {
         if (!canSpecialSummonLevel1() && !canSpecialSummonLevel2())
@@ -267,58 +375,70 @@ abstract public class AI {
     }
 
     public ReasonableLevel isReasonableToActiveTerraforming() {
-        for (int i = 0; i < this.board.getDeck().getMainDeck().size(); i++)
-            if (this.board.getDeck().getMainDeck().get(i).getCardType() == CardType.SPELL) {
-                SpellTrapCard spell = (SpellTrapCard) this.board.getDeck().getMainDeck().get(i);
+        ArrayList<Card> aiMainDeck = this.board.getDeck().getMainDeck();
+        for (Card card : aiMainDeck)
+            if (card.getCardType() == CardType.SPELL) {
+                SpellTrapCard spell = (SpellTrapCard) card;
                 if (spell.getIcon() == Icon.FIELD)
-                    switch (this.board.getDeck().getMainDeck().size()) {
+                    switch (aiMainDeck.size()) {
+                        case 0:
                         case 1:
                             return ReasonableLevel.NOT_REASONABLE;
                         case 2:
                             int counter = 0;
+                            ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+                            ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
                             switch (spell.getName()) {
                                 case "Yami":
-                                    for (int index = 0; index < this.board.getMonsterCards().size(); index++) {
-                                        if (this.board.getMonsterCards().get(index)
-                                                .getMonsterType() == MonsterType.FIEND
-                                                || this.board.getMonsterCards().get(index)
-                                                        .getMonsterType() == MonsterType.SPELL_CASTER)
+                                    for (MonsterCard monster : aiMonsters) {
+                                        if (monster.getMonsterType() == MonsterType.FIEND
+                                                || monster.getMonsterType() == MonsterType.SPELL_CASTER)
                                             counter++;
-                                        if (this.board.getMonsterCards().get(index)
-                                                .getMonsterType() == MonsterType.FAIRY)
+                                        if (monster.getMonsterType() == MonsterType.FAIRY)
                                             counter--;
+                                    }
+                                    for (MonsterCard monster : opponentMonsters) {
+                                        if (monster.getMonsterType() == MonsterType.FIEND
+                                                || monster.getMonsterType() == MonsterType.SPELL_CASTER)
+                                            counter--;
+                                        if (monster.getMonsterType() == MonsterType.FAIRY)
+                                            counter++;
                                     }
                                     if (counter * 200 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
                                 case "Forest":
-                                    for (int index = 0; index < this.board.getMonsterCards().size(); index++)
-                                        if (this.board.getMonsterCards().get(index)
-                                                .getMonsterType() == MonsterType.INSECT
-                                                || this.board.getMonsterCards().get(index)
-                                                        .getMonsterType() == MonsterType.BEAST
-                                                || this.board.getMonsterCards().get(index)
-                                                        .getMonsterType() == MonsterType.BEAST_WARRIOR)
+                                    for (MonsterCard monster : aiMonsters)
+                                        if (monster.getMonsterType() == MonsterType.INSECT
+                                                || monster.getMonsterType() == MonsterType.BEAST
+                                                || monster.getMonsterType() == MonsterType.BEAST_WARRIOR)
                                             counter++;
+                                    for (MonsterCard monster : opponentMonsters)
+                                        if (monster.getMonsterType() == MonsterType.INSECT
+                                                || monster.getMonsterType() == MonsterType.BEAST
+                                                || monster.getMonsterType() == MonsterType.BEAST_WARRIOR)
+                                            counter--;
                                     if (counter * 200 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
                                 case "Closed Forest":
                                     int monsterCounter = 0;
-                                    for (int index = 0; index < this.board.getGraveyardCards().size(); index++)
-                                        if (this.board.getGraveyardCards().get(index).getCardType() == CardType.MONSTER)
+                                    for (Card graveyardCard : this.board.getGraveyardCards())
+                                        if (graveyardCard.getCardType() == CardType.MONSTER)
                                             monsterCounter++;
-                                    for (int index = 0; index < this.board.getMonsterCards().size(); index++)
-                                        if (this.board.getMonsterCards().get(index)
-                                                .getMonsterType() == MonsterType.BEAST)
+                                    for (MonsterCard monster : aiMonsters)
+                                        if (monster.getMonsterType() == MonsterType.BEAST)
                                             counter++;
                                     if (counter * monsterCounter * 100 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
                                 case "Umiiruka":
-                                    for (int index = 0; index < this.board.getMonsterCards().size(); index++)
-                                        if (this.board.getMonsterCards().get(index).getAttribute() == Attribute.WATER)
+                                    for (MonsterCard monster : aiMonsters)
+                                        if (monster.getAttribute() == Attribute.WATER)
                                             counter++;
+                                    for (MonsterCard monster : opponentMonsters)
+                                        if (monster.getAttribute() == Attribute.WATER)
+                                            counter--;
                                     if (counter * 500 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
@@ -355,6 +475,497 @@ abstract public class AI {
         if (opponent.getPlayerBoard().getMonsterCards().size() == 0)
             return ReasonableLevel.NOT_REASONABLE;
         if (phase == GamePhase.BATTLE)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveSwordsOfRevealingLight() {
+        boolean hasHiddenCard = false;
+        int betterCounter = 0;
+        HashMap<MonsterCard, Boolean> checkedCards = new HashMap<>();
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard monster : aiMonsters)
+            checkedCards.put(monster, false);
+        for (MonsterCard monster : opponentMonsters)
+            if (monster.getIsHidden()) {
+                hasHiddenCard = true;
+                break;
+            }
+        nextOpponentCard: for (MonsterCard opponentMonster : opponentMonsters)
+            for (MonsterCard aiMonster : aiMonsters)
+                if (!checkedCards.get(aiMonster) && opponentMonster.getAttackPoint() > aiMonster.getAttackPoint()
+                        && !opponentMonster.getIsHidden()) {
+                    betterCounter++;
+                    checkedCards.put(aiMonster, true);
+                    continue nextOpponentCard;
+                }
+
+        if (betterCounter > 1)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        if (hasHiddenCard || betterCounter == 1)
+            return ReasonableLevel.REASONABLE_FOR_EASY;
+        return ReasonableLevel.NOT_REASONABLE;
+    }
+
+    public ReasonableLevel isReasonableToActiveHarpiesFeatherDuster() {
+        if (opponent.getPlayerBoard().getSpellTrapCards().size() == 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        return ReasonableLevel.REASONABLE_FOR_HARD;
+    }
+
+    public ReasonableLevel isReasonableToActiveDarkHole() {
+        int heaviestDamageToOpponent = 0;
+        int heaviestDamageToSelf = 0;
+        int totalAIDamage = 0;
+        int totalOpponentDamage = 0;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard aiMonster : aiMonsters)
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                int difference = aiMonster.getAttackPoint() - opponentMonster.getAttackPoint();
+                if (difference > heaviestDamageToOpponent)
+                    heaviestDamageToOpponent = difference;
+                else if (difference < heaviestDamageToSelf)
+                    heaviestDamageToSelf = difference;
+            }
+
+        for (MonsterCard monster : aiMonsters)
+            totalAIDamage += monster.getAttackPoint();
+        for (MonsterCard monster : opponentMonsters)
+            totalOpponentDamage += monster.getAttackPoint();
+
+        if (heaviestDamageToSelf * (-1) > this.board.getLifePoints())
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        if (heaviestDamageToOpponent > opponent.getPlayerBoard().getLifePoints())
+            return ReasonableLevel.NOT_REASONABLE;
+        if (totalAIDamage > totalOpponentDamage)
+            return ReasonableLevel.NOT_REASONABLE;
+        if (totalAIDamage < totalOpponentDamage)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveSupplySquad() {
+        switch (this.board.getDeck().getMainDeck().size()) {
+            case 0:
+            case 1:
+                return ReasonableLevel.NOT_REASONABLE;
+            default:
+                return ReasonableLevel.REASONABLE_FOR_HARD;
+        }
+    }
+
+    public ReasonableLevel isReasonableToActiveMessengerOfPeace() {
+        if (iskeepingMessengerOfPeaceReasonable() == ReasonableLevel.REASONABLE_FOR_HARD)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.NOT_REASONABLE;
+    }
+
+    public ReasonableLevel isReasonableToActiveTwinTwisters() {
+        int opponentSpellTrapCards = opponent.getPlayerBoard().getSpellTrapCards().size();
+        if (opponentSpellTrapCards == 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        if (opponentSpellTrapCards == 1)
+            return ReasonableLevel.REASONABLE_FOR_EASY;
+        return ReasonableLevel.REASONABLE_FOR_HARD;
+    }
+
+    public ReasonableLevel isReasonableToActiveMysticalSpaceTyphoon() {
+        if (opponent.getPlayerBoard().getSpellTrapCards().size() == 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        return ReasonableLevel.REASONABLE_FOR_HARD;
+    }
+
+    public ReasonableLevel isReasonableToActiveRingOfDefense() {
+        ArrayList<SpellTrapCard> aiSpellTrapCards = this.board.getSpellTrapCards();
+        ArrayList<SpellTrapCard> opponentSpellTrapCards = opponent.getPlayerBoard().getSpellTrapCards();
+
+        for (SpellTrapCard aiTrap : aiSpellTrapCards)
+            if (aiTrap.getCardType() == CardType.TRAP)
+                if (aiTrap.getName().equals("Solemn Warning") || aiTrap.getName().equals("Wall of Revealing Light"))
+                    return ReasonableLevel.REASONABLE_FOR_HARD;
+
+        for (SpellTrapCard opponentTrap : opponentSpellTrapCards)
+            if (opponentTrap.getCardType() == CardType.TRAP && opponentTrap.getName().equals("Magic Cylinder"))
+                return ReasonableLevel.REASONABLE_FOR_HARD;
+
+        return ReasonableLevel.NOT_REASONABLE;
+    }
+
+    public ReasonableLevel isReasonableToActiveYami() {
+        int counter = 0;
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        boolean isChanged = false;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard aiMonster : aiMonsters) {
+            int aiMonsterPowerBeforeChange = aiMonster.getAttackPoint();
+            int aiMonsterPowerAfterChange = 0;
+            if (aiMonster.getMonsterType() == MonsterType.FIEND
+                    || aiMonster.getMonsterType() == MonsterType.SPELL_CASTER) {
+                aiMonsterPowerAfterChange = aiMonsterPowerBeforeChange + 200;
+                counter++;
+            } else if (aiMonster.getMonsterType() == MonsterType.FAIRY) {
+                aiMonsterPowerAfterChange = aiMonsterPowerBeforeChange - 200;
+                counter--;
+            }
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                int opponentMonsterPowerBeforeChange = opponentMonster.getAttackPoint();
+                int opponentMonsterPowerAfterChange = 0;
+                if (opponentMonster.getMonsterType() == MonsterType.FIEND
+                        || opponentMonster.getMonsterType() == MonsterType.SPELL_CASTER) {
+                    opponentMonsterPowerAfterChange = opponentMonsterPowerBeforeChange + 200;
+                    if (!isChanged)
+                        counter--;
+                } else if (opponentMonster.getMonsterType() == MonsterType.FAIRY) {
+                    opponentMonsterPowerAfterChange = opponentMonsterPowerBeforeChange - 200;
+                    if (!isChanged)
+                        counter++;
+                }
+                if (aiMonsterPowerBeforeChange > opponentMonsterPowerBeforeChange)
+                    winningBeforeUsage++;
+                if (aiMonsterPowerAfterChange > opponentMonsterPowerAfterChange)
+                    winningAfterUsage++;
+            }
+            isChanged = true;
+
+        }
+        if (winningAfterUsage > winningBeforeUsage && counter > 0)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        if (winningAfterUsage <= winningBeforeUsage && counter <= 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+
+    }
+
+    public ReasonableLevel isReasonableToActiveForest() {
+        int counter = 0;
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        boolean isChanged = false;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard aiMonster : aiMonsters) {
+            int aiMonsterPowerBeforeChange = aiMonster.getAttackPoint();
+            int aiMonsterPowerAfterChange = 0;
+            if (aiMonster.getMonsterType() == MonsterType.INSECT || aiMonster.getMonsterType() == MonsterType.BEAST
+                    || aiMonster.getMonsterType() == MonsterType.BEAST_WARRIOR) {
+                aiMonsterPowerAfterChange = aiMonsterPowerBeforeChange + 200;
+                counter++;
+            }
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                int opponentMonsterPowerBeforeChange = opponentMonster.getAttackPoint();
+                int opponentMonsterPowerAfterChange = 0;
+                if (opponentMonster.getMonsterType() == MonsterType.INSECT
+                        || opponentMonster.getMonsterType() == MonsterType.BEAST
+                        || opponentMonster.getMonsterType() == MonsterType.BEAST_WARRIOR) {
+                    opponentMonsterPowerAfterChange = opponentMonsterPowerBeforeChange + 200;
+                    if (!isChanged)
+                        counter--;
+                }
+                if (aiMonsterPowerBeforeChange > opponentMonsterPowerBeforeChange)
+                    winningBeforeUsage++;
+                if (aiMonsterPowerAfterChange > opponentMonsterPowerAfterChange)
+                    winningAfterUsage++;
+            }
+            isChanged = true;
+
+        }
+        if (winningAfterUsage > winningBeforeUsage && counter > 0)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        if (winningAfterUsage <= winningBeforeUsage && counter <= 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveClosedForest() {
+        int amount = 0;
+        int counter = 0;
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        boolean isChanged = false;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        ArrayList<Card> graveyard = this.board.getGraveyardCards();
+        for (Card card : graveyard)
+            if (card.getCardType() == CardType.MONSTER)
+                amount += 100;
+        for (MonsterCard aiMonster : aiMonsters) {
+            int aiMonsterPowerBeforeChange = aiMonster.getAttackPoint();
+            int aiMonsterPowerAfterChange = 0;
+            if (aiMonster.getMonsterType() == MonsterType.BEAST) {
+                aiMonsterPowerAfterChange = aiMonsterPowerBeforeChange + amount;
+                counter++;
+            }
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                int opponentMonsterPowerBeforeChange = opponentMonster.getAttackPoint();
+                int opponentMonsterPowerAfterChange = 0;
+                if (opponentMonster.getMonsterType() == MonsterType.BEAST) {
+                    opponentMonsterPowerAfterChange = opponentMonsterPowerBeforeChange + amount;
+                    if (!isChanged)
+                        counter--;
+                }
+                if (aiMonsterPowerBeforeChange > opponentMonsterPowerBeforeChange)
+                    winningBeforeUsage++;
+                if (aiMonsterPowerAfterChange > opponentMonsterPowerAfterChange)
+                    winningAfterUsage++;
+            }
+            isChanged = true;
+
+        }
+        if (winningAfterUsage > winningBeforeUsage && counter > 0)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        if (winningAfterUsage <= winningBeforeUsage && counter <= 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveUmiiruka() {
+        int counter = 0;
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        boolean isChanged = false;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard aiMonster : aiMonsters) {
+            int aiMonsterPowerBeforeChange = aiMonster.getAttackPoint();
+            int aiMonsterPowerAfterChange = 0;
+            if (aiMonster.getAttribute() == Attribute.WATER) {
+                aiMonsterPowerAfterChange = aiMonsterPowerBeforeChange + 500;
+                counter++;
+            }
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                int opponentMonsterPowerBeforeChange = 0;
+                if (opponentMonster.getIsHidden())
+                    opponentMonsterPowerBeforeChange = opponentMonster.getDefensePoint();
+                else
+                    opponentMonsterPowerBeforeChange = opponentMonster.getAttackPoint();
+                int opponentMonsterPowerAfterChange = 0;
+                if (opponentMonster.getAttribute() == Attribute.WATER) {
+                    if (opponentMonster.getIsHidden()) {
+                        opponentMonsterPowerAfterChange = opponentMonsterPowerBeforeChange - 400;
+                        if (!isChanged)
+                            counter++;
+                    } else {
+                        opponentMonsterPowerAfterChange = opponentMonsterPowerBeforeChange + 500;
+                        if (!isChanged)
+                            counter--;
+                    }
+                }
+                if (aiMonsterPowerBeforeChange > opponentMonsterPowerBeforeChange)
+                    winningBeforeUsage++;
+                if (aiMonsterPowerAfterChange > opponentMonsterPowerAfterChange)
+                    winningAfterUsage++;
+            }
+            isChanged = true;
+
+        }
+        if (winningAfterUsage > winningBeforeUsage && counter > 0)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        if (winningAfterUsage <= winningBeforeUsage && counter <= 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveSwordOfDarkDestruction() {
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard aiMonster : aiMonsters)
+            if (aiMonster.getAttribute() == Attribute.DARK)
+                for (MonsterCard opponentMonster : opponentMonsters) {
+                    if (opponentMonster.getIsHidden()) {
+                        if (aiMonster.getAttackPoint() > opponentMonster.getDefensePoint())
+                            winningBeforeUsage++;
+                        if (aiMonster.getAttackPoint() + 400 > opponentMonster.getDefensePoint())
+                            winningAfterUsage++;
+                    } else {
+                        if (aiMonster.getAttackPoint() > opponentMonster.getAttackPoint())
+                            winningBeforeUsage++;
+                        if (aiMonster.getAttackPoint() + 400 > opponentMonster.getAttackPoint())
+                            winningAfterUsage++;
+                    }
+                }
+        if (winningAfterUsage == 0 && winningBeforeUsage == 0)
+            return ReasonableLevel.NOT_REASONABLE;
+        if (winningAfterUsage > winningBeforeUsage)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveBlackPendant() {
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard aiMonster : aiMonsters)
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                if (opponentMonster.getIsHidden()) {
+                    if (aiMonster.getAttackPoint() > opponentMonster.getDefensePoint())
+                        winningBeforeUsage++;
+                    if (aiMonster.getAttackPoint() + 500 > opponentMonster.getDefensePoint())
+                        winningAfterUsage++;
+                } else {
+                    if (aiMonster.getAttackPoint() > opponentMonster.getAttackPoint())
+                        winningBeforeUsage++;
+                    if (aiMonster.getAttackPoint() + 500 > opponentMonster.getAttackPoint())
+                        winningAfterUsage++;
+                }
+            }
+        if (winningAfterUsage > winningBeforeUsage)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveUnitedWeStand() {
+        int amount = 0;
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+
+        for (MonsterCard monster : aiMonsters)
+            if (!monster.getIsHidden())
+                amount += 800;
+        for (MonsterCard aiMonster : aiMonsters)
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                if (opponentMonster.getIsHidden()) {
+                    if (aiMonster.getAttackPoint() > opponentMonster.getDefensePoint())
+                        winningBeforeUsage++;
+                    if (aiMonster.getAttackPoint() + amount > opponentMonster.getDefensePoint())
+                        winningAfterUsage++;
+                } else {
+                    if (aiMonster.getAttackPoint() > opponentMonster.getAttackPoint())
+                        winningBeforeUsage++;
+                    if (aiMonster.getAttackPoint() + amount > opponentMonster.getAttackPoint())
+                        winningAfterUsage++;
+                }
+            }
+        if (winningAfterUsage > winningBeforeUsage)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveMagnumShield() {
+        int winningBeforeUsage = 0;
+        int winningAfterUsage = 0;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (MonsterCard aiMonster : aiMonsters) {
+            int amount = aiMonster.getAttackPoint() + aiMonster.getDefensePoint();
+            for (MonsterCard opponentMonster : opponentMonsters) {
+                if (opponentMonster.getIsHidden()) {
+                    if (aiMonster.getAttackPoint() > opponentMonster.getDefensePoint())
+                        winningBeforeUsage++;
+                    if (amount > opponentMonster.getDefensePoint())
+                        winningAfterUsage++;
+                } else {
+                    if (aiMonster.getAttackPoint() > opponentMonster.getAttackPoint())
+                        winningBeforeUsage++;
+                    if (amount > opponentMonster.getAttackPoint())
+                        winningAfterUsage++;
+                }
+            }
+        }
+        if (winningAfterUsage > winningBeforeUsage)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.REASONABLE_FOR_EASY;
+    }
+
+    public ReasonableLevel isReasonableToActiveAdvancedRitualArt() {
+        MonsterCard ritualMonster = null;
+        ArrayList<Card> aiHand = this.board.getHandCards();
+        ArrayList<Card> aiDeck = this.board.getDeck().getMainDeck();
+        ArrayList<MonsterCard> aiMonstersInDeck = new ArrayList<>();
+        for (Card card: aiHand)
+            if (card.getCardType() == CardType.MONSTER) {
+                MonsterCard monster = (MonsterCard) card;
+                if (monster.getTrait() == Trait.RITUAL) {
+                    ritualMonster = monster;
+                    break;
+                }
+            }
+        for (Card card: aiDeck)
+            if (card.getCardType() == CardType.MONSTER)
+                aiMonstersInDeck.add((MonsterCard) card);
+        if (ritualMonster == null) return ReasonableLevel.NOT_REASONABLE;
+        if (isThereASetWithValueOfLevel(aiMonstersInDeck, ritualMonster.getLevel())) return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.NOT_REASONABLE;
+
+    }
+
+    public ReasonableLevel isReasonableToActiveTrapHole() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveMirrorForce() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveMagicCylinder() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveMindCrush() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveTorrentialTribute() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveTimeSeal() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveNegateAttack() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveSolemnWarning() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveMagicJamamer() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveCallOfTheHaunted() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveVanitysEmptiness() {
+
+    }
+
+    public ReasonableLevel isReasonableToActiveWallOfRevealingLight() {
+
+    }
+
+    /*------Some Exceptions------*/
+    /*------Some Exceptions------*/
+    /*------Some Exceptions------*/
+    /*------Some Exceptions------*/
+    /*------Some Exceptions------*/
+
+    public ReasonableLevel iskeepingMessengerOfPeaceReasonable() {
+        int aiMonstersCounter = 0;
+        int opponentMonsterCounter = 0;
+        ArrayList<MonsterCard> aiMonsters = this.board.getMonsterCards();
+        ArrayList<MonsterCard> opponentMonsters = opponent.getPlayerBoard().getMonsterCards();
+        for (int i = 0; i < aiMonsters.size(); i++)
+            if (aiMonsters.get(i).getAttackPoint() > 1500)
+                aiMonstersCounter++;
+        for (int i = 0; i < opponentMonsters.size(); i++)
+            if (opponentMonsters.get(i).getAttackPoint() > 1500)
+                opponentMonsterCounter++;
+
+        if (this.board.getLifePoints() <= 100)
+            return ReasonableLevel.NOT_REASONABLE;
+        if (opponentMonsterCounter > aiMonstersCounter)
             return ReasonableLevel.REASONABLE_FOR_HARD;
         return ReasonableLevel.REASONABLE_FOR_EASY;
     }

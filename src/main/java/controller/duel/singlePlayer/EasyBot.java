@@ -9,9 +9,9 @@ import models.Player;
 
 public class EasyBot extends AI {
 
-    public EasyBot(Deck deck, Player opponent) throws CloneNotSupportedException {
+    public EasyBot(Player opponent) throws CloneNotSupportedException {
         setName("EasyBot");
-        setDeck(deck);
+        setDeck(Deck.generateDeck(true));
         setBoard(new Board(this));
         setOpponent(opponent);
     }
@@ -27,7 +27,7 @@ public class EasyBot extends AI {
             } else if (level < 7 && level > 4)
                 sacrificeWeakestMonster();
 
-            this.board.summonOrSetMonser(index);
+            this.board.summonOrSetMonster(index);
         }
     }
 
@@ -44,21 +44,28 @@ public class EasyBot extends AI {
                 opponentMonsterPower = opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getDefensePoint();
             if (opponentMonsterPower > aiMonsterPower) {
                 this.board.setLifePoints(this.board.getLifePoints() + aiMonsterPower - opponentMonsterPower);
-                this.board.removeMonser(monsterIndex);
+                this.board.removeMonster(monsterIndex);
             } else if (opponentMonsterPower < aiMonsterPower) {
                 opponent.getPlayerBoard().setLifePoints(
                         opponent.getPlayerBoard().getLifePoints() + opponentMonsterPower - aiMonsterPower);
-                opponent.getPlayerBoard().removeMonser(opponentIndex);
+                opponent.getPlayerBoard().removeMonster(opponentIndex);
             } else {
-                opponent.getPlayerBoard().removeMonser(opponentIndex);
-                this.board.removeMonser(monsterIndex);
+                opponent.getPlayerBoard().removeMonster(opponentIndex);
+                this.board.removeMonster(monsterIndex);
             }
         }
     }
 
-    public void checkSpellTrapsForActivate(GamePhase phase) {
+    public void checkSpellForActivate(GamePhase phase) {
         for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
-            if (isThisReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
+            if (isSpellReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
+                    opponent.getPlayerBoard(), phase) != ReasonableLevel.NOT_REASONABLE)
+                activeSpellTrap(i);
+    }
+
+    public void checkTrapForActivate(GamePhase phase) {
+        for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
+            if (isTrapReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
                     opponent.getPlayerBoard(), phase) != ReasonableLevel.NOT_REASONABLE)
                 activeSpellTrap(i);
     }
