@@ -66,7 +66,7 @@ public class TurnEffects {
         }
     }
 
-    private static boolean isAnyMonsterInGrave(Board board) {
+    public static boolean isAnyMonsterInGrave(Board board) {
         for (Card graveyardCard : board.getGraveyardCards()) {
             if (graveyardCard instanceof MonsterCard)
                 return true;
