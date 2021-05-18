@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 public enum MenuEnum {
     LOGIN_MENU,

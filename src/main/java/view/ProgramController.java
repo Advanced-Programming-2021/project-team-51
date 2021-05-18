@@ -1,7 +1,9 @@
-package controller;
+package view;
 
-import controller.menu.*;
+import view.MenuEnum;
+import view.menus.*;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ProgramController {
@@ -10,43 +12,46 @@ public class ProgramController {
     LoginMenu loginMenu ;
     MainMenu mainMenu ;
     ShopMenu shopMenu;
-    Scoreboard scoreboard ;
+    ScoreboardMenu scoreboardMenu ;
     DeckMenu deckMenu;
-    CheatMenu cheatMenu;
-    ImportExport importexport;
+    ImportExportMenu importExportMenu;
     ProfileMenu profileMenu;
-    Duel duel;
+    DuelMenu duelMenu;
 
 
-    public void run() {
+    public void run() throws CloneNotSupportedException, IOException {
         while(currentMenu!= MenuEnum.EXIT){
             String command = scanner.nextLine();
             if (currentMenu == MenuEnum.LOGIN_MENU) {
                 loginMenu.run(command);
             }
             else if(currentMenu == MenuEnum.MAIN_MENU){
+                mainMenu = new MainMenu();
                 mainMenu.run(command);
             }
             else if (currentMenu == MenuEnum.SHOP_MENU){
+                shopMenu = new ShopMenu();
                 shopMenu.run(command);
             }
             else if (currentMenu == MenuEnum.SCOREBOARD){
-                scoreboard.run(command);
+                scoreboardMenu = new ScoreboardMenu();
+                scoreboardMenu.run(command);
             }
             else if (currentMenu == MenuEnum.DECK_MENU){
+                deckMenu = new DeckMenu();
                 deckMenu.run(command);
             }
-            else if (currentMenu == MenuEnum.CHEAT_MENU){
-                cheatMenu.run(command);
-            }
             else if(currentMenu == MenuEnum.IMPORT_EXPORT){
-                importexport.run(command);
+                importExportMenu = new ImportExportMenu();
+                importExportMenu.run(command);
             }
             else if (currentMenu == MenuEnum.PROFILE_MENU){
+                profileMenu = new ProfileMenu();
                 profileMenu.run(command);
             }
             else if (currentMenu == MenuEnum.DUEL){
-                duel.run(command);
+                duelMenu = new DuelMenu();
+                duelMenu.run(command);
             }
 
         }

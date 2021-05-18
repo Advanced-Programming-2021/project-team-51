@@ -35,8 +35,7 @@ public class Deck {
         setOwner(ownerName);
     }
 
-    public Deck(String name, String ownerName, ArrayList<Card> mainDeck, ArrayList<Card> sideDeck,
-            HashMap<Card, Integer> cards) {
+    public Deck(String name, String ownerName, ArrayList<Card> mainDeck, ArrayList<Card> sideDeck, HashMap<Card, Integer> cards) {
         allDecks.add(this);
         setName(name);
         setOwner(ownerName);

@@ -8,6 +8,11 @@ public class Player {
     private Board playerBoard;
     private String userName;
     private String nickName;
+    private boolean isRivalTrapsBlocked = false;
+    private boolean canRivalAttack = true;
+    private boolean isRivalReveled = false;
+    private boolean canStrongRivalAttack = true;
+    private int lifePoint = 1600; //Not So Sure About The number
 
     static {
         allPlayers = new ArrayList<>();
@@ -63,5 +68,44 @@ public class Player {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public boolean getRivalTrapsBlocked() {
+        return this.isRivalTrapsBlocked;
+    }
+
+    public void setRivalTrapsBlocked(boolean isRivalTrapsBlocked) {
+        this.isRivalTrapsBlocked = isRivalTrapsBlocked;
+    }
+
+    public int getLifePoint() {
+        return this.lifePoint;
+    }
+
+    public void setLifePoint(int lifePoint) {
+        this.lifePoint = lifePoint;
+    }
+
+    public boolean isRivalReveled() {
+        return this.isRivalReveled;
+    }
+
+    public void setRivalReveled(boolean rivalReveled) {
+        this.isRivalReveled = rivalReveled;
+    }
+
+    public boolean getCanRivalAttack() {
+        return this.canRivalAttack;
+    }
+
+    public void setCanRivalAttack(boolean canRivalAttack) {
+        this.canRivalAttack = canRivalAttack;
+    }
+    public boolean getCanStrongRivalAttack() {
+        return this.canStrongRivalAttack;
+    }
+
+    public void setCanStrongRivalAttack(boolean canStrongRivalAttack) {
+        this.canStrongRivalAttack = canStrongRivalAttack;
     }
 }

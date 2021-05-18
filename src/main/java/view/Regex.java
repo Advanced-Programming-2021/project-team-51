@@ -88,23 +88,44 @@ public class Regex {
 
     /*---DUEL MULTI---*/
 
-    public static String duelMultiplayer1 = "^duel (--new|-n) (--second-player|-sp) (\\S+) (--rounds|-r) (1|3)$";
-    public static String duelMultiplayer2 = "^duel (--new|-n) (--rounds|-r) (1|3) (--second-player|-sp) (\\S+)$";
-    public static String duelMultiplayer3 = "^duel (--second-player|-sp) (\\S+) (--new|-n) (--rounds|-r) (1|3)$";
-    public static String duelMultiplayer4 = "^duel (--second-player|-sp) (\\S+) (--rounds|-r) (1|3) (--new|-n)$";
-    public static String duelMultiplayer5 = "^duel (--rounds|-r) (1|3) (--second-player|-sp) (\\S+) (--new|-n)$";
-    public static String duelMultiplayer6 = "^duel (--rounds|-r) (1|3) (--new|-n) (--second-player|-sp) (\\S+)$";
+    public static String duelMultiplayer1 = "^duel (--new|-n) (--second-player|-sp) (\\S+) (--rounds|-r) (\\d+)$";
+    public static String duelMultiplayer2 = "^duel (--new|-n) (--rounds|-r) (\\d+) (--second-player|-sp) (\\S+)$";
+    public static String duelMultiplayer3 = "^duel (--second-player|-sp) (\\S+) (--new|-n) (--rounds|-r) (\\d+)$";
+    public static String duelMultiplayer4 = "^duel (--second-player|-sp) (\\S+) (--rounds|-r) (\\d+) (--new|-n)$";
+    public static String duelMultiplayer5 = "^duel (--rounds|-r) (\\d+) (--second-player|-sp) (\\S+) (--new|-n)$";
+    public static String duelMultiplayer6 = "^duel (--rounds|-r) (\\d+) (--new|-n) (--second-player|-sp) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---DUEL SINGLE---*/
 
     //What is sort form of ai?:|
-    public static String duelSingerPlayer1 = "^duel (--new|-n) (--ai|-ai) (--rounds|-r) (1|3)$";
-    public static String duelSingerPlayer2 = "^duel (--new|-n) (--rounds|-r) (1|3) (--ai|-ai)$";
-    public static String duelSingerPlayer3 = "^duel (--ai|-ai) (--new|-n) (--rounds|-r) (1|3)$";
-    public static String duelSingerPlayer4 = "^duel (--ai|-ai) (--rounds|-r) (1|3) (--new|-n)$";
-    public static String duelSingerPlayer5 = "^duel (--rounds|-r) (1|3) (--new|-n) (--ai|-ai)$";
-    public static String duelSingerPlayer6 = "^duel (--rounds|-r) (1|3) (--ai|-ai) (--new|-n)$";
+    public static String duelSinglePlayer1 = "^duel (--new|-n) (--ai|-ai) (--rounds|-r) (\\d+) (--difficulty|-d) (easy|hard)$";
+    public static String duelSinglePlayer2 = "^duel (--new|-n) (--rounds|-r) (\\d+) (--ai|-ai) (--difficulty|-d) (easy|hard)$";
+    public static String duelSinglePlayer3 = "^duel (--new|-n) (--ai|-ai) (--difficulty|-d) (easy|hard) (--rounds|-r) (\\d+)$";
+    public static String duelSinglePlayer4 = "^duel (--new|-n) (--difficulty|-d) (easy|hard) (--ai|-ai) (--rounds|-r) (\\d+)$";
+    public static String duelSinglePlayer5 = "^duel (--new|-n) (--difficulty|-d) (easy|hard) (--rounds|-r) (\\d+) (--ai|-ai)$";
+    public static String duelSinglePlayer6 = "^duel (--new|-n) (--rounds|-r) (\\d+) (--difficulty|-d) (easy|hard) (--ai|-ai)$";
+    //===============================
+    public static String duelSinglePlayer7 = "^duel (--ai|-ai) (--new|-n) (--rounds|-r) (\\d+) (--difficulty|-d) (easy|hard)$";
+    public static String duelSinglePlayer8 = "^duel (--ai|-ai) (--rounds|-r) (\\d+) (--new|-n) (--difficulty|-d) (easy|hard)$";
+    public static String duelSinglePlayer9 = "^duel (--ai|-ai) (--new|-n) (--difficulty|-d) (easy|hard) (--rounds|-r) (\\d+)$";
+    public static String duelSinglePlayer10 = "^duel (--ai|-ai) (--difficulty|-d) (easy|hard) (--new|-n) (--rounds|-r) (\\d+)$";
+    public static String duelSinglePlayer11 = "^duel (--ai|-ai) (--difficulty|-d) (easy|hard) (--rounds|-r) (\\d+) (--new|-n)$";
+    public static String duelSinglePlayer12 = "^duel (--ai|-ai) (--rounds|-r) (\\d+) (--difficulty|-d) (easy|hard) (--new|-n)$";
+    //==============================
+    public static String duelSinglePlayer13 = "^duel (--rounds|-r) (\\d+) (--new|-n) (--ai|-ai) (--difficulty|-d) (easy|hard)$";
+    public static String duelSinglePlayer14 = "^duel (--rounds|-r) (\\d+) (--ai|-ai) (--new|-n) (--difficulty|-d) (easy|hard)$";
+    public static String duelSinglePlayer15 = "^duel (--rounds|-r) (\\d+) (--new|-n) (--difficulty|-d) (easy|hard) (--ai|-ai)$";
+    public static String duelSinglePlayer16 = "^duel (--rounds|-r) (\\d+) (--difficulty|-d) (easy|hard) (--new|-n) (--ai|-ai)$";
+    public static String duelSinglePlayer17 = "^duel (--rounds|-r) (\\d+) (--difficulty|-d) (easy|hard) (--ai|-ai) (--new|-n)$";
+    public static String duelSinglePlayer18 = "^duel (--rounds|-r) (\\d+) (--ai|-ai) (--difficulty|-d) (easy|hard) (--new|-n)$";
+    //==============================
+    public static String duelSinglePlayer19 = "^duel (--difficulty|-d) (easy|hard) (--new|-n) (--ai|-ai) (--rounds|-r) (\\d+)$";
+    public static String duelSinglePlayer20 = "^duel (--difficulty|-d) (easy|hard) (--ai|-ai) (--new|-n) (--rounds|-r) (\\d+)$";
+    public static String duelSinglePlayer21 = "^duel (--difficulty|-d) (easy|hard) (--new|-n) (--rounds|-r) (\\d+) (--ai|-ai)$";
+    public static String duelSinglePlayer22 = "^duel (--difficulty|-d) (easy|hard) (--rounds|-r) (\\d+) (--new|-n) (--ai|-ai)$";
+    public static String duelSinglePlayer23 = "^duel (--difficulty|-d) (easy|hard) (--rounds|-r) (\\d+) (--ai|-ai) (--new|-n)$";
+    public static String duelSinglePlayer24 = "^duel (--difficulty|-d) (easy|hard) (--ai|-ai) (--rounds|-r) (\\d+) (--new|-n)$";
     //----------------------------------------------------------------------------------------------
 
     /*---SELECTION AND DESELECTION---*/

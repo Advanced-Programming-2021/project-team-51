@@ -3,11 +3,15 @@ package models.cards.monsters;
 import models.cards.Card;
 import models.cards.CardType;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MonsterCard extends Card {
 
     private static ArrayList<MonsterCard> allMonsterCards = new ArrayList<>();
+    private static final ArrayList<MonsterCard> allMonsterCardsToShow = new ArrayList<>();
     private int level;
     private Attribute attribute;
     private MonsterType monsterType;
@@ -48,6 +52,12 @@ public class MonsterCard extends Card {
         this.setTrait(trait);
         this.setCardNumber(cardNumber);
     }
+
+    private MonsterCard(String name, int price) {
+        this.setPrice(price);
+        this.setName(name);
+    }
+
     public static MonsterCard getMonsterCardByNumber(int number) {
         for (MonsterCard monsterCard : allMonsterCards) {
             if (monsterCard.getCardNumber() == number)
@@ -60,6 +70,19 @@ public class MonsterCard extends Card {
         return allMonsterCards;
     }
 
+    public static ArrayList<MonsterCard> getAllMonsterCardsToShow() throws IOException {
+        if (allMonsterCardsToShow.size() > 0)
+            return allMonsterCardsToShow;
+
+        String line = "";
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("Monster.csv"));
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] values = line.split(",");
+            allMonsterCardsToShow.add(new MonsterCard(values[0], Integer.parseInt(values[8])));
+        }
+        return allMonsterCardsToShow;
+    }
+
     public static void setAllMonsterCards(ArrayList<MonsterCard> cards) {
         allMonsterCards = cards;
     }
@@ -70,7 +93,7 @@ public class MonsterCard extends Card {
                 this.getMonsterType(), this.getAttackPoint(), this.getDefensePoint(), this.getTrait(), this.getCardNumber());
     }
 
-    private void setLevel(int level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -78,7 +101,7 @@ public class MonsterCard extends Card {
         return this.level;
     }
 
-    private void setAttribute(Attribute attribute) {
+    public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
 
@@ -86,7 +109,7 @@ public class MonsterCard extends Card {
         return this.attribute;
     }
 
-    private void setMonsterType(MonsterType monsterType) {
+    public void setMonsterType(MonsterType monsterType) {
         this.monsterType = monsterType;
     }
 
@@ -94,7 +117,7 @@ public class MonsterCard extends Card {
         return this.monsterType;
     }
 
-    private void setAttackPoint(int attackPoint) {
+    public void setAttackPoint(int attackPoint) {
         this.attackPoint = attackPoint;
     }
 
@@ -102,7 +125,7 @@ public class MonsterCard extends Card {
         return this.attackPoint;
     }
 
-    private void setDefensePoint(int defensePoint) {
+    public void setDefensePoint(int defensePoint) {
         this.defensePoint = defensePoint;
     }
 
@@ -110,7 +133,7 @@ public class MonsterCard extends Card {
         return this.defensePoint;
     }
 
-    private void setTrait(Trait trait) {
+    public void setTrait(Trait trait) {
         this.trait = trait;
     }
 

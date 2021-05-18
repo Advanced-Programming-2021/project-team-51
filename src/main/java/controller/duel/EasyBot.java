@@ -37,7 +37,7 @@ public class EasyBot extends AI {
             } else if (level < 7 && level > 4)
                 sacrificeWeakestMonster();
 
-            this.board.summonOrSetMonser(index);
+            this.board.summonOrSetMonster(index);
         }
     }
 
@@ -50,7 +50,7 @@ public class EasyBot extends AI {
                     .setLifePoints(opponent.getPlayerBoard().getLifePoints()
                             + opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getAttackPoint()
                             - this.board.getMonsterCards().get(monsterIndex).getAttackPoint());
-            opponent.getPlayerBoard().removeMonser(opponentIndex);
+            opponent.getPlayerBoard().removeMonster(opponentIndex);
         }
     }
 
