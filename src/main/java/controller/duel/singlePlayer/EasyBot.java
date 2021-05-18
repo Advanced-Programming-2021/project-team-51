@@ -59,14 +59,14 @@ public class EasyBot extends AI {
     public void checkSpellForActivate(GamePhase phase) {
         for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
             if (isSpellReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
-                    opponent.getPlayerBoard(), phase) != ReasonableLevel.NOT_REASONABLE)
+                    phase) != ReasonableLevel.NOT_REASONABLE)
                 activeSpellTrap(i);
     }
 
-    public void checkTrapForActivate(GamePhase phase) {
+    public void checkTrapForActivate(MonsterCard summoned, MonsterCard attacked) {
         for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
             if (isTrapReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
-                    opponent.getPlayerBoard(), phase) != ReasonableLevel.NOT_REASONABLE)
+                    summoned, attacked) != ReasonableLevel.NOT_REASONABLE)
                 activeSpellTrap(i);
     }
 

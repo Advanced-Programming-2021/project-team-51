@@ -6,6 +6,7 @@ import java.util.HashMap;
 import models.cards.Card;
 import models.cards.MakeCards;
 
+
 public class Deck {
 
     public static ArrayList<Deck> allDecks;

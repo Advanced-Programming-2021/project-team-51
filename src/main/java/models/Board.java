@@ -10,6 +10,7 @@ import java.util.Collections;
 
 import controller.duel.singlePlayer.AI;
 
+
 public class Board {
 
     private ArrayList<MonsterCard> monsterBoard = new ArrayList<>();

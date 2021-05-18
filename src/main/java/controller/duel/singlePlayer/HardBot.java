@@ -7,7 +7,6 @@ import models.Player;
 import models.cards.monsters.MonsterCard;
 import models.cards.monsters.Mode;
 
-
 public class HardBot extends AI {
 
     public HardBot(Player opponent) throws CloneNotSupportedException {
@@ -29,7 +28,7 @@ public class HardBot extends AI {
                 sacrificeWeakestMonster();
 
             if (monster.getAttackPoint() < monster.getDefensePoint())
-            this.board.getHandCards().get(index).setIsHidden(true);
+                this.board.getHandCards().get(index).setIsHidden(true);
             this.board.summonOrSetMonster(index);
         }
     }
@@ -62,14 +61,14 @@ public class HardBot extends AI {
     public void checkSpellForActivate(GamePhase phase) {
         for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
             if (isSpellReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
-                    opponent.getPlayerBoard(), phase) == ReasonableLevel.REASONABLE_FOR_HARD)
+                    phase) == ReasonableLevel.REASONABLE_FOR_HARD)
                 activeSpellTrap(i);
     }
-    
-    public void checkTrapForActivate(GamePhase phase) {
+
+    public void checkTrapForActivate(MonsterCard summoned, MonsterCard attacked) {
         for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
             if (isTrapReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
-                    opponent.getPlayerBoard(), phase) == ReasonableLevel.REASONABLE_FOR_HARD)
+                    summoned, attacked) == ReasonableLevel.REASONABLE_FOR_HARD)
                 activeSpellTrap(i);
     }
 }
