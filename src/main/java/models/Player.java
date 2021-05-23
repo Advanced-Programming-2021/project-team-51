@@ -12,7 +12,8 @@ public class Player {
     private boolean canRivalAttack = true;
     private boolean isRivalReveled = false;
     private boolean canStrongRivalAttack = true;
-    private int lifePoint = 1600; //Not So Sure About The number
+    private boolean canRivalPickCard = true;
+    private int lifePoint = 8000;
 
     static {
         allPlayers = new ArrayList<>();
@@ -101,8 +102,17 @@ public class Player {
     public void setCanRivalAttack(boolean canRivalAttack) {
         this.canRivalAttack = canRivalAttack;
     }
+
     public boolean getCanStrongRivalAttack() {
         return this.canStrongRivalAttack;
+    }
+
+    public void setCanRivalPickCard(boolean canRivalPickCard) {
+        this.canRivalPickCard = canRivalPickCard;
+    }
+
+    public boolean getCanRivalPickCard() {
+        return this.canRivalPickCard;
     }
 
     public void setCanStrongRivalAttack(boolean canStrongRivalAttack) {

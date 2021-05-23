@@ -15,6 +15,7 @@ public class MonsterCard extends Card {
     private int level;
     private Attribute attribute;
     private MonsterType monsterType;
+    private SummonType summonType;
     private int attackPoint;
     private int defensePoint;
     private Trait trait;
@@ -115,6 +116,14 @@ public class MonsterCard extends Card {
 
     public MonsterType getMonsterType() {
         return this.monsterType;
+    }
+
+    public void setSummonType(SummonType summonType) {
+        this.summonType = summonType;
+    }
+
+    public SummonType getSummonType() {
+        return this.summonType;
     }
 
     public void setAttackPoint(int attackPoint) {
