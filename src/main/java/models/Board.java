@@ -13,20 +13,19 @@ import controller.duel.singlePlayer.AI;
 
 public class Board {
 
-    private ArrayList<MonsterCard> monsterBoard = new ArrayList<>();
-    private ArrayList<SpellTrapCard> spellAndTrapBoard = new ArrayList<>();
-    private ArrayList<Card> graveyard = new ArrayList<>();
+    private final ArrayList<MonsterCard> monsterBoard = new ArrayList<>();
+    private final ArrayList<SpellTrapCard> spellAndTrapBoard = new ArrayList<>();
+    private final ArrayList<Card> graveyard = new ArrayList<>();
     private MonsterCard swordOfDarkDestructionEquipped;
     private MonsterCard blackPendantEquipped;
     private MonsterCard unitedWeStandEquipped;
     private MonsterCard magnumShieldEquipped;
-    private ArrayList<Card> cardsInHand = new ArrayList<>();
+    private final ArrayList<Card> cardsInHand = new ArrayList<>();
     private Player owner;
     private Card fieldZone;
     private Deck deck;
     private boolean isSuijinEffected;
     private int lifePoints;
-    private int counter = 0;
 
     public Board(Player owner) throws CloneNotSupportedException {
         setOwner(owner);
@@ -148,36 +147,54 @@ public class Board {
         return this.magnumShieldEquipped;
     }
 
+    public ArrayList<MonsterCard> getMonsters() {
+        ArrayList<MonsterCard> monsters = new ArrayList<>();
+        for (MonsterCard monsterCard: monsterBoard)
+            if (monsterCard != null) monsters.add(monsterCard);
+            return monsters;
+    }
+
+    public ArrayList<SpellTrapCard> getSpellTraps() {
+        ArrayList<SpellTrapCard> spellTraps = new ArrayList<>();
+        for (SpellTrapCard spellTrapCard: spellAndTrapBoard)
+            if (spellTrapCard != null) spellTraps.add(spellTrapCard);
+            return spellTraps;
+    }
+
     public boolean hasSpellTrapZoneSpace() {
-        if (spellAndTrapBoard.size() == 5)
-            return false;
-        return true;
+        return getSpellTraps().size() != 5;
     }
 
     public boolean hasMonsterZoneSpace() {
-        if (monsterBoard.size() == 5)
-            return false;
-        return true;
+        return getMonsters().size() != 5;
     }
 
     public void summonOrSetMonster(int index) {
-        monsterBoard.add((MonsterCard) cardsInHand.get(index));
-        removeCardsFromHand(index);
+        for (int i = 0 ; i < 5 ; i++)
+            if (monsterBoard.get(i) == null) {
+                monsterBoard.add((MonsterCard) cardsInHand.get(index));
+                removeCardsFromHand(index);
+                break;
+            }
     }
 
     public void removeMonster(int index) {
         addToGraveyard(monsterBoard.get(index));
-        monsterBoard.remove(index);
+        monsterBoard.set(index, null);
     }
 
     public void summonOrSetSpellAndTrap(int index) {
-        spellAndTrapBoard.add((SpellTrapCard) cardsInHand.get(index));
-        removeCardsFromHand(index);
+        for (int i = 0 ; i < 5 ; i++)
+            if (spellAndTrapBoard.get(i) == null) {
+                spellAndTrapBoard.add((SpellTrapCard) cardsInHand.get(index));
+                removeCardsFromHand(index);
+                break;
+            }
     }
 
     public void removeSpellAndTrap(int index) {
         addToGraveyard(spellAndTrapBoard.get(index));
-        spellAndTrapBoard.remove(index);
+        spellAndTrapBoard.set(index, null);
     }
 
     public void addToGraveyard(Card card) {
@@ -197,8 +214,7 @@ public class Board {
     }
 
     public void removeCardFromDeck() {
-        deck.getMainDeck().remove(counter);
-        counter++;
+        deck.getMainDeck().remove(0);
     }
 
     public void addLifePoints(int amount) {
@@ -206,7 +222,7 @@ public class Board {
     }
 
     public void drawCard() {
-        addCardsInHand(deck.getMainDeck().get(counter));
+        addCardsInHand(deck.getMainDeck().get(0));
         removeCardFromDeck();
     }
 
@@ -267,7 +283,7 @@ public class Board {
             boardString.append("O\t\t\t\t\t\t");
         boardString.append(this.graveyard.size() + "\n\t");
         for (int i = 4; i > -1; i -= 2) {
-            if (i + 1 > monsterBoard.size())
+            if (monsterBoard.get(i) == null)
                 boardString.append("E\t");
             else if (monsterBoard.get(i).getMode() == Mode.ATTACK)
                 boardString.append("OO\t");
@@ -277,7 +293,7 @@ public class Board {
                 boardString.append("DO\t");
         }
         for (int i = 1; i < 4; i += 2) {
-            if (i + 1 > monsterBoard.size())
+            if (monsterBoard.get(i) == null)
                 boardString.append("E\t");
             else if (monsterBoard.get(i).getMode() == Mode.ATTACK)
                 boardString.append("OO\t");
@@ -288,7 +304,7 @@ public class Board {
         }
         boardString.append("\n\t");
         for (int i = 4; i > -1; i -= 2) {
-            if (i + 1 > spellAndTrapBoard.size())
+            if (spellAndTrapBoard.get(i) == null)
                 boardString.append("E\t");
             else if (spellAndTrapBoard.get(i).getIsHidden())
                 boardString.append("H\t");
@@ -296,7 +312,7 @@ public class Board {
                 boardString.append("O\t");
         }
         for (int i = 1; i < 4; i += 2) {
-            if (i + 1 > spellAndTrapBoard.size())
+            if (spellAndTrapBoard.get(i) == null)
                 boardString.append("E\t");
             else if (spellAndTrapBoard.get(i).getIsHidden())
                 boardString.append("H\t");
@@ -323,7 +339,7 @@ public class Board {
         boardString.append("\n" + deck.getMainDeck().size() + "\n\t");
 
         for (int i = 1; i < 4; i += 2) {
-            if (i + 1 > spellAndTrapBoard.size())
+            if (spellAndTrapBoard.get(i) == null)
                 boardString.append("E\t");
             else if (spellAndTrapBoard.get(i).getIsHidden())
                 boardString.append("H\t");
@@ -332,7 +348,7 @@ public class Board {
         }
 
         for (int i = 4; i > -1; i -= 2) {
-            if (i + 1 > spellAndTrapBoard.size())
+            if (spellAndTrapBoard.get(i) == null)
                 boardString.append("E\t");
             else if (spellAndTrapBoard.get(i).getIsHidden())
                 boardString.append("H\t");
@@ -343,7 +359,7 @@ public class Board {
         boardString.append("\n\t");
 
         for (int i = 1; i < 4; i += 2) {
-            if (i + 1 > monsterBoard.size())
+            if (monsterBoard.get(i) == null)
                 boardString.append("E\t");
             else if (monsterBoard.get(i).getMode() == Mode.ATTACK)
                 boardString.append("OO\t");
@@ -354,7 +370,7 @@ public class Board {
         }
 
         for (int i = 4; i > -1; i -= 2) {
-            if (i + 1 > monsterBoard.size())
+            if (monsterBoard.get(i) == null)
                 boardString.append("E\t");
             else if (monsterBoard.get(i).getMode() == Mode.ATTACK)
                 boardString.append("OO\t");

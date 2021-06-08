@@ -1,12 +1,12 @@
 package models;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.kie.commons.java.nio.file.Files;
-import org.kie.commons.java.nio.file.Paths;
 
 import models.cards.Card;
 import models.cards.monsters.MonsterCard;
@@ -25,9 +25,11 @@ public class SaveData {
             int key = 0;
             for (int i = 0; i < fileNames.length; i++) {
                 boolean isThere = false;
-                for (int j = 0; j < fileNames.length; j++)
-                    if (fileNames[j].equals("card" + i))
+                for (String fileName : fileNames)
+                    if (fileName.equals("card" + i)) {
                         isThere = true;
+                        break;
+                    }
 
                 if (!isThere) {
                     key = i;
@@ -42,28 +44,28 @@ public class SaveData {
         }
     }
 
-    public ArrayList<Card> loadCustomCards() {
+    public ArrayList<Card> loadCustomCards() throws IOException {
         ArrayList<Card> cards = new ArrayList<>();
             File file = new File("C:\\YuGiOhData\\savedCards");
             String[] fileNames = file.list();
-            for (int i = 0; i < fileNames.length; i++) {
-                String cardName = new String(Files.readAllBytes(Paths.get(fileNames[i])));
-                cards.add(Card.getCardByName(cardName));
-            }
+        for (String fileName : fileNames) {
+            String cardName = new String(Files.readAllBytes(Paths.get(fileName)));
+            cards.add(Card.getCardByName(cardName));
+        }
         return cards;
     }
 
-    public void save() {
+    public static void save() {
         File makeDirection = new File("C:\\YuGiOhData");
-        if (!makeDirection.isDirectory())
-            makeDirection.mkdir();
-
-            saveAllCards();
-            saveAllDecks();
-            saveAllUsers();
+        if (!makeDirection.isDirectory() || !makeDirection.exists())
+            if (makeDirection.mkdir()) {
+                saveAllCards();
+                saveAllDecks();
+                saveAllUsers();
+            }
     }
 
-    public void saveAllUsers() {
+    public static void saveAllUsers() {
         ArrayList<User> allUsers = User.getSortedUsers();
         try {
             FileWriter writer = new FileWriter("C:\\YuGiOhData\\users.DAT");
@@ -75,7 +77,7 @@ public class SaveData {
         
     }
 
-    public void saveAllCards() {
+    public static void saveAllCards() {
         ArrayList<Card> allCards = Card.getAllCards();
         try {
             FileWriter writer = new FileWriter("C:\\YuGiOhData\\cards.DAT");
@@ -89,7 +91,7 @@ public class SaveData {
         
     }
 
-    public void saveSpellsAndTraps() {
+    public static void saveSpellsAndTraps() {
         ArrayList<SpellTrapCard> allSpellsAndTraps = SpellTrapCard.getAllSpellTrapCards();
         try {
             FileWriter writer = new FileWriter("C:\\YuGiOhData\\spells&traps.DAT");
@@ -101,7 +103,7 @@ public class SaveData {
         
     }
 
-    public void saveMonsters() {
+    public static void saveMonsters() {
         ArrayList<MonsterCard> allMonsters = MonsterCard.getAllMonsterCards();
         try {
             FileWriter writer = new FileWriter("C:\\YuGiOhData\\monsters.DAT");
@@ -113,7 +115,7 @@ public class SaveData {
         
     }
 
-    public void saveAllDecks() {
+    public static void saveAllDecks() {
         ArrayList<Deck> allDecks = Deck.getAllDecks();
         try {
             FileWriter writer = new FileWriter("C:\\YuGiOhData\\decks.DAT");
@@ -125,10 +127,9 @@ public class SaveData {
         
     }
 
-    public void load() {
+    public static void load() throws IOException {
         File makeDirection = new File("C:\\YuGiOhData");
         if (makeDirection.isDirectory()) {
-
             loadCards();
             loadDecks();
             loadUsers();
@@ -136,24 +137,42 @@ public class SaveData {
             
     }
 
-    public void loadCards() {
-        String jsonCards = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\cards.DAT")));
-        ArrayList<Card> cards = new ArrayList<>();
-        cards = new Gson().fromJson(jsonCards, new TypeToken<List<Card>>(){}.getType());
-        Card.setAllCards(cards);
+    public static void loadCards() throws IOException {
+        File file = new File("C:\\YuGiOhData\\cards.DAT");
+        if (!file.exists()) {
+            Card.setAllCards(new ArrayList<>());
+        } else {
+            String jsonCards = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\cards.DAT")));
+            ArrayList<Card> cards;
+            cards = new Gson().fromJson(jsonCards, new TypeToken<List<Card>>() {
+            }.getType());
+            Card.setAllCards(cards);
+        }
     }
 
-    public void loadDecks() {
-        String jsonDecks = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\decks.DAT")));
-        ArrayList<Deck> decks = new ArrayList<>();
-        decks = new Gson().fromJson(jsonDecks, new TypeToken<List<Deck>>(){}.getType());
-        Deck.loadAllDecks(decks);
+    public static void loadDecks() throws IOException {
+        File file = new File("C:\\YuGiOhData\\cards.DAT");
+        if (!file.exists()) {
+            Card.setAllCards(new ArrayList<>());
+        } else {
+            String jsonDecks = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\decks.DAT")));
+            ArrayList<Deck> decks;
+            decks = new Gson().fromJson(jsonDecks, new TypeToken<List<Deck>>() {
+            }.getType());
+            Deck.loadAllDecks(decks);
+        }
     }
 
-    public void loadUsers() {
-        String jsonUsers = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\users.DAT")));
-        ArrayList<User> users = new ArrayList<>();
-        users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>(){}.getType());
-        User.loadAllUsers(users);
+    public static void loadUsers() throws IOException {
+        File file = new File("C:\\YuGiOhData\\cards.DAT");
+        if (!file.exists()) {
+            Card.setAllCards(new ArrayList<>());
+        } else {
+            String jsonUsers = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\users.DAT")));
+            ArrayList<User> users;
+            users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>() {
+            }.getType());
+            User.loadAllUsers(users);
+        }
     }
 }

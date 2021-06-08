@@ -72,8 +72,7 @@ public class LoginMenu {
             System.out.println("Login Menu");
         }
         else if ((matcher = Regex.getMatcher(command,Regex.exitMenu)).matches()){
-            ProgramController.currentMenu = MenuEnum.LOGIN_MENU;
-            System.exit(0);
+            ProgramController.currentMenu = MenuEnum.EXIT;
         }
         else{
             System.out.println(StatusEnum.INVALID_COMMAND.getStatus());

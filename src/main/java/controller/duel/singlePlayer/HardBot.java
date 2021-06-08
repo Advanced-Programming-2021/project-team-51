@@ -35,11 +35,11 @@ public class HardBot extends AI {
 
     public void attack() {
         while (getOpponentMonsterIndexHard(opponent) != -1) {
-            int monsterIndex = getBestMonsterToAttack(this.board.getMonsterCards());
+            int monsterIndex = getBestMonsterToAttack(getAIMonsters());
             int opponentIndex = getOpponentMonsterIndexHard(opponent);
             int opponentMonsterPower;
-            int aiMonsterPower = this.board.getMonsterCards().get(monsterIndex).getAttackPoint();
-            this.board.getMonsterCards().get(monsterIndex).setHasAttacked(true);
+            int aiMonsterPower = getAIMonsters().get(monsterIndex).getAttackPoint();
+            getAIMonsters().get(monsterIndex).setHasAttacked(true);
             if (opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getMode() == Mode.ATTACK)
                 opponentMonsterPower = opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getAttackPoint();
             else
@@ -59,15 +59,15 @@ public class HardBot extends AI {
     }
 
     public void checkSpellForActivate(GamePhase phase) {
-        for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
-            if (isSpellReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
+        for (int i = 0; i < getAISpellTraps().size(); i++)
+            if (isSpellReasonableToActive(getAISpellTraps().get(i).getName(),
                     phase) == ReasonableLevel.REASONABLE_FOR_HARD)
                 activeSpellTrap(i);
     }
 
     public void checkTrapForActivate(MonsterCard summoned, MonsterCard attacked) {
-        for (int i = 0; i < this.board.getSpellTrapCards().size(); i++)
-            if (isTrapReasonableToActive(this.board.getSpellTrapCards().get(i).getName(),
+        for (int i = 0; i < getAISpellTraps().size(); i++)
+            if (isTrapReasonableToActive(getAISpellTraps().get(i).getName(),
                     summoned, attacked) == ReasonableLevel.REASONABLE_FOR_HARD)
                 activeSpellTrap(i);
     }
