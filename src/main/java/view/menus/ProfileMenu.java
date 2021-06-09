@@ -20,51 +20,51 @@ public class ProfileMenu {
         profileMenuController = new ProfileMenuController(currentUser);
 
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.changePass1)).matches()){
+        if ((matcher = Regex.getMatcher(command, Regex.CHANGE_PASS_1)).matches()){
             String oldPass = matcher.group(3);
             String newPass = matcher.group(5);
             changePass(oldPass,newPass);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.changePass2)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.CHANGE_PASS_2)).matches()){
             String oldPass = matcher.group(5);
             String newPass = matcher.group(3);
             changePass(oldPass,newPass);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.changePass3)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.CHANGE_PASS_3)).matches()){
             String oldPass = matcher.group(2);
             String newPass = matcher.group(5);
             changePass(oldPass,newPass);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.changePass4)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.CHANGE_PASS_4)).matches()){
             String oldPass = matcher.group(2);
             String newPass = matcher.group(4);
             changePass(oldPass,newPass);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.changePass5)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.CHANGE_PASS_5)).matches()){
             String oldPass = matcher.group(5);
             String newPass = matcher.group(2);
             changePass(oldPass,newPass);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.changePass6)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.CHANGE_PASS_6)).matches()){
             String oldPass = matcher.group(4);
             String newPass = matcher.group(2);
             changePass(oldPass,newPass);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.changeNickname)).matches()){
+        else if ((matcher = Regex.getMatcher(command,Regex.CHANGE_NICKNAME)).matches()){
             String newNickname = matcher.group(2);
             changeNickname(newNickname);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.changeUsername)).matches()){
+        else if ((matcher = Regex.getMatcher(command,Regex.CHANGE_USERNAME)).matches()){
             String newUsername = matcher.group(2);
             changeUsername(newUsername);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Profile");
         }
         else{

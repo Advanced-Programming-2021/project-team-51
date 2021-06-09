@@ -22,16 +22,16 @@ public class ScoreboardMenu {
 
     public void run(String command){
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.showScoreboard)).matches()){
+        if ((matcher = Regex.getMatcher(command, Regex.SHOW_SCOREBOARD)).matches()){
             showScoreboard();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Scoreboard");
         }
         else{

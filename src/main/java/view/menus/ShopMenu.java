@@ -25,20 +25,20 @@ public class ShopMenu {
         shopMenuController = new ShopMenuController(currentUser);
 
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.buyCard)).matches()){
+        if ((matcher = Regex.getMatcher(command, Regex.BUY_CARD)).matches()){
             String cardName = matcher.group(1);
                 buyCard(cardName);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.showCardsInShop)).matches()){
+        else if ((matcher = Regex.getMatcher(command,Regex.SHOW_CARDS_IN_SHOP)).matches()){
             showCardsInShop();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Shop");
         }
         else{

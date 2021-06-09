@@ -9,7 +9,8 @@ public enum MenuEnum {
     PROFILE_MENU,
     CHEAT_MENU,
     IMPORT_EXPORT,
-    DUEL,
+    DUEL_MENU,
+    DUEL_VIEW,
     EXIT;
 
 }
