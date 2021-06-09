@@ -18,12 +18,12 @@ import java.io.IOException;
 
 public class SaveData {
 
-    public void saveCustomCard(Card card) {
+    public static void saveCustomCard(Card card) {
         try {
             File file = new File("C:\\YuGiOhData\\savedCards");
             String[] fileNames = file.list();
             int key = 0;
-            for (int i = 0; i < fileNames.length; i++) {
+            for (int i = 0; i < (fileNames != null ? fileNames.length : 0); i++) {
                 boolean isThere = false;
                 for (String fileName : fileNames)
                     if (fileName.equals("card" + i)) {
@@ -44,15 +44,18 @@ public class SaveData {
         }
     }
 
-    public ArrayList<Card> loadCustomCards() throws IOException {
+    public static ArrayList<Card> loadCustomCards() throws IOException {
         ArrayList<Card> cards = new ArrayList<>();
             File file = new File("C:\\YuGiOhData\\savedCards");
-            String[] fileNames = file.list();
-        for (String fileName : fileNames) {
-            String cardName = new String(Files.readAllBytes(Paths.get(fileName)));
-            cards.add(Card.getCardByName(cardName));
-        }
-        return cards;
+            if (file.exists()) {
+                String[] fileNames = file.list();
+                for (String fileName : fileNames) {
+                    String cardName = new String(Files.readAllBytes(Paths.get(fileName)));
+                    cards.add(Card.getCardByName(cardName));
+                }
+                return cards;
+            } else
+                return new ArrayList<>();
     }
 
     public static void save() {

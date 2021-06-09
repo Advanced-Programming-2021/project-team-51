@@ -96,7 +96,10 @@ public enum StatusEnum {
     CARD_NOT_VISIBLE("card is not visible"),
     WIN_THE_GAME(""),//SKIP--------------------------
     WIN_THE_MATCH(""),
-    CARD_BOUGHT_SUCCESSFULLY("you bought the card successfully");
+    CARD_BOUGHT_SUCCESSFULLY("you bought the card successfully"),
+    IMPORTED_SUCCESSFULLY("card imported successfully!"),
+    EXPORTED_SUCCESSFULLY("card exported successfully!"),
+    CARD_NOT_FOUND("card not found!");
     private String status;
 
     StatusEnum(String status){

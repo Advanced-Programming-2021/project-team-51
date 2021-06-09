@@ -16,9 +16,9 @@ import java.util.regex.Matcher;
 public class DuelController {
     private ArrayList<Integer> attackedCards;
     private ArrayList<Card> lastRoundGraveyards;
-    private Player player1;
-    private Player player2;
-    private AI bot;
+    private static Player player1;
+    private static Player player2;
+    private static AI bot;
     private User currentUser;
     private Board player1Board;
     private Board player2Board;
@@ -687,6 +687,18 @@ public class DuelController {
 
 
 
+    }
+
+    public static Player getPlayer2() {
+        return player2;
+    }
+
+    public static Player getPlayer1() {
+        return player1;
+    }
+
+    public static AI getBot() {
+        return bot;
     }
 
     private void changeStatus(int status){
