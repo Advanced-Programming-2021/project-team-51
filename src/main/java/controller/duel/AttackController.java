@@ -11,15 +11,29 @@ public class AttackController {
 
 
 
+    public AttackController(Player player,Player opponent){
+        this.player = player;
+        this.opponent = opponent;
+    }
+
+
+
+
     private void damagePlayer(Player player, int damagePoints){
-        //Need to check if damage is valid
             player.setLifePoint(player.getLifePoint()-damagePoints);
     }
-    private boolean isDamageValid(){
+    private boolean isDamageValid(MonsterCard playerCard , MonsterCard opponentCard){
+        if (areBothMonstersOffensive(playerCard,opponentCard)){
+            return isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard)==1 || isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard)==1;
+        }
+        else {
+            return isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard)==3;
+        }
     }
-    private boolean isCardValidInInDamageStep(Card card){
-        //Method Missing
-    }
+
+//    private boolean isCardValidInInDamageStep(Card card){
+//        //Method Missing
+//    }
     public int getAttackPoints(MonsterCard card) {
         return card.getAttackPoint();
     }
@@ -61,7 +75,22 @@ public class AttackController {
         }
     }
 
-    private void destroyMonster()
+    public void destroyMonster(MonsterCard playerCard , MonsterCard opponentCard){
+        if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 1){
+            this.opponent.getPlayerBoard().addToGraveyard(opponentCard);
+        }
+        else if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 2){
+            this.opponent.getPlayerBoard().addToGraveyard(playerCard);
+            this.opponent.getPlayerBoard().addToGraveyard(opponentCard);
+        }
+        else if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 3){
+            this.opponent.getPlayerBoard().addToGraveyard(playerCard);
+
+        }
+    }
+
+
+
 
 
 }
