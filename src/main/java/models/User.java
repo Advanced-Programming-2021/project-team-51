@@ -149,7 +149,7 @@ public class User {
         return null;
     }
 
-    private void setUserName(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 

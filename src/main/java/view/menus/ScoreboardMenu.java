@@ -8,6 +8,7 @@ import view.StatusEnum;
 import models.User;
 import view.Regex;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 
@@ -38,11 +39,17 @@ public class ScoreboardMenu {
         }
     }
     private void showScoreboard(){
-        int i = 1;
-        for (User user: User.getSortedUsers()) {
-            String nickName = user.getNickName();
-            int score = user.getScore();
-            System.out.println(i+"-"+nickName+": "+score);
+        ArrayList<User> sortedUsers = User.getSortedUsers();
+        for (int i = 0, rank = 1; i < sortedUsers.size(); i++,rank++) {
+            if (i > 0) {
+                if (sortedUsers.get(i).getScore() == sortedUsers.get(i - 1).getScore())
+                    rank--;
+                else
+                    rank = i + 1;
+            }
+            String nickName = sortedUsers.get(i).getNickName();
+            int score = sortedUsers.get(i).getScore();
+            System.out.println(rank+"-"+nickName+": "+score);
             i++;
         }
     }

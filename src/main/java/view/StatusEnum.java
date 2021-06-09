@@ -14,6 +14,7 @@ public enum StatusEnum {
     USER_LOGIN_SUCCESSFULLY("user logged in successfully!"),
     USERNAME_AND_PASSWORD_MISMATCH("Username and password didn’t match!"),
     USER_LOGOUT_SUCCESSFULLY("user logged out successfully!"),
+    CHANGE_USERNAME_SUCCESSFULLY("username changed successfully!"),
     CHANGE_NICKNAME_SUCCESSFULLY("nickname changed successfully!"),
     CHANGE_PASSWORD_SUCCESSFULLY("password changed successfully!"),
     CURRENT_PASSWORD_INVALIDITY("current password is invalid"),

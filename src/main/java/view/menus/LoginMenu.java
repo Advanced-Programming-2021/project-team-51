@@ -21,13 +21,11 @@ public class LoginMenu {
             String username = matcher.group(2);
             String password = matcher.group(4);
             loginUSer(username,password);
-            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
         else if ((matcher = Regex.getMatcher(command,Regex.loginUser2)).matches()){
             String username = matcher.group(4);
             String password = matcher.group(2);
             loginUSer(username,password);
-            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
         else if ((matcher = Regex.getMatcher(command,Regex.createUser1)).matches()){
             String username = matcher.group(2);
@@ -59,7 +57,7 @@ public class LoginMenu {
             String password = matcher.group(2);
             createUser(username,nickname,password);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.createUser1)).matches()){
+        else if ((matcher = Regex.getMatcher(command,Regex.createUser6)).matches()){
             String username = matcher.group(4);
             String nickname = matcher.group(6);
             String password = matcher.group(2);

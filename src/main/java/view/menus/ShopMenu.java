@@ -1,5 +1,6 @@
 package view.menus;
 
+import controller.menucontroller.LoginMenuController;
 import controller.menucontroller.ShopMenuController;
 import models.User;
 import models.cards.monsters.MonsterCard;
@@ -16,7 +17,7 @@ import java.util.regex.Matcher;
 
 public class ShopMenu {
 
-    User currentUser;
+    User currentUser = LoginMenuController.currentUser;
     ShopMenuController shopMenuController;
 
     public void run(String command) throws IOException {

@@ -1,6 +1,7 @@
 package view.menus;
 
 import controller.menucontroller.DeckMenuController;
+import controller.menucontroller.LoginMenuController;
 import models.User;
 import models.cards.CardType;
 import view.MenuEnum;
@@ -12,7 +13,7 @@ import java.util.regex.Matcher;
 
 public class DeckMenu {
 
-    private User currentUser;
+    private User currentUser = LoginMenuController.currentUser;
     private DeckMenuController deckMenuController;
 
     public void run(String command) {
@@ -226,10 +227,11 @@ public class DeckMenu {
 
     private void showAllUserDecks(){
         System.out.println("Decks:");
-        System.out.println(currentUser.getActiveDeck().toString());
+        if (currentUser.getActiveDeck() != null)
+            System.out.println(currentUser.getActiveDeck().toString());
         System.out.println("Other decks:");
         for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-            System.out.println(currentUser.getUserCards().get(i).toString());
+            System.out.println(currentUser.getUserDecks().get(i).toString());
         }
     }//--------------------IT'S NOT ALPHABETIC YET----------------------
 
