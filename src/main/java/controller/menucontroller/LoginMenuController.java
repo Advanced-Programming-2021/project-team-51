@@ -1,5 +1,7 @@
 package controller.menucontroller;
 
+import view.MenuEnum;
+import view.ProgramController;
 import view.StatusEnum;
 import models.User;
 
@@ -32,6 +34,7 @@ public class LoginMenuController {
 
         currentUser = User.getUserByUserName(username);
         isLoggedOn = true;
+        ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         return StatusEnum.USER_LOGIN_SUCCESSFULLY.getStatus();
     }
 
@@ -43,7 +46,7 @@ public class LoginMenuController {
             return "user with nickname" + nickname + "already exists";
 
         currentUser = new User(username, nickname, password);
-        return StatusEnum.USER_LOGIN_SUCCESSFULLY.getStatus();
+        return StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus();
     }
 
 }

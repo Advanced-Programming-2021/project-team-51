@@ -1,10 +1,9 @@
 package controller.menucontroller;
 
-import controller.duel.EasyBot;
+import controller.duel.singlePlayer.EasyBot;
 import view.StatusEnum;
-import controller.duel.AI;
-//import controller.duel.EasyBot;
-import controller.duel.HardBot;
+import controller.duel.singlePlayer.AI;
+import controller.duel.singlePlayer.HardBot;
 import models.Board;
 import models.Player;
 import models.User;
@@ -270,10 +269,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                this.bot = new EasyBot();//----------
+                this.bot = new EasyBot(player1);//----------
                     }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -287,10 +286,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -304,10 +303,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -321,10 +320,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -338,10 +337,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -355,10 +354,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -372,10 +371,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -389,10 +388,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -406,10 +405,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -423,10 +422,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -440,10 +439,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -457,10 +456,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -474,10 +473,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -491,10 +490,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -508,10 +507,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -525,10 +524,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -542,10 +541,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -559,10 +558,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -576,10 +575,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -593,10 +592,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -610,10 +609,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -627,10 +626,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -644,10 +643,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -661,10 +660,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -678,10 +677,10 @@ public class DuelController {
                 this.rounds = rounds;
                 this.player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot();//----------
+                    this.bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot();//----------
+                    this.bot = new HardBot(player1);//----------
                 }
             }
         }

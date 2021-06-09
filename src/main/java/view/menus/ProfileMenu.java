@@ -1,5 +1,6 @@
 package view.menus;
 
+import controller.menucontroller.LoginMenuController;
 import controller.menucontroller.ProfileMenuController;
 import models.User;
 import view.MenuEnum;
@@ -11,7 +12,7 @@ import java.util.regex.Matcher;
 
 public class ProfileMenu {
 
-    User currentUser;
+    User currentUser = LoginMenuController.currentUser;
     ProfileMenuController profileMenuController;
 
     public void run(String command){
@@ -49,9 +50,13 @@ public class ProfileMenu {
             String newPass = matcher.group(2);
             changePass(oldPass,newPass);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.changeProfile)).matches()){
+        else if ((matcher = Regex.getMatcher(command,Regex.changeNickname)).matches()){
             String newNickname = matcher.group(2);
             changeNickname(newNickname);
+        }
+        else if ((matcher = Regex.getMatcher(command,Regex.changeUsername)).matches()){
+            String newUsername = matcher.group(2);
+            changeUsername(newUsername);
         }
         else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()){
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
@@ -73,5 +78,9 @@ public class ProfileMenu {
 
     private void changeNickname(String newNickname) {
         System.out.println(profileMenuController.changeNickname(newNickname));
+    }
+
+    private void changeUsername(String newUsername) {
+        System.out.println(profileMenuController.changeUsername(newUsername));
     }
 }

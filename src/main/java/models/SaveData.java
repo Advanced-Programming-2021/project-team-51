@@ -57,12 +57,11 @@ public class SaveData {
 
     public static void save() {
         File makeDirection = new File("C:\\YuGiOhData");
-        if (!makeDirection.isDirectory() || !makeDirection.exists())
-            if (makeDirection.mkdir()) {
-                saveAllCards();
-                saveAllDecks();
-                saveAllUsers();
-            }
+        if ((!makeDirection.isDirectory() && makeDirection.mkdir()) ||
+                makeDirection.isDirectory())
+            saveAllCards();
+            saveAllDecks();
+            saveAllUsers();
     }
 
     public static void saveAllUsers() {

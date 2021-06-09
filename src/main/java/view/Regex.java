@@ -32,7 +32,8 @@ public class Regex {
 
     public static String userLogout = "^user logout$";
     public static String showScoreboard = "^scoreboard show$";
-    public static String changeProfile = "^profile change (--nickname|-n) (\\S+)$";
+    public static String changeNickname = "^profile change (--nickname|-n) (\\S+)$";
+    public static String changeUsername = "^profile change (--username|-u) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---CHANGE PASS---*/
