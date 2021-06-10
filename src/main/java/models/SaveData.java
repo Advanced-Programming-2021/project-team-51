@@ -76,7 +76,6 @@ public class SaveData {
         } catch (Exception error) {
             System.out.println("Couldn't save Data!");
         }
-        
     }
 
     public static void saveAllCards() {

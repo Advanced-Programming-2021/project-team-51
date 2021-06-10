@@ -21,19 +21,19 @@ public class DeckMenu {
         deckMenuController = new DeckMenuController(currentUser);
 
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.createDeck)).matches()){
+        if ((matcher = Regex.getMatcher(command, Regex.CREATE_DECK)).matches()){
             String deckName = matcher.group(1);
             createDeck(deckName);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.deleteDeck)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.DELETE_DECK)).matches()){
             String deckName = matcher.group(1);
             deleteDeck(deckName);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.activateDeck)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ACTIVATE_DECK)).matches()){
             String deckName = matcher.group(1);
             activateDeck(deckName);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck1)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ADD_CARD_TO_DECK_1)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -45,7 +45,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck2)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ADD_CARD_TO_DECK_2)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
@@ -57,7 +57,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck3)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ADD_CARD_TO_DECK_3)).matches()){
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -69,7 +69,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck4)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ADD_CARD_TO_DECK_4)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -81,7 +81,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck5)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ADD_CARD_TO_DECK_5)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
@@ -93,7 +93,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.addCardToDeck6)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.ADD_CARD_TO_DECK_6)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -105,7 +105,7 @@ public class DeckMenu {
             }
             addCard(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck1)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.REMOVE_CARD_FROM_DECK_1)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -117,7 +117,7 @@ public class DeckMenu {
             }
             removeCardFromDeck(deckName,cardName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck2)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.REMOVE_CARD_FROM_DECK_2)).matches()){
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
@@ -130,7 +130,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck3)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.REMOVE_CARD_FROM_DECK_3)).matches()){
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -143,7 +143,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck4)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.REMOVE_CARD_FROM_DECK_4)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
@@ -156,7 +156,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck5)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.REMOVE_CARD_FROM_DECK_5)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
@@ -169,7 +169,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.removeCardFromDeck6)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.REMOVE_CARD_FROM_DECK_6)).matches()){
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
@@ -182,10 +182,10 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showAllDecks)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_ALL_DECKS)).matches()){
             showAllUserDecks();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showOptionalDeck1)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_OPTIONAL_DECK_1)).matches()){
             String deckName = matcher.group(2);
             String mainOrSide;
             if (matcher.group(3) == null){
@@ -196,7 +196,7 @@ public class DeckMenu {
             }
             showOptionalDeck(deckName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showOptionalDeck2)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_OPTIONAL_DECK_2)).matches()){
             String deckName = matcher.group(3);
             String mainOrSide;
             if (matcher.group(1) == null){
@@ -207,16 +207,16 @@ public class DeckMenu {
             }
             showOptionalDeck(deckName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showAllUserCards)).matches()){
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_ALL_USER_CARDS)).matches()){
             showAllCards();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.exitMenu)).matches()) {
+        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()) {
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.enterMenu)).matches()) {
+        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()) {
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.showCurrentMenu)).matches()) {
+        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()) {
             System.out.println("Deck");
         }
         else {
