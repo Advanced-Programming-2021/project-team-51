@@ -119,14 +119,6 @@ public class Board {
         return this.cardsInHand;
     }
 
-    public ArrayList<MonsterCard> getMonsterCards() {
-        return this.monsterBoard;
-    }
-
-    public ArrayList<SpellTrapCard> getSpellTrapCards() {
-        return this.spellAndTrapBoard;
-    }
-
     public ArrayList<Card> getGraveyardCards() {
         return this.graveyard;
     }
@@ -159,6 +151,14 @@ public class Board {
         for (SpellTrapCard spellTrapCard: spellAndTrapBoard)
             if (spellTrapCard != null) spellTraps.add(spellTrapCard);
             return spellTraps;
+    }
+
+    public int getMonsterIndexInMonsterBoard(MonsterCard monster) {
+        for (int i = 0 ; i < monsterBoard.size(); i++)
+            if (monsterBoard.get(i) == monster &&
+                    monsterBoard.get(i).getName().equals(monster.getName())) return i;
+
+            return -1;
     }
 
     public boolean hasSpellTrapZoneSpace() {
