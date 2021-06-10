@@ -50,32 +50,32 @@ public class DuelController {
                 System.out.println(StatusEnum.NO_EXISTENCE_OF_PLAYER2);
             }
             else {
-                this.player2 = new Player(User.getUserByUserName(player2Name));
+                player2 = new Player(User.getUserByUserName(player2Name));
             }
             //--------------------Not Sure---------------
-            if (this.player1.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+" has no active deck");
+            if (player1.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player1.getUserName()+" has no active deck");
             }
-            else  if (this.player2.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+" has no active deck");
+            else  if (player2.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player2.getUserName()+" has no active deck");
             }
-            else if (!this.player1.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+"'s deck is invalid");
+            else if (!player1.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player1.getUserName()+"'s deck is invalid");
             }
-            else if (!this.player2.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+"'s deck is invalid");
+            else if (!player2.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player2.getUserName()+"'s deck is invalid");
             }
             else if (rounds!=3 && rounds!=1){
-                this.player2 = null;
+                player2 = null;
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 //----------------------------------------WHAT ELSE TO DO?---------------
             }
         }
@@ -86,32 +86,32 @@ public class DuelController {
                 System.out.println(StatusEnum.NO_EXISTENCE_OF_PLAYER2);
             }
             else {
-                this.player2 = new Player(User.getUserByUserName(player2Name));
+                player2 = new Player(User.getUserByUserName(player2Name));
             }
             //--------------------Not Sure---------------
-            if (this.player1.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+" has no active deck");
+            if (player1.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player1.getUserName()+" has no active deck");
             }
-            else  if (this.player2.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+" has no active deck");
+            else  if (player2.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player2.getUserName()+" has no active deck");
             }
-            else if (!this.player1.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+"'s deck is invalid");
+            else if (!player1.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player1.getUserName()+"'s deck is invalid");
             }
-            else if (!this.player2.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+"'s deck is invalid");
+            else if (!player2.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player2.getUserName()+"'s deck is invalid");
             }
             else if (rounds!=3 && rounds!=1){
-                this.player2 = null;
+                player2 = null;
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 //----------------------------------------WHAT ELSE  TO DO?---------------
             }
         }
@@ -122,32 +122,32 @@ public class DuelController {
                 System.out.println(StatusEnum.NO_EXISTENCE_OF_PLAYER2);
             }
             else {
-                this.player2 = new Player(User.getUserByUserName(player2Name));
+                player2 = new Player(User.getUserByUserName(player2Name));
             }
             //--------------------Not Sure---------------
-            if (this.player1.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+" has no active deck");
+            if (player1.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player1.getUserName()+" has no active deck");
             }
-            else  if (this.player2.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+" has no active deck");
+            else  if (player2.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player2.getUserName()+" has no active deck");
             }
-            else if (!this.player1.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+"'s deck is invalid");
+            else if (!player1.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player1.getUserName()+"'s deck is invalid");
             }
-            else if (!this.player2.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+"'s deck is invalid");
+            else if (!player2.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player2.getUserName()+"'s deck is invalid");
             }
             else if (rounds!=3 && rounds!=1){
-                this.player2 = null;
+                player2 = null;
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 //----------------------------------------WHAT ELSE  TO DO?---------------
             }
         }
@@ -158,32 +158,32 @@ public class DuelController {
                 System.out.println(StatusEnum.NO_EXISTENCE_OF_PLAYER2);
             }
             else {
-                this.player2 = new Player(User.getUserByUserName(player2Name));
+                player2 = new Player(User.getUserByUserName(player2Name));
             }
             //--------------------Not Sure---------------
-            if (this.player1.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+" has no active deck");
+            if (player1.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player1.getUserName()+" has no active deck");
             }
-            else  if (this.player2.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+" has no active deck");
+            else  if (player2.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player2.getUserName()+" has no active deck");
             }
-            else if (!this.player1.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+"'s deck is invalid");
+            else if (!player1.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player1.getUserName()+"'s deck is invalid");
             }
-            else if (!this.player2.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+"'s deck is invalid");
+            else if (!player2.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player2.getUserName()+"'s deck is invalid");
             }
             else if (rounds!=3 && rounds!=1){
-                this.player2 = null;
+                player2 = null;
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 //----------------------------------------WHAT ELSE  TO DO?---------------
             }
         }
@@ -194,32 +194,32 @@ public class DuelController {
                 System.out.println(StatusEnum.NO_EXISTENCE_OF_PLAYER2);
             }
             else {
-                this.player2 = new Player(User.getUserByUserName(player2Name));
+                player2 = new Player(User.getUserByUserName(player2Name));
             }
             //--------------------Not Sure---------------
-            if (this.player1.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+" has no active deck");
+            if (player1.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player1.getUserName()+" has no active deck");
             }
-            else  if (this.player2.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+" has no active deck");
+            else  if (player2.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player2.getUserName()+" has no active deck");
             }
-            else if (!this.player1.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+"'s deck is invalid");
+            else if (!player1.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player1.getUserName()+"'s deck is invalid");
             }
-            else if (!this.player2.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+"'s deck is invalid");
+            else if (!player2.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player2.getUserName()+"'s deck is invalid");
             }
             else if (rounds!=3 && rounds!=1){
-                this.player2 = null;
+                player2 = null;
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 //----------------------------------------WHAT ELSE  TO DO?---------------
             }
         }
@@ -230,32 +230,32 @@ public class DuelController {
                 System.out.println(StatusEnum.NO_EXISTENCE_OF_PLAYER2);
             }
             else {
-                this.player2 = new Player(User.getUserByUserName(player2Name));
+                player2 = new Player(User.getUserByUserName(player2Name));
             }
             //--------------------Not Sure---------------
-            if (this.player1.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+" has no active deck");
+            if (player1.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player1.getUserName()+" has no active deck");
             }
-            else  if (this.player2.getPlayerDeck() == null){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+" has no active deck");
+            else  if (player2.getPlayerDeck() == null){
+                player2 = null;
+                System.out.println(player2.getUserName()+" has no active deck");
             }
-            else if (!this.player1.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player1.getUserName()+"'s deck is invalid");
+            else if (!player1.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player1.getUserName()+"'s deck is invalid");
             }
-            else if (!this.player2.getPlayerDeck().isDeckValid()){
-                this.player2 = null;
-                System.out.println(this.player2.getUserName()+"'s deck is invalid");
+            else if (!player2.getPlayerDeck().isDeckValid()){
+                player2 = null;
+                System.out.println(player2.getUserName()+"'s deck is invalid");
             }
             else if (rounds!=3 && rounds!=1){
-                this.player2 = null;
+                player2 = null;
                 System.out.println(StatusEnum.ROUNDS_NOT_SUPPORTED);
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 //----------------------------------------WHAT ELSE  TO DO?---------------
             }
         }
@@ -267,12 +267,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                this.bot = new EasyBot(player1);//----------
+                bot = new EasyBot(player1);//----------
                     }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -284,12 +284,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -301,12 +301,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -318,12 +318,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -335,12 +335,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -352,12 +352,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -369,12 +369,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -386,12 +386,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -403,12 +403,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -420,12 +420,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -437,12 +437,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -454,12 +454,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -471,12 +471,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -488,12 +488,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -505,12 +505,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -522,12 +522,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -539,12 +539,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -556,12 +556,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -573,12 +573,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -590,12 +590,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -607,12 +607,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -624,12 +624,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -641,12 +641,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -658,12 +658,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -675,12 +675,12 @@ public class DuelController {
             }
             else{
                 this.rounds = rounds;
-                this.player1 = new Player(currentUser);
+                player1 = new Player(currentUser);
                 if (difficulty.equals("easy")){
-                    this.bot = new EasyBot(player1);//----------
+                    bot = new EasyBot(player1);//----------
                 }
                 else{
-                    this.bot = new HardBot(player1);//----------
+                    bot = new HardBot(player1);//----------
                 }
             }
         }
@@ -739,10 +739,10 @@ public class DuelController {
     private boolean isThereSpellOrTrapToActivate(){return true;}
     private boolean isActivatingTheSpellReasonable(){return true;}
     private void activateTheSpellForBot(){}
-    private ArrayList<Integer> getTheLowestCards(){}
-    private Card getTheBestCard(){}
+    //private ArrayList<Integer> getTheLowestCards(){}
+    //private Card getTheBestCard(){}
     private void summonCardForBot(){}
-    private ArrayList<Integer> getTheSortedCardsByPower(){}
+    //private ArrayList<Integer> getTheSortedCardsByPower(){}
     private boolean isAttackingToMonsterReasonable(){return true;}
     private void attackForBot(){}
     private void playForBot(){}

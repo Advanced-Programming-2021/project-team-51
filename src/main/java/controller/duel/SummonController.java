@@ -24,8 +24,8 @@ public class SummonController {
         if (checkNormalSummonSetConditions() != null)
             return checkNormalSummonSetConditions();
         MonsterCard selectedMonster = (MonsterCard) selectedCard;
-        if ((selectedMonster.getLevel() < 7 && player.getPlayerBoard().getMonsterCards().size() < 1)
-                || selectedMonster.getLevel() > 6 && player.getPlayerBoard().getMonsterCards().size() < 2)
+        if ((selectedMonster.getLevel() < 7 && player.getPlayerBoard().getMonsters().size() < 1)
+                || selectedMonster.getLevel() > 6 && player.getPlayerBoard().getMonsters().size() < 2)
             return "there are not enough cards for tribute";
         int firstMonster, secondMonster = 0;
         if (tributes.length() == 1)
@@ -35,9 +35,9 @@ public class SummonController {
             secondMonster = Integer.parseInt(tributes.substring(2, 3));
         }
         if (selectedMonster.getLevel() > 6 && secondMonster == 0
-                || (selectedMonster.getLevel() > 6 && (player.getPlayerBoard().getMonsterCards().get(firstMonster - 1) == null
-                || player.getPlayerBoard().getMonsterCards().get(secondMonster - 1) == null))
-                || selectedMonster.getLevel() < 7 && player.getPlayerBoard().getMonsterCards().get(firstMonster - 1) == null)
+                || (selectedMonster.getLevel() > 6 && (player.getPlayerBoard().getMonsterBoard().get(firstMonster - 1) == null
+                || player.getPlayerBoard().getMonsterBoard().get(secondMonster - 1) == null))
+                || selectedMonster.getLevel() < 7 && player.getPlayerBoard().getMonsterBoard().get(firstMonster - 1) == null)
             return "there are not enough monsters on these addresses";
         return finalizeSummon();
     }
@@ -47,8 +47,7 @@ public class SummonController {
         selectedMonster.setLocation(Location.FIELD);
         selectedMonster.setIsHidden(false);
         selectedMonster.setMode(Mode.ATTACK);
-        player.getPlayerBoard().getHandCards().remove(selectedMonster);
-        player.getPlayerBoard().getMonsterCards().add(selectedMonster);
+        player.getPlayerBoard().summonOrSetMonster(selectedMonster);
         hasSummonedInThisTurn = true;
         return "summoned successfully";
     }
@@ -64,7 +63,7 @@ public class SummonController {
             return "you can't summon this card";
         if (gamePhase != GamePhase.MAIN1 && gamePhase != GamePhase.MAIN2)
             return "action not allowed in this phase";
-        if (player.getPlayerBoard().getMonsterCards().size() == 5)
+        if (player.getPlayerBoard().getMonsters().size() == 5)
             return "monster card zone is full";
         if (hasSummonedInThisTurn)
             return "you already summoned/set on this turn";
@@ -74,7 +73,7 @@ public class SummonController {
     public String flipSummon() {
         if (selectedCard == null)
             return "no card is selected yet";
-        if (!player.getPlayerBoard().getMonsterCards().contains(selectedCard))
+        if (!player.getPlayerBoard().getMonsters().contains(selectedCard))
             return "you can't change this card position";
         MonsterCard selectedMonster = (MonsterCard) selectedCard;
         if (gamePhase != GamePhase.MAIN1 && gamePhase != GamePhase.MAIN2)

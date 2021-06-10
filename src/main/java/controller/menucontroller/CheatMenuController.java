@@ -13,15 +13,15 @@ public class CheatMenuController {
 
     public void run(String command, Player cheater) {
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.cheatIncreaseMoney)).matches())
+        if ((matcher = Regex.getMatcher(command, Regex.CHEAT_INCREASE_MONEY)).matches())
             increaseMoney(Integer.parseInt(matcher.group(2)), cheater);
-        else if ((matcher = Regex.getMatcher(command, Regex.cheatSetWinner)).matches())
+        else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_SET_WINNER)).matches())
             setWinner(matcher.group(1));
-        else if ((matcher = Regex.getMatcher(command, Regex.cheatIncreaseLP)).matches())
+        else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_INCREASE_LP)).matches())
             increaseLP(Integer.parseInt(matcher.group(2)), cheater);
-        else if ((matcher = Regex.getMatcher(command, Regex.cheatSelectMoreCards1)).matches())
+        else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_SELECT_MORE_CARDS_1)).matches())
             selectCardForce(matcher.group(2), cheater);
-        else if ((matcher = Regex.getMatcher(command, Regex.cheatSelectMoreCards2)).matches())
+        else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_SELECT_MORE_CARDS_2)).matches())
             selectCardForce(matcher.group(3), cheater);
         else
             System.out.println(StatusEnum.INVALID_COMMAND);

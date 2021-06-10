@@ -19,7 +19,7 @@ public class ShowController {
         if (selectedCard == null)
             return "no card is selected";
         if (selectedCard.getIsHidden() &&
-                !player.getPlayerBoard().getMonsterCards().contains(selectedCard) &&
+                !player.getPlayerBoard().getMonsters().contains(selectedCard) &&
         !player.getPlayerBoard().getSpellTraps().contains(selectedCard) &&
         !player.getPlayerBoard().getHandCards().contains(selectedCard) &&
         !player.getPlayerBoard().getFieldZone().equals(selectedCard))

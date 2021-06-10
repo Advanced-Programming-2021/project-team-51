@@ -107,6 +107,14 @@ public class Board {
         return this.owner;
     }
 
+    public ArrayList<MonsterCard> getMonsterBoard() {
+        return this.monsterBoard;
+    }
+
+    public ArrayList<SpellTrapCard> getSpellAndTrapBoard() {
+        return this.spellAndTrapBoard;
+    }
+
     public void setFieldZone(Card fieldZone) {
         this.fieldZone = fieldZone;
     }
@@ -161,12 +169,29 @@ public class Board {
             return -1;
     }
 
+    public int getCardIndexInHand(Card key) {
+        for (int i = 0 ; i < cardsInHand.size() ; i++)
+            if (cardsInHand.get(i) == key &&
+                cardsInHand.get(i).getName().equals(key.getName())) return i;
+
+            return -1;
+    }
+
     public boolean hasSpellTrapZoneSpace() {
         return getSpellTraps().size() != 5;
     }
 
     public boolean hasMonsterZoneSpace() {
         return getMonsters().size() != 5;
+    }
+
+    public void summonOrSetMonster(MonsterCard monster) {
+        for (int i = 0 ; i < 5 ; i++)
+            if (monsterBoard.get(i) == null) {
+                monsterBoard.add(monster);
+                removeCardsFromHand(getCardIndexInHand(monster));
+                break;
+            }
     }
 
     public void summonOrSetMonster(int index) {
@@ -181,6 +206,15 @@ public class Board {
     public void removeMonster(int index) {
         addToGraveyard(monsterBoard.get(index));
         monsterBoard.set(index, null);
+    }
+
+    public void summonOrSetSpellAndTrap(SpellTrapCard spellTrap) {
+        for (int i = 0 ; i < 5 ; i++)
+            if (spellAndTrapBoard.get(i) == null) {
+                spellAndTrapBoard.add(spellTrap);
+                removeCardsFromHand(getCardIndexInHand(spellTrap));
+                break;
+            }
     }
 
     public void summonOrSetSpellAndTrap(int index) {

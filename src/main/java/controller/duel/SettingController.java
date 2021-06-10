@@ -34,8 +34,7 @@ public class SettingController {
         SpellTrapCard selectedSpellTrap = (SpellTrapCard) selectedCard;
         selectedSpellTrap.setLocation(Location.FIELD);
         selectedSpellTrap.setIsHidden(true);
-        player.getPlayerBoard().getHandCards().remove(selectedSpellTrap);
-        player.getPlayerBoard().getSpellTraps().add(selectedSpellTrap);
+        player.getPlayerBoard().summonOrSetSpellAndTrap(selectedSpellTrap);
         return "set successfully";
     }
 
@@ -46,8 +45,7 @@ public class SettingController {
         selectedMonster.setLocation(Location.FIELD);
         selectedMonster.setIsHidden(true);
         selectedMonster.setMode(Mode.DEFENSE);
-        player.getPlayerBoard().getHandCards().remove(selectedMonster);
-        player.getPlayerBoard().getMonsterCards().add(selectedMonster);
+        player.getPlayerBoard().summonOrSetMonster(selectedMonster);
         hasSummonedInThisTurn = true;
         return "summoned successfully";
     }
@@ -55,7 +53,7 @@ public class SettingController {
     public String setPosition(String position) {
         if (selectedCard == null)
             return "no card is selected yet";
-        if (!player.getPlayerBoard().getMonsterCards().contains((MonsterCard) selectedCard))
+        if (!player.getPlayerBoard().getMonsters().contains((MonsterCard) selectedCard))
             return "you can't change this card position";
         if (gamePhase != GamePhase.MAIN1 && gamePhase != GamePhase.MAIN2)
             return "you can't do this action in this phase";

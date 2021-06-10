@@ -8,14 +8,6 @@ import java.util.Scanner;
 public class ProgramController {
     public static MenuEnum currentMenu = MenuEnum.LOGIN_MENU;
     public static Scanner scanner = new Scanner(System.in);
-    LoginMenu loginMenu = new LoginMenu();
-    MainMenu mainMenu ;
-    ShopMenu shopMenu;
-    ScoreboardMenu scoreboardMenu ;
-    DeckMenu deckMenu;
-    ImportExportMenu importExportMenu;
-    ProfileMenu profileMenu;
-    DuelMenu duelMenu;
 
 
     public void run() throws CloneNotSupportedException, IOException {
