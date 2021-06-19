@@ -14,6 +14,7 @@ public class EasyBot extends AI {
         setDeck(Deck.generateDeck(true));
         setBoard(new Board(this));
         setOpponent(opponent);
+        aiBot = this;
     }
 
     public void summonBestMonster() {

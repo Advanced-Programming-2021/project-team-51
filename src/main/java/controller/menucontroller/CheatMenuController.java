@@ -1,17 +1,18 @@
 package controller.menucontroller;
 
 import controller.duel.GameController;
+import controller.duel.PhaseController;
 import models.Player;
 import models.User;
 import models.cards.Card;
 import view.Regex;
-import view.StatusEnum;
 
 import java.util.regex.Matcher;
 
 public class CheatMenuController {
 
-    public void run(String command, Player cheater) {
+    public void run(String command) {
+        Player cheater = PhaseController.playerInTurn;
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command, Regex.CHEAT_INCREASE_MONEY)).matches())
             increaseMoney(Integer.parseInt(matcher.group(2)), cheater);
@@ -23,8 +24,7 @@ public class CheatMenuController {
             selectCardForce(matcher.group(2), cheater);
         else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_SELECT_MORE_CARDS_2)).matches())
             selectCardForce(matcher.group(3), cheater);
-        else
-            System.out.println(StatusEnum.INVALID_COMMAND);
+
     }
 
 

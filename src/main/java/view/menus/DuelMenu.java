@@ -1,14 +1,22 @@
 package view.menus;
 
+import controller.menucontroller.DuelMenuController;
+import controller.menucontroller.LoginMenuController;
+import models.User;
 import view.MenuEnum;
 import view.ProgramController;
 import view.Regex;
 
+import java.util.regex.Matcher;
+
 public class DuelMenu {
 
+    private final User currentUser = LoginMenuController.currentUser;
+
+    DuelMenuController duelMenuController = new DuelMenuController();
     private boolean isCommandValid;
 
-    public void run(String command) {
+    public void run(String command) throws CloneNotSupportedException {
         isCommandValid = false;
         startTwoPlayerGame(command);
         startSinglePlayerGame(command);
@@ -16,35 +24,89 @@ public class DuelMenu {
             System.out.println("invalid command!");
     }
 
-    private void startTwoPlayerGame(String command) {
-        String[] regexes = {Regex.DUEL_MULTIPLAYER_1, Regex.DUEL_MULTIPLAYER_2, Regex.DUEL_MULTIPLAYER_3,
-                Regex.DUEL_MULTIPLAYER_4, Regex.DUEL_MULTIPLAYER_5, Regex.DUEL_MULTIPLAYER_6};
-        for (int i = 0; i < 6; i++) {
-            if (Regex.getMatcher(command, regexes[i]).find())
-                break;
-            if (i == regexes.length - 1)
-                return;
-        }
+    private void startTwoPlayerGame(String command) throws CloneNotSupportedException {
+        Matcher matcher;
+        String secondPlayer, rounds;
+        if ((matcher = Regex.getMatcher(command, Regex.DUEL_MULTIPLAYER_1)).matches()) {
+            secondPlayer = matcher.group(3);
+            rounds = matcher.group(5);
+        } else if ((matcher = Regex.getMatcher(command, Regex.DUEL_MULTIPLAYER_2)).matches()) {
+            secondPlayer = matcher.group(5);
+            rounds = matcher.group(3);
+        } else if ((matcher = Regex.getMatcher(command, Regex.DUEL_MULTIPLAYER_3)).matches()) {
+            secondPlayer = matcher.group(2);
+            rounds = matcher.group(5);
+        } else if ((matcher = Regex.getMatcher(command, Regex.DUEL_MULTIPLAYER_4)).matches()) {
+            secondPlayer = matcher.group(2);
+            rounds = matcher.group(4);
+        } else if ((matcher = Regex.getMatcher(command, Regex.DUEL_MULTIPLAYER_5)).matches()) {
+            secondPlayer = matcher.group(4);
+            rounds = matcher.group(2);
+        } else if ((matcher = Regex.getMatcher(command, Regex.DUEL_MULTIPLAYER_6)).matches()) {
+            secondPlayer = matcher.group(5);
+            rounds = matcher.group(2);
+        } else return;
         isCommandValid = true;
-        //System.out.println(); TODO call function from controller
+        System.out.println(duelMenuController.startTwoPlayer(currentUser, secondPlayer, rounds));
         ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
     }
 
-    private void startSinglePlayerGame(String command) {
-        String[] regexes = {Regex.DUEL_SINGLE_PLAYER_1, Regex.DUEL_SINGLE_PLAYER_2, Regex.DUEL_SINGLE_PLAYER_3, Regex.DUEL_SINGLE_PLAYER_4
-                , Regex.DUEL_SINGLE_PLAYER_5, Regex.DUEL_MULTIPLAYER_6, Regex.DUEL_SINGLE_PLAYER_7, Regex.DUEL_SINGLE_PLAYER_8
-                , Regex.DUEL_SINGLE_PLAYER_9, Regex.DUEL_SINGLE_PLAYER_10, Regex.DUEL_SINGLE_PLAYER_11, Regex.DUEL_SINGLE_PLAYER_12
-                , Regex.DUEL_SINGLE_PLAYER_13, Regex.DUEL_SINGLE_PLAYER_14, Regex.DUEL_SINGLE_PLAYER_15, Regex.DUEL_SINGLE_PLAYER_16
-                , Regex.DUEL_SINGLE_PLAYER_17, Regex.DUEL_SINGLE_PLAYER_18, Regex.DUEL_SINGLE_PLAYER_19, Regex.DUEL_SINGLE_PLAYER_20
-                , Regex.DUEL_SINGLE_PLAYER_21, Regex.DUEL_SINGLE_PLAYER_22, Regex.DUEL_SINGLE_PLAYER_23, Regex.DUEL_SINGLE_PLAYER_24};
-        for (int i = 0; i < 24; i++) {
-            if (Regex.getMatcher(command, regexes[i]).find())
-                break;
-            if (i == regexes.length - 1)
-                return;
+    private void startSinglePlayerGame(String command) throws CloneNotSupportedException {
+        Matcher matcher;
+        String rounds, difficulty;
+        if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_1)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_7)).matches()) {
+            rounds = matcher.group(4);
+            difficulty = matcher.group(6);
         }
+        else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_2)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_8)).matches()) {
+            rounds = matcher.group(3);
+            difficulty = matcher.group(6);
+        }
+        else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_3)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_9)).matches()) {
+            rounds = matcher.group(6);
+            difficulty = matcher.group(4);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_4)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_10)).matches()) {
+            rounds = matcher.group(6);
+            difficulty = matcher.group(3);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_5)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_11)).matches()) {
+            rounds = matcher.group(5);
+            difficulty = matcher.group(3);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_6)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_12)).matches()) {
+            rounds = matcher.group(3);
+            difficulty = matcher.group(5);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_13)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_14)).matches()) {
+            rounds = matcher.group(2);
+            difficulty = matcher.group(6);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_15)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_18)).matches()) {
+            rounds = matcher.group(2);
+            difficulty = matcher.group(5);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_16)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_17)).matches()) {
+            rounds = matcher.group(2);
+            difficulty = matcher.group(4);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_19)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_20)).matches()) {
+            rounds = matcher.group(6);
+            difficulty = matcher.group(2);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_21)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_24)).matches()) {
+            rounds = matcher.group(5);
+            difficulty = matcher.group(2);
+        }else if (((matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_22)).matches())
+                || (matcher = Regex.getMatcher(command, Regex.DUEL_SINGLE_PLAYER_23)).matches()) {
+            rounds = matcher.group(4);
+            difficulty = matcher.group(2);
+        }else return;
         isCommandValid = true;
-        //System.out.println(); TODO call function from controller
+        System.out.println(duelMenuController.startSinglePlayer(currentUser, rounds, difficulty));
         ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
     }
 }

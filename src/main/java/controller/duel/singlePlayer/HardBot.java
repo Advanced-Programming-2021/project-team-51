@@ -14,6 +14,7 @@ public class HardBot extends AI {
         setDeck(Deck.generateDeck(false));
         setBoard(new Board(this));
         setOpponent(opponent);
+        aiBot = this;
     }
 
     public void summonBestMonster() {

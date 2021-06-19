@@ -22,6 +22,11 @@ abstract public class AI {
     protected Board board;
     protected String nickname;
     protected Player opponent;
+    protected static AI aiBot;
+
+    public static AI getInstance() {
+        return aiBot;
+    }
 
     public void setDeck(Deck deck) {
         this.deck = deck;

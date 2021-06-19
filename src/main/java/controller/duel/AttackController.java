@@ -1,10 +1,8 @@
 package controller.duel;
 
 import models.Player;
-import models.cards.Card;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
-import view.DuelView;
 import view.StatusEnum;
 
 import java.util.ArrayList;
@@ -13,186 +11,183 @@ public class AttackController {
 
 
     //Note That player is always the attacker and opponent is attacker or defender
+    public static boolean isBattleHappened;
     private Player player;
     private Player opponent;
     private GamePhase gamePhase;
     private ArrayList<MonsterCard> alreadyAttackedCards = new ArrayList<>();
+    private final PhaseController phaseController = new PhaseController();
 
-    public AttackController(Player attacker, Player opponent, GamePhase gamePhase) {
-        this.player = attacker;
-        this.opponent = opponent;
-        this.gamePhase = gamePhase;
+    public AttackController() {
+        this.player = PhaseController.playerInTurn;
+        this.opponent = PhaseController.playerAgainst;
+        this.gamePhase = PhaseController.currentPhase;
     }
 
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
     }
 
-    private void damagePlayer(Player player, int damagePoints){
-            player.setLifePoint(player.getLifePoint()-damagePoints);
+    private void damagePlayer(Player player, int damagePoints) {
+        player.setLifePoint(player.getLifePoint() - damagePoints);
     }
 
-    private int isPlayerMonsterStrongerThanOpponent(MonsterCard playerCard , MonsterCard opponentCard){
+    private int isPlayerMonsterStrongerThanOpponent(MonsterCard playerCard, MonsterCard opponentCard) {
         // return 1 if player is stronger. 2 if are the same. 3 if is weaker
-        if (calculateDifferenceOPoint(playerCard,opponentCard) > 0){
+        if (calculateDifferenceOPoint(playerCard, opponentCard) > 0) {
             return 1;
-        }
-        else if (calculateDifferenceOPoint(playerCard,opponentCard) == 0){
+        } else if (calculateDifferenceOPoint(playerCard, opponentCard) == 0) {
             return 2;
-        }
-        else {
+        } else {
             return 3;
         }
 
     }
 
-    private boolean areBothMonstersOffensive(MonsterCard playerCard , MonsterCard opponentCard){
-        return  (isOffensive(playerCard) && isOffensive(opponentCard));
+    private boolean areBothMonstersOffensive(MonsterCard playerCard, MonsterCard opponentCard) {
+        return (isOffensive(playerCard) && isOffensive(opponentCard));
     }
 
     private boolean isOffensive(MonsterCard card) {
-        if (card.getMode().equals(Mode.ATTACK)){
-            return true;
-        }
-        return false;
+        return card.getMode().equals(Mode.ATTACK);
     }
 
-    public int calculateDifferenceOPoint(MonsterCard playerCard , MonsterCard opponentCard){
-        if (areBothMonstersOffensive(playerCard,opponentCard)){
+    public int calculateDifferenceOPoint(MonsterCard playerCard, MonsterCard opponentCard) {
+        if (areBothMonstersOffensive(playerCard, opponentCard)) {
             return playerCard.getAttackPoint() - opponentCard.getAttackPoint();
-        }
-        else {
+        } else {
             return playerCard.getAttackPoint() - opponentCard.getDefensePoint();
         }
     }
 
-    public void destroyMonster(MonsterCard playerCard , MonsterCard opponentCard){
+    public void destroyMonster(MonsterCard playerCard, MonsterCard opponentCard) {
 
 
-           if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 1){
-               this.opponent.getPlayerBoard().removeMonster(opponent.getPlayerBoard().getMonsterIndexInMonsterBoard(opponentCard));
-           }
-           else if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 2){
-               if (areBothMonstersOffensive(playerCard,opponentCard)) {
-                   this.opponent.getPlayerBoard().removeMonster(opponent.getPlayerBoard().getMonsterIndexInMonsterBoard(opponentCard));
-                   this.player.getPlayerBoard().removeMonster(player.getPlayerBoard().getMonsterIndexInMonsterBoard(playerCard));
-               }
-           }
-           else if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 3){
-               if (areBothMonstersOffensive(playerCard,opponentCard)) {
-                   this.player.getPlayerBoard().removeMonster(player.getPlayerBoard().getMonsterIndexInMonsterBoard(playerCard));
-               }
-           }
-           alreadyAttackedCards.add(playerCard);
+        if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 1) {
+            this.opponent.getPlayerBoard().removeMonster(opponent.getPlayerBoard().getMonsterIndexInMonsterBoard(opponentCard));
+        } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 2) {
+            if (areBothMonstersOffensive(playerCard, opponentCard)) {
+                this.opponent.getPlayerBoard().removeMonster(opponent.getPlayerBoard().getMonsterIndexInMonsterBoard(opponentCard));
+                this.player.getPlayerBoard().removeMonster(player.getPlayerBoard().getMonsterIndexInMonsterBoard(playerCard));
+            }
+        } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 3) {
+            if (areBothMonstersOffensive(playerCard, opponentCard)) {
+                this.player.getPlayerBoard().removeMonster(player.getPlayerBoard().getMonsterIndexInMonsterBoard(playerCard));
+            }
+        }
+        alreadyAttackedCards.add(playerCard);
 
 
     }
 
 
-//-----------------------Attacks------------------------------
-    public void directAttack(MonsterCard playerCard){
-        if (!checkPhaseValidity()){
-            System.out.println(StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE);
-        }
-        else if (checkAlreadyAttacked(playerCard)){
-            System.out.println(StatusEnum.CARD_ALREADY_ATTACKED);
+    //-----------------------Attacks------------------------------
+    public String directAttack() {
+        //TODO call sum selection functions
+        MonsterCard playerCard = (MonsterCard) SelectionController.selectedCard;
+        //TODO some ifs
+        if (!checkPhaseValidity()) {
+            return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
+        } else if (checkAlreadyAttacked(playerCard)) {
+            return StatusEnum.CARD_ALREADY_ATTACKED.getStatus();
         }
         //TODO Check Card Attack System Validity
         else {
+            isBattleHappened = true;
             damagePlayer(this.opponent, playerCard.getAttackPoint());
             alreadyAttackedCards.add(playerCard);
-            System.out.println("you opponent receives"+ playerCard.getAttackPoint() +"battle damage\n");
+            return "you opponent receives" + playerCard.getAttackPoint() + "battle damage\n";
         }
     }
 
-    public void attackMonsterToMonster(MonsterCard playerCard , MonsterCard opponentCard){
-        if (!checkPhaseValidity()){
-            System.out.println(StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE);
-        }
-        else if (checkAlreadyAttacked(playerCard)){
-            System.out.println(StatusEnum.CARD_ALREADY_ATTACKED);
-        }
-        else if (opponentCard == null){
-            System.out.println(StatusEnum.NO_CARD_TO_ATTACK_HERE);
-        }
-        else{
+    public String attackMonsterToMonster(String rivalCardNumber) {
+        //TODO call sum selection functions
+        MonsterCard opponentCard = null; //TODO Formalite
+        MonsterCard playerCard = (MonsterCard) SelectionController.selectedCard;
+        //TODO some ifs
+        if (!checkPhaseValidity()) {
+            return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
+        } else if (checkAlreadyAttacked(playerCard)) {
+            return StatusEnum.CARD_ALREADY_ATTACKED.getStatus();
+        } else if (opponentCard == null) {
+            return StatusEnum.NO_CARD_TO_ATTACK_HERE.getStatus();
+        } else {
             //--------------------Attack OO-------------------------
-            if (areBothMonstersOffensive(playerCard,opponentCard)){
-                destroyMonster(playerCard,opponentCard);
-                int damage = calculateDifferenceOPoint(playerCard,opponentCard);
+            isBattleHappened = true;
+            if (areBothMonstersOffensive(playerCard, opponentCard)) {
+                destroyMonster(playerCard, opponentCard);
+                int damage = calculateDifferenceOPoint(playerCard, opponentCard);
 
-                if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 1){
-                    damagePlayer(opponent,damage);
-                    System.out.println("your opponent’s monster is destroyed and your opponent receives "+damage +" battle damage");
-                }
-                else  if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 2){
-                    System.out.println(StatusEnum.BOTH_RECEIVED_DAMAGE_OO);
-                }
-                else  if (isPlayerMonsterStrongerThanOpponent(playerCard,opponentCard) == 3){
-                    damage*=-1;
-                    damagePlayer(player,damage);
-                    System.out.println("Your monster card is destroyed and you received " +damage +" battle damage");
+                if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 1) {
+                    damagePlayer(opponent, damage);
+                    return "your opponent’s monster is destroyed and your opponent receives " + damage + " battle damage";
+                } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 2) {
+                    return StatusEnum.BOTH_RECEIVED_DAMAGE_OO.getStatus();
+                } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 3) {
+                    damage *= -1;
+                    damagePlayer(player, damage);
+                    return "Your monster card is destroyed and you received " + damage + " battle damage";
 
                 }
-                }
+            }
             //--------------------Attack DH & DO--------------------
-            else{
-                destroyMonster(playerCard,opponentCard);
-                int damage = calculateDifferenceOPoint(playerCard,opponentCard);
+            else {
+                destroyMonster(playerCard, opponentCard);
+                int damage = calculateDifferenceOPoint(playerCard, opponentCard);
                 //DO------------------------------------
                 if (!opponentCard.getIsHidden()) {
                     if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 1) {
-                        System.out.println(StatusEnum.DEFENSE_POSITION_DESTROYED_DO);
+                        return StatusEnum.DEFENSE_POSITION_DESTROYED_DO.getStatus();
                     } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 2) {
-                        System.out.println(StatusEnum.NO_CARD_DESTROYED_EQUAL_DEFENSES_DO);
+                        return StatusEnum.NO_CARD_DESTROYED_EQUAL_DEFENSES_DO.getStatus();
                     } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 3) {
                         damage *= -1;
                         damagePlayer(player, damage);
-                        System.out.println("no card is destroyed and you received" + damage + "battle damage");
+                        return "no card is destroyed and you received" + damage + "battle damage";
                     }
                 }
                 //DH-------------------------------------
-                else{
+                else {
                     if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 1) {
-                        System.out.println("opponent’s monster card was "+ opponentCard.getName() +" and "+StatusEnum.DEFENSE_POSITION_DESTROYED_DH);
+                        return "opponent’s monster card was " + opponentCard.getName() + " and " + StatusEnum.DEFENSE_POSITION_DESTROYED_DH.getStatus();
                     } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 2) {
-                        System.out.println("opponent’s monster card was "+ opponentCard.getName() +" and "+StatusEnum.NO_CARD_DESTROYED_EQUAL_DEFENSES_DO);
+                        return "opponent’s monster card was " + opponentCard.getName() + " and " + StatusEnum.NO_CARD_DESTROYED_EQUAL_DEFENSES_DO.getStatus();
                     } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 3) {
                         damage *= -1;
                         damagePlayer(player, damage);
-                        System.out.println("opponent’s monster card was "+ opponentCard.getName() +" and "+"no card is destroyed and you received" + damage + "battle damage");
+                        return "opponent’s monster card was " + opponentCard.getName() + " and " + "no card is destroyed and you received" + damage + "battle damage";
                     }
                 }
 
             }
-            }
-
         }
+        return null;
+    }
 
-//------------------------------------------------------------
-    private boolean checkPhaseValidity(){
-        return gamePhase.equals(GamePhase.BATTLE) ;
+    //------------------------------------------------------------
+    private boolean checkPhaseValidity() {
+        return gamePhase.equals(GamePhase.BATTLE);
     }
 
     //    private boolean isCardValidInInDamageStep(Card card){
 //        //Method Missing
 //    } TODO Check Card Validity In Damage And Attack
 
-    private boolean checkAlreadyAttacked(MonsterCard card){
-        for (MonsterCard a: alreadyAttackedCards
-             ) {
-            if (a == card){
+    private boolean checkAlreadyAttacked(MonsterCard card) {
+        for (MonsterCard a : alreadyAttackedCards
+        ) {
+            if (a == card) {
                 return true;
             }
         }
         return false;
     }
 
-
-
-
-
-
-
+    public void checkEndGame() {
+        if (Player.getFirstPlayer().getLifePoint() == 0)
+            phaseController.endGame(Player.getSecondPlayer(), Player.getFirstPlayer());
+        else if (Player.getSecondPlayer().getLifePoint() == 0)
+            phaseController.endGame(Player.getFirstPlayer(), Player.getSecondPlayer());
+    }
 
 }

@@ -21,11 +21,11 @@ public class SummonEffects {
     }
 
     private void affectTerratiger() {
-        System.out.println("Do you want to summon a monster?(y/n)");
+        return "Do you want to summon a monster?(y/n)");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to summon a monster?(y/n)");
+            return "Do you want to summon a monster?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
@@ -52,11 +52,11 @@ public class SummonEffects {
     }
 
     private void affectManEaterBug(Board rivalBoard) {
-        System.out.println("Do you want to destroy one of rivals card?(y/n)");
+        return "Do you want to destroy one of rivals card?(y/n)");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to destroy one of rivals card?(y/n)");
+            return "Do you want to destroy one of rivals card?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))

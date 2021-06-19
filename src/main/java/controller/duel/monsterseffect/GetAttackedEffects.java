@@ -49,10 +49,10 @@ public class GetAttackedEffects {
         Scanner scanner = new Scanner(System.in);
         if (hasBeenAttacked.contains(attackedCard))
             return true;
-        System.out.println("Do you want to activate Suijin?(y/n)");
+        return "Do you want to activate Suijin?(y/n)");
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to activate Suijin?(y/n)");
+            return "Do you want to activate Suijin?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))

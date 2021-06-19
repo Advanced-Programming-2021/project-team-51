@@ -55,10 +55,14 @@ public class Board {
         beginDeck();
     }
 
-    public void resetTheBoard(Card main, Card side) throws CloneNotSupportedException {
+    public void resetTheBoard(Card main, Card side) {
         removeCopiedDeck();
         setFieldZone(null);
-        setDeck((Deck) owner.getPlayerDeck().clone());
+        try {
+            setDeck((Deck) owner.getPlayerDeck().clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         setSuijinEffect(false);
         setEquippedBlackPendant(null);
         setEquippedMagnumShield(null);
@@ -149,32 +153,32 @@ public class Board {
 
     public ArrayList<MonsterCard> getMonsters() {
         ArrayList<MonsterCard> monsters = new ArrayList<>();
-        for (MonsterCard monsterCard: monsterBoard)
+        for (MonsterCard monsterCard : monsterBoard)
             if (monsterCard != null) monsters.add(monsterCard);
-            return monsters;
+        return monsters;
     }
 
     public ArrayList<SpellTrapCard> getSpellTraps() {
         ArrayList<SpellTrapCard> spellTraps = new ArrayList<>();
-        for (SpellTrapCard spellTrapCard: spellAndTrapBoard)
+        for (SpellTrapCard spellTrapCard : spellAndTrapBoard)
             if (spellTrapCard != null) spellTraps.add(spellTrapCard);
-            return spellTraps;
+        return spellTraps;
     }
 
     public int getMonsterIndexInMonsterBoard(MonsterCard monster) {
-        for (int i = 0 ; i < monsterBoard.size(); i++)
+        for (int i = 0; i < monsterBoard.size(); i++)
             if (monsterBoard.get(i) == monster &&
                     monsterBoard.get(i).getName().equals(monster.getName())) return i;
 
-            return -1;
+        return -1;
     }
 
     public int getCardIndexInHand(Card key) {
-        for (int i = 0 ; i < cardsInHand.size() ; i++)
+        for (int i = 0; i < cardsInHand.size(); i++)
             if (cardsInHand.get(i) == key &&
-                cardsInHand.get(i).getName().equals(key.getName())) return i;
+                    cardsInHand.get(i).getName().equals(key.getName())) return i;
 
-            return -1;
+        return -1;
     }
 
     public boolean hasSpellTrapZoneSpace() {
@@ -186,7 +190,7 @@ public class Board {
     }
 
     public void summonOrSetMonster(MonsterCard monster) {
-        for (int i = 0 ; i < 5 ; i++)
+        for (int i = 0; i < 5; i++)
             if (monsterBoard.get(i) == null) {
                 monsterBoard.add(monster);
                 removeCardsFromHand(getCardIndexInHand(monster));
@@ -195,7 +199,7 @@ public class Board {
     }
 
     public void summonOrSetMonster(int index) {
-        for (int i = 0 ; i < 5 ; i++)
+        for (int i = 0; i < 5; i++)
             if (monsterBoard.get(i) == null) {
                 monsterBoard.add((MonsterCard) cardsInHand.get(index));
                 removeCardsFromHand(index);
@@ -209,7 +213,7 @@ public class Board {
     }
 
     public void summonOrSetSpellAndTrap(SpellTrapCard spellTrap) {
-        for (int i = 0 ; i < 5 ; i++)
+        for (int i = 0; i < 5; i++)
             if (spellAndTrapBoard.get(i) == null) {
                 spellAndTrapBoard.add(spellTrap);
                 removeCardsFromHand(getCardIndexInHand(spellTrap));
@@ -218,7 +222,7 @@ public class Board {
     }
 
     public void summonOrSetSpellAndTrap(int index) {
-        for (int i = 0 ; i < 5 ; i++)
+        for (int i = 0; i < 5; i++)
             if (spellAndTrapBoard.get(i) == null) {
                 spellAndTrapBoard.add((SpellTrapCard) cardsInHand.get(index));
                 removeCardsFromHand(index);
@@ -255,9 +259,16 @@ public class Board {
         this.lifePoints += amount;
     }
 
-    public void drawCard() {
-        addCardsInHand(deck.getMainDeck().get(0));
+    public Card drawCard() {
+        Card card;
+        try {
+            card = deck.getMainDeck().get(0);
+        } catch (Exception exception) {
+            card = null;
+        }
+        addCardsInHand(card);
         removeCardFromDeck();
+        return card;
     }
 
     private void shuffleDeck() {

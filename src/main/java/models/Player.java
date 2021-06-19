@@ -14,6 +14,7 @@ public class Player {
     private boolean canStrongRivalAttack = true;
     private boolean canRivalPickCard = true;
     private int lifePoint = 8000;
+    private int maxLifePoint = 0;
 
     static {
         allPlayers = new ArrayList<>();
@@ -27,16 +28,28 @@ public class Player {
         setNickName(user.getNickName());
     }
 
-    public static ArrayList<Player> getAllPlayers() {
-        return allPlayers;
+    public static Player getFirstPlayer() {
+        return allPlayers.get(0);
     }
 
-    public static Player getPlayerByUsername(String userName) {
+    public static Player getSecondPlayer() {
+        return allPlayers.get(1);
+    }
+
+    public static void removePlayers() {
+        allPlayers.clear();
+    }
+
+    public static void resetPlayers() {
         for (Player player : allPlayers) {
-            if (player.userName.equals(userName))
-                return player;
+            player.isRivalTrapsBlocked = false;
+            player.canRivalAttack = true;
+            player.isRivalReveled = false;
+            player.canStrongRivalAttack = true;
+            player.canRivalPickCard = true;
+            player.lifePoint = 8000;
+            player.getPlayerBoard().resetTheBoard(null, null); //TODO handle switching cards
         }
-        return null;
     }
 
     public Deck getPlayerDeck() {
@@ -117,5 +130,18 @@ public class Player {
 
     public void setCanStrongRivalAttack(boolean canStrongRivalAttack) {
         this.canStrongRivalAttack = canStrongRivalAttack;
+    }
+
+    public User getUser() {
+        return User.getUserByUserName(this.userName);
+    }
+
+    public int getMaxLifePoint() {
+        return this.maxLifePoint;
+    }
+
+    public void setMaxLifePoint(int lifePoint) {
+        if (lifePoint > this.maxLifePoint)
+            this.maxLifePoint = lifePoint;
     }
 }

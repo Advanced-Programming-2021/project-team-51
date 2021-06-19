@@ -58,24 +58,6 @@ public class GameController {
         summonController.flipSummon();
     }
 
-    public void attackToOpponentMonster(int index) {
-        Player opponent;
-        if (DuelController.getPlayer1().getUserName().equals(owner.getUserName()))
-            opponent = DuelController.getPlayer2();
-        else
-            opponent = DuelController.getPlayer1();
-        new AttackController(owner, opponent, phase).attackMonsterToMonster((MonsterCard) selectedCard,
-                opponent.getPlayerBoard().getMonsterBoard().get(index));
-    }
-
-    public void directAttack() {
-        Player opponent;
-        if (DuelController.getPlayer1().getUserName().equals(owner.getUserName()))
-            opponent = DuelController.getPlayer2();
-        else
-            opponent = DuelController.getPlayer1();
-        new AttackController(owner, opponent, phase).directAttack((MonsterCard) selectedCard);
-    }
 
     public void activeSpell() {
 

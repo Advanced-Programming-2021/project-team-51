@@ -23,10 +23,10 @@ public class TurnEffects {
         if (!isAnyMonsterInGrave(myBoard))
             return;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to summon one of your dead monsters?(y/n)");
+        return "Do you want to summon one of your dead monsters?(y/n)");
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to summon one of your dead monsters?(y/n)");
+            return "Do you want to summon one of your dead monsters?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
@@ -38,15 +38,15 @@ public class TurnEffects {
         if (!isAnyMonsterInGrave(rivalBoard))
             return;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to turn into a rival dead monster?(y/n)");
+        return "Do you want to turn into a rival dead monster?(y/n)");
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to turn into a rival dead monster?(y/n)");
+            return "Do you want to turn into a rival dead monster?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
             return;
-        System.out.println("choose a card from rival graveyard");
+        return "choose a card from rival graveyard");
         String cardName = scanner.nextLine();
         for (Card graveyardCard : rivalBoard.getGraveyardCards()) {
             MonsterCard graveyardMonster;

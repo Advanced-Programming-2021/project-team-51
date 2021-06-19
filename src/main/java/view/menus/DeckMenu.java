@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 
 public class DeckMenu {
 
-    private User currentUser = LoginMenuController.currentUser;
+    private final User currentUser = LoginMenuController.currentUser;
     private DeckMenuController deckMenuController;
 
     public void run(String command) {

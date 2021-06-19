@@ -1,20 +1,27 @@
 package view;
 
-import controller.duel.SettingController;
-import controller.duel.ShowController;
-import controller.duel.SummonController;
+import controller.duel.*;
+import controller.menucontroller.CheatMenuController;
 
 import java.util.regex.Matcher;
 
 public class DuelView {
 
+    public static boolean isMultiPlayer, isHard;
+    public static int rounds, player1Wins = 0, player2Wins = 0;
+    private Matcher matcher;
+
     boolean isCommandValid;
     SummonController summonController = new SummonController();
     SettingController settingController = new SettingController();
     ShowController showController = new ShowController();
+    PhaseController phaseController = new PhaseController();
+    SelectionController selectionController = new SelectionController();
+    AttackController attackController = new AttackController();
+    CheatMenuController cheatMenuController = new CheatMenuController();
 
     public void run(String command) {
-        //System.out.println(); TODO print board from controller
+        System.out.println(phaseController.printBoard());
         isCommandValid = false;
         //Selection
         selectMyMonster(command);
@@ -43,8 +50,9 @@ public class DuelView {
         //show
         showGraveyard(command);
         showCard(command);
+        cheatMenuController.run(command);
         if (!isCommandValid)
-            System.out.println("invalid command!");
+            System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
     }
 
     private void showCard(String command) {
@@ -62,10 +70,10 @@ public class DuelView {
     }
 
     private void selectMyMonster(String command) {
-        if (!Regex.getMatcher(command, Regex.SELECT_OWN_MONSTER).find())
+        if ((matcher = Regex.getMatcher(command, Regex.SELECT_OWN_MONSTER)).matches())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call function from controller
+        System.out.println(selectionController.selectMyMonster(matcher.group(2)));
     }
 
     private void selectRivalMonster(String command) {
@@ -136,13 +144,14 @@ public class DuelView {
     }
 
     private void flipSummon(String command) {
-        if (!Regex.getMatcher(command, Regex.SET).find())
+        if (!Regex.getMatcher(command, Regex.FLIP_SUMMON).find())
             return;
         isCommandValid = true;
         System.out.println(summonController.flipSummon());
     }
 
     private void specialSummon(String command) {
+
     }
 
     private void set(String command) {
@@ -165,14 +174,16 @@ public class DuelView {
         if (!matcher.find())
             return;
         isCommandValid = true;
-        System.out.println(); // TODO call
+        System.out.println(attackController.attackMonsterToMonster(matcher.group(1)));
+        attackController.checkEndGame();
     }
 
     private void directAttack(String command) {
         if (!Regex.getMatcher(command, Regex.ATTACK_DIRECT).find())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call
+        System.out.println(attackController.directAttack());
+        attackController.checkEndGame();
     }
 
     private void activate(String command) {
@@ -186,6 +197,6 @@ public class DuelView {
         if (!Regex.getMatcher(command, Regex.SWITCH_PHASE).find())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call func from controller
+        System.out.println(phaseController.changePhase());
     }
 }
