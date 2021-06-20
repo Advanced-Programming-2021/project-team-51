@@ -5,7 +5,7 @@ import models.cards.spelltrap.SpellTrapCard;
 
 public class RingOfDefense {
     public static boolean check(Board myBoard) {
-        for (SpellTrapCard spellTrapCard : myBoard.getSpellTrapCards()) {
+        for (SpellTrapCard spellTrapCard : myBoard.getSpellTraps()) {
             if (spellTrapCard.getName().equals("Ring of defense"))
                 return true;
         }

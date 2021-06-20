@@ -80,6 +80,22 @@ abstract public class AI {
         return this.board.getSpellTraps();
     }
 
+    public int getOpponentMostPowerfulMonsterAttackPoint() {
+        int maximum = 0;
+        for (MonsterCard monster: getOpponentMonsters())
+            if (maximum < monster.getAttackPoint()) maximum = monster.getAttackPoint();
+
+            return maximum;
+    }
+
+    public int getOpponentLeastPowerfulMonsterAttackPoint() {
+        int minimum = Integer.MAX_VALUE;
+        for (MonsterCard monster: getOpponentMonsters())
+            if (minimum > monster.getAttackPoint()) minimum = monster.getAttackPoint();
+
+            return minimum;
+    }
+
     protected int getTrapCard(ArrayList<Card> cards) {
         for (int i = 0; i < cards.size(); i++)
             if (cards.get(i).getCardType() == CardType.TRAP)
@@ -242,9 +258,9 @@ abstract public class AI {
     public int getOpponentMonsterIndexEasy(Player opponent) {
         int index = getBestMonsterToAttack(getAIMonsters());
         if (index != -1) {
-            for (int i = 0; i < opponent.getPlayerBoard().getMonsterCards().size(); i++)
+            for (int i = 0; i < opponent.getPlayerBoard().getMonsters().size(); i++)
                 if (isReasonableToAttack(getAIMonsters().get(index),
-                        opponent.getPlayerBoard().getMonsterCards().get(i)) != ReasonableLevel.NOT_REASONABLE)
+                        opponent.getPlayerBoard().getMonsters().get(i)) != ReasonableLevel.NOT_REASONABLE)
                     return i;
         }
         return -1;
@@ -253,9 +269,9 @@ abstract public class AI {
     public int getOpponentMonsterIndexHard(Player opponent) {
         int index = getBestMonsterToAttack(getAIMonsters());
         if (index != -1) {
-            for (int i = 0; i < opponent.getPlayerBoard().getMonsterCards().size(); i++)
+            for (int i = 0; i < opponent.getPlayerBoard().getMonsters().size(); i++)
                 if (isReasonableToAttack(getAIMonsters().get(index),
-                        opponent.getPlayerBoard().getMonsterCards().get(i)) == ReasonableLevel.REASONABLE_FOR_HARD)
+                        opponent.getPlayerBoard().getMonsters().get(i)) == ReasonableLevel.REASONABLE_FOR_HARD)
                     return i;
         }
         return -1;
@@ -327,7 +343,7 @@ abstract public class AI {
             case "Time Seal" -> isReasonableToActiveTimeSeal();
             case "Negate Attack" -> isReasonableToActiveNegateAttack(attacked);
             case "Solemn Warning" -> isReasonableToActiveSolemnWarning(summoned);
-            case "Magic Jamamer" -> isReasonableToActiveMagicJamamer();
+            case "Magic Jammer" -> isReasonableToActiveMagicJammer();
             case "Call of The Haunted" -> isReasonableToActiveCallOfTheHaunted();
             case "Vanity's Emptiness" -> isReasonableToActiveVanitysEmptiness();
             case "Wall of Revealing Light" -> isReasonableToActiveWallOfRevealingLight();
@@ -956,7 +972,7 @@ abstract public class AI {
     }
 
     public ReasonableLevel isReasonableToActiveMindCrush() {
-        /*------Should Think about It------*/
+        return ReasonableLevel.REASONABLE_FOR_HARD;
     }
 
     public ReasonableLevel isReasonableToActiveTorrentialTribute(MonsterCard summoned) {
@@ -1035,8 +1051,8 @@ abstract public class AI {
         return ReasonableLevel.NOT_REASONABLE;
     }
 
-    public ReasonableLevel isReasonableToActiveMagicJamamer() {
-        /*------Shoud think About It------*/
+    public ReasonableLevel isReasonableToActiveMagicJammer() {
+        return ReasonableLevel.REASONABLE_FOR_HARD;
     }
 
     public ReasonableLevel isReasonableToActiveCallOfTheHaunted() {
@@ -1059,9 +1075,23 @@ abstract public class AI {
     }
 
     public ReasonableLevel isReasonableToActiveVanitysEmptiness() {
+        boolean hasSpecialMonster = false;
+        for (MonsterCard monster: getAIMonsters())
+            if (monster.getLevel() > 4) {
+                hasSpecialMonster = true;
+                break;
+            }
+        if (hasSpecialMonster)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        return ReasonableLevel.NOT_REASONABLE;
     }
 
     public ReasonableLevel isReasonableToActiveWallOfRevealingLight() {
+        if (this.board.getLifePoints()/1000 > getOpponentMostPowerfulMonsterAttackPoint()/1000)
+            return ReasonableLevel.REASONABLE_FOR_HARD;
+        if (this.board.getLifePoints()/1000 > getOpponentLeastPowerfulMonsterAttackPoint()/1000)
+            return ReasonableLevel.REASONABLE_FOR_EASY;
+        return ReasonableLevel.NOT_REASONABLE;
     }
 
     /*------Some Exceptions------*/

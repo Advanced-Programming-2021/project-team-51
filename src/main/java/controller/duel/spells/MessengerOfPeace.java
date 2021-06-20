@@ -22,7 +22,7 @@ public class MessengerOfPeace {
     }
 
     public static void checkStandBy(Board myBoard) {
-        for (SpellTrapCard spellTrapCard : myBoard.getSpellTrapCards()) {
+        for (SpellTrapCard spellTrapCard : myBoard.getSpellTraps()) {
             if(messengers.contains(spellTrapCard))
                 myBoard.getOwner().setLifePoint(myBoard.getLifePoints() - 100);
         }

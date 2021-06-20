@@ -18,8 +18,7 @@ public class NormalTraps {
 
         if (hasActivated) {
             trapCard.setLocation(Location.GRAVEYARD);
-            myBoard.addToGraveyard(trapCard);
-            myBoard.getSpellTrapCards().remove(trapCard);
+            myBoard.removeSpellAndTrap(myBoard.getSpellTrapIndexInSpellTrapBoard(trapCard));
         }
         return hasActivated;
     }
@@ -33,19 +32,17 @@ public class NormalTraps {
         boolean hasFoundName = false;
         //TODO get a card name
         String cardName = "";
-        for (MonsterCard monsterCard : rivalBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
             if (monsterCard.getName().equals(cardName)) {
                 monsterCard.setLocation(Location.GRAVEYARD);
-                rivalBoard.getMonsterCards().remove(monsterCard); //possible runtime error
-                rivalBoard.addToGraveyard(monsterCard);
+                rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
                 hasFoundName = true;
             }
         }
-        for (SpellTrapCard spellTrapCard : rivalBoard.getSpellTrapCards()) {
+        for (SpellTrapCard spellTrapCard : rivalBoard.getSpellTraps()) {
             if (spellTrapCard.getName().equals(cardName)) {
                 spellTrapCard.setLocation(Location.GRAVEYARD);
-                rivalBoard.getSpellTrapCards().remove(spellTrapCard); //possible runtime error
-                rivalBoard.addToGraveyard(spellTrapCard);
+                rivalBoard.removeSpellAndTrap(rivalBoard.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
                 hasFoundName = true;
             }
         }

@@ -10,7 +10,7 @@ public class SpellAbsorption {
     }
 
     private static void activateSpellAbsorption(Board board) {
-        for (SpellTrapCard spellTrapCard : board.getSpellTrapCards()) {
+        for (SpellTrapCard spellTrapCard : board.getSpellTraps()) {
             if (spellTrapCard.getName().equals("Spell Absorption"))
                 board.getOwner().setLifePoint(board.getOwner().getLifePoint() + 500);
         }

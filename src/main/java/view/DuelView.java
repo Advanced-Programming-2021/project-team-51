@@ -70,40 +70,50 @@ public class DuelView {
     }
 
     private void selectMyMonster(String command) {
-        if ((matcher = Regex.getMatcher(command, Regex.SELECT_OWN_MONSTER)).matches())
+        if (!(matcher = Regex.getMatcher(command, Regex.SELECT_OWN_MONSTER)).matches())
             return;
         isCommandValid = true;
         System.out.println(selectionController.selectMyMonster(matcher.group(2)));
     }
 
     private void selectRivalMonster(String command) {
-        if (Regex.getMatcher(command, Regex.SELECT_OPPONENT_MONSTER_1).find()
-                || Regex.getMatcher(command, Regex.SELECT_OPPONENT_MONSTER_2).find())
+        String monsterNum;
+        if ((matcher = Regex.getMatcher(command, Regex.SELECT_OPPONENT_MONSTER_1)).matches()) {
+            monsterNum = matcher.group(2);
             isCommandValid = true;
+        } else if ((matcher = Regex.getMatcher(command, Regex.SELECT_OPPONENT_MONSTER_2)).matches()) {
+            monsterNum = matcher.group(3);
+            isCommandValid = true;
+        }
         else return;
-        System.out.println(); //TODO call function from controller
+        System.out.println(selectionController.selectRivalMonster(monsterNum));
     }
 
     private void selectMySpell(String command) {
-        if (!Regex.getMatcher(command, Regex.SELECT_OWN_SPELL_CARD).find())
+        if (!(matcher = Regex.getMatcher(command, Regex.SELECT_OWN_SPELL_CARD)).matches())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call function form controller
+        System.out.println(selectionController.selectMySpell(matcher.group(2)));
     }
 
     private void selectRivalSpell(String command) {
-        if (Regex.getMatcher(command, Regex.SELECT_OPPONENT_SPELL_CARD_1).find()
-                || Regex.getMatcher(command, Regex.SELECT_OPPONENT_SPELL_CARD_2).find())
+        String spellNum;
+        if ((matcher = Regex.getMatcher(command, Regex.SELECT_OPPONENT_SPELL_CARD_1)).matches()) {
+            spellNum = matcher.group(3);
             isCommandValid = true;
+        } else if ((matcher = Regex.getMatcher(command, Regex.SELECT_OPPONENT_SPELL_CARD_2)).matches()) {
+            spellNum = matcher.group(2);
+            isCommandValid = true;
+        }
         else return;
-        System.out.println(); //TODO call function from controller
+        System.out.println(selectionController.selectRivalSpell(spellNum));
     }
 
     private void selectMyFieldCard(String command) {
         if (!Regex.getMatcher(command, Regex.SELECT_OWN_FIELD).find())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call function from controller
+        System.out.println(selectionController.selectMyFieldCard());
     }
 
     private void selectRivalFieldCard(String command) {
@@ -111,21 +121,21 @@ public class DuelView {
         || Regex.getMatcher(command, Regex.SELECT_OPPONENT_FIELD_2).find())
             isCommandValid = true;
         else return;
-        System.out.println(); //TODO call function from controller
+        System.out.println(selectionController.selectRivalFieldCard());
     }
 
     private void selectMyHand(String command) {
-        if (!Regex.getMatcher(command, Regex.SELECT_HAND_CARD).find())
+        if (!(matcher = Regex.getMatcher(command, Regex.SELECT_HAND_CARD)).matches())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call function from controller
+        System.out.println(selectionController.selectHandCard(matcher.group(2)));
     }
 
     private void deSelect(String command) {
         if (!Regex.getMatcher(command, Regex.DESELECT_CARD).find())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call function from controller
+        System.out.println(selectionController.deSelect());
     }
 
     private void summon(String command) {

@@ -173,6 +173,14 @@ public class Board {
         return -1;
     }
 
+    public int getSpellTrapIndexInSpellTrapBoard(SpellTrapCard spellTrapCard) {
+        for (int i = 0 ; i < spellAndTrapBoard.size(); i++)
+            if (spellAndTrapBoard.get(i) == spellTrapCard &&
+                    spellAndTrapBoard.get(i).getName().equals(spellTrapCard.getName())) return i;
+
+            return -1;
+    }
+
     public int getCardIndexInHand(Card key) {
         for (int i = 0; i < cardsInHand.size(); i++)
             if (cardsInHand.get(i) == key &&

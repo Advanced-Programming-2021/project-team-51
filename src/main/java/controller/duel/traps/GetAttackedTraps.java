@@ -17,8 +17,7 @@ public class GetAttackedTraps {
             hasActivated = activateNegateAttack();
         if (hasActivated) {
             trapCard.setLocation(Location.GRAVEYARD);
-            myBoard.getSpellTrapCards().remove(trapCard);
-            myBoard.addToGraveyard(trapCard);
+            myBoard.removeSpellAndTrap(myBoard.getSpellTrapIndexInSpellTrapBoard(trapCard));
         }
         return hasActivated;
     }
@@ -29,11 +28,10 @@ public class GetAttackedTraps {
     }
 
     private static boolean activateMirrorForce(Board rivalBoard) {
-        for (MonsterCard monsterCard : rivalBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
             if (monsterCard.getMode().equals(Mode.ATTACK)) {
                 monsterCard.setLocation(Location.GRAVEYARD);
-                rivalBoard.getMonsterCards().remove(monsterCard); //possible runtime error
-                rivalBoard.addToGraveyard(monsterCard);
+                rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
             }
         }
         return true;

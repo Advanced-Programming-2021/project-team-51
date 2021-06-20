@@ -135,9 +135,9 @@ public class Regex {
     public static final String SELECT_OPPONENT_MONSTER_2 = "^select (opponent|-o) (--monster|-m) (\\d)$";
     public static final String SELECT_HAND_CARD = "^select (--hand|-h) (\\d+)$";
     public static final String SELECT_OWN_SPELL_CARD = "^select (--spell|-s) (\\d+)$";
-    public static final String SELECT_OWN_FIELD = "^select (--field|-f) (\\d+)$";
-    public static final String SELECT_OPPONENT_FIELD_1 = "^select (--opponent|-o) (--field|-f) (\\d+)$";
-    public static final String SELECT_OPPONENT_FIELD_2 = "^select (--field|-f) (\\d+) (--opponent|-o)$";
+    public static final String SELECT_OWN_FIELD = "^select (--field|-f)$";
+    public static final String SELECT_OPPONENT_FIELD_1 = "^select (--opponent|-o) (--field|-f)$";
+    public static final String SELECT_OPPONENT_FIELD_2 = "^select (--field|-f) (--opponent|-o)$";
     public static final String SELECT_OPPONENT_SPELL_CARD_1 = "^select (--opponent|-o) (--spell|-s) (\\d+)$";
     public static final String SELECT_OPPONENT_SPELL_CARD_2 = "^select (--spell|-s) (\\d+) (--opponent|-o)$";
     public static final String DESELECT_CARD = "^select -d$";

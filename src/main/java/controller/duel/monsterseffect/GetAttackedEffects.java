@@ -27,7 +27,7 @@ public class GetAttackedEffects {
     }
 
     private static boolean affectCommandKnight(Board rivalBoard) {
-        return rivalBoard.getMonsterCards().size() != 1;
+        return rivalBoard.getMonsters().size() != 1;
     }
 
     private static boolean affectTexChanger(Board rivalBoard) {
@@ -49,10 +49,10 @@ public class GetAttackedEffects {
         Scanner scanner = new Scanner(System.in);
         if (hasBeenAttacked.contains(attackedCard))
             return true;
-        return "Do you want to activate Suijin?(y/n)");
+        System.out.println("Do you want to activate Suijin?(y/n)");
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            return "Do you want to activate Suijin?(y/n)");
+            System.out.println("Do you want to activate Suijin?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
@@ -64,8 +64,7 @@ public class GetAttackedEffects {
 
     private static boolean killAttacker(MonsterCard attackedCard, MonsterCard attackerCard, Board myBoard) {
         attackerCard.setLocation(Location.GRAVEYARD);
-        myBoard.getMonsterCards().remove(attackerCard);
-        myBoard.addToGraveyard(attackerCard);
+        myBoard.removeMonster(myBoard.getMonsterIndexInMonsterBoard(attackedCard));
         return attackedCard.getName().equals("Yomi Ship");
     }
 }

@@ -13,7 +13,7 @@ public class ContinuousEffects {
 
     public static void run(Board myBoard, Board rivalBoard) {
         removeDeadMonsters(myBoard, rivalBoard);
-        for (MonsterCard monsterCard : myBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : myBoard.getMonsters()) {
             if (!continuousMonsters.contains(monsterCard)) {
                 if (monsterCard.getName().equals("Command Knight")) {
                     activateCommandKnight(myBoard, rivalBoard);
@@ -28,10 +28,10 @@ public class ContinuousEffects {
     }
 
     private static void activateCommandKnight(Board myBoard, Board rivalBoard) {
-        for (MonsterCard monsterCard : myBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : myBoard.getMonsters()) {
             monsterCard.setAttackPoint(monsterCard.getAttackPoint() + 400);
         }
-        for (MonsterCard monsterCard : rivalBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
             monsterCard.setAttackPoint(monsterCard.getAttackPoint() + 400);
         }
     }
@@ -57,10 +57,10 @@ public class ContinuousEffects {
     }
 
     private static void deactivateCommandKnight(Board myBoard, Board rivalBoard) {
-        for (MonsterCard monsterCard : myBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : myBoard.getMonsters()) {
             monsterCard.setAttackPoint(monsterCard.getAttackPoint() - 400);
         }
-        for (MonsterCard monsterCard : rivalBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
             monsterCard.setAttackPoint(monsterCard.getAttackPoint() - 400);
         }
     }

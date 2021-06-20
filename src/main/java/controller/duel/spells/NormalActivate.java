@@ -44,24 +44,21 @@ public class NormalActivate {
     }
 
     private static boolean affectDarkHole(Board myBoard, Board rivalBoard) {
-        for (MonsterCard monsterCard : myBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : myBoard.getMonsters()) {
             monsterCard.setLocation(Location.GRAVEYARD);
-            myBoard.getMonsterCards().remove(monsterCard); //may error
-            myBoard.addToGraveyard(monsterCard);
+            myBoard.removeMonster(myBoard.getMonsterIndexInMonsterBoard(monsterCard));
         }
-        for (MonsterCard monsterCard : rivalBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
             monsterCard.setLocation(Location.GRAVEYARD);
-            rivalBoard.getMonsterCards().remove(monsterCard); //may error
-            rivalBoard.addToGraveyard(monsterCard);
+            rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
         }
         return true;
     }
 
     private static boolean affectHarpie(Board rivalBoard) {
-        for (SpellTrapCard spellTrapCard : rivalBoard.getSpellTrapCards()) {
+        for (SpellTrapCard spellTrapCard : rivalBoard.getSpellTraps()) {
             spellTrapCard.setLocation(Location.GRAVEYARD);
-            rivalBoard.getSpellTrapCards().remove(spellTrapCard);//risk of error
-            rivalBoard.addToGraveyard(spellTrapCard);
+            rivalBoard.removeSpellAndTrap(rivalBoard.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
         }
         return true;
     }
@@ -81,10 +78,9 @@ public class NormalActivate {
     }
 
     private static boolean affectReigeki(Board rivalBoard) {
-        for (MonsterCard monsterCard : rivalBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
             monsterCard.setLocation(Location.GRAVEYARD);
-            rivalBoard.getMonsterCards().remove(monsterCard);
-            rivalBoard.addToGraveyard(monsterCard);
+            rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
         }
         return true;
     }
@@ -109,8 +105,7 @@ public class NormalActivate {
 
     private static void removeSpellCard(SpellTrapCard spellCard, Board myBoard) {
         spellCard.setLocation(Location.GRAVEYARD);
-        myBoard.addToGraveyard(spellCard);
-        myBoard.getSpellTrapCards().remove(spellCard);
+        myBoard.removeSpellAndTrap(myBoard.getSpellTrapIndexInSpellTrapBoard(spellCard));
     }
 
     private static boolean affectMonsterReborn(Board myBoard, Scanner scanner) {

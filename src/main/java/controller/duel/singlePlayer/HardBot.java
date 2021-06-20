@@ -41,10 +41,10 @@ public class HardBot extends AI {
             int opponentMonsterPower;
             int aiMonsterPower = getAIMonsters().get(monsterIndex).getAttackPoint();
             getAIMonsters().get(monsterIndex).setHasAttacked(true);
-            if (opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getMode() == Mode.ATTACK)
-                opponentMonsterPower = opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getAttackPoint();
+            if (opponent.getPlayerBoard().getMonsters().get(opponentIndex).getMode() == Mode.ATTACK)
+                opponentMonsterPower = opponent.getPlayerBoard().getMonsters().get(opponentIndex).getAttackPoint();
             else
-                opponentMonsterPower = opponent.getPlayerBoard().getMonsterCards().get(opponentIndex).getDefensePoint();
+                opponentMonsterPower = opponent.getPlayerBoard().getMonsters().get(opponentIndex).getDefensePoint();
             if (opponentMonsterPower > aiMonsterPower) {
                 this.board.setLifePoints(this.board.getLifePoints() + aiMonsterPower - opponentMonsterPower);
                 this.board.removeMonster(monsterIndex);

@@ -15,7 +15,6 @@ public class MagicJammer {
 
     private static void removeCard(SpellTrapCard card, Board board) {
         card.setLocation(Location.GRAVEYARD);
-        board.addToGraveyard(card);
-        board.getSpellTrapCards().remove(card);
+        board.removeSpellAndTrap(board.getSpellTrapIndexInSpellTrapBoard(card));
     }
 }

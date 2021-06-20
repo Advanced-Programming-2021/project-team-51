@@ -4,6 +4,7 @@ import models.Board;
 import models.cards.Card;
 import models.cards.Location;
 import models.cards.monsters.MonsterCard;
+import models.cards.spelltrap.SpellTrapCard;
 
 import java.util.Scanner;
 
@@ -21,11 +22,11 @@ public class SummonEffects {
     }
 
     private void affectTerratiger() {
-        return "Do you want to summon a monster?(y/n)");
+        System.out.println("Do you want to summon a monster?(y/n)");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            return "Do you want to summon a monster?(y/n)");
+            System.out.println("Do you want to summon a monster?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
@@ -35,28 +36,28 @@ public class SummonEffects {
 
     private void setCalculatorAttackPoint(Board myBoard, MonsterCard calculator) {
         int levelsSum = 0;
-        for (MonsterCard monsterCard : myBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : myBoard.getMonsters()) {
             levelsSum += monsterCard.getLevel();
         }
         calculator.setAttackPoint(levelsSum * 300);
     }
 
     private void affectBeastKingBarbaros(Board rivalBoard) {
-        rivalBoard.getGraveyardCards().addAll(rivalBoard.getMonsterCards());
-        rivalBoard.getGraveyardCards().addAll(rivalBoard.getSpellTrapCards());
-        rivalBoard.getMonsterCards().clear();
-        rivalBoard.getSpellTrapCards().clear();
+        for (MonsterCard monster: rivalBoard.getMonsters())
+            rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monster));
+        for (SpellTrapCard spellTrapCard: rivalBoard.getSpellTraps())
+            rivalBoard.removeSpellAndTrap(rivalBoard.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
         for (Card graveyardCard : rivalBoard.getGraveyardCards()) {
             graveyardCard.setLocation(Location.GRAVEYARD);
         }
     }
 
     private void affectManEaterBug(Board rivalBoard) {
-        return "Do you want to destroy one of rivals card?(y/n)");
+        System.out.println("Do you want to destroy one of rivals card?(y/n)");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            return "Do you want to destroy one of rivals card?(y/n)");
+            System.out.println("Do you want to destroy one of rivals card?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))

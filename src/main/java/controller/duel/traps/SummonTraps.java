@@ -18,8 +18,7 @@ public class SummonTraps {
 
         if (hasActivated) {
             spellTrapCard.setLocation(Location.GRAVEYARD);
-            myBoard.getSpellTrapCards().remove(spellTrapCard);
-            myBoard.addToGraveyard(spellTrapCard);
+            myBoard.removeSpellAndTrap(myBoard.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
         }
         return hasActivated;
     }
@@ -28,8 +27,7 @@ public class SummonTraps {
         if (summonedCard.getAttackPoint() > 1000 &&
                 (summonedCard.getSummonType().equals(SummonType.FLIP_SUMMON) || summonedCard.getSummonType().equals(SummonType.NORMAL_SUMMON))) {
             summonedCard.setLocation(Location.GRAVEYARD);
-            rivalBoard.getMonsterCards().remove(summonedCard);
-            rivalBoard.addToGraveyard(summonedCard);
+            rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(summonedCard));
         }
         return true;
     }
@@ -43,16 +41,14 @@ public class SummonTraps {
     private static boolean activateSolemnWarning(MonsterCard summonedCard, Board myBoard, Board rivalBoard) {
         myBoard.getOwner().setLifePoint(myBoard.getOwner().getLifePoint() - 2000);
         summonedCard.setLocation(Location.GRAVEYARD);
-        rivalBoard.getMonsterCards().remove(summonedCard);
-        rivalBoard.addToGraveyard(summonedCard);
+        rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(summonedCard));
         return true;
     }
 
     private static void removeAllMonsters(Board board) {
-        for (MonsterCard monsterCard : board.getMonsterCards()) {
+        for (MonsterCard monsterCard : board.getMonsters()) {
             monsterCard.setLocation(Location.GRAVEYARD);
-            board.getMonsterCards().remove(monsterCard); // possible runtime error
-            board.addToGraveyard(monsterCard);
+            board.removeMonster(board.getMonsterIndexInMonsterBoard(monsterCard));
         }
     }
 }

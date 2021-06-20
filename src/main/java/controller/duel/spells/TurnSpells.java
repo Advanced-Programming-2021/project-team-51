@@ -29,7 +29,7 @@ public class TurnSpells {
         for (Map.Entry turnsCard : turnsActivated.entrySet()) {
             SpellTrapCard spellCard = (SpellTrapCard) turnsCard.getKey();
 
-            if (!board.getSpellTrapCards().contains(spellCard))
+            if (!board.getSpellTraps().contains(spellCard))
                 continue;
 
             if ((Integer) turnsCard.getValue() < 3) {

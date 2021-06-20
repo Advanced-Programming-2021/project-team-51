@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class TurnEffects {
     private static final ArrayList<MonsterCard> scanners = new ArrayList<>();
     public static void run(Board myBoard, Board rivalBoard) {
-        for (MonsterCard monsterCard : myBoard.getMonsterCards()) {
+        for (MonsterCard monsterCard : myBoard.getMonsters()) {
             if (monsterCard.getName().equals("Scanner") || scanners.contains(monsterCard))
                 affectScanner(rivalBoard, monsterCard);
             else if (monsterCard.getName().equals("Herald of Creation"))
@@ -23,10 +23,10 @@ public class TurnEffects {
         if (!isAnyMonsterInGrave(myBoard))
             return;
         Scanner scanner = new Scanner(System.in);
-        return "Do you want to summon one of your dead monsters?(y/n)");
+        System.out.println("Do you want to summon one of your dead monsters?(y/n)");
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            return "Do you want to summon one of your dead monsters?(y/n)");
+            System.out.println("Do you want to summon one of your dead monsters?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
@@ -38,15 +38,15 @@ public class TurnEffects {
         if (!isAnyMonsterInGrave(rivalBoard))
             return;
         Scanner scanner = new Scanner(System.in);
-        return "Do you want to turn into a rival dead monster?(y/n)");
+        System.out.println("Do you want to turn into a rival dead monster?(y/n)");
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
-            return "Do you want to turn into a rival dead monster?(y/n)");
+            System.out.println("Do you want to turn into a rival dead monster?(y/n)");
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
             return;
-        return "choose a card from rival graveyard");
+        System.out.println("choose a card from rival graveyard");
         String cardName = scanner.nextLine();
         for (Card graveyardCard : rivalBoard.getGraveyardCards()) {
             MonsterCard graveyardMonster;

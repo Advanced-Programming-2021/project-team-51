@@ -22,7 +22,7 @@ public class FiledSpells {
     }
 
     private static void activate(Board myBoard, Board rivalBoard) {
-        for (SpellTrapCard spellTrapCard : myBoard.getSpellTrapCards()) {
+        for (SpellTrapCard spellTrapCard : myBoard.getSpellTraps()) {
             if (activatedFieldSpells.contains(spellTrapCard))
                 continue;
             if (spellTrapCard.getName().equals("Yami"))
@@ -95,7 +95,7 @@ public class FiledSpells {
 
     private static void removeDeadFromList(Board myBoard, Board rivalBoard) {
         for (SpellTrapCard activatedFieldSpell : activatedFieldSpells) {
-            if (myBoard.getSpellTrapCards().contains(activatedFieldSpell) || rivalBoard.getSpellTrapCards().contains(activatedFieldSpell))
+            if (myBoard.getSpellTraps().contains(activatedFieldSpell) || rivalBoard.getSpellTraps().contains(activatedFieldSpell))
                 continue;
             if (activatedFieldSpell.getName().equals("Yami"))
                 deactivateYami(myBoard, rivalBoard);
@@ -160,7 +160,7 @@ public class FiledSpells {
     }
 
     private static void changeAttackDefensePoints(Board board, boolean isAttackPoint, MonsterType monsterType, int value) {
-        for (MonsterCard monsterCard : board.getMonsterCards()) {
+        for (MonsterCard monsterCard : board.getMonsters()) {
             if (!monsterCard.getMonsterType().equals(monsterType))
                 continue;
             if (isAttackPoint)

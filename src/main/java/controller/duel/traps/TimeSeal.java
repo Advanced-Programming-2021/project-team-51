@@ -26,12 +26,11 @@ public class TimeSeal {
 
     private static boolean checkEachBoard(Board board) {
         if (!board.getOwner().getCanRivalPickCard()) {
-            for (SpellTrapCard spellTrapCard : board.getSpellTrapCards()) {
+            for (SpellTrapCard spellTrapCard : board.getSpellTraps()) {
                 if (timeSeals.contains(spellTrapCard)) {
                     timeSeals.remove(spellTrapCard);
                     spellTrapCard.setLocation(Location.GRAVEYARD);
-                    board.getSpellTrapCards().remove(spellTrapCard); //runtime error possible
-                    board.addToGraveyard(spellTrapCard);
+                    board.removeSpellAndTrap(board.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
                     if (!isThereAnotherTimeSeal(board))
                         board.getOwner().setCanRivalPickCard(true);
                     return true;
@@ -42,7 +41,7 @@ public class TimeSeal {
     }
 
     private static boolean isThereAnotherTimeSeal(Board board) {
-        for (SpellTrapCard spellTrapCard : board.getSpellTrapCards()) {
+        for (SpellTrapCard spellTrapCard : board.getSpellTraps()) {
             if (timeSeals.contains(spellTrapCard))
                 return true;
         }
