@@ -76,10 +76,14 @@ public class MonsterCard extends Card {
             return allMonsterCardsToShow;
 
         String line = "";
+        boolean isFirstLine = true;
         BufferedReader bufferedReader = new BufferedReader(new FileReader("Monster.csv"));
         while ((line = bufferedReader.readLine()) != null) {
             String[] values = line.split(",");
-            allMonsterCardsToShow.add(new MonsterCard(values[0], Integer.parseInt(values[8])));
+            if (isFirstLine)
+                isFirstLine = false;
+            else
+            allMonsterCardsToShow.add(new MonsterCard(values[0], Integer.parseInt(values[values.length - 1])));
         }
         return allMonsterCardsToShow;
     }

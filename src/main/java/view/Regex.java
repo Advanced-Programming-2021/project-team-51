@@ -55,22 +55,22 @@ public class Regex {
 
     /*---ADD CARD TO DECK---*/
 
-    public static final String ADD_CARD_TO_DECK_1 = "^deck add-card (--card|-c) (\\S+) (--deck|-d) (\\S+)( --side| -s)?$";
-    public static final String ADD_CARD_TO_DECK_2 = "^deck add-card (--card|-c) (\\S+)( --side| -s)? (--deck|-d) (\\S+)$";
-    public static final String ADD_CARD_TO_DECK_3 = "^deck add-card (--deck|-d) (\\S+) (--card|-c) (\\S+)( --side| -s)?$";
-    public static final String ADD_CARD_TO_DECK_4 = "^deck add-card (--deck|-d) (\\S+)( --side| -s)? (--card|-c) (\\S+)$";
-    public static final String ADD_CARD_TO_DECK_5 = "^deck add-card( --side| -s)? (--deck|-d) (\\S+) (--card|-c) (\\S+)$";
-    public static final String ADD_CARD_TO_DECK_6 = "^deck add-card( --side| -s)? (--card|-c) (\\S+) (--deck|-d) (\\S+)$";
+    public static final String ADD_CARD_TO_DECK_1 = "^deck add-card (--card|-c) (.+) (--deck|-d) (\\S+)( --side| -s)?$";
+    public static final String ADD_CARD_TO_DECK_2 = "^deck add-card (--card|-c) (.+)( --side| -s)? (--deck|-d) (\\S+)$";
+    public static final String ADD_CARD_TO_DECK_3 = "^deck add-card (--deck|-d) (\\S+) (--card|-c) (.+)( --side| -s)?$";
+    public static final String ADD_CARD_TO_DECK_4 = "^deck add-card (--deck|-d) (\\S+)( --side| -s)? (--card|-c) (.+)$";
+    public static final String ADD_CARD_TO_DECK_5 = "^deck add-card( --side| -s)? (--deck|-d) (\\S+) (--card|-c) (.+)$";
+    public static final String ADD_CARD_TO_DECK_6 = "^deck add-card( --side| -s)? (--card|-c) (.+) (--deck|-d) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---REMOVE CARD FROM DECK---*/
 
-    public static final String REMOVE_CARD_FROM_DECK_1 = "^deck rm-card (--card|-c) (\\S+) (--deck|-d) (\\S+)( --side| -s)?$";
-    public static final String REMOVE_CARD_FROM_DECK_2 = "^deck rm-card (--card|-c) (\\S+)( --side| -s)? (--deck|-d) (\\S+)$";
-    public static final String REMOVE_CARD_FROM_DECK_3 = "^deck rm-card (--deck|-d) (\\S+) (--card|-c) (\\S+)( --side| -s)?$";
-    public static final String REMOVE_CARD_FROM_DECK_4 = "^deck rm-card (--deck|-d) (\\S+)( --side| -s)? (--card|-c) (\\S+)$";
-    public static final String REMOVE_CARD_FROM_DECK_5 = "^deck rm-card( --side| -s)? (--deck|-d) (\\S+) (--card|-c) (\\S+)$";
-    public static final String REMOVE_CARD_FROM_DECK_6 = "^deck rm-card( --side| -s)? (--card|-c) (\\S+) (--deck|-d) (\\S+)$";
+    public static final String REMOVE_CARD_FROM_DECK_1 = "^deck rm-card (--card|-c) (.+) (--deck|-d) (\\S+)( --side| -s)?$";
+    public static final String REMOVE_CARD_FROM_DECK_2 = "^deck rm-card (--card|-c) (.+)( --side| -s)? (--deck|-d) (\\S+)$";
+    public static final String REMOVE_CARD_FROM_DECK_3 = "^deck rm-card (--deck|-d) (\\S+) (--card|-c) (.+)( --side| -s)?$";
+    public static final String REMOVE_CARD_FROM_DECK_4 = "^deck rm-card (--deck|-d) (\\S+)( --side| -s)? (--card|-c) (.+)$";
+    public static final String REMOVE_CARD_FROM_DECK_5 = "^deck rm-card( --side| -s)? (--deck|-d) (\\S+) (--card|-c) (.+)$";
+    public static final String REMOVE_CARD_FROM_DECK_6 = "^deck rm-card( --side| -s)? (--card|-c) (.+) (--deck|-d) (\\S+)$";
     //----------------------------------------------------------------------------------------------
 
     /*---SHOW DECK---*/
@@ -83,7 +83,7 @@ public class Regex {
     /*---SHOW CARD,BUY CARD---*/
 
     public static final String SHOW_ALL_USER_CARDS = "^deck show (--cards|-c)$";
-    public static final String BUY_CARD = "^shop buy (\\S+)$";
+    public static final String BUY_CARD = "^shop buy (.+)$";
     public static final String SHOW_CARDS_IN_SHOP = "^shop show (--all|-a)$";
     //----------------------------------------------------------------------------------------------
 

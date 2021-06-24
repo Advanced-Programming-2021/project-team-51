@@ -62,7 +62,8 @@ public class SaveData {
         File makeDirection = new File("C:\\YuGiOhData");
         if ((!makeDirection.isDirectory() && makeDirection.mkdir()) ||
                 makeDirection.isDirectory())
-            saveAllCards();
+            saveSpellsAndTraps();
+            saveMonsters();
             saveAllDecks();
             saveAllUsers();
     }
@@ -76,20 +77,6 @@ public class SaveData {
         } catch (Exception error) {
             System.out.println("Couldn't save Data!");
         }
-    }
-
-    public static void saveAllCards() {
-        ArrayList<Card> allCards = Card.getAllCards();
-        try {
-            FileWriter writer = new FileWriter("C:\\YuGiOhData\\cards.DAT");
-            writer.write(new Gson().toJson(allCards));
-            writer.close();
-            saveMonsters();
-            saveSpellsAndTraps();
-        } catch (Exception error) {
-            System.out.println("Couldn't save Data!");
-        }
-        
     }
 
     public static void saveSpellsAndTraps() {
@@ -131,28 +118,42 @@ public class SaveData {
     public static void load() throws IOException {
         File makeDirection = new File("C:\\YuGiOhData");
         if (makeDirection.isDirectory()) {
-            loadCards();
+            loadMonsters();
+            loadSpellTraps();
             loadDecks();
             loadUsers();
         }
             
     }
 
-    public static void loadCards() throws IOException {
-        File file = new File("C:\\YuGiOhData\\cards.DAT");
+    public static void loadSpellTraps() throws IOException {
+        File file = new File("C:\\YuGiOhData\\spells&traps.DAT");
         if (!file.exists()) {
-            Card.setAllCards(new ArrayList<>());
+            SpellTrapCard.setAllSpellTrapCards(new ArrayList<>());
         } else {
-            String jsonCards = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\cards.DAT")));
-            ArrayList<Card> cards;
-            cards = new Gson().fromJson(jsonCards, new TypeToken<List<Card>>() {
+            String jsonCards = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\spells&traps.DAT")));
+            ArrayList<SpellTrapCard> spellTraps;
+            spellTraps = new Gson().fromJson(jsonCards, new TypeToken<List<SpellTrapCard>>() {
             }.getType());
-            Card.setAllCards(cards);
+            SpellTrapCard.setAllSpellTrapCards(spellTraps);
+        }
+    }
+
+    public static void loadMonsters() throws IOException {
+        File file = new File("C:\\YuGiOhData\\monsters.DAT");
+        if (!file.exists()) {
+            MonsterCard.setAllMonsterCards(new ArrayList<>());
+        } else {
+            String jsonCards = new String(Files.readAllBytes(Paths.get("C:\\YuGiOhData\\monsters.DAT")));
+            ArrayList<MonsterCard> monsters;
+            monsters = new Gson().fromJson(jsonCards, new TypeToken<List<MonsterCard>>() {
+            }.getType());
+            MonsterCard.setAllMonsterCards(monsters);
         }
     }
 
     public static void loadDecks() throws IOException {
-        File file = new File("C:\\YuGiOhData\\cards.DAT");
+        File file = new File("C:\\YuGiOhData\\decks.DAT");
         if (!file.exists()) {
             Card.setAllCards(new ArrayList<>());
         } else {
@@ -165,7 +166,7 @@ public class SaveData {
     }
 
     public static void loadUsers() throws IOException {
-        File file = new File("C:\\YuGiOhData\\cards.DAT");
+        File file = new File("C:\\YuGiOhData\\users.DAT");
         if (!file.exists()) {
             Card.setAllCards(new ArrayList<>());
         } else {

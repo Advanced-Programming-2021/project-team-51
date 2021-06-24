@@ -79,9 +79,9 @@ public class DeckMenuController {
             return "card with name" + cardName + "does not exist";
         if (!doesDeckExist(deckName))
             return "deck with name" + deckName + "does not exist";
-        if (!isMainDeckFull(deckName) && mainOrSide.equals("main"))
+        if (isMainDeckFull(deckName) && mainOrSide.equals("main"))
             return StatusEnum.FULL_MAIN_DECK.getStatus();
-        if (!isSideDeckFull(deckName) && mainOrSide.equals("side"))
+        if (isSideDeckFull(deckName) && mainOrSide.equals("side"))
             return StatusEnum.FULL_SIDE_DECK.getStatus();
         if (isThereThreeCards(deckName, cardName))
             return "there are already three cards with name" + cardName + "in deck" + deckName;

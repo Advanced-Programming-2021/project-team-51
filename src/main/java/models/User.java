@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import models.cards.Card;
+import models.cards.CardType;
+import models.cards.monsters.MonsterCard;
+import models.cards.spelltrap.SpellTrapCard;
 
 public class User {
 
     public static ArrayList<User> allUsers;
-    private ArrayList<Card> userCards = new ArrayList<>();
+    private ArrayList<MonsterCard> userMonsters = new ArrayList<>();
+    private ArrayList<SpellTrapCard> userSpellTraps = new ArrayList<>();
     private ArrayList<Deck> userDecks = new ArrayList<>();
     private Deck activeDeck;
     private String userName;
@@ -29,14 +33,6 @@ public class User {
         setPassword(password);
         setScore(0);
         setMoney(0);
-    }
-
-    public void loadUser(int score, int money, Deck activeDeck, ArrayList<Card> userCards, ArrayList<Deck> userDecks) {
-        setActiveDeck(activeDeck);
-        setScore(score);
-        setMoney(money);
-        setUserCards(userCards);
-        setUserDecks(userDecks);
     }
 
     public static void loadAllUsers(ArrayList<User> users) {
@@ -83,13 +79,19 @@ public class User {
     }
 
     private void sortUserCards() {
-        String[] cardNames = new String[userCards.size()];
-        for (int i = 0; i < cardNames.length; i++)
-            cardNames[i] = userCards.get(i).getName();
+        String[] monsterNames = new String[userMonsters.size()];
+        String[] spellTrapNames = new String[userSpellTraps.size()];
+        for (int i = 0; i < monsterNames.length; i++)
+            monsterNames[i] = userMonsters.get(i).getName();
+        for (int i = 0; i < spellTrapNames.length; i++)
+            spellTrapNames[i] = userSpellTraps.get(i).getName();
 
-        Arrays.sort(cardNames);
-        for (int i = 0; i < cardNames.length; i++)
-            userCards.set(i, Card.getCardByName(cardNames[i]));
+        Arrays.sort(monsterNames);
+        Arrays.sort(spellTrapNames);
+        for (int i = 0; i < monsterNames.length; i++)
+            userMonsters.set(i, (MonsterCard) Card.getCardByName(monsterNames[i]));
+        for (int i = 0; i < spellTrapNames.length; i++)
+            userSpellTraps.set(i, (SpellTrapCard) Card.getCardByName(spellTrapNames[i]));
     }
 
     private static void sortUsers() {
@@ -124,19 +126,34 @@ public class User {
         return this.userDecks;
     }
 
-    private void setUserCards(ArrayList<Card> cards) {
-        this.userCards = cards;
+    private void setUserMonsters(ArrayList<MonsterCard> monsters) {
+        this.userMonsters = monsters;
+    }
+
+    private void setUserSpellTraps(ArrayList<SpellTrapCard> spellTraps) {
+        this.userSpellTraps = spellTraps;
     }
 
     public ArrayList<Card> getUserCards() {
         sortUserCards();
-        return this.userCards;
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.addAll(userMonsters);
+        cards.addAll(userSpellTraps);
+        return cards;
     }
 
     public Card getUserCardByName(String name) {
-        for (Card card : userCards)
-            if (card.getName().equals(name))
-                return card;
+        if (Card.getCardByName(name) == null) {
+            return null;
+        } else if (Card.getCardByName(name).getCardType() == CardType.MONSTER)
+                for (MonsterCard monster : userMonsters)
+                    if (monster.getName().equals(name))
+                        return monster;
+            else
+                for (SpellTrapCard spellTrap : userSpellTraps)
+                    if (spellTrap.getName().equals(name))
+                        return spellTrap;
+
 
         return null;
     }
@@ -198,7 +215,10 @@ public class User {
     }
 
     public void addCard(Card card) {
-        this.userCards.add(card);
+        if (card.getCardType() == CardType.MONSTER)
+            this.userMonsters.add((MonsterCard) card);
+        else
+            this.userSpellTraps.add((SpellTrapCard) card);
     }
 
     public void addDeck(Deck deck) {
@@ -211,10 +231,6 @@ public class User {
 
     public void changePassword(String password) {
         setPassword(password);
-    }
-
-    public void changeNickName(String nickName) {
-        setNickName(nickName);
     }
 
     public String toString() {

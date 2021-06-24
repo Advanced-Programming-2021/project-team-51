@@ -2,7 +2,6 @@ package models.cards.spelltrap;
 
 import models.cards.Card;
 import models.cards.CardType;
-import models.cards.monsters.MonsterCard;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -59,10 +58,14 @@ public class SpellTrapCard extends Card {
             return allSpellTrapCardsToShow;
 
         String line = "";
+        boolean isFirstLine = true;
         BufferedReader bufferedReader = new BufferedReader(new FileReader("SpellTrap.csv"));
         while ((line = bufferedReader.readLine()) != null) {
             String[] values = line.split(",");
-            allSpellTrapCardsToShow.add(new SpellTrapCard(values[0], Integer.parseInt(values[5])));
+            if (isFirstLine)
+                isFirstLine = false;
+            else
+            allSpellTrapCardsToShow.add(new SpellTrapCard(values[0], Integer.parseInt(values[values.length - 1])));
         }
         return allSpellTrapCardsToShow;
     }

@@ -86,8 +86,8 @@ public class Deck {
     }
 
     public boolean hasEnoughSpace(Card card) {
-        if (cardsAmount.get(card) > 2)
-            return false;
+        if (cardsAmount.get(card) != null)
+            return cardsAmount.get(card) <= 2;
 
         return true;
     }
