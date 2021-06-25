@@ -50,7 +50,6 @@ public class ScoreboardMenu {
             String nickName = sortedUsers.get(i).getNickName();
             int score = sortedUsers.get(i).getScore();
             System.out.println(rank+"-"+nickName+": "+score);
-            i++;
         }
     }
 }

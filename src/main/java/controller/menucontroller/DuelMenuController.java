@@ -5,6 +5,8 @@ import controller.duel.singlePlayer.HardBot;
 import models.Player;
 import models.User;
 import view.DuelView;
+import view.MenuEnum;
+import view.ProgramController;
 import view.StatusEnum;
 
 import java.util.Objects;
@@ -29,6 +31,7 @@ public class DuelMenuController {
         DuelView.isMultiPlayer = true;
         new Player(currentUser);
         new Player(Objects.requireNonNull(User.getUserByUserName(secondPlayer)));
+        ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
         return "";
     }
 
@@ -47,6 +50,7 @@ public class DuelMenuController {
             new EasyBot(player);
         else
             new HardBot(player);
+        ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
         return "";
     }
 }

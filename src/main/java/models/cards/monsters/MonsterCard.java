@@ -89,6 +89,7 @@ public class MonsterCard extends Card {
     }
 
     public static void setAllMonsterCards(ArrayList<MonsterCard> cards) {
+        allCards.addAll(cards);
         allMonsterCards = cards;
     }
 

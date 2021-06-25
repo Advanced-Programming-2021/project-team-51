@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import models.cards.Card;
+import models.cards.CardType;
 import models.cards.MakeCards;
+import models.cards.monsters.MonsterCard;
+import models.cards.spelltrap.SpellTrapCard;
 
 
 public class Deck {
 
     public static ArrayList<Deck> allDecks;
-    private ArrayList<Card> mainDeckCards = new ArrayList<>();
-    private ArrayList<Card> sideDeckCards = new ArrayList<>();
-    private HashMap<Card, Integer> cardsAmount = new HashMap<>();
+    private ArrayList<MonsterCard> mainDeckMonsters = new ArrayList<>();
+    private ArrayList<SpellTrapCard> mainDeckSpellTraps = new ArrayList<>();
+    private ArrayList<MonsterCard> sideDeckMonsters = new ArrayList<>();
+    private ArrayList<SpellTrapCard> sideDeckSpellTraps = new ArrayList<>();
+    private HashMap<String, Integer> cardsAmount = new HashMap<>();
     private String name;
     private String ownerName;
 
@@ -22,10 +27,10 @@ public class Deck {
 
     protected Object clone() throws CloneNotSupportedException {
         Object clone = super.clone();
-        Deck newDeck = new Deck(this.name, this.ownerName, this.cardsAmount);
-        for (Card mainDeckCard : this.mainDeckCards)
+        Deck newDeck = new Deck(this.name, this.ownerName, this.getMainDeck(), this.getSideDeck(), this.getCardsAmount());
+        for (Card mainDeckCard : this.getMainDeck())
             newDeck.addCardToDeck(true, (Card) mainDeckCard.clone());
-        for (Card sideDeckCard : this.sideDeckCards)
+        for (Card sideDeckCard : this.getSideDeck())
             newDeck.addCardToDeck(false, (Card) sideDeckCard.clone());
         return newDeck;
     }
@@ -56,44 +61,30 @@ public class Deck {
     }
 
     public static Deck getDeckByName(String name) {
-        for (int i = 0; i < allDecks.size(); i++)
-            if (allDecks.get(i).getName().equals(name))
-                return allDecks.get(i);
+        for (Deck allDeck : allDecks)
+            if (allDeck.getName().equals(name))
+                return allDeck;
 
         return null;
     }
 
-    public static boolean isNameTaken(String name) {
-        for (int i = 0; i < allDecks.size(); i++)
-            if (allDecks.get(i).getName().equals(name))
-                return true;
-
-        return false;
-    }
-
     public boolean isMainFull() {
-        if (mainDeckCards.size() > 59)
-            return true;
-
-        return false;
+        return getMainDeck().size() > 59;
     }
 
     public boolean isSideFull() {
-        if (sideDeckCards.size() > 14)
-            return true;
-
-        return false;
+        return getSideDeck().size() > 14;
     }
 
     public boolean hasEnoughSpace(Card card) {
-        if (cardsAmount.get(card) != null)
-            return cardsAmount.get(card) <= 2;
+        if (hasUsedBefore(card))
+            return getCardsAmount().get(card) <= 2;
 
         return true;
     }
 
     private boolean hasUsedBefore(Card card) {
-        for (Card key : cardsAmount.keySet())
+        for (Card key : getCardsAmount().keySet())
             if (key.getName().equals(card.getName()))
                 return true;
 
@@ -101,7 +92,7 @@ public class Deck {
     }
 
     public boolean isThisCardUsedInMain(Card card) {
-        for (Card key : mainDeckCards)
+        for (Card key : getMainDeck())
             if (key.getName().equals(card.getName()))
                 return true;
 
@@ -109,7 +100,7 @@ public class Deck {
     }
 
     public boolean isThisCardUsedInSide(Card card) {
-        for (Card key : mainDeckCards)
+        for (Card key : getSideDeck())
             if (key.getName().equals(card.getName()))
                 return true;
 
@@ -117,10 +108,7 @@ public class Deck {
     }
 
     public boolean isDeckValid() {
-        if (mainDeckCards.size() > 39)
-            return true;
-
-        return false;
+        return getMainDeck().size() > 39;
     }
 
     public static ArrayList<Deck> getAllDecks() {
@@ -144,54 +132,106 @@ public class Deck {
     }
 
     private void setMainDeck(ArrayList<Card> mainCards) {
-        this.mainDeckCards = mainCards;
+        ArrayList<MonsterCard> monsters = new ArrayList<>();
+        ArrayList<SpellTrapCard> spellTraps = new ArrayList<>();
+        for (Card mainCard: mainCards) {
+            if (mainCard.getCardType() == CardType.MONSTER)
+                monsters.add((MonsterCard) mainCard);
+            else
+                spellTraps.add((SpellTrapCard) mainCard);
+        }
+        this.mainDeckMonsters = monsters;
+        this.mainDeckSpellTraps = spellTraps;
     }
 
     public ArrayList<Card> getMainDeck() {
-        return this.mainDeckCards;
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.addAll(mainDeckMonsters);
+        cards.addAll(mainDeckSpellTraps);
+        return cards;
     }
 
     private void setSideDeck(ArrayList<Card> sideCards) {
-        this.sideDeckCards = sideCards;
+        ArrayList<MonsterCard> monsters = new ArrayList<>();
+        ArrayList<SpellTrapCard> spellTraps = new ArrayList<>();
+        for (Card sideCard: sideCards) {
+            if (sideCard.getCardType() == CardType.MONSTER)
+                monsters.add((MonsterCard) sideCard);
+            else
+                spellTraps.add((SpellTrapCard) sideCard);
+        }
+        this.sideDeckMonsters = monsters;
+        this.sideDeckSpellTraps = spellTraps;
     }
 
     public ArrayList<Card> getSideDeck() {
-        return this.sideDeckCards;
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.addAll(sideDeckMonsters);
+        cards.addAll(sideDeckSpellTraps);
+        return cards;
     }
 
     private void setCardsAmount(HashMap<Card, Integer> cards) {
-        this.cardsAmount = cards;
+        cardsAmount.clear();
+        for (Card card : cards.keySet()) {
+            cardsAmount.put(card.getName(), cards.get(card));
+        }
     }
 
     public HashMap<Card, Integer> getCardsAmount() {
-        return this.cardsAmount;
+        HashMap<Card, Integer> cards = new HashMap<>();
+        for (String cardName: cardsAmount.keySet())
+            cards.put(Card.getCardByName(cardName), cardsAmount.get(cardName));
+
+        return cards;
     }
 
     public void addCardToDeck(boolean isMain, Card card) {
         if (hasUsedBefore(card))
-            cardsAmount.put(card, cardsAmount.get(card) + 1);
+            cardsAmount.put(card.getName(), cardsAmount.get(card.getName()) + 1);
         else
-            cardsAmount.put(card, 1);
-        if (isMain)
-            mainDeckCards.add(card);
-        else
-            sideDeckCards.add(card);
+            cardsAmount.put(card.getName(), 1);
+        if (card.getCardType() == CardType.MONSTER) {
+            if (isMain)
+                mainDeckMonsters.add((MonsterCard) card);
+            else
+                sideDeckMonsters.add((MonsterCard) card);
+        } else {
+            if (isMain)
+                mainDeckSpellTraps.add((SpellTrapCard) card);
+            else
+                sideDeckSpellTraps.add((SpellTrapCard) card);
+        }
     }
 
     public void removeCardFromDeck(boolean isMain, Card card) {
-        cardsAmount.put(card, cardsAmount.get(card) - 1);
+            cardsAmount.put(card.getName(), cardsAmount.get(card.getName()) - 1);
         if (isMain) {
-            for (int i = 0; i < mainDeckCards.size(); i++)
-                if (mainDeckCards.get(i).getName().equals(card.getName())) {
-                    mainDeckCards.remove(i);
-                    break;
-                }
+            if (card.getCardType() == CardType.MONSTER) {
+                for (int i = 0; i < mainDeckMonsters.size(); i++)
+                    if (mainDeckMonsters.get(i).getName().equals(card.getName())) {
+                        mainDeckMonsters.remove(i);
+                        break;
+                    }
+            } else
+                for (int i = 0; i < mainDeckSpellTraps.size(); i++)
+                    if (mainDeckSpellTraps.get(i).getName().equals(card.getName())) {
+                        mainDeckSpellTraps.remove(i);
+                        break;
+                    }
         } else {
-            for (int i = 0; i < sideDeckCards.size(); i++)
-                if (sideDeckCards.get(i).getName().equals(card.getName())) {
-                    sideDeckCards.remove(i);
-                    break;
-                }
+            if (card.getCardType() == CardType.MONSTER) {
+                for (int i = 0; i < sideDeckMonsters.size(); i++)
+                    if (sideDeckMonsters.get(i).getName().equals(card.getName())) {
+                        sideDeckMonsters.remove(i);
+                        break;
+                    }
+            } else
+                for (int i = 0; i < sideDeckSpellTraps.size(); i++)
+                    if (sideDeckSpellTraps.get(i).getName().equals(card.getName())) {
+                        sideDeckSpellTraps.remove(i);
+                        break;
+                    }
         }
     }
 
@@ -202,27 +242,6 @@ public class Deck {
 
     public void removeCopiedDeck() {
         allDecks.remove(this);
-    }
-
-    public String saveString() {
-        StringBuilder stringDeck = new StringBuilder();
-        stringDeck.append("Main = {");
-        for (int i = 0; i < mainDeckCards.size(); i++) {
-            if (i > 0)
-                stringDeck.append(", " + mainDeckCards.get(i).getName());
-            else
-                stringDeck.append(mainDeckCards.get(i).getName());
-        }
-        stringDeck.append("}, Side = {");
-        for (int i = 0; i < sideDeckCards.size(); i++) {
-            if (i > 0)
-                stringDeck.append(", " + sideDeckCards.get(i).getName());
-            else
-                stringDeck.append(sideDeckCards.get(i).getName());
-        }
-        stringDeck.append("}");
-
-        return stringDeck.toString();
     }
 
     private String getCardNameForGenerate(int number) {
@@ -290,7 +309,7 @@ public class Deck {
             case 31:
                 return "Solemn Warning";
             case 32:
-                return "Magic Jamamer";
+                return "Magic Jammer";
             case 33:
                 return "Call of The Haunted";
             case 34:
@@ -406,10 +425,10 @@ public class Deck {
 
     public String toString() {
         if (isDeckValid())
-            return this.name + ": main deck " + mainDeckCards.size() + ", side deck " + sideDeckCards.size()
+            return this.name + ": main deck " + getMainDeck().size() + ", side deck " + getSideDeck().size()
                     + ", valid";
         else
-            return this.name + ": main deck " + mainDeckCards.size() + ", side deck " + sideDeckCards.size()
+            return this.name + ": main deck " + getMainDeck().size() + ", side deck " + getSideDeck().size()
                     + ", invalid";
     }
 }

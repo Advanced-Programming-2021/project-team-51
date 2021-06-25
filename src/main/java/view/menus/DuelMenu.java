@@ -6,6 +6,7 @@ import models.User;
 import view.MenuEnum;
 import view.ProgramController;
 import view.Regex;
+import view.StatusEnum;
 
 import java.util.regex.Matcher;
 
@@ -20,6 +21,9 @@ public class DuelMenu {
         isCommandValid = false;
         startTwoPlayerGame(command);
         startSinglePlayerGame(command);
+        exitMenu(command);
+        showMenu(command);
+        changeMenu(command);
         if (!isCommandValid)
             System.out.println("invalid command!");
     }
@@ -48,7 +52,6 @@ public class DuelMenu {
         } else return;
         isCommandValid = true;
         System.out.println(duelMenuController.startTwoPlayer(currentUser, secondPlayer, rounds));
-        ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
     }
 
     private void startSinglePlayerGame(String command) throws CloneNotSupportedException {
@@ -107,6 +110,26 @@ public class DuelMenu {
         }else return;
         isCommandValid = true;
         System.out.println(duelMenuController.startSinglePlayer(currentUser, rounds, difficulty));
-        ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
+    }
+
+    private void showMenu(String command) {
+        if (Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU).matches()) {
+            isCommandValid = true;
+            System.out.println("Duel");
+        }
+    }
+
+    private void exitMenu(String command) {
+        if (Regex.getMatcher(command, Regex.EXIT_MENU).matches()) {
+            isCommandValid = true;
+            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
+        }
+    }
+
+    private void changeMenu(String command) {
+        if (Regex.getMatcher(command, Regex.ENTER_MENU).matches()) {
+            isCommandValid = true;
+            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
+        }
     }
 }

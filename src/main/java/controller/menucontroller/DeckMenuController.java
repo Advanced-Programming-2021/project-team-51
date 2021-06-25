@@ -19,7 +19,7 @@ public class DeckMenuController {
     }
 
     public String createDeck(String deckName) {
-        if (doesDeckExist(deckName))
+        if (doesDeckExistAtAll(deckName))
             return "deck with name" + deckName + "already exists";
 
         currentUser.addDeck(new Deck(deckName, currentUser.getUserName()));
@@ -40,6 +40,15 @@ public class DeckMenuController {
 
         currentUser.setActiveDeck(Deck.getDeckByName(deckName));
         return StatusEnum.DECK_ACTIVATED_SUCCESSFULLY.getStatus();
+    }
+
+    private boolean doesDeckExistAtAll(String deckName) {
+        for (Deck deck : Deck.getAllDecks()) {
+            if (deck.getName().equals(deckName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean doesDeckExist(String deckName) {
@@ -74,6 +83,12 @@ public class DeckMenuController {
         return !Deck.getDeckByName(deckName).hasEnoughSpace(Card.getCardByName(cardName));
     }
 
+    private boolean hasUserEnoughCards(Card card, Deck deck) {
+        if (deck.getCardsAmount().get(card) == null)
+            return true;
+        return currentUser.getCardAmount(card) > deck.getCardsAmount().get(card);
+    }
+
     public String addCard(String deckName, String cardName, String mainOrSide) {
         if (!doesCardExist(cardName))
             return "card with name" + cardName + "does not exist";
@@ -85,6 +100,8 @@ public class DeckMenuController {
             return StatusEnum.FULL_SIDE_DECK.getStatus();
         if (isThereThreeCards(deckName, cardName))
             return "there are already three cards with name" + cardName + "in deck" + deckName;
+        if (!hasUserEnoughCards(Card.getCardByName(cardName), currentUser.getUserDeckByName(deckName)))
+            return "you don't have enough " + cardName;
 
         boolean isMain;
         isMain = mainOrSide.equals("main");
@@ -106,10 +123,6 @@ public class DeckMenuController {
         isMain = mainOrSide.equals("main");
         currentUser.getUserDeckByName(deckName).removeCardFromDeck(isMain, currentUser.getUserCardByName(cardName));
         return StatusEnum.CARD_REMOVED_SUCCESSFULLY.getStatus();
-    }
-
-    private boolean doesCardExistInDeck(String deckName, String cardName) {
-        return currentUser.getUserDeckByName(deckName).isThisCardUsedInMain(currentUser.getUserCardByName(cardName)) || currentUser.getUserDeckByName(deckName).isThisCardUsedInSide(currentUser.getUserCardByName(cardName));
     }
 
 }

@@ -228,7 +228,9 @@ public class DeckMenu {
     private void showAllUserDecks(){
         System.out.println("Decks:");
         if (currentUser.getActiveDeck() != null)
-            System.out.println(currentUser.getActiveDeck().toString());
+            System.out.println("Active Deck: \n" + currentUser.getActiveDeck().toString());
+        else
+            System.out.println("Active Deck: ");
         System.out.println("Other decks:");
         for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
             System.out.println(currentUser.getUserDecks().get(i).toString());

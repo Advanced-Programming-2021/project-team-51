@@ -2,6 +2,7 @@ package models.cards.spelltrap;
 
 import models.cards.Card;
 import models.cards.CardType;
+import models.cards.monsters.MonsterCard;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -71,6 +72,7 @@ public class SpellTrapCard extends Card {
     }
 
     public static void setAllSpellTrapCards(ArrayList<SpellTrapCard> cards) {
+        allCards.addAll(cards);
         allSpellTrapCards = cards;
     }
 
