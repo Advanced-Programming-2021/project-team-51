@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import models.cards.Card;
 import models.cards.CardType;
@@ -13,8 +15,8 @@ public class User {
     public static ArrayList<User> allUsers;
     private ArrayList<MonsterCard> userMonsters = new ArrayList<>();
     private ArrayList<SpellTrapCard> userSpellTraps = new ArrayList<>();
-    private ArrayList<Deck> userDecks = new ArrayList<>();
-    private Deck activeDeck;
+    private ArrayList<String> userDecks = new ArrayList<>();
+    private String activeDeckName;
     private String userName;
     private String nickName;
     private String password;
@@ -32,7 +34,7 @@ public class User {
         setNickName(nickName);
         setPassword(password);
         setScore(0);
-        setMoney(0);
+        setMoney(50000);
     }
 
     public static void loadAllUsers(ArrayList<User> users) {
@@ -40,24 +42,24 @@ public class User {
     }
 
     public static User getUserByUserName(String userName) {
-        for (int i = 0; i < allUsers.size(); i++)
-            if (allUsers.get(i).getUserName().equals(userName))
-                return allUsers.get(i);
+        for (User allUser : allUsers)
+            if (allUser.getUserName().equals(userName))
+                return allUser;
 
         return null;
     }
 
     public static boolean isUserNameTaken(String userName) {
-        for (int i = 0; i < allUsers.size(); i++)
-            if (allUsers.get(i).getUserName().equals(userName))
+        for (User allUser : allUsers)
+            if (allUser.getUserName().equals(userName))
                 return true;
 
         return false;
     }
 
     public static boolean isNickNameTaken(String nickName) {
-        for (int i = 0; i < allUsers.size(); i++)
-            if (allUsers.get(i).getNickName().equals(nickName))
+        for (User allUser : allUsers)
+            if (allUser.getNickName().equals(nickName))
                 return true;
 
         return false;
@@ -66,16 +68,6 @@ public class User {
     public static ArrayList<User> getSortedUsers() {
         sortUsers();
         return allUsers;
-    }
-
-    private void sortUserDecks() {
-        String[] deckNames = new String[userDecks.size()];
-        for (int i = 0; i < deckNames.length; i++)
-            deckNames[i] = userDecks.get(i).getName();
-
-        Arrays.sort(deckNames);
-        for (int i = 0; i < deckNames.length; i++)
-            userDecks.set(i, Deck.getDeckByName(deckNames[i]));
     }
 
     private void sortUserCards() {
@@ -117,13 +109,12 @@ public class User {
             return false;
     }
 
-    private void setUserDecks(ArrayList<Deck> decks) {
-        this.userDecks = decks;
-    }
-
     public ArrayList<Deck> getUserDecks() {
-        sortUserDecks();
-        return this.userDecks;
+        ArrayList<Deck> decks = new ArrayList<>();
+        for (String deckName: userDecks)
+            decks.add(Deck.getDeckByName(deckName));
+        decks.sort(Comparator.comparing(Deck::getName));
+        return decks;
     }
 
     private void setUserMonsters(ArrayList<MonsterCard> monsters) {
@@ -143,25 +134,26 @@ public class User {
     }
 
     public Card getUserCardByName(String name) {
-        if (Card.getCardByName(name) == null) {
+        if (Card.getCardByName(name) == null)
             return null;
-        } else if (Card.getCardByName(name).getCardType() == CardType.MONSTER)
-                for (MonsterCard monster : userMonsters)
-                    if (monster.getName().equals(name))
-                        return monster;
-            else
-                for (SpellTrapCard spellTrap : userSpellTraps)
-                    if (spellTrap.getName().equals(name))
-                        return spellTrap;
+        else if (Card.getCardByName(name).getCardType() == CardType.MONSTER) {
+            for (MonsterCard monster : userMonsters)
+                if (monster.getName().equals(name))
+                    return monster;
+        } else {
+            for (SpellTrapCard spellTrap : userSpellTraps)
+                if (spellTrap.getName().equals(name))
+                    return spellTrap;
+        }
 
 
         return null;
     }
 
     public Deck getUserDeckByName(String name) {
-        for (Deck deck : userDecks)
-            if (deck.getName().equals(name))
-                return deck;
+        for (String deckName : userDecks)
+            if (deckName.equals(name))
+                return Deck.getDeckByName(name);
 
         return null;
     }
@@ -191,11 +183,14 @@ public class User {
     }
 
     public void setActiveDeck(Deck deck) {
-        this.activeDeck = deck;
+        if (deck == null)
+            this.activeDeckName = "";
+        else
+            this.activeDeckName = deck.getName();
     }
 
     public Deck getActiveDeck() {
-        return this.activeDeck;
+        return Deck.getDeckByName(this.activeDeckName);
     }
 
     public void setScore(int amount) {
@@ -222,11 +217,11 @@ public class User {
     }
 
     public void addDeck(Deck deck) {
-        this.userDecks.add(deck);
+        this.userDecks.add(deck.getName());
     }
 
     public void removeDeck(Deck deck) {
-        this.userDecks.remove(deck);
+        this.userDecks.remove(deck.getName());
     }
 
     public void changePassword(String password) {
@@ -235,5 +230,17 @@ public class User {
 
     public String toString() {
         return this.nickName + ": " + this.score;
+    }
+
+    public int getCardAmount(Card card) {
+        int counter = 0;
+        if (card.getCardType() == CardType.MONSTER) {
+            for (MonsterCard monster: userMonsters)
+                if (monster.getName().equals(card.getName())) counter++;
+        } else {
+            for (SpellTrapCard spellTrap: userSpellTraps)
+                if (spellTrap.getName().equals(card.getName())) counter++;
+        }
+        return counter;
     }
 }
