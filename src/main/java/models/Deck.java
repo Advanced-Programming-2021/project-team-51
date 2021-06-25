@@ -93,6 +93,8 @@ public class Deck {
     }
 
     public boolean isThisCardUsedInMain(Card card) {
+        if (card == null)
+            return false;
         for (Card key : getMainDeck())
             if (key.getName().equals(card.getName()))
                 return true;

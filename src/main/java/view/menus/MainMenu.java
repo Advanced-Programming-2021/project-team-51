@@ -51,10 +51,10 @@ public class MainMenu {
             LoginMenuController.currentUser = null;
             LoginMenuController.isLoggedOn = false;
             ProgramController.currentMenu = MenuEnum.LOGIN_MENU;
-            System.out.println(StatusEnum.USER_LOGOUT_SUCCESSFULLY);
+            System.out.println(StatusEnum.USER_LOGOUT_SUCCESSFULLY.getStatus());
         }
         else{
-            System.out.println(StatusEnum.INVALID_COMMAND);
+            System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
         }
     }
 }

@@ -64,7 +64,7 @@ public class LoginMenu {
             createUser(username,nickname,password);
         }
         else if ((matcher = Regex.getMatcher(command,Regex.ENTER_MENU)).matches()){
-            System.out.println(StatusEnum.PLEASE_LOGIN_FIRST);
+            System.out.println(StatusEnum.PLEASE_LOGIN_FIRST.getStatus());
         }
         else if ((matcher = Regex.getMatcher(command,Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Login Menu");

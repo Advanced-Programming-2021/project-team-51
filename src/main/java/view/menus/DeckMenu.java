@@ -214,13 +214,13 @@ public class DeckMenu {
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
         else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()) {
-            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
+            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         }
         else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()) {
             System.out.println("Deck");
         }
         else {
-            System.out.println(StatusEnum.INVALID_COMMAND);
+            System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
         }
     }
 
@@ -233,7 +233,8 @@ public class DeckMenu {
             System.out.println("Active Deck: ");
         System.out.println("Other decks:");
         for (int i = 0; i < currentUser.getUserDecks().size(); i++) {
-            System.out.println(currentUser.getUserDecks().get(i).toString());
+            if (!currentUser.getUserDecks().get(i).equals(currentUser.getActiveDeck()))
+                System.out.println(currentUser.getUserDecks().get(i).toString());
         }
     }//--------------------IT'S NOT ALPHABETIC YET----------------------
 
@@ -258,6 +259,10 @@ public class DeckMenu {
     }
 
     private void showOptionalDeck(String deckName, String mainOrSide) {
+        if (currentUser.getUserDeckByName(deckName) == null) {
+            System.out.println("deck with name " + deckName + " does not exist");
+            return;
+        }
         System.out.println("Deck: " + deckName);
         System.out.println(mainOrSide + "deck:");
         System.out.println("Monsters:");
@@ -287,7 +292,7 @@ public class DeckMenu {
             }
             System.out.println("Spell and Traps:");
             for (int i = 0; i < currentUser.getUserDeckByName(deckName).getSideDeck().size(); i++) {
-                if (currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getCardType().equals(CardType.SPELL) || currentUser.getUserDeckByName(deckName).getMainDeck().get(i).getCardType().equals(CardType.TRAP)) {
+                if (currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getCardType().equals(CardType.SPELL) || currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getCardType().equals(CardType.TRAP)) {
                     String cardName = currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getName();
                     String cardDescription = currentUser.getUserDeckByName(deckName).getSideDeck().get(i).getDescription();
                     System.out.println(cardName + ": " + cardDescription);

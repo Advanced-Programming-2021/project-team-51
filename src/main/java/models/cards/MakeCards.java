@@ -273,7 +273,7 @@ public class MakeCards {
         else if (name.equals("Bitron"))
             return new MonsterCard(name, "A new species found in electronic space. There's not much information on it.",
                     1000, 2, Attribute.EARTH, MonsterType.CYBERSE, 200, 2000, Trait.NORMAL);
-        else if (name.equals("Leotron "))
+        else if (name.equals("Leotron"))
             return new MonsterCard(name, "A territorial electronic monster that guards its own domain.",
                     2500, 4, Attribute.EARTH, MonsterType.CYBERSE, 2000, 0, Trait.NORMAL);
         else if (name.equals("Alexandrite Dragon"))

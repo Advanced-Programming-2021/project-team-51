@@ -40,10 +40,10 @@ public class LoginMenuController {
 
     public String createUser(String username, String nickname, String password) {
         if (User.isUserNameTaken(username))
-            return "user with username" + username + "already exists";
+            return "user with username " + username + " already exists";
 
         if (User.isNickNameTaken(nickname))
-            return "user with nickname" + nickname + "already exists";
+            return "user with nickname " + nickname + " already exists";
 
         currentUser = new User(username, nickname, password);
         return StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus();
