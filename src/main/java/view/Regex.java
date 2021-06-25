@@ -153,6 +153,8 @@ public class Regex {
     public static final String ATTACK_MONSTER = "^attack (\\d+)$";
     public static final String ATTACK_DIRECT = "^attack direct$";
     public static final String ACTIVATE_EFFECT = "^activate effect$";
+    public static final String ACTIVATE_EFFECT_ON_MONSTER = "^activate effect on monster (\\d)$";
+    public static final String EQUIP_MONSTER = "^equip monster (\\d)$";
     public static final String SHOW_GRAVEYARD = "^show graveyard$";
     public static final String SHOW_SELECTED_CARD = "^card show (--selected|-s)$";
     public static final String SURRENDER = "^surrender$";

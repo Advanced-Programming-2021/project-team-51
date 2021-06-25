@@ -1,18 +1,15 @@
 package controller.duel;
 
-import models.Player;
-import models.cards.Card;
+import controller.duel.monsterseffect.ContinuousEffects;
+import controller.duel.monsterseffect.SummonEffects;
 import models.cards.Location;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
 
 public class SummonController {
 
-    static Card selectedCard = null;
-    static boolean hasSummonedInThisTurn = false;
-    static Player player;
-    static GamePhase gamePhase;
-    //TODO correct these
+    public static boolean hasSummonedInThisTurn = false;
+    public static MonsterCard lastSummonedMonster;
 
     public String summon() {
         if (checkNormalSummonSetConditions() != null)
@@ -23,9 +20,9 @@ public class SummonController {
     public String tributeSummon(String tributes) {
         if (checkNormalSummonSetConditions() != null)
             return checkNormalSummonSetConditions();
-        MonsterCard selectedMonster = (MonsterCard) selectedCard;
-        if ((selectedMonster.getLevel() < 7 && player.getPlayerBoard().getMonsters().size() < 1)
-                || selectedMonster.getLevel() > 6 && player.getPlayerBoard().getMonsters().size() < 2)
+        MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
+        if ((selectedMonster.getLevel() < 7 && PhaseController.playerInTurn.getPlayerBoard().getMonsters().size() < 1)
+                || selectedMonster.getLevel() > 6 && PhaseController.playerInTurn.getPlayerBoard().getMonsters().size() < 2)
             return "there are not enough cards for tribute";
         int firstMonster, secondMonster = 0;
         if (tributes.length() == 1)
@@ -35,35 +32,38 @@ public class SummonController {
             secondMonster = Integer.parseInt(tributes.substring(2, 3));
         }
         if (selectedMonster.getLevel() > 6 && secondMonster == 0
-                || (selectedMonster.getLevel() > 6 && (player.getPlayerBoard().getMonsterBoard().get(firstMonster - 1) == null
-                || player.getPlayerBoard().getMonsterBoard().get(secondMonster - 1) == null))
-                || selectedMonster.getLevel() < 7 && player.getPlayerBoard().getMonsterBoard().get(firstMonster - 1) == null)
+                || (selectedMonster.getLevel() > 6 && (PhaseController.playerInTurn.getPlayerBoard().getMonsterBoard().get(firstMonster - 1) == null
+                || PhaseController.playerInTurn.getPlayerBoard().getMonsterBoard().get(secondMonster - 1) == null))
+                || selectedMonster.getLevel() < 7 && PhaseController.playerInTurn.getPlayerBoard().getMonsterBoard().get(firstMonster - 1) == null)
             return "there are not enough monsters on these addresses";
         return finalizeSummon();
     }
 
     private String finalizeSummon() {
-        MonsterCard selectedMonster = (MonsterCard) selectedCard;
+        MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
         selectedMonster.setLocation(Location.FIELD);
         selectedMonster.setIsHidden(false);
         selectedMonster.setMode(Mode.ATTACK);
-        player.getPlayerBoard().summonOrSetMonster(selectedMonster);
+        PhaseController.playerInTurn.getPlayerBoard().summonOrSetMonster(selectedMonster);
         hasSummonedInThisTurn = true;
+        //TODO what about ai
+        lastSummonedMonster = selectedMonster;
+        ContinuousEffects.run(PhaseController.playerInTurn.getPlayerBoard(), PhaseController.playerAgainst.getPlayerBoard());
         return "summoned successfully";
     }
 
     public static String checkNormalSummonSetConditions() {
-        if (selectedCard == null)
+        if (SelectionController.selectedCard == null)
             return "no card is selected yet";
-        if (!player.getPlayerBoard().getHandCards().contains(selectedCard)
-                || !(selectedCard instanceof MonsterCard))
+        if (!PhaseController.playerInTurn.getPlayerBoard().getHandCards().contains(SelectionController.selectedCard)
+                || !(SelectionController.selectedCard instanceof MonsterCard))
             return "you can't summon this card";
-        MonsterCard selectedMonster = (MonsterCard) selectedCard;
+        MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
         if (selectedMonster.getLevel() > 4)
             return "you can't summon this card";
-        if (gamePhase != GamePhase.MAIN1 && gamePhase != GamePhase.MAIN2)
+        if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
             return "action not allowed in this phase";
-        if (player.getPlayerBoard().getMonsters().size() == 5)
+        if (PhaseController.playerInTurn.getPlayerBoard().getMonsters().size() == 5)
             return "monster card zone is full";
         if (hasSummonedInThisTurn)
             return "you already summoned/set on this turn";
@@ -71,17 +71,21 @@ public class SummonController {
     }
 
     public String flipSummon() {
-        if (selectedCard == null)
+        if (SelectionController.selectedCard == null)
             return "no card is selected yet";
-        if (!player.getPlayerBoard().getMonsters().contains(selectedCard))
+        if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains(SelectionController.selectedCard))
             return "you can't change this card position";
-        MonsterCard selectedMonster = (MonsterCard) selectedCard;
-        if (gamePhase != GamePhase.MAIN1 && gamePhase != GamePhase.MAIN2)
+        MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
+        if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
             return "action not allowed in this phase";
         if (!selectedMonster.getIsHidden())
             return "you can't flip this card";
         selectedMonster.setMode(Mode.ATTACK);
         selectedMonster.setIsHidden(false);
+        //TODO what about ai
+        lastSummonedMonster = selectedMonster;
+        ContinuousEffects.run(PhaseController.playerInTurn.getPlayerBoard(), PhaseController.playerAgainst.getPlayerBoard());
+        SummonEffects.run((MonsterCard) SelectionController.selectedCard, PhaseController.playerAgainst.getPlayerBoard(), PhaseController.playerInTurn.getPlayerBoard());
         return "flip summoned successfully";
     }
 }

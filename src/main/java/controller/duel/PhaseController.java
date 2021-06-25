@@ -1,6 +1,13 @@
 package controller.duel;
 
+import controller.duel.monsterseffect.ContinuousEffects;
+import controller.duel.monsterseffect.TurnEffects;
 import controller.duel.singlePlayer.AI;
+import controller.duel.spells.OnMonsterSpells;
+import controller.duel.spells.FiledSpells;
+import controller.duel.spells.MessengerOfPeace;
+import controller.duel.spells.TurnSpells;
+import models.Chain;
 import models.Player;
 import models.User;
 import models.cards.Card;
@@ -43,12 +50,38 @@ public class PhaseController {
             Card card = playerInTurn.getPlayerBoard().drawCard();
             if (card == null)
                 endGame(playerAgainst, playerInTurn);
+            assert card != null;
             result.append("\nnew card added to hand: ").append(card.getName());
         }
-        if (currentPhase == GamePhase.END) {
+        else if (currentPhase == GamePhase.STANDBY) {
+            //TODO what about ai
+            TurnEffects.run(playerInTurn.getPlayerBoard(), playerAgainst.getPlayerBoard());
+            FiledSpells.check(playerInTurn.getPlayerBoard(), playerAgainst.getPlayerBoard());
+            MessengerOfPeace.checkStandBy(playerInTurn.getPlayerBoard());
+            playerAgainst.getPlayerBoard().getEffectsStatus().setCanRivalPickCard(true);
+        }
+        else if (currentPhase == GamePhase.BATTLE) {
+            //TODO what about ai
+            ContinuousEffects.run(playerInTurn.getPlayerBoard(), playerAgainst.getPlayerBoard());
+        }
+        else if (currentPhase == GamePhase.END) {
             result.append("\nit's ").append(playerAgainst.getNickName()).append("'s turn");
+            //TODO what about ai
+            ContinuousEffects.run(playerInTurn.getPlayerBoard(), playerAgainst.getPlayerBoard());
+            Chain.activate();
+            SelectionController.selectedCard = null;
+            resetSomeEffects();
         }
         return result.toString();
+    }
+
+    private void resetSomeEffects() {
+        playerInTurn.getPlayerBoard().getEffectsStatus().setRivalTrapsBlocked(false);
+        playerAgainst.getPlayerBoard().getEffectsStatus().setRivalTrapsBlocked(false);
+        AttackController.isAnyMonsterDead = false;
+        AttackController.isBattleHappened = false;
+        TurnSpells.checkTurn(playerInTurn.getPlayerBoard());
+        OnMonsterSpells.deactivate(playerInTurn.getPlayerBoard(), playerAgainst.getPlayerBoard());
     }
 
     private void findNextPhase() {

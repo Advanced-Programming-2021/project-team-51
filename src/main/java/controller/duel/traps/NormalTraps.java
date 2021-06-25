@@ -1,6 +1,7 @@
 package controller.duel.traps;
 
 import models.Board;
+import models.Chain;
 import models.cards.Card;
 import models.cards.Location;
 import models.cards.monsters.MonsterCard;
@@ -10,25 +11,23 @@ import java.util.Random;
 
 public class NormalTraps {
     public static boolean activate(SpellTrapCard trapCard, Board myBoard, Board rivalBoard) {
-        boolean hasActivated = false;
         if (trapCard.getName().equals("Mind Crush"))
-            hasActivated = activateMindCrush(myBoard, rivalBoard);
+            Chain.addSpell(trapCard, myBoard, rivalBoard, null, null);
         else if (trapCard.getName().equals("Call of The Haunted"))
-            hasActivated = activateCallOfHaunted(myBoard);
+            Chain.addSpell(trapCard, myBoard, rivalBoard, null, null);
+        else
+            return false;
 
-        if (hasActivated) {
-            trapCard.setLocation(Location.GRAVEYARD);
-            myBoard.removeSpellAndTrap(myBoard.getSpellTrapIndexInSpellTrapBoard(trapCard));
-        }
-        return hasActivated;
-    }
-
-    private static boolean activateCallOfHaunted(Board myBoard) {
-        //TODO summon a card from graveyard
+        trapCard.setLocation(Location.GRAVEYARD);
+        myBoard.removeSpellAndTrap(myBoard.getSpellTrapIndexInSpellTrapBoard(trapCard));
         return true;
     }
 
-    private static boolean activateMindCrush(Board myBoard, Board rivalBoard) {
+    public static void activateCallOfHaunted(Board myBoard) {
+        //TODO summon a card from graveyard
+    }
+
+    public static void activateMindCrush(Board myBoard, Board rivalBoard) {
         boolean hasFoundName = false;
         //TODO get a card name
         String cardName = "";
@@ -54,6 +53,5 @@ public class NormalTraps {
             myBoard.getHandCards().remove(card);
             myBoard.addToGraveyard(card);
         }
-        return true;
     }
 }

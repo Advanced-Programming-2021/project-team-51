@@ -37,7 +37,7 @@ public class ContinuousEffects {
     }
 
     private static void activateMirageDragon(Board myBoard) {
-        myBoard.getOwner().setRivalTrapsBlocked(true);
+        myBoard.getEffectsStatus().setRivalTrapsBlocked(true);
     }
 
     private static void removeDeadMonsters(Board myBoard, Board rivalBoard) {
@@ -53,7 +53,7 @@ public class ContinuousEffects {
     }
 
     private static void deactivateMirageDragon(Board myBoard) {
-        myBoard.getOwner().setRivalTrapsBlocked(false);
+        myBoard.getEffectsStatus().setRivalTrapsBlocked(false);
     }
 
     private static void deactivateCommandKnight(Board myBoard, Board rivalBoard) {

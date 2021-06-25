@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FiledSpells {
+
     private static final HashMap<SpellTrapCard, Integer> closedForestValues = new HashMap<>();
 
     private static final ArrayList<SpellTrapCard> activatedFieldSpells = new ArrayList<>();
-
 
     public static void check(Board myBoard, Board rivalBoard) {
         removeDeadFromList(myBoard, rivalBoard);

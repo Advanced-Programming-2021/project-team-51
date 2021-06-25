@@ -26,6 +26,7 @@ public class Board {
     private Deck deck;
     private boolean isSuijinEffected;
     private int lifePoints;
+    private EffectsStatus effectsStatus;
 
     public Board(Player owner) throws CloneNotSupportedException {
         setOwner(owner);
@@ -39,6 +40,7 @@ public class Board {
         setLifePoints(8000);
         shuffleDeck();
         beginDeck();
+        effectsStatus = new EffectsStatus();
     }
 
     public Board(AI bot) throws CloneNotSupportedException {
@@ -53,6 +55,7 @@ public class Board {
         setLifePoints(8000);
         shuffleDeck();
         beginDeck();
+        effectsStatus = new EffectsStatus();
     }
 
     public void resetTheBoard(Card main, Card side) {
@@ -73,6 +76,7 @@ public class Board {
             changeDeck(side, main);
         shuffleDeck();
         beginDeck();
+        effectsStatus = new EffectsStatus();
     }
 
     public void removeCopiedDeck() {
@@ -187,6 +191,10 @@ public class Board {
                     cardsInHand.get(i).getName().equals(key.getName())) return i;
 
         return -1;
+    }
+
+    public EffectsStatus getEffectsStatus() {
+        return this.effectsStatus;
     }
 
     public boolean hasSpellTrapZoneSpace() {
@@ -441,4 +449,5 @@ public class Board {
 
         return boardString.toString();
     }
+
 }

@@ -19,6 +19,7 @@ public class DuelView {
     SelectionController selectionController = new SelectionController();
     AttackController attackController = new AttackController();
     CheatMenuController cheatMenuController = new CheatMenuController();
+    ActivationController activationController = new ActivationController();
 
     public void run(String command) {
         System.out.println(phaseController.printBoard());
@@ -45,6 +46,8 @@ public class DuelView {
         directAttack(command);
         //effects
         activate(command);
+        activateOnMonster(command);
+        equip(command);
         //phase
         switchPhase(command);
         //show
@@ -200,7 +203,21 @@ public class DuelView {
         if (!Regex.getMatcher(command, Regex.ACTIVATE_EFFECT).find())
             return;
         isCommandValid = true;
-        System.out.println(); //TODO call
+        System.out.println(activationController.activate());
+    }
+
+    private void activateOnMonster(String command) {
+        if (!(matcher = Regex.getMatcher(command, Regex.EQUIP_MONSTER)).matches())
+            return;
+        isCommandValid = true;
+        System.out.println(activationController.activateOnMonster(Integer.parseInt(matcher.group(1))));
+    }
+
+    private void equip(String command) {
+        if (!(matcher = Regex.getMatcher(command, Regex.EQUIP_MONSTER)).matches())
+            return;
+        isCommandValid = true;
+        System.out.println(activationController.equip(Integer.parseInt(matcher.group(1))));
     }
 
     private void switchPhase(String command) {

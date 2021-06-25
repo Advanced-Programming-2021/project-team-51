@@ -12,6 +12,7 @@ public class AttackController {
 
     //Note That player is always the attacker and opponent is attacker or defender
     public static boolean isBattleHappened;
+    public static boolean isAnyMonsterDead = false;
     private Player player;
     private Player opponent;
     private GamePhase gamePhase;

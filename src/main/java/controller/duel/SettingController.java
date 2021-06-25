@@ -1,7 +1,5 @@
 package controller.duel;
 
-import models.Player;
-import models.cards.Card;
 import models.cards.Location;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
@@ -9,55 +7,50 @@ import models.cards.spelltrap.SpellTrapCard;
 
 public class SettingController {
 
-    Card selectedCard = null;
-    boolean hasSummonedInThisTurn = false;
-    Player player;
-    GamePhase gamePhase;
-    //TODO correct these
 
     public String set() {
-        if (selectedCard instanceof MonsterCard)
+        if (SelectionController.selectedCard instanceof MonsterCard)
             return setMonster();
         else
             return setSpellTrap();
     }
 
     private String setSpellTrap() {
-        if (selectedCard == null)
+        if (SelectionController.selectedCard == null)
             return "no card is selected yet";
-        if (!player.getPlayerBoard().getHandCards().contains(selectedCard))
+        if (!PhaseController.playerInTurn.getPlayerBoard().getHandCards().contains(SelectionController.selectedCard))
             return "you can't set this card";
-        if (gamePhase != GamePhase.MAIN1 && gamePhase != GamePhase.MAIN2)
+        if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
             return "you can't do this action in this phase";
-        if (player.getPlayerBoard().getSpellTraps().size() == 5)
+        if (PhaseController.playerInTurn.getPlayerBoard().getSpellTraps().size() == 5)
             return "spell card zone is full";
-        SpellTrapCard selectedSpellTrap = (SpellTrapCard) selectedCard;
+        SpellTrapCard selectedSpellTrap = (SpellTrapCard) SelectionController.selectedCard;
         selectedSpellTrap.setLocation(Location.FIELD);
         selectedSpellTrap.setIsHidden(true);
-        player.getPlayerBoard().summonOrSetSpellAndTrap(selectedSpellTrap);
+        PhaseController.playerInTurn.getPlayerBoard().summonOrSetSpellAndTrap(selectedSpellTrap);
         return "set successfully";
     }
 
     private String setMonster() {
         if (SummonController.checkNormalSummonSetConditions() != null)
             return SummonController.checkNormalSummonSetConditions();
-        MonsterCard selectedMonster = (MonsterCard) selectedCard;
+        MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
         selectedMonster.setLocation(Location.FIELD);
         selectedMonster.setIsHidden(true);
         selectedMonster.setMode(Mode.DEFENSE);
-        player.getPlayerBoard().summonOrSetMonster(selectedMonster);
-        hasSummonedInThisTurn = true;
+        PhaseController.playerInTurn.getPlayerBoard().summonOrSetMonster(selectedMonster);
+        SummonController.hasSummonedInThisTurn = true;
         return "summoned successfully";
     }
 
     public String setPosition(String position) {
-        if (selectedCard == null)
+        if (SelectionController.selectedCard == null)
             return "no card is selected yet";
-        if (!player.getPlayerBoard().getMonsters().contains((MonsterCard) selectedCard))
+        if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains((MonsterCard) SelectionController.selectedCard))
             return "you can't change this card position";
-        if (gamePhase != GamePhase.MAIN1 && gamePhase != GamePhase.MAIN2)
+        if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
             return "you can't do this action in this phase";
-        MonsterCard selectedMonster = (MonsterCard) selectedCard;
+        MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
         if (selectedMonster.getMode().getLabel().equals(position))
             return "this card is already in the wanted position";
         if (selectedMonster.getIsSwitched())

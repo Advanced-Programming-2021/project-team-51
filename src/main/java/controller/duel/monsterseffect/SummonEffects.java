@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class SummonEffects {
 
-    public void run(MonsterCard summonedMonster, Board rivalBoard, Board myBoard) {
+    public static void run(MonsterCard summonedMonster, Board rivalBoard, Board myBoard) {
         if (summonedMonster.getName().equals("Man-Eater Bug") && !summonedMonster.getIsHidden())
             affectManEaterBug(rivalBoard);
         else if (summonedMonster.getName().equals("Beast King Barbaros") && summonedMonster.getAttackPoint() == 3000)
@@ -21,7 +21,7 @@ public class SummonEffects {
             affectTerratiger();
     }
 
-    private void affectTerratiger() {
+    private static void affectTerratiger() {
         System.out.println("Do you want to summon a monster?(y/n)");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
@@ -34,7 +34,7 @@ public class SummonEffects {
         //TODO Summon a level 4 or lower monster in defense mode
     }
 
-    private void setCalculatorAttackPoint(Board myBoard, MonsterCard calculator) {
+    private static void setCalculatorAttackPoint(Board myBoard, MonsterCard calculator) {
         int levelsSum = 0;
         for (MonsterCard monsterCard : myBoard.getMonsters()) {
             levelsSum += monsterCard.getLevel();
@@ -42,7 +42,7 @@ public class SummonEffects {
         calculator.setAttackPoint(levelsSum * 300);
     }
 
-    private void affectBeastKingBarbaros(Board rivalBoard) {
+    private static void affectBeastKingBarbaros(Board rivalBoard) {
         for (MonsterCard monster: rivalBoard.getMonsters())
             rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monster));
         for (SpellTrapCard spellTrapCard: rivalBoard.getSpellTraps())
@@ -52,7 +52,7 @@ public class SummonEffects {
         }
     }
 
-    private void affectManEaterBug(Board rivalBoard) {
+    private static void affectManEaterBug(Board rivalBoard) {
         System.out.println("Do you want to destroy one of rivals card?(y/n)");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
