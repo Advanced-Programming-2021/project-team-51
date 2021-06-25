@@ -85,6 +85,7 @@ public class Regex {
     public static final String SHOW_ALL_USER_CARDS = "^deck show (--cards|-c)$";
     public static final String BUY_CARD = "^shop buy (.+)$";
     public static final String SHOW_CARDS_IN_SHOP = "^shop show (--all|-a)$";
+    public static final String SHOP_SEE_MONEY = "shop show money";
     //----------------------------------------------------------------------------------------------
 
     /*---DUEL MULTI---*/

@@ -16,10 +16,27 @@ import view.MenuEnum;
 import view.ProgramController;
 
 public class PhaseController {
-    public static boolean isFirstPlayerTurn = true;
     public static Player playerInTurn;
     public static Player playerAgainst;
     public static GamePhase currentPhase = GamePhase.DRAW;
+
+    public void startTheGame() {
+        int coin = (int) (Math.random() * 2);
+        if (coin == 0) {
+            playerInTurn = Player.getFirstPlayer();
+            playerAgainst = Player.getSecondPlayer();
+        } else {
+            playerInTurn = Player.getSecondPlayer();
+            playerAgainst = Player.getFirstPlayer();
+        }
+        System.out.println("Coin has Flipped and " + playerInTurn.getNickName() + " goes First");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(printBoard());
+    }
 
     public String printBoard() {
         String middleLine = "\n--------------------------\n";
@@ -28,16 +45,9 @@ public class PhaseController {
             String botBoard = AI.getInstance().getBoard().reverseToString();
             return botBoard + middleLine + playerBoard;
         }
-        if (isFirstPlayerTurn) {
-            String firstBoard = Player.getFirstPlayer().getPlayerBoard().toString();
-            String secondBoard = Player.getSecondPlayer().getPlayerBoard().reverseToString();
+            String firstBoard = playerInTurn.getPlayerBoard().toString();
+            String secondBoard = playerAgainst.getPlayerBoard().reverseToString();
             return secondBoard + middleLine + firstBoard;
-        }
-        else {
-            String firstBoard = Player.getFirstPlayer().getPlayerBoard().reverseToString();
-            String secondBoard = Player.getSecondPlayer().getPlayerBoard().toString();
-            return firstBoard + middleLine + secondBoard;
-        }
     }
 
     public String changePhase() {

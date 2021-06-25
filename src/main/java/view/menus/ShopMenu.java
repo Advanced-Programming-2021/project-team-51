@@ -32,6 +32,9 @@ public class ShopMenu {
         else if ((matcher = Regex.getMatcher(command,Regex.SHOW_CARDS_IN_SHOP)).matches()){
             showCardsInShop();
         }
+        else if (Regex.getMatcher(command, Regex.SHOP_SEE_MONEY).matches()) {
+            showMoney();
+        }
         else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
@@ -62,5 +65,9 @@ public class ShopMenu {
 
     private void buyCard(String cardName) throws IOException {
         System.out.println(shopMenuController.buyCard(cardName));
+    }
+
+    private void showMoney() {
+        System.out.println(currentUser.getMoney());
     }
 }

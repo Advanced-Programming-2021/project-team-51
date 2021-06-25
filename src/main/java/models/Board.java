@@ -13,8 +13,8 @@ import controller.duel.singlePlayer.AI;
 
 public class Board {
 
-    private final ArrayList<MonsterCard> monsterBoard = new ArrayList<>();
-    private final ArrayList<SpellTrapCard> spellAndTrapBoard = new ArrayList<>();
+    private final ArrayList<MonsterCard> monsterBoard = new ArrayList<>(5);
+    private final ArrayList<SpellTrapCard> spellAndTrapBoard = new ArrayList<>(5);
     private final ArrayList<Card> graveyard = new ArrayList<>();
     private MonsterCard swordOfDarkDestructionEquipped;
     private MonsterCard blackPendantEquipped;
@@ -24,6 +24,8 @@ public class Board {
     private Player owner;
     private Card fieldZone;
     private Deck deck;
+    private ArrayList<Card> mainDeckCards;
+    private ArrayList<Card> sideDeckCards;
     private boolean isSuijinEffected;
     private int lifePoints;
     private EffectsStatus effectsStatus;
@@ -38,7 +40,10 @@ public class Board {
         setEquippedSwordOfDarkDestruction(null);
         setEquippedUnitedWeStand(null);
         setLifePoints(8000);
-        shuffleDeck();
+        initializeZones();
+        setMainDeckCards();
+        setSideDeckCards();
+        shuffle();
         beginDeck();
         effectsStatus = new EffectsStatus();
     }
@@ -53,9 +58,21 @@ public class Board {
         setEquippedSwordOfDarkDestruction(null);
         setEquippedUnitedWeStand(null);
         setLifePoints(8000);
-        shuffleDeck();
+        initializeZones();
+        setMainDeckCards();
+        setSideDeckCards();
+        shuffle();
         beginDeck();
         effectsStatus = new EffectsStatus();
+    }
+
+    public void initializeZones() {
+        monsterBoard.clear();
+        spellAndTrapBoard.clear();
+        for (int i = 0; i < 5; i++) {
+            monsterBoard.add(null);
+            spellAndTrapBoard.add(null);
+        }
     }
 
     public void resetTheBoard(Card main, Card side) {
@@ -72,11 +89,22 @@ public class Board {
         setEquippedSwordOfDarkDestruction(null);
         setEquippedUnitedWeStand(null);
         setLifePoints(8000);
+        initializeZones();
         if (main != null && side != null)
             changeDeck(side, main);
-        shuffleDeck();
+        setMainDeckCards();
+        setSideDeckCards();
+        shuffle();
         beginDeck();
         effectsStatus = new EffectsStatus();
+    }
+
+    public void setMainDeckCards() {
+        this.mainDeckCards = deck.getMainDeck();
+    }
+
+    public void setSideDeckCards() {
+        this.sideDeckCards = deck.getSideDeck();
     }
 
     public void removeCopiedDeck() {
@@ -208,7 +236,7 @@ public class Board {
     public void summonOrSetMonster(MonsterCard monster) {
         for (int i = 0; i < 5; i++)
             if (monsterBoard.get(i) == null) {
-                monsterBoard.add(monster);
+                monsterBoard.set(i, monster);
                 removeCardsFromHand(getCardIndexInHand(monster));
                 break;
             }
@@ -217,7 +245,7 @@ public class Board {
     public void summonOrSetMonster(int index) {
         for (int i = 0; i < 5; i++)
             if (monsterBoard.get(i) == null) {
-                monsterBoard.add((MonsterCard) cardsInHand.get(index));
+                monsterBoard.set(i, (MonsterCard) cardsInHand.get(index));
                 removeCardsFromHand(index);
                 break;
             }
@@ -231,7 +259,7 @@ public class Board {
     public void summonOrSetSpellAndTrap(SpellTrapCard spellTrap) {
         for (int i = 0; i < 5; i++)
             if (spellAndTrapBoard.get(i) == null) {
-                spellAndTrapBoard.add(spellTrap);
+                spellAndTrapBoard.set(i, spellTrap);
                 removeCardsFromHand(getCardIndexInHand(spellTrap));
                 break;
             }
@@ -240,7 +268,7 @@ public class Board {
     public void summonOrSetSpellAndTrap(int index) {
         for (int i = 0; i < 5; i++)
             if (spellAndTrapBoard.get(i) == null) {
-                spellAndTrapBoard.add((SpellTrapCard) cardsInHand.get(index));
+                spellAndTrapBoard.set(i, (SpellTrapCard) cardsInHand.get(index));
                 removeCardsFromHand(index);
                 break;
             }
@@ -267,10 +295,6 @@ public class Board {
         cardsInHand.remove(index);
     }
 
-    public void removeCardFromDeck() {
-        deck.getMainDeck().remove(0);
-    }
-
     public void addLifePoints(int amount) {
         this.lifePoints += amount;
     }
@@ -278,17 +302,17 @@ public class Board {
     public Card drawCard() {
         Card card;
         try {
-            card = deck.getMainDeck().get(0);
+            card = mainDeckCards.get(0);
+            mainDeckCards.remove(0);
         } catch (Exception exception) {
             card = null;
         }
         addCardsInHand(card);
-        removeCardFromDeck();
         return card;
     }
 
-    private void shuffleDeck() {
-        Collections.shuffle(deck.getMainDeck());
+    private void shuffle() {
+        Collections.shuffle(mainDeckCards);
     }
 
     private void beginDeck() {
@@ -303,20 +327,20 @@ public class Board {
     public void changeDeck(Card side, Card main) {
         int mainIndex = 0;
         int sideIndex = 0;
-        for (int i = 0; i < deck.getMainDeck().size(); i++)
-            if (deck.getMainDeck().get(i).getName().equals(main.getName())) {
+        for (int i = 0; i < mainDeckCards.size(); i++)
+            if (mainDeckCards.get(i).getName().equals(main.getName())) {
                 mainIndex = i;
                 break;
             }
-        for (int i = 0; i < deck.getSideDeck().size(); i++)
-            if (deck.getSideDeck().get(i).getName().equals(main.getName())) {
+        for (int i = 0; i < sideDeckCards.size(); i++)
+            if (sideDeckCards.get(i).getName().equals(main.getName())) {
                 sideIndex = i;
                 break;
             }
-        deck.getMainDeck().remove(mainIndex);
-        deck.getMainDeck().add(side);
-        deck.getSideDeck().remove(sideIndex);
-        deck.getSideDeck().add(main);
+        mainDeckCards.remove(mainIndex);
+        mainDeckCards.add(side);
+        sideDeckCards.remove(sideIndex);
+        sideDeckCards.add(main);
 
     }
 
@@ -380,7 +404,7 @@ public class Board {
             else
                 boardString.append("O\t");
         }
-        boardString.append("\n\t\t\t\t\t\t" + deck.getMainDeck().size() + "\n");
+        boardString.append("\n\t\t\t\t\t\t" + mainDeckCards.size() + "\n");
 
         for (int i = 0; i < cardsInHand.size(); i++)
             boardString.append("C\t");
@@ -397,7 +421,7 @@ public class Board {
         for (int i = 0; i < cardsInHand.size(); i++)
             boardString.append("C\t");
 
-        boardString.append("\n" + deck.getMainDeck().size() + "\n\t");
+        boardString.append("\n" + mainDeckCards.size() + "\n\t");
 
         for (int i = 1; i < 4; i += 2) {
             if (spellAndTrapBoard.get(i) == null)

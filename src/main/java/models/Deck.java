@@ -1,6 +1,8 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import models.cards.Card;
@@ -26,8 +28,7 @@ public class Deck {
     }
 
     protected Object clone() throws CloneNotSupportedException {
-        Object clone = super.clone();
-        Deck newDeck = new Deck(this.name, this.ownerName, this.getMainDeck(), this.getSideDeck(), this.getCardsAmount());
+        Deck newDeck = new Deck(this.name, this.ownerName, this.getCardsAmount());
         for (Card mainDeckCard : this.getMainDeck())
             newDeck.addCardToDeck(true, (Card) mainDeckCard.clone());
         for (Card sideDeckCard : this.getSideDeck())

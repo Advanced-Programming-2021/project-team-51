@@ -22,7 +22,6 @@ public class DuelView {
     ActivationController activationController = new ActivationController();
 
     public void run(String command) {
-        System.out.println(phaseController.printBoard());
         isCommandValid = false;
         //Selection
         selectMyMonster(command);
@@ -56,6 +55,8 @@ public class DuelView {
         cheatMenuController.run(command);
         if (!isCommandValid)
             System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
+
+        System.out.println(phaseController.printBoard());
     }
 
     private void showCard(String command) {
