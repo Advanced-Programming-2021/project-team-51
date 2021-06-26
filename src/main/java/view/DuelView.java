@@ -2,6 +2,7 @@ package view;
 
 import controller.duel.*;
 import controller.menucontroller.CheatMenuController;
+import view.menus.DuelMenu;
 
 import java.util.regex.Matcher;
 
@@ -20,6 +21,7 @@ public class DuelView {
     AttackController attackController = new AttackController();
     CheatMenuController cheatMenuController = new CheatMenuController();
     ActivationController activationController = new ActivationController();
+    DuelMenu duelMenu = new DuelMenu();
 
     public void run(String command) {
         isCommandValid = false;
@@ -37,6 +39,7 @@ public class DuelView {
         tributeSummon(command);
         flipSummon(command);
         specialSummon(command);
+        ritualSummon(command);
         //setting
         set(command);
         setPosition(command);
@@ -52,6 +55,8 @@ public class DuelView {
         //show
         showGraveyard(command);
         showCard(command);
+        duelMenu.showMenu(command);
+        duelMenu.changeMenu(command);
         cheatMenuController.run(command);
         if (!isCommandValid)
             System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
@@ -165,7 +170,17 @@ public class DuelView {
     }
 
     private void specialSummon(String command) {
+        if (!Regex.getMatcher(command, Regex.SPECIAL_SUMMON).find())
+            return;
+        isCommandValid = true;
+        System.out.println(summonController.specialSummon());
+    }
 
+    private void ritualSummon(String command) {
+        if (!(matcher = Regex.getMatcher(command, Regex.RITUAL_SUMMON)).matches())
+            return;
+        isCommandValid = true;
+        System.out.println(summonController.ritualSummon(matcher.group(1)));
     }
 
     private void set(String command) {

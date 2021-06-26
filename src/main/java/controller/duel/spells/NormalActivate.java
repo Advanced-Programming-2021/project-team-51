@@ -23,6 +23,8 @@ public class NormalActivate {
             Chain.addSpell(spellCard, myBoard, rivalBoard, null, null);
         else if (spellCard.getName().equals("Terraforming"))
             Chain.addSpell(spellCard, myBoard, rivalBoard, null, null);
+        else if (spellCard.getName().equals("Advanced Ritual Art"))
+            Chain.addSpell(spellCard, myBoard, rivalBoard, null, null);
         else
             return false;
         removeSpellCard(spellCard, myBoard);
@@ -85,4 +87,7 @@ public class NormalActivate {
         myBoard.removeSpellAndTrap(myBoard.getSpellTrapIndexInSpellTrapBoard(spellCard));
     }
 
+    public static void activateRitual(Board myBoard) {
+        myBoard.getEffectsStatus().setCanRitualSummon(true);
+    }
 }

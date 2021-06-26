@@ -3,6 +3,7 @@ package controller.duel;
 import models.cards.Location;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
+import models.cards.monsters.SummonType;
 import models.cards.spelltrap.SpellTrapCard;
 
 public class SettingController {
@@ -32,15 +33,16 @@ public class SettingController {
     }
 
     private String setMonster() {
-        if (SummonController.checkNormalSummonSetConditions() != null)
-            return SummonController.checkNormalSummonSetConditions();
+        if (SummonController.checkNormalSummonSetConditions(false) != null)
+            return SummonController.checkNormalSummonSetConditions(false);
         MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
         selectedMonster.setLocation(Location.FIELD);
         selectedMonster.setIsHidden(true);
         selectedMonster.setMode(Mode.DEFENSE);
         PhaseController.playerInTurn.getPlayerBoard().summonOrSetMonster(selectedMonster);
         SummonController.hasSummonedInThisTurn = true;
-        return "summoned successfully";
+        selectedMonster.setSummonType(SummonType.NORMAL_SET);
+        return "set successfully";
     }
 
     public String setPosition(String position) {

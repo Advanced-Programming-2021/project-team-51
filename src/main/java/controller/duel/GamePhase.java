@@ -6,7 +6,8 @@ public enum GamePhase {
     MAIN1("main 1"),
     BATTLE("battle"),
     MAIN2("main 2"),
-    END("end");
+    END("end"),
+    RIVAL_TURN("rival turn");
 
     private final String label;
 

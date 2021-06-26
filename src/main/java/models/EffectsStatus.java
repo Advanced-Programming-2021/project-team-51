@@ -10,6 +10,7 @@ public class EffectsStatus {
     private boolean isRivalReveled = false;
     private boolean canStrongRivalAttack = true;
     private boolean canRivalPickCard = true;
+    private boolean canRitualSummon = false;
     private SpecialSummonStatus specialSummonStatus = SpecialSummonStatus.NONE;
 
     public boolean getRivalSpellBlocked() {
@@ -58,6 +59,14 @@ public class EffectsStatus {
 
     public void setCanStrongRivalAttack(boolean canStrongRivalAttack) {
         this.canStrongRivalAttack = canStrongRivalAttack;
+    }
+
+    public boolean getCanRitualSummon() {
+        return this.canRitualSummon;
+    }
+
+    public void setCanRitualSummon(boolean canRitualSummon) {
+        this.canRitualSummon = canRitualSummon;
     }
 
     public SpecialSummonStatus getSpecialSummonStatus() {

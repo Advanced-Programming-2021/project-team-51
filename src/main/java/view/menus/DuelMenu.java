@@ -112,7 +112,7 @@ public class DuelMenu {
         System.out.println(duelMenuController.startSinglePlayer(currentUser, rounds, difficulty));
     }
 
-    private void showMenu(String command) {
+    public void showMenu(String command) {
         if (Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU).matches()) {
             isCommandValid = true;
             System.out.println("Duel");
@@ -126,7 +126,7 @@ public class DuelMenu {
         }
     }
 
-    private void changeMenu(String command) {
+    public void changeMenu(String command) {
         if (Regex.getMatcher(command, Regex.ENTER_MENU).matches()) {
             isCommandValid = true;
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());

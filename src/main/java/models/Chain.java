@@ -90,6 +90,8 @@ public class Chain {
             NormalActivate.affectDarkHole(myBoard, rivalBoard);
         else if (spellTrapCard.getName().equals("Terraforming"))
             NormalActivate.activateTeraforming(myBoard);
+        else if (spellTrapCard.getName().equals("Advanced Ritual Art"))
+            NormalActivate.activateRitual(myBoard);
     }
 
     public static int getSize() {

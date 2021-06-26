@@ -151,7 +151,9 @@ public class Regex {
     public static final String SET = "^set$";
     public static final String SET_CARD_POSITION = "^set (--position|-p) (attack|defense)$";
     public static final String FLIP_SUMMON = "^flip-summon$";
-    public static final String ATTACK_MONSTER = "^attack (\\d+)$";
+    public static final String SPECIAL_SUMMON = "^special-summon$";
+    public static final String RITUAL_SUMMON = "^ritual-summon ([\\d ])$";
+    public static final String ATTACK_MONSTER = "^attack (\\d)$";
     public static final String ATTACK_DIRECT = "^attack direct$";
     public static final String ACTIVATE_EFFECT = "^activate effect$";
     public static final String ACTIVATE_EFFECT_ON_MONSTER = "^activate effect on monster (\\d)$";
@@ -175,10 +177,6 @@ public class Regex {
     public static final String IMPORT_CARD = "^import card (\\S+)$";
     public static final String EXPORT_CARD = "^export card (\\S+)$";
 
-    //----------------------------------------------------------------------------------------------
-
-    /*---CANCEL---*/
-    public static final String CANCEL_COMMAND = "^cancel$";
     //----------------------------------------------------------------------------------------------
 
     /*---PHASE---*/

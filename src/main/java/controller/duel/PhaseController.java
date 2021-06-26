@@ -74,6 +74,18 @@ public class PhaseController {
             //TODO what about ai
             ContinuousEffects.run(playerInTurn.getPlayerBoard(), playerAgainst.getPlayerBoard());
         }
+        else if (currentPhase == GamePhase.RIVAL_TURN) {
+            result.append("\nit's ").append(playerAgainst.getNickName()).append("'s turn to activate quick spells or traps");
+            Player keepPlayer = PhaseController.playerInTurn;
+            playerInTurn = playerAgainst;
+            playerAgainst = keepPlayer;
+        }
+        else if (currentPhase == GamePhase.MAIN2) {
+            result.append("\nit's ").append(playerAgainst.getNickName()).append("'s turn again to respond to rival");
+            Player keepPlayer = PhaseController.playerInTurn;
+            playerInTurn = playerAgainst;
+            playerAgainst = keepPlayer;
+        }
         else if (currentPhase == GamePhase.END) {
             result.append("\nit's ").append(playerAgainst.getNickName()).append("'s turn");
             //TODO what about ai
@@ -101,9 +113,11 @@ public class PhaseController {
             currentPhase = GamePhase.MAIN1;
         else if (currentPhase == GamePhase.MAIN1)
             currentPhase = GamePhase.BATTLE;
-        else if (currentPhase == GamePhase.BATTLE && AttackController.isBattleHappened)
-            currentPhase = GamePhase.MAIN2;
         else if (currentPhase == GamePhase.BATTLE)
+            currentPhase = GamePhase.RIVAL_TURN;
+        else if (currentPhase == GamePhase.RIVAL_TURN)
+            currentPhase = GamePhase.MAIN2;
+        else if (currentPhase == GamePhase.MAIN2)
             currentPhase = GamePhase.END;
         else
             currentPhase = GamePhase.DRAW;

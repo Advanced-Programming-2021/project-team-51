@@ -16,6 +16,8 @@ public class ActivationController {
     public String equip(int monsterIndex) {
         if (checkActivationConditions() != null)
             return checkActivationConditions();
+        if (PhaseController.currentPhase != GamePhase.MAIN2 && PhaseController.currentPhase != GamePhase.MAIN1)
+            return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
         if (monsterIndex > 5)
             return StatusEnum.INVALID_SELECTION.getStatus();
         MonsterCard monsterCard = PhaseController.playerInTurn.getPlayerBoard().getMonsterBoard().get(monsterIndex - 1);
@@ -42,6 +44,9 @@ public class ActivationController {
         SpellTrapCard trapCard = (SpellTrapCard) SelectionController.selectedCard;
         Board myBoard = PhaseController.playerInTurn.getPlayerBoard();
         Board rivalBoard = PhaseController.playerAgainst.getPlayerBoard();
+        if ((PhaseController.currentPhase == GamePhase.RIVAL_TURN && !trapCard.getIsHidden())
+                || (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2))
+            return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
         if (MagicJammer.activate(trapCard, myBoard, rivalBoard))
             return StatusEnum.SPELL_OR_TRAP_ACTIVATED.getStatus();
         else if (NormalTraps.activate(trapCard, myBoard, rivalBoard))
@@ -57,6 +62,16 @@ public class ActivationController {
         if (checkActivationConditions() != null)
             return checkActivationConditions();
         SpellTrapCard spellCard = (SpellTrapCard) SelectionController.selectedCard;
+
+        if (PhaseController.currentPhase == GamePhase.RIVAL_TURN && SelectionController.selectedCard.getIsHidden()) {
+            if (QuickPlays.activate(spellCard, PhaseController.playerInTurn.getPlayerBoard(), PhaseController.playerAgainst.getPlayerBoard()))
+                return StatusEnum.SPELL_ACTIVATED.getStatus();
+            else return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
+        }
+
+        if (PhaseController.currentPhase != GamePhase.MAIN2 && PhaseController.currentPhase != GamePhase.MAIN1)
+            return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
+
         if (MessengerOfPeace.activate(spellCard, PhaseController.playerInTurn.getPlayerBoard()))
             return StatusEnum.SPELL_ACTIVATED.getStatus();
         else if (NormalActivate.activate(spellCard, PhaseController.playerInTurn.getPlayerBoard(), PhaseController.playerAgainst.getPlayerBoard()))
@@ -71,6 +86,8 @@ public class ActivationController {
     public String activateOnMonster(int monsterIndex) {
         if (checkActivationConditions() != null)
             return checkActivationConditions();
+        if (PhaseController.currentPhase != GamePhase.MAIN2 && PhaseController.currentPhase != GamePhase.MAIN1)
+            return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
         if (OnMonsterSpells.activate((SpellTrapCard) SelectionController.selectedCard,
                 PhaseController.playerInTurn.getPlayerBoard(), PhaseController.playerAgainst.getPlayerBoard(), monsterIndex))
             return StatusEnum.SPELL_ACTIVATED.getStatus();
