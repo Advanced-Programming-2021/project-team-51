@@ -23,7 +23,7 @@ public class GetAttackedTraps {
     }
 
     private static boolean activateMagicCylinder(MonsterCard attacker, Board rivalBoard) {
-        rivalBoard.getOwner().setLifePoint(rivalBoard.getOwner().getLifePoint() - attacker.getAttackPoint());
+        rivalBoard.getOwner().getPlayerBoard().setLifePoints(rivalBoard.getOwner().getPlayerBoard().getLifePoints() - attacker.getAttackPoint());
         return true;
     }
 

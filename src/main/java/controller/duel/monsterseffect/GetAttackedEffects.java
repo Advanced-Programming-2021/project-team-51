@@ -42,7 +42,7 @@ public class GetAttackedEffects {
         if (!attackedCard.getIsHidden())
             return true;
 
-        myBoard.getOwner().setLifePoint(myBoard.getOwner().getLifePoint() - 1000);
+        myBoard.getOwner().getPlayerBoard().setLifePoints(myBoard.getOwner().getPlayerBoard().getLifePoints() - 1000);
         return true;
     }
 

@@ -66,6 +66,7 @@ public enum StatusEnum {
     CANT_FLIP_SUMMON_THIS_CARD("you can’t flip summon this card"),
     FLIP_SUMMONED_SUCCESSFULLY("flip summoned successfully"),
     CANT_ATTACK_WITH_CARD("you can’t attack with this card"),
+    CANT_ATTACK_DIRECTLY("you can't attack the opponent directly"),
     CARD_ALREADY_ATTACKED("this card already attacked"),
     NO_CARD_TO_ATTACK_HERE("there is no card to attack here"),
     OPPONENT_RECEIVE_DAMAGE_OO(""),//SKIP--------------------------

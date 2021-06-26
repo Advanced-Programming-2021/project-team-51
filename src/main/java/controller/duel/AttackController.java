@@ -13,24 +13,18 @@ public class AttackController {
     //Note That player is always the attacker and opponent is attacker or defender
     public static boolean isBattleHappened;
     public static boolean isAnyMonsterDead = false;
-    private Player player;
-    private Player opponent;
     private GamePhase gamePhase;
-    private ArrayList<MonsterCard> alreadyAttackedCards = new ArrayList<>();
+    private Player opponent;
+    private Player player;
+    public static ArrayList<MonsterCard> alreadyAttackedCards = new ArrayList<>();
     private final PhaseController phaseController = new PhaseController();
-
-    public AttackController() {
-        this.player = PhaseController.playerInTurn;
-        this.opponent = PhaseController.playerAgainst;
-        this.gamePhase = PhaseController.currentPhase;
-    }
 
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
     }
 
     private void damagePlayer(Player player, int damagePoints) {
-        player.setLifePoint(player.getLifePoint() - damagePoints);
+        player.getPlayerBoard().setLifePoints(player.getPlayerBoard().getLifePoints() - damagePoints);
     }
 
     private int isPlayerMonsterStrongerThanOpponent(MonsterCard playerCard, MonsterCard opponentCard) {
@@ -84,15 +78,21 @@ public class AttackController {
 
     //-----------------------Attacks------------------------------
     public String directAttack() {
-        //TODO call sum selection functions
+        setGamePhase(PhaseController.currentPhase);
+        opponent = PhaseController.playerAgainst;
+        player = PhaseController.playerInTurn;
         MonsterCard playerCard = (MonsterCard) SelectionController.selectedCard;
-        //TODO some ifs
+        if (playerCard == null)
+            return StatusEnum.NO_CARD_SELECTED_YET.getStatus();
+        if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains(playerCard))
+            return StatusEnum.CANT_ATTACK_WITH_CARD.getStatus();
         if (!checkPhaseValidity()) {
             return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
         } else if (checkAlreadyAttacked(playerCard)) {
             return StatusEnum.CARD_ALREADY_ATTACKED.getStatus();
-        }
-        //TODO Check Card Attack System Validity
+        } else if (PhaseController.playerAgainst.getPlayerBoard().getMonsters().size() > 0 ||
+                    PhaseController.isFirstPlay)
+            return StatusEnum.CANT_ATTACK_DIRECTLY.getStatus();
         else {
             isBattleHappened = true;
             damagePlayer(this.opponent, playerCard.getAttackPoint());
@@ -102,10 +102,16 @@ public class AttackController {
     }
 
     public String attackMonsterToMonster(String rivalCardNumber) {
-        //TODO call sum selection functions
-        MonsterCard opponentCard = null; //TODO Formalite
+        setGamePhase(PhaseController.currentPhase);
+        opponent = PhaseController.playerAgainst;
+        player = PhaseController.playerInTurn;
+        MonsterCard opponentCard = PhaseController.playerAgainst.getPlayerBoard().getMonsterBoard()
+                .get(Integer.parseInt(rivalCardNumber) - 1);
         MonsterCard playerCard = (MonsterCard) SelectionController.selectedCard;
-        //TODO some ifs
+        if (playerCard == null)
+            return StatusEnum.NO_CARD_SELECTED_YET.getStatus();
+        if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains(playerCard))
+            return StatusEnum.CANT_ATTACK_WITH_CARD.getStatus();
         if (!checkPhaseValidity()) {
             return StatusEnum.CANT_DO_THIS_ACTION_IN_THIS_PHASE.getStatus();
         } else if (checkAlreadyAttacked(playerCard)) {
@@ -115,6 +121,7 @@ public class AttackController {
         } else {
             //--------------------Attack OO-------------------------
             isBattleHappened = true;
+            alreadyAttackedCards.add(playerCard);
             if (areBothMonstersOffensive(playerCard, opponentCard)) {
                 destroyMonster(playerCard, opponentCard);
                 int damage = calculateDifferenceOPoint(playerCard, opponentCard);
@@ -185,9 +192,9 @@ public class AttackController {
     }
 
     public void checkEndGame() {
-        if (Player.getFirstPlayer().getLifePoint() == 0)
+        if (Player.getFirstPlayer().getPlayerBoard().getLifePoints() == 0)
             phaseController.endGame(Player.getSecondPlayer(), Player.getFirstPlayer());
-        else if (Player.getSecondPlayer().getLifePoint() == 0)
+        else if (Player.getSecondPlayer().getPlayerBoard().getLifePoints() == 0)
             phaseController.endGame(Player.getFirstPlayer(), Player.getSecondPlayer());
     }
 

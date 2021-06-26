@@ -8,7 +8,6 @@ public class Player {
     private Board playerBoard;
     private String userName;
     private String nickName;
-    private int lifePoint = 8000;
     private int maxLifePoint = 0;
 
     static {
@@ -37,7 +36,6 @@ public class Player {
 
     public static void resetPlayers() {
         for (Player player : allPlayers) {
-            player.lifePoint = 8000;
             player.getPlayerBoard().resetTheBoard(null, null); //TODO handle switching cards
         }
     }
@@ -72,14 +70,6 @@ public class Player {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    public int getLifePoint() {
-        return this.lifePoint;
-    }
-
-    public void setLifePoint(int lifePoint) {
-        this.lifePoint = lifePoint;
     }
 
     public User getUser() {

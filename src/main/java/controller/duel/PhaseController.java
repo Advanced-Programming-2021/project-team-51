@@ -19,6 +19,7 @@ public class PhaseController {
     public static Player playerInTurn;
     public static Player playerAgainst;
     public static GamePhase currentPhase = GamePhase.DRAW;
+    public static boolean isFirstPlay = true;
 
     public void startTheGame() {
         int coin = (int) (Math.random() * 2);
@@ -51,9 +52,12 @@ public class PhaseController {
     }
 
     public String changePhase() {
+        AttackController.alreadyAttackedCards.clear();
+        AttackController.isBattleHappened = false;
         findNextPhase();
         StringBuilder result = new StringBuilder(currentPhase.getLabel());
         if (currentPhase == GamePhase.DRAW) {
+            SummonController.hasSummonedInThisTurn = false;
             Player keepPlayer = PhaseController.playerInTurn;
             playerInTurn = playerAgainst;
             playerAgainst = keepPlayer;
@@ -93,6 +97,9 @@ public class PhaseController {
             Chain.activate();
             SelectionController.selectedCard = null;
             resetSomeEffects();
+            SummonController.hasSummonedInThisTurn = false;
+            System.out.println(changePhase());
+            isFirstPlay = false;
         }
         return result.toString();
     }
@@ -127,28 +134,38 @@ public class PhaseController {
         User winnerUser = winner.getUser();
         User loserUser = looser.getUser();
         if (DuelView.rounds == 1) {
-            winnerUser.setMoney(winnerUser.getMoney() + 1000 + winner.getLifePoint());
+            winnerUser.setMoney(winnerUser.getMoney() + 1000 + winner.getPlayerBoard().getLifePoints());
             loserUser.setMoney(loserUser.getMoney() + 100);
             winnerUser.setScore(winnerUser.getScore() + 1000);
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
             Player.removePlayers();
+            System.out.println(winnerUser.getUserName() + " won the whole match with score: 1-0");
+            DuelView.shouldDrawBoard = false;
         }
         else {
             if (winner.equals(Player.getFirstPlayer()))
                 DuelView.player1Wins++;
             else
                 DuelView.player2Wins++;
-            winner.setMaxLifePoint(winner.getLifePoint());
-            looser.setMaxLifePoint(looser.getLifePoint());
+            winner.setMaxLifePoint(winner.getPlayerBoard().getLifePoints());
+            looser.setMaxLifePoint(looser.getPlayerBoard().getLifePoints());
             if (DuelView.player2Wins == 2 || DuelView.player1Wins == 2) {
                 loserUser.setMoney(loserUser.getMoney() + 300);
                 winnerUser.setScore(winnerUser.getScore() + 3000);
                 winnerUser.setMoney(winnerUser.getMoney() + winner.getMaxLifePoint() * 3 + 3000);
                 ProgramController.currentMenu = MenuEnum.MAIN_MENU;
                 Player.removePlayers();
+                System.out.println(winnerUser.getUserName() + " won the whole match with score: " +
+                        DuelView.player1Wins + "-" + DuelView.player2Wins);
+                DuelView.shouldDrawBoard = false;
             }
-            else
+            else {
+                System.out.println(winnerUser.getUserName() + "won the game and the score is: " +
+                        DuelView.player1Wins + "-" + DuelView.player2Wins);
                 Player.resetPlayers();
+                isFirstPlay = true;
+                currentPhase = GamePhase.DRAW;
+            }
         }
     }
 }

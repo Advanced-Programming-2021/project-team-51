@@ -11,6 +11,7 @@ public class DuelView {
     public static boolean isMultiPlayer, isHard;
     public static int rounds, player1Wins = 0, player2Wins = 0;
     private Matcher matcher;
+    public static boolean shouldDrawBoard = true;
 
     boolean isCommandValid;
     SummonController summonController = new SummonController();
@@ -57,10 +58,13 @@ public class DuelView {
         showCard(command);
         duelMenu.showMenu(command);
         duelMenu.changeMenu(command);
-        cheatMenuController.run(command);
+        //surrender
+        surrender(command);
+        //cheat
         if (!isCommandValid)
-            System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
+            cheatMenuController.run(command);
 
+        if (shouldDrawBoard)
         System.out.println(phaseController.printBoard());
     }
 
@@ -175,7 +179,7 @@ public class DuelView {
         isCommandValid = true;
         System.out.println(summonController.specialSummon());
     }
-
+    
     private void ritualSummon(String command) {
         if (!(matcher = Regex.getMatcher(command, Regex.RITUAL_SUMMON)).matches())
             return;
@@ -241,5 +245,12 @@ public class DuelView {
             return;
         isCommandValid = true;
         System.out.println(phaseController.changePhase());
+    }
+
+    private void surrender(String command) {
+        if (!Regex.getMatcher(command, Regex.SURRENDER).find())
+            return;
+        isCommandValid = true;
+        phaseController.endGame(PhaseController.playerAgainst, PhaseController.playerInTurn);
     }
 }

@@ -1,5 +1,6 @@
 package controller.menucontroller;
 
+import controller.duel.PhaseController;
 import controller.duel.singlePlayer.EasyBot;
 import controller.duel.singlePlayer.HardBot;
 import models.Player;
@@ -12,6 +13,8 @@ import view.StatusEnum;
 import java.util.Objects;
 
 public class DuelMenuController {
+
+    PhaseController phaseController = new PhaseController();
 
     public String startTwoPlayer(User currentUser, String secondPlayer, String rounds) throws CloneNotSupportedException {
         if (!User.isUserNameTaken(secondPlayer))
@@ -32,6 +35,7 @@ public class DuelMenuController {
         new Player(currentUser);
         new Player(Objects.requireNonNull(User.getUserByUserName(secondPlayer)));
         ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
+        phaseController.startTheGame();
         return "";
     }
 
@@ -51,6 +55,7 @@ public class DuelMenuController {
         else
             new HardBot(player);
         ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
+        phaseController.startTheGame();
         return "";
     }
 }

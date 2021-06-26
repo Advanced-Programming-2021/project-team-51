@@ -37,7 +37,7 @@ public class SummonTraps {
     }
 
     public static void activateSolemnWarning(MonsterCard summonedCard, Board myBoard, Board rivalBoard) {
-        myBoard.getOwner().setLifePoint(myBoard.getOwner().getLifePoint() - 2000);
+        myBoard.getOwner().getPlayerBoard().setLifePoints(myBoard.getOwner().getPlayerBoard().getLifePoints() - 2000);
         summonedCard.setLocation(Location.GRAVEYARD);
         rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(summonedCard));
     }

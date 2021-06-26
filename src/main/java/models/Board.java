@@ -69,6 +69,8 @@ public class Board {
     public void initializeZones() {
         monsterBoard.clear();
         spellAndTrapBoard.clear();
+        graveyard.clear();
+        cardsInHand.clear();
         for (int i = 0; i < 5; i++) {
             monsterBoard.add(null);
             spellAndTrapBoard.add(null);
@@ -210,7 +212,7 @@ public class Board {
             if (spellAndTrapBoard.get(i) == spellTrapCard &&
                     spellAndTrapBoard.get(i).getName().equals(spellTrapCard.getName())) return i;
 
-            return -1;
+        return -1;
     }
 
     public int getCardIndexInHand(Card key) {
@@ -443,7 +445,7 @@ public class Board {
 
         boardString.append("\n\t");
 
-        for (int i = 1; i < 4; i += 2) {
+        for (int i = 3; i > 0; i -= 2) {
             if (monsterBoard.get(i) == null)
                 boardString.append("E\t");
             else if (monsterBoard.get(i).getMode() == Mode.ATTACK)
@@ -454,7 +456,7 @@ public class Board {
                 boardString.append("DO\t");
         }
 
-        for (int i = 4; i > -1; i -= 2) {
+        for (int i = 0; i < 5; i += 2) {
             if (monsterBoard.get(i) == null)
                 boardString.append("E\t");
             else if (monsterBoard.get(i).getMode() == Mode.ATTACK)
