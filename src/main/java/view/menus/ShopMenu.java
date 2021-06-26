@@ -29,19 +29,19 @@ public class ShopMenu {
             String cardName = matcher.group(1);
                 buyCard(cardName);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.SHOW_CARDS_IN_SHOP)).matches()){
+        else if ((Regex.getMatcher(command,Regex.SHOW_CARDS_IN_SHOP)).matches()){
             showCardsInShop();
         }
         else if (Regex.getMatcher(command, Regex.SHOP_SEE_MONEY).matches()) {
             showMoney();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Shop");
         }
         else{

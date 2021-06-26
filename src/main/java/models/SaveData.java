@@ -49,6 +49,7 @@ public class SaveData {
             File file = new File("C:\\YuGiOhData\\savedCards");
             if (file.exists()) {
                 String[] fileNames = file.list();
+                assert fileNames != null;
                 for (String fileName : fileNames) {
                     String cardName = new String(Files.readAllBytes(Paths.get(fileName)));
                     cards.add(Card.getCardByName(cardName));

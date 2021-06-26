@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 import models.cards.Card;
@@ -13,9 +12,9 @@ import models.cards.spelltrap.SpellTrapCard;
 public class User {
 
     public static ArrayList<User> allUsers;
-    private ArrayList<MonsterCard> userMonsters = new ArrayList<>();
-    private ArrayList<SpellTrapCard> userSpellTraps = new ArrayList<>();
-    private ArrayList<String> userDecks = new ArrayList<>();
+    private final ArrayList<MonsterCard> userMonsters = new ArrayList<>();
+    private final ArrayList<SpellTrapCard> userSpellTraps = new ArrayList<>();
+    private final ArrayList<String> userDecks = new ArrayList<>();
     private String activeDeckName;
     private String userName;
     private String nickName;
@@ -103,10 +102,7 @@ public class User {
             return true;
         else if (first.getScore() < second.getScore())
             return false;
-        else if (first.getNickName().compareTo(second.getNickName()) < 0)
-            return true;
-        else
-            return false;
+        else return first.getNickName().compareTo(second.getNickName()) < 0;
     }
 
     public ArrayList<Deck> getUserDecks() {
@@ -115,14 +111,6 @@ public class User {
             decks.add(Deck.getDeckByName(deckName));
         decks.sort(Comparator.comparing(Deck::getName));
         return decks;
-    }
-
-    private void setUserMonsters(ArrayList<MonsterCard> monsters) {
-        this.userMonsters = monsters;
-    }
-
-    private void setUserSpellTraps(ArrayList<SpellTrapCard> spellTraps) {
-        this.userSpellTraps = spellTraps;
     }
 
     public ArrayList<Card> getUserCards() {
@@ -136,14 +124,16 @@ public class User {
     public Card getUserCardByName(String name) {
         if (Card.getCardByName(name) == null)
             return null;
-        else if (Card.getCardByName(name).getCardType() == CardType.MONSTER) {
-            for (MonsterCard monster : userMonsters)
-                if (monster.getName().equals(name))
-                    return monster;
-        } else {
-            for (SpellTrapCard spellTrap : userSpellTraps)
-                if (spellTrap.getName().equals(name))
-                    return spellTrap;
+        else {
+            if (Card.getCardByName(name).getCardType() == CardType.MONSTER) {
+                for (MonsterCard monster : userMonsters)
+                    if (monster.getName().equals(name))
+                        return monster;
+            } else {
+                for (SpellTrapCard spellTrap : userSpellTraps)
+                    if (spellTrap.getName().equals(name))
+                        return spellTrap;
+            }
         }
 
 

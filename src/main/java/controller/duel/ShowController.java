@@ -17,7 +17,8 @@ public class ShowController {
                 !PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains(SelectionController.selectedCard) &&
                 !PhaseController.playerInTurn.getPlayerBoard().getSpellTraps().contains(SelectionController.selectedCard) &&
                 !PhaseController.playerInTurn.getPlayerBoard().getHandCards().contains(SelectionController.selectedCard) &&
-                !PhaseController.playerInTurn.getPlayerBoard().getFieldZone().equals(SelectionController.selectedCard))
+                !PhaseController.playerInTurn.getPlayerBoard().getFieldZone().equals(SelectionController.selectedCard)
+                && !PhaseController.playerInTurn.getPlayerBoard().getEffectsStatus().isRivalReveled())
             return "card is not visible";
         return SelectionController.selectedCard.toString();
     }

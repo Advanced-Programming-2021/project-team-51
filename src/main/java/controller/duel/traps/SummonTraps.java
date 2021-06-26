@@ -10,11 +10,11 @@ import models.cards.spelltrap.SpellTrapCard;
 public class SummonTraps {
     public static boolean activate(SpellTrapCard spellTrapCard, MonsterCard summonedCard, Board myBoard, Board rivalBoard) {
         if (spellTrapCard.getName().equals("Trap Hole"))
-            Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null, summonedCard);
+            Chain.addSpell(spellTrapCard, myBoard, rivalBoard, summonedCard);
         else if (spellTrapCard.getName().equals("Torrential Tribute"))
-            Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null, summonedCard);
+            Chain.addSpell(spellTrapCard, myBoard, rivalBoard, summonedCard);
         else if (spellTrapCard.getName().equals("Solemn Warning"))
-            Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null, summonedCard);
+            Chain.addSpell(spellTrapCard, myBoard, rivalBoard, summonedCard);
         else
             return false;
 

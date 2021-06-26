@@ -80,6 +80,8 @@ public class ActivationController {
             return StatusEnum.SPELL_ACTIVATED.getStatus();
         else if (QuickPlays.activate(spellCard, PhaseController.playerInTurn.getPlayerBoard(), PhaseController.playerAgainst.getPlayerBoard()))
             return StatusEnum.SPELL_ACTIVATED.getStatus();
+        else if (RingOfDefense.activate(spellCard, PhaseController.playerInTurn.getPlayerBoard()))
+            return StatusEnum.SPELL_ACTIVATED.getStatus();
         return StatusEnum.PREPARATION_OF_SPELL_NOT_DONE.getStatus();
     }
 

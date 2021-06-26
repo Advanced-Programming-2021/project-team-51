@@ -37,8 +37,8 @@ public class DuelMenuTest {
                 deck create Parsa
                 deck set-activate Parsa
                 menu exit
-                menu enter Duel
-                duel -n -sp a -r 2
+                menu exit
+                menu exit
                 """).getBytes());
         System.setIn(in);
         new ProgramController().run();
@@ -52,9 +52,9 @@ public class DuelMenuTest {
                 invalid command\r
                 invalid command\r
                 invalid command\r
-                menu enter Duel\r
                 there is no player with this username\r
                 b has no active deck\r
+                invalid command!\r
                 invalid command!\r
                 invalid command\r
                 invalid command\r
@@ -63,7 +63,6 @@ public class DuelMenuTest {
                 user logged in successfully!\r
                 deck created successfully!\r
                 deck activated successfully\r
-                b's deck is invalid\r 
                 """, outContent.toString());
         System.setIn(sysInBackup);
     }

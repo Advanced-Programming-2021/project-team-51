@@ -34,6 +34,7 @@ public class CheatMenuController {
 
     private void increaseMoney(int amount, Player cheater) {
         User cheaterUser = User.getUserByUserName(cheater.getUserName());
+        assert cheaterUser != null;
         cheaterUser.setMoney(cheaterUser.getMoney() + amount);
         System.out.println("Cheat Activated Successfully");
     }

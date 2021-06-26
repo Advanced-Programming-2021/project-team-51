@@ -50,7 +50,7 @@ public class LoginMenuTest {
                 user with username a already exists\r
                 user with username a already exists\r
                 Username and password didn’t match!\r
-                Username and password didn’t match!\r
+                There is no user with username lll\r
                 user logged in successfully!\r
                 """, outContent.toString());
         System.setIn(sysInBackup);

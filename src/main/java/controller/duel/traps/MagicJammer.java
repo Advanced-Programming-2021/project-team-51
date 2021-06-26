@@ -9,7 +9,7 @@ public class MagicJammer {
     public static boolean activate(SpellTrapCard trapCard, Board myBoard, Board rivalBoard) {
         if (!trapCard.getName().equals("Magic Jammer"))
             return false;
-        Chain.addSpell(trapCard, myBoard, rivalBoard, null, null);
+        Chain.addSpell(trapCard, myBoard, rivalBoard, null);
         return true;
     }
 

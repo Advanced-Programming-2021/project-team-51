@@ -58,13 +58,13 @@ public class ProfileMenu {
             String newUsername = matcher.group(2);
             changeUsername(newUsername);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Profile");
         }
         else{

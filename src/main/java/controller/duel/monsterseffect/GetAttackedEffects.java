@@ -13,8 +13,7 @@ public class GetAttackedEffects {
     private static final ArrayList<MonsterCard> hasBeenAttacked = new ArrayList<>();
 
     public static boolean run(MonsterCard attackerCard, MonsterCard attackedCard, Board myBoard, Board rivalBoard) {
-        if ((attackedCard.getName().equals("Yomi Ship") || attackedCard.getName().equals("Exploder Dragon"))
-                && attackedCard.getLocation().equals(Location.GRAVEYARD))
+        if ((attackedCard.getName().equals("Yomi Ship") || attackedCard.getName().equals("Exploder Dragon")))
             return killAttacker(attackedCard, attackerCard, myBoard);
         else if (attackedCard.getName().equals("Suijin") && !attackedCard.getIsHidden())
             return affectSuijin(attackedCard);
@@ -24,7 +23,7 @@ public class GetAttackedEffects {
             return affectTexChanger(myBoard);
         else if (attackedCard.getName().equals("Command Knight") && !attackedCard.getIsHidden())
             return affectCommandKnight(rivalBoard);
-        return true;
+        return false;
     }
 
     private static boolean affectCommandKnight(Board rivalBoard) {
@@ -33,7 +32,7 @@ public class GetAttackedEffects {
 
     private static boolean affectTexChanger(Board myBoard) {
         myBoard.getEffectsStatus().setSpecialSummonStatus(SpecialSummonStatus.NORMAL_CYBERSE);
-        return false;
+        return true;
     }
 
     private static boolean affectMarshMelon(Board myBoard, MonsterCard attackedCard) {
@@ -49,7 +48,7 @@ public class GetAttackedEffects {
     private static boolean affectSuijin(MonsterCard attackedCard) {
         Scanner scanner = new Scanner(System.in);
         if (hasBeenAttacked.contains(attackedCard))
-            return true;
+            return false;
         System.out.println("Do you want to activate Suijin?(y/n)");
         String answer = scanner.nextLine();
         while (!answer.equals("y") && !answer.equals("n")) {
@@ -57,15 +56,15 @@ public class GetAttackedEffects {
             answer = scanner.nextLine();
         }
         if (answer.equals("n"))
-            return true;
+            return false;
         attackedCard.setLocation(Location.FIELD);
         hasBeenAttacked.add(attackedCard);
-        return false;
+        return true;
     }
 
     private static boolean killAttacker(MonsterCard attackedCard, MonsterCard attackerCard, Board myBoard) {
         attackerCard.setLocation(Location.GRAVEYARD);
         myBoard.removeMonster(myBoard.getMonsterIndexInMonsterBoard(attackedCard));
-        return attackedCard.getName().equals("Yomi Ship");
+        return !attackedCard.getName().equals("Yomi Ship");
     }
 }

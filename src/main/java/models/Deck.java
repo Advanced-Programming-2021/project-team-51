@@ -1,9 +1,8 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Objects;
 
 import models.cards.Card;
 import models.cards.CardType;
@@ -19,7 +18,7 @@ public class Deck {
     private ArrayList<SpellTrapCard> mainDeckSpellTraps = new ArrayList<>();
     private ArrayList<MonsterCard> sideDeckMonsters = new ArrayList<>();
     private ArrayList<SpellTrapCard> sideDeckSpellTraps = new ArrayList<>();
-    private HashMap<String, Integer> cardsAmount = new HashMap<>();
+    private final HashMap<String, Integer> cardsAmount = new HashMap<>();
     private String name;
     private String ownerName;
 
@@ -130,10 +129,6 @@ public class Deck {
         this.ownerName = ownerName;
     }
 
-    public User getOwner() {
-        return User.getUserByUserName(this.ownerName);
-    }
-
     private void setMainDeck(ArrayList<Card> mainCards) {
         ArrayList<MonsterCard> monsters = new ArrayList<>();
         ArrayList<SpellTrapCard> spellTraps = new ArrayList<>();
@@ -239,7 +234,7 @@ public class Deck {
     }
 
     public void removeDeck() {
-        User.getUserByUserName(ownerName).removeDeck(this);
+        Objects.requireNonNull(User.getUserByUserName(ownerName)).removeDeck(this);
         allDecks.remove(this);
     }
 
@@ -248,169 +243,91 @@ public class Deck {
     }
 
     private String getCardNameForGenerate(int number) {
-        switch (number) {
-            case 1:
-                return "Monster Reborn";
-            case 2:
-                return "Terraforming";
-            case 3:
-                return "Pot of Greed";
-            case 4:
-                return "Raigeki";
-            case 5:
-                return "Change of Heart";
-            case 6:
-                return "Swords of Revealing Light";
-            case 7:
-                return "Harpie's Feather Duster";
-            case 8:
-                return "Dark Hole";
-            case 9:
-                return "Supply Squad";
-            case 10:
-                return "Spell Absorption";
-            case 11:
-                return "Messenger of peace";
-            case 12:
-                return "Twin Twisters";
-            case 13:
-                return "Mystical space typhoon";
-            case 14:
-                return "Ring of defense";
-            case 15:
-                return "Yami";
-            case 16:
-                return "Forest";
-            case 17:
-                return "Closed Forest";
-            case 18:
-                return "Umiiruka";
-            case 19:
-                return "Sword of dark destruction";
-            case 20:
-                return "Black Pendant";
-            case 21:
-                return "United We Stand";
-            case 22:
-                return "Magnum Shield";
-            case 23:
-                return "Advanced Ritual Art";
-            case 24:
-                return "Trap Hole";
-            case 25:
-                return "Mirror Force";
-            case 26:
-                return "Magic Cylinder";
-            case 27:
-                return "Mind Crush";
-            case 28:
-                return "Torrential Tribute";
-            case 29:
-                return "Time Seal";
-            case 30:
-                return "Negate Attack";
-            case 31:
-                return "Solemn Warning";
-            case 32:
-                return "Magic Jammer";
-            case 33:
-                return "Call of The Haunted";
-            case 34:
-                return "Vanity's Emptiness";
-            case 35:
-                return "Wall of Revealing Light";
-            case 36:
-                return "Yomi Ship";
-            case 37:
-                return "Man-Eater Bug";
-            case 38:
-                return "Scanner";
-            case 39:
-                return "Marshmallon";
-            case 40:
-                return "Texchanger";
-            case 41:
-                return "The Calculator";
-            case 42:
-                return "Mirage Dragon";
-            case 43:
-                return "Herald of Creation";
-            case 44:
-                return "Exploder Dragon";
-            case 45:
-                return "Terratiger, the Empowered Warrior";
-            case 46:
-                return "The Tricky";
-            case 47:
-                return "Command Knight";
-            case 48:
-                return "Battle OX";
-            case 49:
-                return "Axe Raider";
-            case 50:
-                return "Horn Imp";
-            case 51:
-                return "Silver Fang";
-            case 52:
-                return "Fireyarou";
-            case 53:
-                return "Curtain of the dark ones";
-            case 54:
-                return "Feral Imp";
-            case 55:
-                return "Wattkid";
-            case 56:
-                return "Baby dragon";
-            case 57:
-                return "Hero of the east";
-            case 58:
-                return "Battle warrior";
-            case 59:
-                return "Crawling dragon";
-            case 60:
-                return "Flame manipulator";
-            case 61:
-                return "Haniwa";
-            case 62:
-                return "Bitron";
-            case 63:
-                return "Leotron";
-            case 64:
-                return "Alexandrite Dragon";
-            case 65:
-                return "Warrior Dai Grepher";
-            case 66:
-                return "Dark Blade";
-            case 67:
-                return "Crab Turtle";
-            case 68:
-                return "Skull Guardian";
-            case 69:
-                return "Suijin";
-            case 70:
-                return "Gate Guardian";
-            case 71:
-                return "Beast King Barbaros";
-            case 72:
-                return "Dark magician";
-            case 73:
-                return "Blue-Eyes white dragon";
-            case 74:
-                return "Slot Machine";
-            case 75:
-                return "Wattaildragon";
-            case 76:
-                return "Spiral Serpent";
-            default:
-                return "";
-
-        }
+        return switch (number) {
+            case 1 -> "Monster Reborn";
+            case 2 -> "Terraforming";
+            case 3 -> "Pot of Greed";
+            case 4 -> "Raigeki";
+            case 5 -> "Change of Heart";
+            case 6 -> "Swords of Revealing Light";
+            case 7 -> "Harpie's Feather Duster";
+            case 8 -> "Dark Hole";
+            case 9 -> "Supply Squad";
+            case 10 -> "Spell Absorption";
+            case 11 -> "Messenger of peace";
+            case 12 -> "Twin Twisters";
+            case 13 -> "Mystical space typhoon";
+            case 14 -> "Ring of defense";
+            case 15 -> "Yami";
+            case 16 -> "Forest";
+            case 17 -> "Closed Forest";
+            case 18 -> "Umiiruka";
+            case 19 -> "Sword of dark destruction";
+            case 20 -> "Black Pendant";
+            case 21 -> "United We Stand";
+            case 22 -> "Magnum Shield";
+            case 23 -> "Advanced Ritual Art";
+            case 24 -> "Trap Hole";
+            case 25 -> "Mirror Force";
+            case 26 -> "Magic Cylinder";
+            case 27 -> "Mind Crush";
+            case 28 -> "Torrential Tribute";
+            case 29 -> "Time Seal";
+            case 30 -> "Negate Attack";
+            case 31 -> "Solemn Warning";
+            case 32 -> "Magic Jammer";
+            case 33 -> "Call of The Haunted";
+            case 34 -> "Vanity's Emptiness";
+            case 35 -> "Wall of Revealing Light";
+            case 36 -> "Yomi Ship";
+            case 37 -> "Man-Eater Bug";
+            case 38 -> "Scanner";
+            case 39 -> "Marshmallon";
+            case 40 -> "Texchanger";
+            case 41 -> "The Calculator";
+            case 42 -> "Mirage Dragon";
+            case 43 -> "Herald of Creation";
+            case 44 -> "Exploder Dragon";
+            case 45 -> "Terratiger, the Empowered Warrior";
+            case 46 -> "The Tricky";
+            case 47 -> "Command Knight";
+            case 48 -> "Battle OX";
+            case 49 -> "Axe Raider";
+            case 50 -> "Horn Imp";
+            case 51 -> "Silver Fang";
+            case 52 -> "Fireyarou";
+            case 53 -> "Curtain of the dark ones";
+            case 54 -> "Feral Imp";
+            case 55 -> "Wattkid";
+            case 56 -> "Baby dragon";
+            case 57 -> "Hero of the east";
+            case 58 -> "Battle warrior";
+            case 59 -> "Crawling dragon";
+            case 60 -> "Flame manipulator";
+            case 61 -> "Haniwa";
+            case 62 -> "Bitron";
+            case 63 -> "Leotron";
+            case 64 -> "Alexandrite Dragon";
+            case 65 -> "Warrior Dai Grepher";
+            case 66 -> "Dark Blade";
+            case 67 -> "Crab Turtle";
+            case 68 -> "Skull Guardian";
+            case 69 -> "Suijin";
+            case 70 -> "Gate Guardian";
+            case 71 -> "Beast King Barbaros";
+            case 72 -> "Dark magician";
+            case 73 -> "Blue-Eyes white dragon";
+            case 74 -> "Slot Machine";
+            case 75 -> "Wattaildragon";
+            case 76 -> "Spiral Serpent";
+            default -> "";
+        };
     }
 
     public static Deck generateDeck(boolean isForEasy) {
         Deck deck = new Deck("", "Bot");
         int mainCardNumbers = (int) (Math.random() * 21) + 40;
-        int card = 0;
+        int card;
         for (int i = 0; i < mainCardNumbers; i++) {
             if (isForEasy)
                 card = (int) (Math.random() * 66) + 1;

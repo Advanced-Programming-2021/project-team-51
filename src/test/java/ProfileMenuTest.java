@@ -59,7 +59,7 @@ public class ProfileMenuTest {
                 invalid command\r
                 current password is invalid\r
                 Main Menu\r
-                user logged out successfully!\r                               
+                user logged out successfully!\r
                 """, outContent.toString());
         System.setIn(sysInBackup);
     }

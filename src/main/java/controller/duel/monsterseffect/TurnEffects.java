@@ -7,14 +7,12 @@ import models.cards.Location;
 import models.cards.monsters.MonsterCard;
 import models.cards.monsters.SpecialSummonStatus;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TurnEffects {
-    private static final ArrayList<MonsterCard> scanners = new ArrayList<>();
     public static void run(Board myBoard, Board rivalBoard) {
         for (MonsterCard monsterCard : myBoard.getMonsters()) {
-            if (monsterCard.getName().equals("Scanner") || scanners.contains(monsterCard))
+            if (monsterCard.getName().equals("Scanner"))
                 affectScanner(rivalBoard, monsterCard);
             else if (monsterCard.getName().equals("Herald of Creation"))
                 affectHeraldOfCreation(myBoard);

@@ -63,7 +63,8 @@ public class DuelView {
         //cheat
         if (!isCommandValid)
             cheatMenuController.run(command);
-
+        //switch cards between games
+        switchCards(command);
         if (shouldDrawBoard)
         System.out.println(phaseController.printBoard());
     }

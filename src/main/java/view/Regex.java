@@ -181,6 +181,7 @@ public class Regex {
 
     /*---PHASE---*/
     public static final String SWITCH_PHASE = "^next phase$";
+    public static final String SWITCH_CARDS = "^switch card (\\d+) from main with card (\\d+) from side$";
     //----------------------------------------------------------------------------------------------
 
     public static Matcher getMatcher(String input, String regex) {

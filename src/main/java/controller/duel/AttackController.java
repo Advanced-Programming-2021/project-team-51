@@ -1,5 +1,7 @@
 package controller.duel;
 
+import controller.duel.monsterseffect.GetAttackedEffects;
+import controller.duel.traps.GetAttackedTraps;
 import models.Player;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
@@ -18,6 +20,12 @@ public class AttackController {
     private Player player;
     public static ArrayList<MonsterCard> alreadyAttackedCards = new ArrayList<>();
     private final PhaseController phaseController = new PhaseController();
+
+    public AttackController() {
+        this.player = PhaseController.playerInTurn;
+        this.opponent = PhaseController.playerAgainst;
+        this.gamePhase = PhaseController.currentPhase;
+    }
 
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
@@ -59,6 +67,8 @@ public class AttackController {
 
 
         if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 1) {
+            if (GetAttackedEffects.run(playerCard, opponentCard, opponent.getPlayerBoard(), player.getPlayerBoard()))
+                return;
             this.opponent.getPlayerBoard().removeMonster(opponent.getPlayerBoard().getMonsterIndexInMonsterBoard(opponentCard));
         } else if (isPlayerMonsterStrongerThanOpponent(playerCard, opponentCard) == 2) {
             if (areBothMonstersOffensive(playerCard, opponentCard)) {
@@ -91,7 +101,7 @@ public class AttackController {
         } else if (checkAlreadyAttacked(playerCard)) {
             return StatusEnum.CARD_ALREADY_ATTACKED.getStatus();
         } else if (PhaseController.playerAgainst.getPlayerBoard().getMonsters().size() > 0 ||
-                    PhaseController.isFirstPlay)
+                PhaseController.isFirstPlay)
             return StatusEnum.CANT_ATTACK_DIRECTLY.getStatus();
         else {
             isBattleHappened = true;
@@ -105,9 +115,13 @@ public class AttackController {
         setGamePhase(PhaseController.currentPhase);
         opponent = PhaseController.playerAgainst;
         player = PhaseController.playerInTurn;
+        MonsterCard playerCard = (MonsterCard) SelectionController.selectedCard;
         MonsterCard opponentCard = PhaseController.playerAgainst.getPlayerBoard().getMonsterBoard()
                 .get(Integer.parseInt(rivalCardNumber) - 1);
-        MonsterCard playerCard = (MonsterCard) SelectionController.selectedCard;
+        if ((!opponent.getPlayerBoard().getEffectsStatus().getCanStrongRivalAttack() && playerCard.getAttackPoint() >= 1500)
+                || !opponent.getPlayerBoard().getEffectsStatus().getCanRivalAttack()
+                || GetAttackedTraps.activate(playerCard, opponent.getPlayerBoard(), player.getPlayerBoard()))
+            return "can't attack";
         if (playerCard == null)
             return StatusEnum.NO_CARD_SELECTED_YET.getStatus();
         if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains(playerCard))
@@ -177,9 +191,6 @@ public class AttackController {
         return gamePhase.equals(GamePhase.BATTLE);
     }
 
-    //    private boolean isCardValidInInDamageStep(Card card){
-//        //Method Missing
-//    } TODO Check Card Validity In Damage And Attack
 
     private boolean checkAlreadyAttacked(MonsterCard card) {
         for (MonsterCard a : alreadyAttackedCards

@@ -4,7 +4,6 @@ import models.Board;
 import models.Chain;
 import models.cards.Card;
 import models.cards.Location;
-import models.cards.monsters.MonsterCard;
 import models.cards.monsters.SpecialSummonStatus;
 import models.cards.spelltrap.SpellTrapCard;
 
@@ -14,9 +13,9 @@ import java.util.Scanner;
 public class NormalTraps {
     public static boolean activate(SpellTrapCard trapCard, Board myBoard, Board rivalBoard) {
         if (trapCard.getName().equals("Mind Crush"))
-            Chain.addSpell(trapCard, myBoard, rivalBoard, null, null);
+            Chain.addSpell(trapCard, myBoard, rivalBoard, null);
         else if (trapCard.getName().equals("Call of The Haunted"))
-            Chain.addSpell(trapCard, myBoard, rivalBoard, null, null);
+            Chain.addSpell(trapCard, myBoard, rivalBoard, null);
         else
             return false;
 

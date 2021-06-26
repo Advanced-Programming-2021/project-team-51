@@ -7,8 +7,7 @@ public enum Icon {
     RITUAL("Ritual"),
     CONTINUOUS("Continuous"),
     COUNTER("Counter"),
-    NORMAL("Normal"),
-    UNTITRAP("Untitrap");
+    NORMAL("Normal");
 
     private final String label;
 

@@ -1,6 +1,7 @@
 package models;
 
 import models.cards.Card;
+import models.cards.Location;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
@@ -16,17 +17,12 @@ public class Board {
     private final ArrayList<MonsterCard> monsterBoard = new ArrayList<>(5);
     private final ArrayList<SpellTrapCard> spellAndTrapBoard = new ArrayList<>(5);
     private final ArrayList<Card> graveyard = new ArrayList<>();
-    private MonsterCard swordOfDarkDestructionEquipped;
-    private MonsterCard blackPendantEquipped;
-    private MonsterCard unitedWeStandEquipped;
-    private MonsterCard magnumShieldEquipped;
     private final ArrayList<Card> cardsInHand = new ArrayList<>();
     private Player owner;
     private Card fieldZone;
     private Deck deck;
     private ArrayList<Card> mainDeckCards;
     private ArrayList<Card> sideDeckCards;
-    private boolean isSuijinEffected;
     private int lifePoints;
     private EffectsStatus effectsStatus;
 
@@ -34,11 +30,6 @@ public class Board {
         setOwner(owner);
         setFieldZone(null);
         setDeck((Deck) owner.getPlayerDeck().clone());
-        setSuijinEffect(false);
-        setEquippedBlackPendant(null);
-        setEquippedMagnumShield(null);
-        setEquippedSwordOfDarkDestruction(null);
-        setEquippedUnitedWeStand(null);
         setLifePoints(8000);
         initializeZones();
         setMainDeckCards();
@@ -52,11 +43,6 @@ public class Board {
         setOwner(null);
         setFieldZone(null);
         setDeck((Deck) bot.getDeck().clone());
-        setSuijinEffect(false);
-        setEquippedBlackPendant(null);
-        setEquippedMagnumShield(null);
-        setEquippedSwordOfDarkDestruction(null);
-        setEquippedUnitedWeStand(null);
         setLifePoints(8000);
         initializeZones();
         setMainDeckCards();
@@ -77,7 +63,7 @@ public class Board {
         }
     }
 
-    public void resetTheBoard(Card main, Card side) {
+    public void resetTheBoard(Integer mainIndex, Integer sideIndex) {
         removeCopiedDeck();
         setFieldZone(null);
         try {
@@ -85,15 +71,10 @@ public class Board {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        setSuijinEffect(false);
-        setEquippedBlackPendant(null);
-        setEquippedMagnumShield(null);
-        setEquippedSwordOfDarkDestruction(null);
-        setEquippedUnitedWeStand(null);
         setLifePoints(8000);
         initializeZones();
-        if (main != null && side != null)
-            changeDeck(side, main);
+        if (mainIndex != null && sideIndex != null)
+            changeDeck(sideIndex, mainIndex);
         setMainDeckCards();
         setSideDeckCards();
         shuffle();
@@ -111,14 +92,6 @@ public class Board {
 
     public void removeCopiedDeck() {
         this.deck.removeCopiedDeck();
-    }
-
-    public void setSuijinEffect(boolean effect) {
-        this.isSuijinEffected = effect;
-    }
-
-    public boolean getSuijinEffect() {
-        return this.isSuijinEffected;
     }
 
     public void setLifePoints(int amount) {
@@ -167,22 +140,6 @@ public class Board {
 
     public ArrayList<Card> getGraveyardCards() {
         return this.graveyard;
-    }
-
-    public MonsterCard getSwordOfDarkDestructionEquipped() {
-        return this.swordOfDarkDestructionEquipped;
-    }
-
-    public MonsterCard getBlackPendantEquipped() {
-        return this.blackPendantEquipped;
-    }
-
-    public MonsterCard getUnitedWeStandEquipped() {
-        return this.unitedWeStandEquipped;
-    }
-
-    public MonsterCard getMagnumShieldEquipped() {
-        return this.magnumShieldEquipped;
     }
 
     public ArrayList<MonsterCard> getMonsters() {
@@ -282,11 +239,8 @@ public class Board {
     }
 
     public void addToGraveyard(Card card) {
+        card.setLocation(Location.GRAVEYARD);
         graveyard.add(card);
-    }
-
-    public void removeFromGraveyard(int index) {
-        graveyard.remove(index);
     }
 
     public void addCardsInHand(Card card) {
@@ -295,10 +249,6 @@ public class Board {
 
     public void removeCardsFromHand(int index) {
         cardsInHand.remove(index);
-    }
-
-    public void addLifePoints(int amount) {
-        this.lifePoints += amount;
     }
 
     public Card drawCard() {
@@ -322,44 +272,13 @@ public class Board {
             drawCard();
     }
 
-    public void removeDeck() {
-        deck.removeDeck();
-    }
+    public void changeDeck(int sideIndex, int mainIndex) {
 
-    public void changeDeck(Card side, Card main) {
-        int mainIndex = 0;
-        int sideIndex = 0;
-        for (int i = 0; i < mainDeckCards.size(); i++)
-            if (mainDeckCards.get(i).getName().equals(main.getName())) {
-                mainIndex = i;
-                break;
-            }
-        for (int i = 0; i < sideDeckCards.size(); i++)
-            if (sideDeckCards.get(i).getName().equals(main.getName())) {
-                sideIndex = i;
-                break;
-            }
         mainDeckCards.remove(mainIndex);
-        mainDeckCards.add(side);
+        mainDeckCards.add(mainDeckCards.get(sideIndex));
         sideDeckCards.remove(sideIndex);
-        sideDeckCards.add(main);
+        sideDeckCards.add(mainDeckCards.get(mainIndex));
 
-    }
-
-    public void setEquippedSwordOfDarkDestruction(MonsterCard monster) {
-        this.swordOfDarkDestructionEquipped = monster;
-    }
-
-    public void setEquippedBlackPendant(MonsterCard monster) {
-        this.blackPendantEquipped = monster;
-    }
-
-    public void setEquippedUnitedWeStand(MonsterCard monster) {
-        this.unitedWeStandEquipped = monster;
-    }
-
-    public void setEquippedMagnumShield(MonsterCard monster) {
-        this.magnumShieldEquipped = monster;
     }
 
     public String toString() {
@@ -368,7 +287,7 @@ public class Board {
             boardString.append("E\t\t\t\t\t\t");
         else
             boardString.append("O\t\t\t\t\t\t");
-        boardString.append(this.graveyard.size() + "\n\t");
+        boardString.append(this.graveyard.size()).append("\n\t");
         for (int i = 4; i > -1; i -= 2) {
             if (monsterBoard.get(i) == null)
                 boardString.append("E\t");
@@ -406,24 +325,22 @@ public class Board {
             else
                 boardString.append("O\t");
         }
-        boardString.append("\n\t\t\t\t\t\t" + mainDeckCards.size() + "\n");
+        boardString.append("\n\t\t\t\t\t\t").append(mainDeckCards.size()).append("\n");
 
-        for (int i = 0; i < cardsInHand.size(); i++)
-            boardString.append("C\t");
+        boardString.append("C\t".repeat(cardsInHand.size()));
 
-        boardString.append("\n" + owner.getNickName() + ":" + this.lifePoints);
+        boardString.append("\n").append(owner.getNickName()).append(":").append(this.lifePoints);
 
         return boardString.toString();
     }
 
     public String reverseToString() {
         StringBuilder boardString = new StringBuilder();
-        boardString.append(owner.getNickName() + ":" + this.lifePoints + "\n");
+        boardString.append(owner.getNickName()).append(":").append(this.lifePoints).append("\n");
 
-        for (int i = 0; i < cardsInHand.size(); i++)
-            boardString.append("C\t");
+        boardString.append("C\t".repeat(cardsInHand.size()));
 
-        boardString.append("\n" + mainDeckCards.size() + "\n\t");
+        boardString.append("\n").append(mainDeckCards.size()).append("\n\t");
 
         for (int i = 1; i < 4; i += 2) {
             if (spellAndTrapBoard.get(i) == null)
@@ -467,7 +384,7 @@ public class Board {
                 boardString.append("DO\t");
         }
 
-        boardString.append("\n" + graveyard.size() + "\t\t\t\t\t\t");
+        boardString.append("\n").append(graveyard.size()).append("\t\t\t\t\t\t");
         if (fieldZone == null)
             boardString.append("E");
         else

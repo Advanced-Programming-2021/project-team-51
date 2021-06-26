@@ -2,6 +2,7 @@ package models;
 
 import controller.duel.spells.NormalActivate;
 import controller.duel.spells.QuickPlays;
+import controller.duel.spells.RingOfDefense;
 import controller.duel.spells.SpellAbsorption;
 import controller.duel.traps.MagicJammer;
 import controller.duel.traps.NormalTraps;
@@ -17,15 +18,13 @@ public class Chain {
     private static final ArrayList<SpellTrapCard> chain = new ArrayList<>();
     private static final ArrayList<Board> myBoards = new ArrayList<>();
     private static final ArrayList<Board> rivalBoards = new ArrayList<>();
-    private static final ArrayList<MonsterCard> attackers = new ArrayList<>();
-    private static final ArrayList<MonsterCard> attackeds = new ArrayList<>();
+    private static final ArrayList<MonsterCard> summoned = new ArrayList<>();
 
-    public static void addSpell(SpellTrapCard spellTrapCard, Board myBoard, Board rivalBoard, MonsterCard attacker, MonsterCard attacked) {
+    public static void addSpell(SpellTrapCard spellTrapCard, Board myBoard, Board rivalBoard, MonsterCard attacked) {
         chain.add(spellTrapCard);
         myBoards.add(myBoard);
         rivalBoards.add(rivalBoard);
-        attackers.add(attacker);
-        attackeds.add(attacked);
+        summoned.add(attacked);
     }
 
     public static void activate() {
@@ -33,7 +32,7 @@ public class Chain {
         for (int i = chain.size() - 1; i >= 0; i--) {
             SpellTrapCard spellTrapCard = chain.get(i);
             activateSpells(spellTrapCard, myBoards.get(i), rivalBoards.get(i));
-            activateTraps(spellTrapCard, myBoards.get(i), rivalBoards.get(i), attackeds.get(i));
+            activateTraps(spellTrapCard, myBoards.get(i), rivalBoards.get(i), summoned.get(i));
             if (!hasAbsorptionWorked) {
                 SpellAbsorption.check(myBoards.get(i), rivalBoards.get(i));
                 hasAbsorptionWorked = true;
@@ -41,8 +40,7 @@ public class Chain {
             chain.remove(i);
             myBoards.remove(i);
             rivalBoards.remove(i);
-            attackeds.remove(i);
-            attackers.remove(i);
+            summoned.remove(i);
         }
     }
 
@@ -65,6 +63,8 @@ public class Chain {
             SummonTraps.activateTorrentialTribute(myBoard, rivalBoard);
         else if (spellTrapCard.getName().equals("Solemn Warning"))
             SummonTraps.activateSolemnWarning(summonedCard, myBoard, rivalBoard);
+        if (spellTrapCard.getName().equals("Ring of defense"))
+            RingOfDefense.activate(myBoard);
     }
 
     private static void activateSpells(SpellTrapCard spellTrapCard, Board myBoard, Board rivalBoard) {

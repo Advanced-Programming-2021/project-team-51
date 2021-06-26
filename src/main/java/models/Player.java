@@ -34,12 +34,6 @@ public class Player {
         allPlayers.clear();
     }
 
-    public static void resetPlayers() {
-        for (Player player : allPlayers) {
-            player.getPlayerBoard().resetTheBoard(null, null); //TODO handle switching cards
-        }
-    }
-
     public Deck getPlayerDeck() {
         return this.playerDeck;
     }

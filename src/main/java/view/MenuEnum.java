@@ -7,10 +7,9 @@ public enum MenuEnum {
     SHOP_MENU,
     DECK_MENU,
     PROFILE_MENU,
-    CHEAT_MENU,
     IMPORT_EXPORT,
     DUEL_MENU,
     DUEL_VIEW,
-    EXIT;
+    EXIT
 
 }

@@ -30,7 +30,7 @@ public class ImportExportController {
         ArrayList<Card> cards = SaveData.loadCustomCards();
         for (Card card: cards)
             if (card.getName().equals(cardName)) {
-                System.out.println(card.toString());
+                System.out.println(card);
                 return StatusEnum.EXPORTED_SUCCESSFULLY.getStatus();
             }
         return StatusEnum.CARD_NOT_FOUND.getStatus();

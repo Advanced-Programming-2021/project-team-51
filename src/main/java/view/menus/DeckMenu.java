@@ -182,7 +182,7 @@ public class DeckMenu {
             removeCardFromDeck(deckName,cardName,mainOrSide);
 
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_ALL_DECKS)).matches()){
+        else if ((Regex.getMatcher(command, Regex.SHOW_ALL_DECKS)).matches()){
             showAllUserDecks();
         }
         else if ((matcher = Regex.getMatcher(command, Regex.SHOW_OPTIONAL_DECK_1)).matches()){
@@ -207,16 +207,16 @@ public class DeckMenu {
             }
             showOptionalDeck(deckName,mainOrSide);
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_ALL_USER_CARDS)).matches()){
+        else if ((Regex.getMatcher(command, Regex.SHOW_ALL_USER_CARDS)).matches()){
             showAllCards();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()) {
+        else if ((Regex.getMatcher(command, Regex.EXIT_MENU)).matches()) {
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()) {
+        else if ((Regex.getMatcher(command, Regex.ENTER_MENU)).matches()) {
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()) {
+        else if ((Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()) {
             System.out.println("Deck");
         }
         else {

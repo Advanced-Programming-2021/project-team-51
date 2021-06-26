@@ -1,6 +1,5 @@
 package models.cards;
 
-import java.io.*;
 import java.util.ArrayList;
 
 public abstract class Card {
@@ -14,15 +13,7 @@ public abstract class Card {
     private int price;
     private Location location;
     private boolean isHidden;
-    private boolean isSwitched;
-
-    public static Card getCardByNumber(int number) {
-        for (Card card : allCards) {
-            if (card.cardNumber == number)
-                return card;
-        }
-        return null;
-    }
+    private boolean isSwitched = false;
 
     public static Card getCardByName(String name) {
         for (Card card : allCards) {
@@ -31,12 +22,14 @@ public abstract class Card {
         }
         return null;
     }
-    public static ArrayList<Card> getAllCards() {
-        return allCards;
-    }
 
     public static void setAllCards(ArrayList<Card> cards) {
         allCards = cards;
+    }
+
+    public static void resetSwitch() {
+        for (Card card : allCards)
+            card.setSwitched(false);
     }
 
     public void setName(String name) {
@@ -87,12 +80,12 @@ public abstract class Card {
         return this.isHidden;
     }
 
-    public void setSwitched(boolean isSwitched) {
-        this.isSwitched = isSwitched;
-    }
-
     public boolean getIsSwitched() {
         return this.isSwitched;
+    }
+
+    public void setSwitched(boolean isSwitched){
+        this.isSwitched = isSwitched;
     }
 
     public int getCardNumber() {

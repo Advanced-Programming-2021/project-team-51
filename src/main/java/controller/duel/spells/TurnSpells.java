@@ -10,12 +10,15 @@ public class TurnSpells {
     private static final HashMap<SpellTrapCard, Integer> turnsActivated = new HashMap<>();
 
     public static boolean activate(SpellTrapCard spellCard, Board myBoard, boolean isAnyMonsterDead) {
+        if (turnsActivated.containsKey(spellCard))
+            return false;
         if (spellCard.getName().equals("Swords of Revealing Light"))
             activateSwordsOfRevealingLight(myBoard);
         else if (spellCard.getName().equals("Supply Squad"))
             activateSupplySquad(isAnyMonsterDead, myBoard);
         else
             return false;
+        turnsActivated.put(spellCard, 0);
         return true;
     }
 

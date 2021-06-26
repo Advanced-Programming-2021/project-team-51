@@ -63,13 +63,13 @@ public class LoginMenu {
             String password = matcher.group(2);
             createUser(username,nickname,password);
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.ENTER_MENU)).matches()){
+        else if ((Regex.getMatcher(command,Regex.ENTER_MENU)).matches()){
             System.out.println(StatusEnum.PLEASE_LOGIN_FIRST.getStatus());
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.SHOW_CURRENT_MENU)).matches()){
+        else if ((Regex.getMatcher(command,Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Login Menu");
         }
-        else if ((matcher = Regex.getMatcher(command,Regex.EXIT_MENU)).matches()){
+        else if ((Regex.getMatcher(command,Regex.EXIT_MENU)).matches()){
             ProgramController.currentMenu = MenuEnum.EXIT;
         }
         else{

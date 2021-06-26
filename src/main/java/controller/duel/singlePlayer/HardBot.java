@@ -25,7 +25,7 @@ public class HardBot extends AI {
             if (level > 6) {
                 sacrificeWeakestMonster();
                 sacrificeWeakestMonster();
-            } else if (level < 7 && level > 4)
+            } else if (level > 4)
                 sacrificeWeakestMonster();
 
             if (monster.getAttackPoint() < monster.getDefensePoint())

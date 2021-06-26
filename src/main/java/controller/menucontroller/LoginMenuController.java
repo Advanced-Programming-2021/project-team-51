@@ -5,6 +5,8 @@ import view.ProgramController;
 import view.StatusEnum;
 import models.User;
 
+import java.util.Objects;
+
 //-----------------------------------PLEASE LOGIN FIRST NOT FIXED-------------------
 
 public class LoginMenuController {
@@ -21,12 +23,12 @@ public class LoginMenuController {
     }
 
     private boolean isPasswordCorrect(String username, String password) {
-        return User.getUserByUserName(username).getPassword().equals(password);
+        return Objects.requireNonNull(User.getUserByUserName(username)).getPassword().equals(password);
     }
 
     public String loginUSer(String username, String password) {
         if (!doesUserExist(username))
-            return StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus();
+            return "There is no user with username " + username;
 
         if (!isPasswordCorrect(username, password))
             return StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus();

@@ -59,14 +59,6 @@ public class MonsterCard extends Card {
         this.setName(name);
     }
 
-    public static MonsterCard getMonsterCardByNumber(int number) {
-        for (MonsterCard monsterCard : allMonsterCards) {
-            if (monsterCard.getCardNumber() == number)
-                return monsterCard;
-        }
-        return null;
-    }
-
     public static ArrayList<MonsterCard> getAllMonsterCards() {
         return allMonsterCards;
     }
@@ -75,7 +67,7 @@ public class MonsterCard extends Card {
         if (allMonsterCardsToShow.size() > 0)
             return allMonsterCardsToShow;
 
-        String line = "";
+        String line;
         boolean isFirstLine = true;
         BufferedReader bufferedReader = new BufferedReader(new FileReader("Monster.csv"));
         while ((line = bufferedReader.readLine()) != null) {

@@ -5,17 +5,14 @@ import controller.menucontroller.LoginMenuController;
 import view.MenuEnum;
 import view.ProgramController;
 import view.StatusEnum;
-import models.User;
 import view.Regex;
 
 
 import java.util.regex.Matcher;
 
 public class MainMenu {
-    private User currentUser;
 
     public MainMenu(){
-        this.currentUser = LoginMenuController.currentUser;
     }
 
     public void run(String command){
@@ -41,15 +38,15 @@ public class MainMenu {
                 ProgramController.currentMenu = MenuEnum.IMPORT_EXPORT;
             }
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
             LoginMenuController.currentUser = null;
             LoginMenuController.isLoggedOn = false;
            ProgramController.currentMenu = MenuEnum.LOGIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Main Menu");
         }
-        else if((matcher = Regex.getMatcher(command,Regex.USER_LOGOUT)).matches()){
+        else if((Regex.getMatcher(command,Regex.USER_LOGOUT)).matches()){
             LoginMenuController.currentUser = null;
             LoginMenuController.isLoggedOn = false;
             ProgramController.currentMenu = MenuEnum.LOGIN_MENU;

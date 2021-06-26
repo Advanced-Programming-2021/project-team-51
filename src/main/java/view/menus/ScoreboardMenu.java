@@ -1,7 +1,6 @@
 package view.menus;
 
 
-import controller.menucontroller.LoginMenuController;
 import view.MenuEnum;
 import view.ProgramController;
 import view.StatusEnum;
@@ -9,29 +8,24 @@ import models.User;
 import view.Regex;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 
 
 public class ScoreboardMenu {
 
-    private User currentUser;
-
     public ScoreboardMenu(){
-        this.currentUser = LoginMenuController.currentUser;
     }
 
     public void run(String command){
-        Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.SHOW_SCOREBOARD)).matches()){
+        if ((Regex.getMatcher(command, Regex.SHOW_SCOREBOARD)).matches()){
             showScoreboard();
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
             System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         }
-        else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
+        else if ((Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Scoreboard");
         }
         else{

@@ -9,24 +9,18 @@ import java.util.Scanner;
 
 public class QuickPlays {
 
-    public static boolean quickActivate(SpellTrapCard spellTrapCard, Board myBoard, Board rivalBoard) {
-        if (spellTrapCard.getIsHidden())
-            return activate(spellTrapCard, myBoard, rivalBoard);
-        return false;
-    }
-
     public static boolean activate(SpellTrapCard spellTrapCard, Board myBoard, Board rivalBoard) {
         if (spellTrapCard.getName().equals("Twin Twisters")) {
             if (Chain.getSize() == 0) activateTwinTwister(myBoard, rivalBoard);
-            else Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null, null);
+            else Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null);
         }
         else if (spellTrapCard.getName().equals("Mystical space typhoon")) {
             if (Chain.getSize() == 0) activateMysticalSpaceTyphoon(rivalBoard);
-            else Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null, null);
+            else Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null);
         }
         else if (spellTrapCard.getName().equals("Ring of defense")) {
             if (Chain.getSize() == 0) activateRingOfDefenses(myBoard);
-            else Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null, null);
+            else Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null);
         }
         else
             return false;
