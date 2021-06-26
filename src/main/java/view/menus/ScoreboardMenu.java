@@ -29,13 +29,13 @@ public class ScoreboardMenu {
            ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         }
         else if ((matcher = Regex.getMatcher(command, Regex.ENTER_MENU)).matches()){
-            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
+            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         }
         else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){
             System.out.println("Scoreboard");
         }
         else{
-            System.out.println(StatusEnum.INVALID_COMMAND);
+            System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
         }
     }
     private void showScoreboard(){
