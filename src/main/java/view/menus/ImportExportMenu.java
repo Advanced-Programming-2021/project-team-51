@@ -30,10 +30,10 @@ public class ImportExportMenu {
         else if (Regex.getMatcher(command, Regex.EXIT_MENU).matches())
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         else if (Regex.getMatcher(command, Regex.ENTER_MENU).matches())
-            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE);
+            System.out.println(StatusEnum.MENU_NAVIGATION_NOT_POSSIBLE.getStatus());
         else if (Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU).matches())
             System.out.println("Import/Export");
         else
-            System.out.println(StatusEnum.INVALID_COMMAND);
+            System.out.println(StatusEnum.INVALID_COMMAND.getStatus());
     }
 }

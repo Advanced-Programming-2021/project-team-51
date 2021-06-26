@@ -42,6 +42,8 @@ public class MainMenu {
             }
         }
         else if ((matcher = Regex.getMatcher(command, Regex.EXIT_MENU)).matches()){
+            LoginMenuController.currentUser = null;
+            LoginMenuController.isLoggedOn = false;
            ProgramController.currentMenu = MenuEnum.LOGIN_MENU;
         }
         else if ((matcher = Regex.getMatcher(command, Regex.SHOW_CURRENT_MENU)).matches()){

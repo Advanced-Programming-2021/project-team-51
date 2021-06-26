@@ -37,7 +37,7 @@ public class DeckMenu {
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
-            if (matcher.group(5) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(5) == null){
                 mainOrSide = "main";
             }
             else{
@@ -49,7 +49,7 @@ public class DeckMenu {
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
-            if (matcher.group(3) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(3) == null){
                 mainOrSide = "main";
             }
             else{
@@ -61,7 +61,7 @@ public class DeckMenu {
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
-            if (matcher.group(5) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(5) == null){
                 mainOrSide = "main";
             }
             else{
@@ -73,7 +73,7 @@ public class DeckMenu {
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
-            if (matcher.group(3) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(3) == null){
                 mainOrSide = "main";
             }
             else{
@@ -85,7 +85,7 @@ public class DeckMenu {
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
-            if (matcher.group(1) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(1) == null){
                 mainOrSide = "main";
             }
             else{
@@ -97,7 +97,7 @@ public class DeckMenu {
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
-            if (matcher.group(1) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(1) == null){
                 mainOrSide = "main";
             }
             else{
@@ -109,7 +109,7 @@ public class DeckMenu {
             String cardName = matcher.group(2);
             String deckName = matcher.group(4);
             String mainOrSide;
-            if (matcher.group(5) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(5) == null){
                 mainOrSide = "main";
             }
             else{
@@ -121,7 +121,7 @@ public class DeckMenu {
             String cardName = matcher.group(2);
             String deckName = matcher.group(5);
             String mainOrSide;
-            if (matcher.group(3) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(3) == null){
                 mainOrSide = "main";
             }
             else{
@@ -134,7 +134,7 @@ public class DeckMenu {
             String cardName = matcher.group(4);
             String deckName = matcher.group(2);
             String mainOrSide;
-            if (matcher.group(5) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(5) == null){
                 mainOrSide = "main";
             }
             else{
@@ -147,7 +147,7 @@ public class DeckMenu {
             String cardName = matcher.group(5);
             String deckName = matcher.group(2);
             String mainOrSide;
-            if (matcher.group(3) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(3) == null){
                 mainOrSide = "main";
             }
             else{
@@ -160,7 +160,7 @@ public class DeckMenu {
             String cardName = matcher.group(5);
             String deckName = matcher.group(3);
             String mainOrSide;
-            if (matcher.group(1) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(1) == null){
                 mainOrSide = "main";
             }
             else{
@@ -173,7 +173,7 @@ public class DeckMenu {
             String cardName = matcher.group(5);
             String deckName = matcher.group(4);
             String mainOrSide;
-            if (matcher.group(1) == null){ //---------------------IN TIKARO SURE NISTAM:|-------------------
+            if (matcher.group(1) == null){
                 mainOrSide = "main";
             }
             else{
@@ -236,7 +236,7 @@ public class DeckMenu {
             if (!currentUser.getUserDecks().get(i).equals(currentUser.getActiveDeck()))
                 System.out.println(currentUser.getUserDecks().get(i).toString());
         }
-    }//--------------------IT'S NOT ALPHABETIC YET----------------------
+    }
 
     private void createDeck(String deckName) {
         System.out.println(deckMenuController.createDeck(deckName));
@@ -299,11 +299,11 @@ public class DeckMenu {
                 }
             }
         }
-    }//--------------------IT'S NOT ALPHABETIC YET----------------------
+    }
 
     private void showAllCards() {
         for (int i = 0; i < currentUser.getUserCards().size(); i++) {
             System.out.println(currentUser.getUserCards().get(i).getName() + ":" + currentUser.getUserCards().get(i).getDescription());
         }
-    }//--------------------IT'S NOT ALPHABETIC YET----------------------
+    }
 }
