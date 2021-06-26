@@ -3,6 +3,7 @@ package controller.duel.monsterseffect;
 import models.Board;
 import models.cards.Location;
 import models.cards.monsters.MonsterCard;
+import models.cards.monsters.SpecialSummonStatus;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class GetAttackedEffects {
         else if (attackedCard.getName().equals("Marshmallon"))
             return affectMarshMelon(myBoard, attackedCard);
         else if (attackedCard.getName().equals("Texchanger"))
-            return affectTexChanger(rivalBoard);
+            return affectTexChanger(myBoard);
         else if (attackedCard.getName().equals("Command Knight") && !attackedCard.getIsHidden())
             return affectCommandKnight(rivalBoard);
         return true;
@@ -30,8 +31,8 @@ public class GetAttackedEffects {
         return rivalBoard.getMonsters().size() != 1;
     }
 
-    private static boolean affectTexChanger(Board rivalBoard) {
-        //TODO Summon a normal Cyberse monster
+    private static boolean affectTexChanger(Board myBoard) {
+        myBoard.getEffectsStatus().setSpecialSummonStatus(SpecialSummonStatus.NORMAL_CYBERSE);
         return false;
     }
 

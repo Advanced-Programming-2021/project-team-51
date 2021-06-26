@@ -3,7 +3,9 @@ package controller.duel.monsterseffect;
 import models.Board;
 import models.cards.Card;
 import models.cards.CardType;
+import models.cards.Location;
 import models.cards.monsters.MonsterCard;
+import models.cards.monsters.SpecialSummonStatus;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,7 +33,16 @@ public class TurnEffects {
         }
         if (answer.equals("n"))
             return;
-        //TODO Summon a monster from graveyard
+        System.out.println("enter sacrificed card from hand index:");
+        String index = scanner.nextLine();
+        while (!index.matches("(\\d)") || Integer.parseInt(index) >= myBoard.getHandCards().size()
+                || myBoard.getHandCards().get(Integer.parseInt(index)) == null) {
+            System.out.println("enter sacrificed card from hand index:");
+            index = scanner.nextLine();
+        }
+        myBoard.getHandCards().get(Integer.parseInt(index)).setLocation(Location.GRAVEYARD);
+        myBoard.removeCardsFromHand(Integer.parseInt(index));
+        myBoard.getEffectsStatus().setSpecialSummonStatus(SpecialSummonStatus.LEVEL7H_FROM_GRAVE);
     }
 
     private static void affectScanner(Board rivalBoard, MonsterCard scannerCard) {

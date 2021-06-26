@@ -4,7 +4,7 @@ import models.Board;
 import models.cards.Card;
 import models.cards.Location;
 import models.cards.monsters.MonsterCard;
-import models.cards.spelltrap.SpellTrapCard;
+import models.cards.monsters.SpecialSummonStatus;
 
 import java.util.Scanner;
 
@@ -18,10 +18,10 @@ public class SummonEffects {
         else if (summonedMonster.getName().equals("The Calculator"))
             setCalculatorAttackPoint(myBoard, summonedMonster);
         else if (summonedMonster.getName().equals("Terratiger, the Empowered Warrior"))
-            affectTerratiger();
+            affectTerratiger(myBoard);
     }
 
-    private static void affectTerratiger() {
+    private static void affectTerratiger(Board myBoard) {
         System.out.println("Do you want to summon a monster?(y/n)");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
@@ -31,7 +31,7 @@ public class SummonEffects {
         }
         if (answer.equals("n"))
             return;
-        //TODO Summon a level 4 or lower monster in defense mode
+        myBoard.getEffectsStatus().setSpecialSummonStatus(SpecialSummonStatus.NORMAL_LEVEL4L_FROM_HAND);
     }
 
     private static void setCalculatorAttackPoint(Board myBoard, MonsterCard calculator) {
@@ -62,6 +62,14 @@ public class SummonEffects {
         }
         if (answer.equals("n"))
             return;
-        //TODO choose a rival card and destroy
+        System.out.println("enter monster index:");
+        String index = scanner.nextLine();
+        while (!index.matches("(\\d)") || Integer.parseInt(index) >= rivalBoard.getMonsters().size()
+                || rivalBoard.getMonsters().get(Integer.parseInt(index)) == null) {
+            System.out.println("enter monster index:");
+            index = scanner.nextLine();
+        }
+        rivalBoard.getMonsters().get(Integer.parseInt(index)).setLocation(Location.GRAVEYARD);
+        rivalBoard.removeMonster(Integer.parseInt(index));
     }
 }

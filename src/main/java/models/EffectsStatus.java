@@ -1,5 +1,8 @@
 package models;
 
+import models.cards.monsters.SpecialSummonStatus;
+
+
 public class EffectsStatus {
     private boolean isRivalSpellBlocked = false;
     private boolean isRivalTrapsBlocked = false;
@@ -7,6 +10,7 @@ public class EffectsStatus {
     private boolean isRivalReveled = false;
     private boolean canStrongRivalAttack = true;
     private boolean canRivalPickCard = true;
+    private SpecialSummonStatus specialSummonStatus = SpecialSummonStatus.NONE;
 
     public boolean getRivalSpellBlocked() {
         return this.isRivalSpellBlocked;
@@ -54,5 +58,13 @@ public class EffectsStatus {
 
     public void setCanStrongRivalAttack(boolean canStrongRivalAttack) {
         this.canStrongRivalAttack = canStrongRivalAttack;
+    }
+
+    public SpecialSummonStatus getSpecialSummonStatus() {
+        return this.specialSummonStatus;
+    }
+
+    public void setSpecialSummonStatus(SpecialSummonStatus specialSummonStatus) {
+        this.specialSummonStatus = specialSummonStatus;
     }
 }

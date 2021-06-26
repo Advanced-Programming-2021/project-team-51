@@ -38,7 +38,6 @@ public class GetAttackedTraps {
     }
 
     private static boolean activateNegateAttack() {
-        //TODO
         return true;
     }
 }

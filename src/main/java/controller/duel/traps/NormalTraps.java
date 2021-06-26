@@ -5,9 +5,11 @@ import models.Chain;
 import models.cards.Card;
 import models.cards.Location;
 import models.cards.monsters.MonsterCard;
+import models.cards.monsters.SpecialSummonStatus;
 import models.cards.spelltrap.SpellTrapCard;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class NormalTraps {
     public static boolean activate(SpellTrapCard trapCard, Board myBoard, Board rivalBoard) {
@@ -24,24 +26,17 @@ public class NormalTraps {
     }
 
     public static void activateCallOfHaunted(Board myBoard) {
-        //TODO summon a card from graveyard
+        myBoard.getEffectsStatus().setSpecialSummonStatus(SpecialSummonStatus.FROM_GRAVEYARD);
     }
 
     public static void activateMindCrush(Board myBoard, Board rivalBoard) {
         boolean hasFoundName = false;
-        //TODO get a card name
-        String cardName = "";
-        for (int i = rivalBoard.getMonsters().size() - 1; i >= 0; i--) {
-            if (rivalBoard.getMonsters().get(i).getName().equals(cardName)) {
-                rivalBoard.getMonsters().get(i).setLocation(Location.GRAVEYARD);
-                rivalBoard.removeMonster(i);
-                hasFoundName = true;
-            }
-        }
-        for (int i = rivalBoard.getSpellTraps().size() - 1; i >= 0; i--) {
-            if (rivalBoard.getSpellTraps().get(i).getName().equals(cardName)) {
-                rivalBoard.getSpellTraps().get(i).setLocation(Location.GRAVEYARD);
-                rivalBoard.removeSpellAndTrap(i);
+        Scanner scanner = new Scanner(System.in);
+        String cardName = scanner.nextLine();
+        for (int i = rivalBoard.getHandCards().size() - 1; i >= 0; i--) {
+            if (rivalBoard.getHandCards().get(i).getName().equals(cardName)) {
+                rivalBoard.getHandCards().get(i).setLocation(Location.GRAVEYARD);
+                rivalBoard.removeCardsFromHand(i);
                 hasFoundName = true;
             }
         }

@@ -22,7 +22,7 @@ public class TurnSpells {
     private static void activateSupplySquad(boolean isAnyMonsterDead, Board myBoard) {
         if (!isAnyMonsterDead)
             return;
-        //TODO Take out a card
+        myBoard.drawCard();
     }
 
     public static void checkTurn(Board board) {
