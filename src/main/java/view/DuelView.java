@@ -208,7 +208,7 @@ public class DuelView {
     }
 
     private void activateOnMonster(String command) {
-        if (!(matcher = Regex.getMatcher(command, Regex.EQUIP_MONSTER)).matches())
+        if (!(matcher = Regex.getMatcher(command, Regex.ACTIVATE_EFFECT_ON_MONSTER)).matches())
             return;
         isCommandValid = true;
         System.out.println(activationController.activateOnMonster(Integer.parseInt(matcher.group(1))));
