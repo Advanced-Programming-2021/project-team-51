@@ -52,9 +52,9 @@ public class PhaseController {
     }
 
     public String changePhase() {
+        findNextPhase();
         AttackController.alreadyAttackedCards.clear();
         AttackController.isBattleHappened = false;
-        findNextPhase();
         StringBuilder result = new StringBuilder(currentPhase.getLabel());
         if (currentPhase == GamePhase.DRAW) {
             SummonController.hasSummonedInThisTurn = false;
