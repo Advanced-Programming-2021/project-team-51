@@ -43,10 +43,10 @@ public class SummonEffects {
     }
 
     private static void affectBeastKingBarbaros(Board rivalBoard) {
-        for (MonsterCard monster: rivalBoard.getMonsters())
-            rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monster));
-        for (SpellTrapCard spellTrapCard: rivalBoard.getSpellTraps())
-            rivalBoard.removeSpellAndTrap(rivalBoard.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
+        for (int i = rivalBoard.getMonsters().size() - 1; i >= 0; i--)
+            rivalBoard.removeMonster(i);
+        for (int i = rivalBoard.getSpellTraps().size() - 1; i >= 0; i--)
+            rivalBoard.removeSpellAndTrap(i);
         for (Card graveyardCard : rivalBoard.getGraveyardCards()) {
             graveyardCard.setLocation(Location.GRAVEYARD);
         }

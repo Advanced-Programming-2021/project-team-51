@@ -9,7 +9,6 @@ import models.cards.spelltrap.SpellTrapCard;
 
 public class SummonTraps {
     public static boolean activate(SpellTrapCard spellTrapCard, MonsterCard summonedCard, Board myBoard, Board rivalBoard) {
-        boolean hasActivated = false;
         if (spellTrapCard.getName().equals("Trap Hole"))
             Chain.addSpell(spellTrapCard, myBoard, rivalBoard, null, summonedCard);
         else if (spellTrapCard.getName().equals("Torrential Tribute"))
@@ -44,9 +43,9 @@ public class SummonTraps {
     }
 
     private static void removeAllMonsters(Board board) {
-        for (MonsterCard monsterCard : board.getMonsters()) {
-            monsterCard.setLocation(Location.GRAVEYARD);
-            board.removeMonster(board.getMonsterIndexInMonsterBoard(monsterCard));
+        for (int i = board.getMonsters().size() - 1; i >= 0; i--) {
+            board.getMonsters().get(i).setLocation(Location.GRAVEYARD);
+            board.removeMonster(i);
         }
     }
 }

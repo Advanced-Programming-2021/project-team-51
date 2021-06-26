@@ -94,16 +94,16 @@ public class FiledSpells {
     }
 
     private static void removeDeadFromList(Board myBoard, Board rivalBoard) {
-        for (SpellTrapCard activatedFieldSpell : activatedFieldSpells) {
-            if (myBoard.getSpellTraps().contains(activatedFieldSpell) || rivalBoard.getSpellTraps().contains(activatedFieldSpell))
+        for (int i = activatedFieldSpells.size() - 1; i >= 0; i--) {
+            if (myBoard.getSpellTraps().contains(activatedFieldSpells.get(i)) || rivalBoard.getSpellTraps().contains(activatedFieldSpells.get(i)))
                 continue;
-            if (activatedFieldSpell.getName().equals("Yami"))
+            if (activatedFieldSpells.get(i).getName().equals("Yami"))
                 deactivateYami(myBoard, rivalBoard);
-            else if (activatedFieldSpell.getName().equals("Forest"))
+            else if (activatedFieldSpells.get(i).getName().equals("Forest"))
                 deactivateForest(myBoard, rivalBoard);
-            else if (activatedFieldSpell.getName().equals("Closed Forest"))
-                deactivateClosedForest(activatedFieldSpell, myBoard);
-            else if (activatedFieldSpell.getName().equals("Umiiruka"))
+            else if (activatedFieldSpells.get(i).getName().equals("Closed Forest"))
+                deactivateClosedForest(activatedFieldSpells.get(i), myBoard);
+            else if (activatedFieldSpells.get(i).getName().equals("Umiiruka"))
                 deactivateUmirika(myBoard, rivalBoard);
         }
     }

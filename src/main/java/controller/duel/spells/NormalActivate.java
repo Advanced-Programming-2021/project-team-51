@@ -40,30 +40,30 @@ public class NormalActivate {
     }
 
     public static boolean affectDarkHole(Board myBoard, Board rivalBoard) {
-        for (MonsterCard monsterCard : myBoard.getMonsters()) {
-            monsterCard.setLocation(Location.GRAVEYARD);
-            myBoard.removeMonster(myBoard.getMonsterIndexInMonsterBoard(monsterCard));
+        for (int i = myBoard.getMonsters().size() - 1; i >= 0; i--) {
+            myBoard.getMonsters().get(i).setLocation(Location.GRAVEYARD);
+            myBoard.removeMonster(i);
         }
-        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
-            monsterCard.setLocation(Location.GRAVEYARD);
-            rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
+        for (int i = rivalBoard.getMonsters().size() - 1; i >= 0; i--) {
+            rivalBoard.getMonsters().get(i).setLocation(Location.GRAVEYARD);
+            rivalBoard.removeMonster(i);
         }
         return true;
     }
 
     public static boolean affectHarpie(Board rivalBoard) {
-        for (SpellTrapCard spellTrapCard : rivalBoard.getSpellTraps()) {
-            spellTrapCard.setLocation(Location.GRAVEYARD);
-            rivalBoard.removeSpellAndTrap(rivalBoard.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
+        for (int i = rivalBoard.getSpellTraps().size() - 1; i >= 0; i--) {
+            rivalBoard.getSpellTraps().get(i).setLocation(Location.GRAVEYARD);
+            rivalBoard.removeSpellAndTrap(i);
         }
         return true;
     }
 
 
     public static boolean affectReigeki(Board rivalBoard) {
-        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
-            monsterCard.setLocation(Location.GRAVEYARD);
-            rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
+        for (int i = rivalBoard.getMonsters().size() - 1; i >= 0; i--) {
+            rivalBoard.getMonsters().get(i).setLocation(Location.GRAVEYARD);
+            rivalBoard.removeMonster(i);
         }
         return true;
     }

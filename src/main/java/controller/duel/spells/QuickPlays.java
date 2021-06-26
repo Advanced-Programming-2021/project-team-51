@@ -5,10 +5,6 @@ import models.Chain;
 import models.cards.spelltrap.SpellTrapCard;
 
 public class QuickPlays {
-    //Didn't handle the same turn not working
-    //guessed they will die after affection
-
-    private static Boolean isTrapAlreadyBlocked = null;
 
     public static boolean quickActivate(SpellTrapCard spellTrapCard, Board myBoard, Board rivalBoard) {
         if (spellTrapCard.getIsHidden())
@@ -35,7 +31,6 @@ public class QuickPlays {
     }
 
     public static void activateRingOfDefenses(Board myBoard) {
-        isTrapAlreadyBlocked = myBoard.getEffectsStatus().getRivalTrapsBlocked();
         myBoard.getEffectsStatus().setRivalTrapsBlocked(true);
     }
 

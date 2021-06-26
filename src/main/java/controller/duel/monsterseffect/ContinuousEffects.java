@@ -41,13 +41,13 @@ public class ContinuousEffects {
     }
 
     private static void removeDeadMonsters(Board myBoard, Board rivalBoard) {
-        for (MonsterCard continuousMonster : continuousMonsters) {
-            if (continuousMonster.getLocation().equals(Location.GRAVEYARD)) {
-                if (continuousMonster.getName().equals("Command Knight"))
+        for (int i = continuousMonsters.size() - 1; i >= 0; i--) {
+            if (continuousMonsters.get(i).getLocation().equals(Location.GRAVEYARD)) {
+                if (continuousMonsters.get(i).getName().equals("Command Knight"))
                     deactivateCommandKnight(myBoard, rivalBoard);
                 else
                     deactivateMirageDragon(myBoard);
-                continuousMonsters.remove(continuousMonster);
+                continuousMonsters.remove(i);
             }
         }
     }

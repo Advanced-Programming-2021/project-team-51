@@ -20,6 +20,7 @@ public class ShopMenuTest {
                 menu show-current
                 hey
                 menu enter shop
+                shop show money
                 menu exit
                 user logout
                 menu exit""").getBytes());
@@ -31,6 +32,7 @@ public class ShopMenuTest {
                 Shop\r
                 invalid command\r
                 menu navigation is not possible\r
+                0\r
                 user logged out successfully!\r
                 """, outContent.toString());
         System.setIn(sysInBackup);

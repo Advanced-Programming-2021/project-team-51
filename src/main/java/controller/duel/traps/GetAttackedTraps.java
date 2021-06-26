@@ -28,16 +28,17 @@ public class GetAttackedTraps {
     }
 
     private static boolean activateMirrorForce(Board rivalBoard) {
-        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
-            if (monsterCard.getMode().equals(Mode.ATTACK)) {
-                monsterCard.setLocation(Location.GRAVEYARD);
-                rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
+        for (int i = rivalBoard.getMonsters().size() - 1; i >= 0; i--) {
+            if (rivalBoard.getMonsters().get(i).getMode().equals(Mode.ATTACK)) {
+                rivalBoard.getMonsters().get(i).setLocation(Location.GRAVEYARD);
+                rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(rivalBoard.getMonsters().get(i)));
             }
         }
         return true;
     }
 
     private static boolean activateNegateAttack() {
+        //TODO
         return true;
     }
 }

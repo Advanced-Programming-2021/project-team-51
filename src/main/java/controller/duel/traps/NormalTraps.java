@@ -31,17 +31,17 @@ public class NormalTraps {
         boolean hasFoundName = false;
         //TODO get a card name
         String cardName = "";
-        for (MonsterCard monsterCard : rivalBoard.getMonsters()) {
-            if (monsterCard.getName().equals(cardName)) {
-                monsterCard.setLocation(Location.GRAVEYARD);
-                rivalBoard.removeMonster(rivalBoard.getMonsterIndexInMonsterBoard(monsterCard));
+        for (int i = rivalBoard.getMonsters().size() - 1; i >= 0; i--) {
+            if (rivalBoard.getMonsters().get(i).getName().equals(cardName)) {
+                rivalBoard.getMonsters().get(i).setLocation(Location.GRAVEYARD);
+                rivalBoard.removeMonster(i);
                 hasFoundName = true;
             }
         }
-        for (SpellTrapCard spellTrapCard : rivalBoard.getSpellTraps()) {
-            if (spellTrapCard.getName().equals(cardName)) {
-                spellTrapCard.setLocation(Location.GRAVEYARD);
-                rivalBoard.removeSpellAndTrap(rivalBoard.getSpellTrapIndexInSpellTrapBoard(spellTrapCard));
+        for (int i = rivalBoard.getSpellTraps().size() - 1; i >= 0; i--) {
+            if (rivalBoard.getSpellTraps().get(i).getName().equals(cardName)) {
+                rivalBoard.getSpellTraps().get(i).setLocation(Location.GRAVEYARD);
+                rivalBoard.removeSpellAndTrap(i);
                 hasFoundName = true;
             }
         }
