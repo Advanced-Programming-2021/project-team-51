@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 
 public class DuelView {
 
-    public static boolean isMultiPlayer, isHard;
-    public static int rounds, player1Wins = 0, player2Wins = 0;
+    public static boolean isMultiPlayer;
+    public static int rounds, player1Wins = 0, player2Wins = 0, botWins = 0;
     private Matcher matcher;
     public static boolean shouldDrawBoard = true;
 
@@ -66,7 +66,14 @@ public class DuelView {
         //switch cards between games
         switchCards(command);
         if (shouldDrawBoard)
-        System.out.println(phaseController.printBoard());
+            System.out.println(phaseController.printBoard());
+    }
+
+    private void switchCards(String command) {
+        if (!(matcher = Regex.getMatcher(command, Regex.SWITCH_CARDS)).matches())
+            return;
+        isCommandValid = true;
+        System.out.println(phaseController.switchCards(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
     }
 
     private void showCard(String command) {
@@ -132,7 +139,7 @@ public class DuelView {
 
     private void selectRivalFieldCard(String command) {
         if (Regex.getMatcher(command, Regex.SELECT_OPPONENT_FIELD_1).find()
-        || Regex.getMatcher(command, Regex.SELECT_OPPONENT_FIELD_2).find())
+                || Regex.getMatcher(command, Regex.SELECT_OPPONENT_FIELD_2).find())
             isCommandValid = true;
         else return;
         System.out.println(selectionController.selectRivalFieldCard());
@@ -180,7 +187,7 @@ public class DuelView {
         isCommandValid = true;
         System.out.println(summonController.specialSummon());
     }
-    
+
     private void ritualSummon(String command) {
         if (!(matcher = Regex.getMatcher(command, Regex.RITUAL_SUMMON)).matches())
             return;

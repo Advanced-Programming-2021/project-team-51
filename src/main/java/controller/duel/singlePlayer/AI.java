@@ -23,6 +23,16 @@ abstract public class AI {
     protected String nickname;
     protected Player opponent;
     protected static AI aiBot;
+    public int maxLifePoint;
+
+    public int getMaxLifePoint() {
+        return this.maxLifePoint;
+    }
+
+    public void setMaxLifePoint(int lifepoint) {
+        if (lifepoint > maxLifePoint)
+            maxLifePoint = lifepoint;
+    }
 
     public static AI getInstance() {
         return aiBot;

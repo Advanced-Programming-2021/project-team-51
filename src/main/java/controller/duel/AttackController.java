@@ -92,6 +92,10 @@ public class AttackController {
         opponent = PhaseController.playerAgainst;
         player = PhaseController.playerInTurn;
         MonsterCard playerCard = (MonsterCard) SelectionController.selectedCard;
+        if ((!opponent.getPlayerBoard().getEffectsStatus().getCanStrongRivalAttack() && playerCard.getAttackPoint() >= 1500)
+                || !opponent.getPlayerBoard().getEffectsStatus().getCanRivalAttack()
+                || GetAttackedTraps.activate(playerCard, opponent.getPlayerBoard(), player.getPlayerBoard()))
+            return "can't attack";
         if (playerCard == null)
             return StatusEnum.NO_CARD_SELECTED_YET.getStatus();
         if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains(playerCard))
