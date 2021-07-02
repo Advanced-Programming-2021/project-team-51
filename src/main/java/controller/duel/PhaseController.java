@@ -47,9 +47,9 @@ public class PhaseController {
             String botBoard = AI.getInstance().getBoard().reverseToString();
             return botBoard + middleLine + playerBoard;
         }
-        String firstBoard = playerInTurn.getPlayerBoard().toString();
-        String secondBoard = playerAgainst.getPlayerBoard().reverseToString();
-        return secondBoard + middleLine + firstBoard;
+            String firstBoard = playerInTurn.getPlayerBoard().toString();
+            String secondBoard = playerAgainst.getPlayerBoard().reverseToString();
+            return secondBoard + middleLine + firstBoard;
     }
 
     public String changePhase() {

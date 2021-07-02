@@ -2,9 +2,11 @@ package controller.menucontroller;
 
 import controller.duel.PhaseController;
 import controller.duel.SelectionController;
+import controller.duel.singlePlayer.GameController;
 import models.Player;
 import models.User;
 import models.cards.Card;
+import view.DuelView;
 import view.Regex;
 import view.StatusEnum;
 
@@ -13,9 +15,14 @@ import java.util.regex.Matcher;
 public class CheatMenuController {
 
     PhaseController phaseController = new PhaseController();
+    GameController gameController = new GameController();
 
     public void run(String command) {
-        Player cheater = PhaseController.playerInTurn;
+        Player cheater;
+        if (DuelView.isMultiPlayer)
+            cheater = PhaseController.playerInTurn;
+        else
+            cheater = GameController.player;
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command, Regex.CHEAT_INCREASE_MONEY)).matches())
             increaseMoney(Integer.parseInt(matcher.group(2)), cheater);
@@ -45,10 +52,12 @@ public class CheatMenuController {
     }
 
     private void setWinner(String nickname, Player cheater) {
-        /*if (!DuelView.isMultiPlayer) {
+        if (!DuelView.isMultiPlayer) {
             if (cheater.getNickName().equals(nickname))
-
-        } else {*/
+                gameController.endGame(nickname);
+            else
+                gameController.endGame("bot");
+        } else {
             if (cheater.getNickName().equals(nickname)) {
                 phaseController.endGame(cheater, PhaseController.playerAgainst);
                 System.out.println("Cheat Activated Successfully");
@@ -57,7 +66,7 @@ public class CheatMenuController {
                 phaseController.endGame(PhaseController.playerAgainst, cheater);
                 System.out.println("Cheat Activated Successfully");
             }
-        /*}*/
+        }
 
     }
 

@@ -11,7 +11,7 @@ public class EasyBot extends AI {
 
     public EasyBot(Player opponent) throws CloneNotSupportedException {
         setName("EasyBot");
-        setDeck(Deck.generateDeck(true));
+        setDeck((Deck) opponent.getPlayerDeck().clone());
         setBoard(new Board(this));
         setOpponent(opponent);
         aiBot = this;
@@ -21,11 +21,12 @@ public class EasyBot extends AI {
         int index = getBestMonsterCard(this.board.getHandCards());
         if (index != -1 && this.board.hasMonsterZoneSpace()) {
             MonsterCard monster = (MonsterCard) this.board.getHandCards().get(index);
+            monster.setMode(Mode.ATTACK);
             int level = monster.getLevel();
             if (level > 6) {
                 sacrificeWeakestMonster();
                 sacrificeWeakestMonster();
-            } else if (level < 7 && level > 4)
+            } else if (level > 4)
                 sacrificeWeakestMonster();
 
             this.board.summonOrSetMonster(index);
@@ -33,9 +34,9 @@ public class EasyBot extends AI {
     }
 
     public void attack() {
-        while (getOpponentMonsterIndexEasy(opponent) != -1) {
+        int opponentIndex;
+        while ((opponentIndex = getOpponentMonsterIndexEasy(opponent)) != -1) {
             int monsterIndex = getBestMonsterToAttack(getAIMonsters());
-            int opponentIndex = getOpponentMonsterIndexEasy(opponent);
             int opponentMonsterPower;
             int aiMonsterPower = getAIMonsters().get(monsterIndex).getAttackPoint();
             getAIMonsters().get(monsterIndex).setHasAttacked(true);
@@ -47,7 +48,8 @@ public class EasyBot extends AI {
                 this.board.setLifePoints(this.board.getLifePoints() + aiMonsterPower - opponentMonsterPower);
                 this.board.removeMonster(monsterIndex);
             } else if (opponentMonsterPower < aiMonsterPower) {
-                opponent.getPlayerBoard().setLifePoints(
+                if (getOpponentMonsters().get(opponentIndex).getMode() == Mode.ATTACK)
+                    opponent.getPlayerBoard().setLifePoints(
                         opponent.getPlayerBoard().getLifePoints() + opponentMonsterPower - aiMonsterPower);
                 opponent.getPlayerBoard().removeMonster(opponentIndex);
             } else {
@@ -55,20 +57,25 @@ public class EasyBot extends AI {
                 this.board.removeMonster(monsterIndex);
             }
         }
+        while (getBestMonsterToAttack(getAIMonsters()) != -1 && canDirectAttack()) {
+                int monsterIndex = getBestMonsterToAttack(getAIMonsters());
+                int monsterPower = getAIMonsters().get(monsterIndex).getAttackPoint();
+                getAIMonsters().get(monsterIndex).setHasAttacked(true);
+                opponent.getPlayerBoard().setLifePoints(opponent.getPlayerBoard().getLifePoints() - monsterPower);
+        }
     }
 
     public void checkSpellForActivate(GamePhase phase) {
         for (int i = 0; i < getAISpellTraps().size(); i++)
             if (isSpellReasonableToActive(getAISpellTraps().get(i).getName(),
                     phase) != ReasonableLevel.NOT_REASONABLE)
-                activeSpellTrap(i);
+                activeSpellTrap(getAISpellTraps().get(i));
     }
 
-    public void checkTrapForActivate(MonsterCard summoned, MonsterCard attacked) {
+    public void checkTrapForActivate() {
         for (int i = 0; i < getAISpellTraps().size(); i++)
-            if (isTrapReasonableToActive(getAISpellTraps().get(i).getName(),
-                    summoned, attacked) != ReasonableLevel.NOT_REASONABLE)
-                activeSpellTrap(i);
+            if (isTrapReasonableToActive(getAISpellTraps().get(i).getName()) != ReasonableLevel.NOT_REASONABLE)
+                activeSpellTrap(getAISpellTraps().get(i));
     }
 
 }

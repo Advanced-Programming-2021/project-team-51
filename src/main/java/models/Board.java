@@ -19,6 +19,7 @@ public class Board {
     private final ArrayList<Card> graveyard = new ArrayList<>();
     private final ArrayList<Card> cardsInHand = new ArrayList<>();
     private Player owner;
+    private AI botOwner;
     private Card fieldZone;
     private Deck deck;
     private ArrayList<Card> mainDeckCards;
@@ -28,6 +29,7 @@ public class Board {
 
     public Board(Player owner) throws CloneNotSupportedException {
         setOwner(owner);
+        setBotOwner(null);
         setFieldZone(null);
         setDeck((Deck) owner.getPlayerDeck().clone());
         setLifePoints(8000);
@@ -41,6 +43,7 @@ public class Board {
 
     public Board(AI bot) throws CloneNotSupportedException {
         setOwner(null);
+        setBotOwner(bot);
         setFieldZone(null);
         setDeck((Deck) bot.getDeck().clone());
         setLifePoints(8000);
@@ -67,7 +70,10 @@ public class Board {
         removeCopiedDeck();
         setFieldZone(null);
         try {
-            setDeck((Deck) owner.getPlayerDeck().clone());
+            if (owner == null)
+                setDeck((Deck) botOwner.getDeck().clone());
+            else
+                setDeck((Deck) owner.getPlayerDeck().clone());
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -82,8 +88,20 @@ public class Board {
         effectsStatus = new EffectsStatus();
     }
 
+    public void setBotOwner(AI owner) {
+        this.botOwner = owner;
+    }
+
+    public AI getBotOwner() {
+        return this.botOwner;
+    }
+
     public void setMainDeckCards() {
         this.mainDeckCards = deck.getMainDeck();
+    }
+
+    public ArrayList<Card> getMainDeckCards() {
+        return mainDeckCards;
     }
 
     public void setSideDeckCards() {
@@ -192,6 +210,18 @@ public class Board {
         return getMonsters().size() != 5;
     }
 
+    public void discardAll(Card card) {
+        ArrayList<Card> removings = new ArrayList<>();
+        for (Card key: mainDeckCards) {
+            if (key.getName().equals(card.getName()))
+                removings.add(key);
+        }
+        for (Card key: removings)
+            addToGraveyard(key);
+
+        mainDeckCards.removeAll(removings);
+    }
+
     public void summonOrSetMonster(MonsterCard monster) {
         for (int i = 0; i < 5; i++)
             if (monsterBoard.get(i) == null) {
@@ -210,6 +240,15 @@ public class Board {
             }
     }
 
+    public void recoverMonsterFromGraveyard(int index) {
+        for (int i = 0 ; i < 5 ; i++)
+            if (monsterBoard.get(i) == null) {
+                monsterBoard.set(i, (MonsterCard) graveyard.get(index));
+                removeFromGraveyard(graveyard.get(index));
+                break;
+            }
+    }
+
     public void removeMonster(int index) {
         addToGraveyard(monsterBoard.get(index));
         monsterBoard.set(index, null);
@@ -224,15 +263,6 @@ public class Board {
             }
     }
 
-    public void summonOrSetSpellAndTrap(int index) {
-        for (int i = 0; i < 5; i++)
-            if (spellAndTrapBoard.get(i) == null) {
-                spellAndTrapBoard.set(i, (SpellTrapCard) cardsInHand.get(index));
-                removeCardsFromHand(index);
-                break;
-            }
-    }
-
     public void removeSpellAndTrap(int index) {
         addToGraveyard(spellAndTrapBoard.get(index));
         spellAndTrapBoard.set(index, null);
@@ -241,6 +271,11 @@ public class Board {
     public void addToGraveyard(Card card) {
         card.setLocation(Location.GRAVEYARD);
         graveyard.add(card);
+    }
+
+    public void removeFromGraveyard(Card card) {
+        card.setLocation(Location.FIELD);
+        graveyard.remove(card);
     }
 
     public void addCardsInHand(Card card) {
@@ -275,7 +310,7 @@ public class Board {
     public void changeDeck(int sideIndex, int mainIndex) {
 
         mainDeckCards.remove(mainIndex);
-        mainDeckCards.add(mainDeckCards.get(sideIndex));
+        mainDeckCards.add(sideDeckCards.get(sideIndex));
         sideDeckCards.remove(sideIndex);
         sideDeckCards.add(mainDeckCards.get(mainIndex));
 
@@ -329,20 +364,26 @@ public class Board {
 
         boardString.append("C\t".repeat(cardsInHand.size()));
 
-        boardString.append("\n").append(owner.getNickName()).append(":").append(this.lifePoints);
+        if (getBotOwner() == null)
+            boardString.append("\n").append(owner.getNickName()).append(":").append(this.lifePoints);
+        else
+            boardString.append("\n").append(botOwner.getName()).append(":").append(this.lifePoints);
 
         return boardString.toString();
     }
 
     public String reverseToString() {
         StringBuilder boardString = new StringBuilder();
-        boardString.append(owner.getNickName()).append(":").append(this.lifePoints).append("\n");
+        if (getBotOwner() == null)
+            boardString.append(owner.getNickName()).append(":").append(this.lifePoints).append("\n");
+        else
+            boardString.append(botOwner.getName()).append(":").append(this.lifePoints).append("\n");
 
         boardString.append("C\t".repeat(cardsInHand.size()));
 
         boardString.append("\n").append(mainDeckCards.size()).append("\n\t");
 
-        for (int i = 1; i < 4; i += 2) {
+        for (int i = 3; i > 0; i -= 2) {
             if (spellAndTrapBoard.get(i) == null)
                 boardString.append("E\t");
             else if (spellAndTrapBoard.get(i).getIsHidden())
@@ -351,7 +392,7 @@ public class Board {
                 boardString.append("O\t");
         }
 
-        for (int i = 4; i > -1; i -= 2) {
+        for (int i = 0; i < 5; i += 2) {
             if (spellAndTrapBoard.get(i) == null)
                 boardString.append("E\t");
             else if (spellAndTrapBoard.get(i).getIsHidden())

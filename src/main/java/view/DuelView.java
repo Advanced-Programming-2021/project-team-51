@@ -1,6 +1,7 @@
 package view;
 
 import controller.duel.*;
+import controller.duel.singlePlayer.GameController;
 import controller.menucontroller.CheatMenuController;
 import view.menus.DuelMenu;
 
@@ -18,6 +19,7 @@ public class DuelView {
     SettingController settingController = new SettingController();
     ShowController showController = new ShowController();
     PhaseController phaseController = new PhaseController();
+    GameController gameController = new GameController();
     SelectionController selectionController = new SelectionController();
     AttackController attackController = new AttackController();
     CheatMenuController cheatMenuController = new CheatMenuController();
@@ -66,14 +68,10 @@ public class DuelView {
         //switch cards between games
         switchCards(command);
         if (shouldDrawBoard)
-            System.out.println(phaseController.printBoard());
-    }
-
-    private void switchCards(String command) {
-        if (!(matcher = Regex.getMatcher(command, Regex.SWITCH_CARDS)).matches())
-            return;
-        isCommandValid = true;
-        System.out.println(phaseController.switchCards(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
+            if (isMultiPlayer)
+                System.out.println(phaseController.printBoard());
+            else
+                System.out.println(gameController.printBoard());
     }
 
     private void showCard(String command) {
@@ -139,7 +137,7 @@ public class DuelView {
 
     private void selectRivalFieldCard(String command) {
         if (Regex.getMatcher(command, Regex.SELECT_OPPONENT_FIELD_1).find()
-                || Regex.getMatcher(command, Regex.SELECT_OPPONENT_FIELD_2).find())
+        || Regex.getMatcher(command, Regex.SELECT_OPPONENT_FIELD_2).find())
             isCommandValid = true;
         else return;
         System.out.println(selectionController.selectRivalFieldCard());
@@ -187,7 +185,7 @@ public class DuelView {
         isCommandValid = true;
         System.out.println(summonController.specialSummon());
     }
-
+    
     private void ritualSummon(String command) {
         if (!(matcher = Regex.getMatcher(command, Regex.RITUAL_SUMMON)).matches())
             return;
@@ -252,13 +250,30 @@ public class DuelView {
         if (!Regex.getMatcher(command, Regex.SWITCH_PHASE).find())
             return;
         isCommandValid = true;
-        System.out.println(phaseController.changePhase());
+        if (isMultiPlayer)
+            System.out.println(phaseController.changePhase());
+        else
+            System.out.println(gameController.changePhase());
     }
 
     private void surrender(String command) {
         if (!Regex.getMatcher(command, Regex.SURRENDER).find())
             return;
         isCommandValid = true;
-        phaseController.endGame(PhaseController.playerAgainst, PhaseController.playerInTurn);
+        if (isMultiPlayer)
+            phaseController.endGame(PhaseController.playerAgainst, PhaseController.playerInTurn);
+        else
+            gameController.endGame("bot");
+    }
+
+    private void switchCards(String command) {
+        if (!(matcher = Regex.getMatcher(command, Regex.SWITCH_CARDS)).matches())
+            return;
+        isCommandValid = true;
+        if (isMultiPlayer)
+            System.out.println(phaseController.switchCards(
+                    Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
+        else
+            System.out.println("you can't switch in singlePlayer Mode");
     }
 }

@@ -11,7 +11,7 @@ public class HardBot extends AI {
 
     public HardBot(Player opponent) throws CloneNotSupportedException {
         setName("HardBot");
-        setDeck(Deck.generateDeck(false));
+        setDeck((Deck) opponent.getPlayerDeck().clone());
         setBoard(new Board(this));
         setOpponent(opponent);
         aiBot = this;
@@ -21,6 +21,7 @@ public class HardBot extends AI {
         int index = getBestMonsterCard(this.board.getHandCards());
         if (index != -1 && this.board.hasMonsterZoneSpace()) {
             MonsterCard monster = (MonsterCard) this.board.getHandCards().get(index);
+            monster.setMode(Mode.ATTACK);
             int level = monster.getLevel();
             if (level > 6) {
                 sacrificeWeakestMonster();
@@ -28,16 +29,18 @@ public class HardBot extends AI {
             } else if (level > 4)
                 sacrificeWeakestMonster();
 
-            if (monster.getAttackPoint() < monster.getDefensePoint())
+            if (monster.getAttackPoint() < monster.getDefensePoint()) {
                 this.board.getHandCards().get(index).setIsHidden(true);
+                monster.setMode(Mode.DEFENSE);
+            }
             this.board.summonOrSetMonster(index);
         }
     }
 
     public void attack() {
-        while (getOpponentMonsterIndexHard(opponent) != -1) {
+        int opponentIndex;
+        while ((opponentIndex = getOpponentMonsterIndexHard(opponent)) != -1) {
             int monsterIndex = getBestMonsterToAttack(getAIMonsters());
-            int opponentIndex = getOpponentMonsterIndexHard(opponent);
             int opponentMonsterPower;
             int aiMonsterPower = getAIMonsters().get(monsterIndex).getAttackPoint();
             getAIMonsters().get(monsterIndex).setHasAttacked(true);
@@ -49,7 +52,8 @@ public class HardBot extends AI {
                 this.board.setLifePoints(this.board.getLifePoints() + aiMonsterPower - opponentMonsterPower);
                 this.board.removeMonster(monsterIndex);
             } else if (opponentMonsterPower < aiMonsterPower) {
-                opponent.getPlayerBoard().setLifePoints(
+                if (getOpponentMonsters().get(opponentIndex).getMode() == Mode.ATTACK)
+                    opponent.getPlayerBoard().setLifePoints(
                         opponent.getPlayerBoard().getLifePoints() + opponentMonsterPower - aiMonsterPower);
                 opponent.getPlayerBoard().removeMonster(opponentIndex);
             } else {
@@ -57,19 +61,24 @@ public class HardBot extends AI {
                 this.board.removeMonster(monsterIndex);
             }
         }
+        while (getBestMonsterToAttack(getAIMonsters()) != -1 && canDirectAttack()) {
+                int monsterIndex = getBestMonsterToAttack(getAIMonsters());
+                int monsterPower = getAIMonsters().get(monsterIndex).getAttackPoint();
+                getAIMonsters().get(monsterIndex).setHasAttacked(true);
+                opponent.getPlayerBoard().setLifePoints(opponent.getPlayerBoard().getLifePoints() - monsterPower);
+        }
     }
 
     public void checkSpellForActivate(GamePhase phase) {
         for (int i = 0; i < getAISpellTraps().size(); i++)
             if (isSpellReasonableToActive(getAISpellTraps().get(i).getName(),
                     phase) == ReasonableLevel.REASONABLE_FOR_HARD)
-                activeSpellTrap(i);
+                activeSpellTrap(getAISpellTraps().get(i));
     }
 
-    public void checkTrapForActivate(MonsterCard summoned, MonsterCard attacked) {
+    public void checkTrapForActivate() {
         for (int i = 0; i < getAISpellTraps().size(); i++)
-            if (isTrapReasonableToActive(getAISpellTraps().get(i).getName(),
-                    summoned, attacked) == ReasonableLevel.REASONABLE_FOR_HARD)
-                activeSpellTrap(i);
+            if (isTrapReasonableToActive(getAISpellTraps().get(i).getName()) == ReasonableLevel.REASONABLE_FOR_HARD)
+                activeSpellTrap(getAISpellTraps().get(i));
     }
 }

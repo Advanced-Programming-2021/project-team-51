@@ -1,10 +1,12 @@
 package controller.duel;
 
+import controller.duel.singlePlayer.GameController;
 import models.cards.Location;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
 import models.cards.monsters.SummonType;
 import models.cards.spelltrap.SpellTrapCard;
+import view.DuelView;
 
 public class SettingController {
 
@@ -19,16 +21,28 @@ public class SettingController {
     private String setSpellTrap() {
         if (SelectionController.selectedCard == null)
             return "no card is selected yet";
-        if (!PhaseController.playerInTurn.getPlayerBoard().getHandCards().contains(SelectionController.selectedCard))
-            return "you can't set this card";
-        if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
-            return "you can't do this action in this phase";
-        if (PhaseController.playerInTurn.getPlayerBoard().getSpellTraps().size() == 5)
-            return "spell card zone is full";
+        if (DuelView.isMultiPlayer) {
+            if (!PhaseController.playerInTurn.getPlayerBoard().getHandCards().contains(SelectionController.selectedCard))
+                return "you can't set this card";
+            if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
+                return "you can't do this action in this phase";
+            if (PhaseController.playerInTurn.getPlayerBoard().getSpellTraps().size() == 5)
+                return "spell card zone is full";
+        } else {
+            if (!GameController.player.getPlayerBoard().getHandCards().contains(SelectionController.selectedCard))
+                return "you can't set this card";
+            if (GameController.currentPhase != GamePhase.MAIN1 && GameController.currentPhase != GamePhase.MAIN2)
+                return "you can't do this action in this phase";
+            if (GameController.player.getPlayerBoard().getSpellTraps().size() == 5)
+                return "spell card zone is full";
+        }
         SpellTrapCard selectedSpellTrap = (SpellTrapCard) SelectionController.selectedCard;
         selectedSpellTrap.setLocation(Location.FIELD);
         selectedSpellTrap.setIsHidden(true);
-        PhaseController.playerInTurn.getPlayerBoard().summonOrSetSpellAndTrap(selectedSpellTrap);
+        if (DuelView.isMultiPlayer)
+            PhaseController.playerInTurn.getPlayerBoard().summonOrSetSpellAndTrap(selectedSpellTrap);
+        else
+            GameController.player.getPlayerBoard().summonOrSetSpellAndTrap(selectedSpellTrap);
         return "set successfully";
     }
 
@@ -39,7 +53,10 @@ public class SettingController {
         selectedMonster.setLocation(Location.FIELD);
         selectedMonster.setIsHidden(true);
         selectedMonster.setMode(Mode.DEFENSE);
-        PhaseController.playerInTurn.getPlayerBoard().summonOrSetMonster(selectedMonster);
+        if (DuelView.isMultiPlayer)
+            PhaseController.playerInTurn.getPlayerBoard().summonOrSetMonster(selectedMonster);
+        else
+            GameController.player.getPlayerBoard().summonOrSetMonster(selectedMonster);
         SummonController.hasSummonedInThisTurn = true;
         selectedMonster.setSummonType(SummonType.NORMAL_SET);
         return "set successfully";
@@ -48,10 +65,17 @@ public class SettingController {
     public String setPosition(String position) {
         if (SelectionController.selectedCard == null)
             return "no card is selected yet";
-        if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains((MonsterCard) SelectionController.selectedCard))
-            return "you can't change this card position";
-        if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
-            return "you can't do this action in this phase";
+        if (DuelView.isMultiPlayer) {
+            if (!PhaseController.playerInTurn.getPlayerBoard().getMonsters().contains((MonsterCard) SelectionController.selectedCard))
+                return "you can't change this card position";
+            if (PhaseController.currentPhase != GamePhase.MAIN1 && PhaseController.currentPhase != GamePhase.MAIN2)
+                return "you can't do this action in this phase";
+        } else {
+            if (!GameController.player.getPlayerBoard().getMonsters().contains((MonsterCard) SelectionController.selectedCard))
+                return "you can't change this card position";
+            if (GameController.currentPhase != GamePhase.MAIN1 && GameController.currentPhase != GamePhase.MAIN2)
+                return "you can't do this action in this phase";
+        }
         MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
         if (selectedMonster.getMode().getLabel().equals(position))
             return "this card is already in the wanted position";
