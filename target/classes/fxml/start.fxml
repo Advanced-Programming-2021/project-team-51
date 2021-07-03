@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../css/main_menu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginControllerGUI">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../css/main_menu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.LoginControllerGUI">
    <children>
       <Button layoutX="14.0" layoutY="253.0" mnemonicParsing="false" onAction="#enterLoginMenu" prefHeight="47.0" prefWidth="174.0" text="Login" textAlignment="CENTER" textFill="#3217b9" textOverrun="WORD_ELLIPSIS">
          <font>
