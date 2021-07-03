@@ -388,7 +388,7 @@ abstract public class AI {
             board.removeSpellAndTrap(board.getSpellTrapIndexInSpellTrapBoard(spellTrap));
         } else if (spellTrap.getName().equals("Call of The Haunted")) {
             activeCallOfTheHaunted();
-        } //TODO: wallOfRevealing & vanitysEmptiness
+        }
     }
 
     public void summonSpellTrapIfCan() {
