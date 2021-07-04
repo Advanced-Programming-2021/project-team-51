@@ -21,6 +21,8 @@ public class User {
     private String password;
     private int score;
     private int money;
+    private String avatar;    //Todo give a default avatar address to user
+
 
     static {
         allUsers = new ArrayList<>();
@@ -34,6 +36,14 @@ public class User {
         setPassword(password);
         setScore(0);
         setMoney(50000);
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public static void loadAllUsers(ArrayList<User> users) {
