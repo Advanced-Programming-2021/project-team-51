@@ -362,7 +362,8 @@ public class Board {
         }
         boardString.append("\n\t\t\t\t\t\t").append(mainDeckCards.size()).append("\n");
 
-        boardString.append("C\t".repeat(cardsInHand.size()));
+        for (int i = 0 ; i < cardsInHand.size(); i++)
+            boardString.append("C\t");
 
         if (getBotOwner() == null)
             boardString.append("\n").append(owner.getNickName()).append(":").append(this.lifePoints);
@@ -379,7 +380,8 @@ public class Board {
         else
             boardString.append(botOwner.getName()).append(":").append(this.lifePoints).append("\n");
 
-        boardString.append("C\t".repeat(cardsInHand.size()));
+        for (int i = 0 ; i < cardsInHand.size(); i++)
+            boardString.append("C\t");
 
         boardString.append("\n").append(mainDeckCards.size()).append("\n\t");
 

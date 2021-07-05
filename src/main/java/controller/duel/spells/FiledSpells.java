@@ -1,5 +1,6 @@
 package controller.duel.spells;
 
+import models.Board;
 import models.cards.Card;
 import models.cards.monsters.MonsterCard;
 import models.cards.monsters.MonsterType;

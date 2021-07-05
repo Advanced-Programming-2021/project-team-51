@@ -6,6 +6,7 @@ import controller.duel.traps.MagicJammer;
 import controller.duel.traps.NormalTraps;
 import controller.duel.traps.SummonTraps;
 import controller.duel.traps.TimeSeal;
+import models.Board;
 import models.cards.CardType;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;

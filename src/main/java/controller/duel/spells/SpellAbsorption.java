@@ -1,5 +1,6 @@
 package controller.duel.spells;
 
+import models.Board;
 import models.cards.spelltrap.SpellTrapCard;
 
 public class SpellAbsorption {

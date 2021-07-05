@@ -1,5 +1,6 @@
 package controller.duel.monsterseffect;
 
+import models.Board;
 import models.cards.Location;
 import models.cards.monsters.MonsterCard;
 import models.cards.monsters.SpecialSummonStatus;

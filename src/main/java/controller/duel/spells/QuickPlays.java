@@ -1,5 +1,6 @@
 package controller.duel.spells;
 
+import models.Board;
 import models.Chain;
 import models.cards.Location;
 import models.cards.spelltrap.SpellTrapCard;

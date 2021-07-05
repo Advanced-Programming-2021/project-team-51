@@ -1,5 +1,6 @@
 package controller.duel.monsterseffect;
 
+import models.Board;
 import models.cards.Card;
 import models.cards.CardType;
 import models.cards.Location;

@@ -3,6 +3,7 @@ package controller.duel;
 import controller.duel.monsterseffect.ContinuousEffects;
 import controller.duel.monsterseffect.SummonEffects;
 import controller.duel.singlePlayer.GameController;
+import models.Board;
 import models.EffectsStatus;
 import models.cards.Location;
 import models.cards.monsters.*;

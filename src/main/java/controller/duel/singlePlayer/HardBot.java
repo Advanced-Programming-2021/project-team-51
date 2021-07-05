@@ -1,5 +1,6 @@
 package controller.duel.singlePlayer;
 
+import models.Board;
 import models.Deck;
 import controller.duel.GamePhase;
 import models.Player;

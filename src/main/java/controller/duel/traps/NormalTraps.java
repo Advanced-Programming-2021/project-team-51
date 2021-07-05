@@ -1,5 +1,6 @@
 package controller.duel.traps;
 
+import models.Board;
 import models.Chain;
 import models.cards.Card;
 import models.cards.Location;
