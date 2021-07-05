@@ -116,4 +116,43 @@ public class ProfileMenuControllerGUI {
             change_nickname.clear();
         }
     }
+
+    public void setAvatar(MouseEvent event) {
+       String avatar = ((ImageView)event.getSource()).getId();
+       switch (avatar){
+           case "one":LoginMenuController.currentUser.setAvatar("/image/Avatars/YamiYugi-DULI.png");break;
+           case "two":LoginMenuController.currentUser.setAvatar("/image/Avatars/YamiMarik-DULI.png");break;
+           case "three":LoginMenuController.currentUser.setAvatar("/image/Avatars/WeevilUnderwood-DULI.png");break;
+           case "four":LoginMenuController.currentUser.setAvatar("/image/Avatars/sss.png");break;
+           case "five":LoginMenuController.currentUser.setAvatar("/image/Avatars/SetoKaiba-DL.png");break;
+           case "six":LoginMenuController.currentUser.setAvatar("/image/Avatars/RexRaptor-DULI.png");break;
+           case "seven":LoginMenuController.currentUser.setAvatar("/image/Avatars/MaximillionPegasus-DULI.png");break;
+           case "eight":LoginMenuController.currentUser.setAvatar("/image/Avatars/MakoTsunami-DULI.png");break;
+
+       }
+    }
+
+    public void nextAvatarMenu(MouseEvent event) throws IOException {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/changeAvatar2.fxml"));
+        Pane pane = fxmlLoader.load();
+        stage.setScene(new Scene(pane));
+    }
+
+    public void previousAvatarMenu(MouseEvent event) throws IOException {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/changeAvatar.fxml"));
+        Pane pane = fxmlLoader.load();
+        stage.setScene(new Scene(pane));
+    }
+
+    public void highlightBt(MouseEvent event) {
+        ImageView imageView = ((ImageView)event.getSource());
+        double w = imageView.getFitWidth();
+        double h = imageView.getFitHeight();
+        imageView.setFitHeight(h+2);
+        imageView.setFitWidth(w+2);
+
+
+    }
 }
