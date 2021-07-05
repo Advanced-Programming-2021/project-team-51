@@ -4,8 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.MainMenuControllerGUI">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/mian.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.MainMenuControllerGUI">
    <children>
       <Button layoutX="254.0" layoutY="32.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="242.0" style="-fx-background-color: purple;" text="Duel" textFill="WHITE">
          <font>

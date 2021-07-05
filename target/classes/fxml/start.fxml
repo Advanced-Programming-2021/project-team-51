@@ -15,7 +15,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="14.0" layoutY="327.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="174.0" text="Register" textAlignment="CENTER" textFill="#3217b9" textOverrun="WORD_ELLIPSIS">
+      <Button layoutX="14.0" layoutY="327.0" mnemonicParsing="false" onAction="#enterRegisterMenu" prefHeight="47.0" prefWidth="174.0" text="Register" textAlignment="CENTER" textFill="#3217b9" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>

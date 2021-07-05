@@ -12,13 +12,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import models.User;
 import view.GUI.AlertBox;
 import view.StatusEnum;
 
 import java.io.IOException;
 
 public class LoginControllerGUI  {
-
 
     public TextField login_Username;
     public TextField loign_Password;
@@ -69,6 +69,9 @@ public class LoginControllerGUI  {
         }
         else if(res.equals(StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus())){
             AlertBox.display(StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus());
+            register_username.clear();
+            register_nickname.clear();
+            register_pass.clear();
         }
     }
 

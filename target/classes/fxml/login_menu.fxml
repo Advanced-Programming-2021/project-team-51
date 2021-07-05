@@ -27,5 +27,15 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
+      <ImageView fitHeight="70.0" fitWidth="138.0" layoutX="652.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/pngfind.com-black-button-png-49788.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="81.0" fitWidth="69.0" layoutX="573.0" layoutY="-1.0" onMouseClicked="#returnToStart" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/return_bt.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
