@@ -31,8 +31,8 @@ public class MainMenuControllerGUI {
         new SceneController().switchScene("/fxml/start.fxml",actionEvent);
     }
 
-    public void enterShopMenu(ActionEvent actionEvent) {
-        //Todo
+    public void enterShopMenu(ActionEvent actionEvent) throws IOException {
+        new SceneController().switchScene("/fxml/shop_menu.fxml", actionEvent);
     }
 
     public void enterImportMenu(ActionEvent actionEvent) {

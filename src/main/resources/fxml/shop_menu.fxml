@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.ShopControllerGUI">
+<AnchorPane fx:id="anchor" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.ShopControllerGUI">
    <children>
-      <ImageView accessibleRole="BUTTON" fitHeight="50.0" fitWidth="50.0" layoutX="750.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="750.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/return_bt.png" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="cardsContainer" layoutX="100.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: blue;" />
       <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="550.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
