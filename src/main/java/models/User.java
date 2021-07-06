@@ -210,7 +210,7 @@ public class User {
     }
 
     public void addCard(Card card) {
-        if (card.getCardType() == CardType.MONSTER)
+        if (card instanceof MonsterCard)
             this.userMonsters.add((MonsterCard) card);
         else
             this.userSpellTraps.add((SpellTrapCard) card);
@@ -234,7 +234,7 @@ public class User {
 
     public int getCardAmount(Card card) {
         int counter = 0;
-        if (card.getCardType() == CardType.MONSTER) {
+        if (card instanceof MonsterCard) {
             for (MonsterCard monster: userMonsters)
                 if (monster.getName().equals(card.getName())) counter++;
         } else {

@@ -11,6 +11,5 @@
             <Image url="@../image/return_bt.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="550.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

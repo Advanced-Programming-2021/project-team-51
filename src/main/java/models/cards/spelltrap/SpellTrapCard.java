@@ -48,8 +48,8 @@ public class SpellTrapCard extends Card {
 
     public void setImageByName(String name) {
         name = name.replaceAll("\\s", "").replaceAll(",", "");
-        this.image = new ImageView(
-                getClass().getResource("/../image/Cards/" + name + ".jpg").toExternalForm());
+        String address = this.getClass().getResource("/image/Cards/" + name + ".jpg").toExternalForm();
+        this.image = new ImageView(address);
     }
 
     public ImageView getImage() {

@@ -203,7 +203,7 @@ public class MakeCards {
             return new MonsterCard(name, "If this card is destroyed by battle and sent to the Graveyard: Destroy " +
                     "the monster that destroyed it. Neither player takes any battle damage from attacks involving this attacking card.",
                     1000, 3, Attribute.EARTH, MonsterType.DRAGON, 1000, 0, Trait.EFFECT);
-        else if (name.equals("Terratiger, the Empowered Warrior"))
+        else if (name.equals("Terratiger the Empowered Warrior"))
             return new MonsterCard(name, "When this card is Normal Summoned: You can Special Summon 1 Level 4" +
                     " or lower Normal Monster from your hand in Defense Position.",
                     3200, 4, Attribute.EARTH, MonsterType.WARRIOR, 1800, 1200, Trait.EFFECT);
