@@ -63,7 +63,15 @@ public class LoginControllerGUI  {
             AlertBox.display(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus());
         }
         else if (res.equals(StatusEnum.USER_LOGIN_SUCCESSFULLY.getStatus())){
+            player.stop();
+            String musicFile = "./src/main/resources/sound/main_menu.mp3";
+            Media sound = new Media(new File(musicFile).toURI().toString());
+            player = new MediaPlayer(sound);
+            player.setCycleCount(MediaPlayer.INDEFINITE);
+            player.play();
             new SceneController().switchScene("/fxml/main_menu.fxml",actionEvent);
+
+
         }
     }
 

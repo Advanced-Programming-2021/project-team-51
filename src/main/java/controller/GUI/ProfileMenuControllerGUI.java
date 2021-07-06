@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,10 +23,10 @@ import java.io.IOException;
 
 public class ProfileMenuControllerGUI {
 
-    public TextField username_field;
-    public TextField nickname_field;
-    public TextField score_field;
-    public TextField money_field;
+    public Label usernmae;
+    public Label nickname;
+    public Label score;
+    public Label money;
     public ImageView avatar;
 
 
@@ -33,18 +34,23 @@ public class ProfileMenuControllerGUI {
     public TextField old_pass;
     public TextField new_pass;
     public TextField change_nickname;
+    public void initialize(){
+
+    }
+
 
     public void userInfoScene(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/userInfo.fxml"));
         Pane pane = fxmlLoader.load();
-        username_field.setText(LoginMenuController.currentUser.getUserName());
-        nickname_field.setText(LoginMenuController.currentUser.getNickName());
-        score_field.setText(String.valueOf(LoginMenuController.currentUser.getScore()));
-        money_field.setText(String.valueOf(LoginMenuController.currentUser.getMoney()));
+        stage.setScene(new Scene(pane));
+        usernmae.setText(LoginMenuController.currentUser.getUserName());
+        nickname.setText(LoginMenuController.currentUser.getNickName());
+        score.setText(String.valueOf(LoginMenuController.currentUser.getScore()));
+        money.setText(String.valueOf(LoginMenuController.currentUser.getMoney()));
         Image image = new Image(LoginMenuController.currentUser.getAvatar());
         this.avatar = new ImageView(image);
-        stage.setScene(new Scene(pane));
+
     }//Todo
 
     public void changeUserScene(ActionEvent actionEvent) throws IOException {
@@ -123,14 +129,14 @@ public class ProfileMenuControllerGUI {
     public void setAvatar(MouseEvent event) {
        String avatar = ((ImageView)event.getSource()).getId();
        switch (avatar){
-           case "one":LoginMenuController.currentUser.setAvatar("/image/Avatars/YamiYugi-DULI.png");break;
-           case "two":LoginMenuController.currentUser.setAvatar("/image/Avatars/YamiMarik-DULI.png");break;
-           case "three":LoginMenuController.currentUser.setAvatar("/image/Avatars/WeevilUnderwood-DULI.png");break;
-           case "four":LoginMenuController.currentUser.setAvatar("/image/Avatars/sss.png");break;
-           case "five":LoginMenuController.currentUser.setAvatar("/image/Avatars/SetoKaiba-DL.png");break;
-           case "six":LoginMenuController.currentUser.setAvatar("/image/Avatars/RexRaptor-DULI.png");break;
-           case "seven":LoginMenuController.currentUser.setAvatar("/image/Avatars/MaximillionPegasus-DULI.png");break;
-           case "eight":LoginMenuController.currentUser.setAvatar("/image/Avatars/MakoTsunami-DULI.png");break;
+           case "one":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiYugi-DULI.png");break;
+           case "two":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiMarik-DULI.png");break;
+           case "three":LoginMenuController.currentUser.setAvatar("./image/Avatars/WeevilUnderwood-DULI.png");break;
+           case "four":LoginMenuController.currentUser.setAvatar("./image/Avatars/sss.png");break;
+           case "five":LoginMenuController.currentUser.setAvatar("./image/Avatars/SetoKaiba-DL.png");break;
+           case "six":LoginMenuController.currentUser.setAvatar("./image/Avatars/RexRaptor-DULI.png");break;
+           case "seven":LoginMenuController.currentUser.setAvatar("./image/Avatars/MaximillionPegasus-DULI.png");break;
+           case "eight":LoginMenuController.currentUser.setAvatar("./image/Avatars/MakoTsunami-DULI.png");break;
 
        }
     }

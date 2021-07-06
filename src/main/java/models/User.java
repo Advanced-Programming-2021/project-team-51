@@ -36,6 +36,7 @@ public class User {
         setPassword(password);
         setScore(0);
         setMoney(50000);
+        avatar = "./image/Avatars/default_avatar.png";
     }
 
     public String getAvatar() {

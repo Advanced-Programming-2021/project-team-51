@@ -9,9 +9,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../css/mian.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.MainMenuControllerGUI">
    <children>
-      <Button layoutX="254.0" layoutY="32.0" mnemonicParsing="false" onAction="#enterDuelMenu" prefHeight="85.0" prefWidth="242.0" style="-fx-background-color: purple;" text="Duel" textFill="WHITE">
+      <Button layoutX="-8.0" layoutY="122.0" mnemonicParsing="false" onAction="#enterDuelMenu" onMouseEntered="#highlightBt2" onMouseExited="#returnNormalBt2" prefHeight="54.0" prefWidth="115.0" style="-fx-background-color: purple;" text="Duel" textFill="WHITE">
          <font>
-            <Font size="36.0" />
+            <Font size="30.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -21,41 +21,49 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button layoutX="254.0" layoutY="259.0" mnemonicParsing="false" onAction="#enterShopMenu" prefHeight="85.0" prefWidth="242.0" style="-fx-background-color: purple;" text="Shop" textFill="WHITE">
+      <Button layoutX="-13.0" layoutY="294.0" mnemonicParsing="false" onAction="#enterShopMenu" onMouseEntered="#highlightBt2" onMouseExited="#returnNormalBt2" prefHeight="51.0" prefWidth="124.0" style="-fx-background-color: purple;" text="Shop" textFill="WHITE">
          <font>
-            <Font size="36.0" />
+            <Font size="30.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="254.0" layoutY="372.0" mnemonicParsing="false" onAction="#enterProfileMenu" prefHeight="85.0" prefWidth="242.0" style="-fx-background-color: purple;" text="Profile" textFill="WHITE">
+      <Button layoutX="-19.0" layoutY="374.0" mnemonicParsing="false" onAction="#enterProfileMenu" onMouseEntered="#highlightBt2" onMouseExited="#returnNormalBt2" prefHeight="55.0" prefWidth="138.0" style="-fx-background-color: purple;" text="Profile" textFill="WHITE">
          <font>
-            <Font size="36.0" />
+            <Font size="30.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="254.0" layoutY="484.0" mnemonicParsing="false" onAction="#enterImportMenu" prefHeight="85.0" prefWidth="242.0" style="-fx-background-color: purple;" text="Import" textFill="WHITE">
+      <Button layoutX="-8.0" layoutY="459.0" mnemonicParsing="false" onAction="#enterImportMenu" onMouseEntered="#highlightBt2" onMouseExited="#returnNormalBt2" prefHeight="53.0" prefWidth="131.0" style="-fx-background-color: purple;" text="Import" textFill="WHITE">
          <font>
-            <Font size="36.0" />
+            <Font size="30.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="254.0" layoutY="144.0" mnemonicParsing="false" onAction="#enterDeckMenu" prefHeight="85.0" prefWidth="242.0" style="-fx-background-color: purple;" text="Deck Menu" textFill="WHITE">
+      <Button layoutX="-13.0" layoutY="208.0" mnemonicParsing="false" onAction="#enterDeckMenu" onMouseEntered="#highlightBt2" onMouseExited="#returnNormalBt2" prefHeight="68.0" prefWidth="192.0" style="-fx-background-color: purple;" text="Deck Menu" textFill="WHITE">
          <font>
-            <Font size="36.0" />
+            <Font size="30.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fitHeight="70.0" fitWidth="138.0" layoutX="648.0" layoutY="15.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="70.0" fitWidth="138.0" layoutX="648.0" onMouseClicked="#exit" onMouseEntered="#highlightBt" onMouseExited="#returnNormalBt" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/pngfind.com-black-button-png-49788.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="mainsound" fitHeight="63.0" fitWidth="84.0" layoutX="8.0" layoutY="2.0" onMouseClicked="#muteAndUnmute" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/unmute.jpg" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
