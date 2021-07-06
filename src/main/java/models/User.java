@@ -23,6 +23,8 @@ public class User {
     private int money;
     private String avatar;    //Todo give a default avatar address to user
 
+    private int rank;
+
 
     static {
         allUsers = new ArrayList<>();
@@ -77,6 +79,7 @@ public class User {
 
     public static ArrayList<User> getSortedUsers() {
         sortUsers();
+        setRanks();
         return allUsers;
     }
 
@@ -210,6 +213,14 @@ public class User {
         return this.money;
     }
 
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public int getRank() {
+        return this.rank;
+    }
+
     public void addCard(Card card) {
         if (card instanceof MonsterCard)
             this.userMonsters.add((MonsterCard) card);
@@ -227,6 +238,18 @@ public class User {
 
     public void changePassword(String password) {
         setPassword(password);
+    }
+
+    private static void setRanks() {
+        for (int i = 0, rank = 1; i < allUsers.size(); i++,rank++) {
+            if (i > 0) {
+                if (allUsers.get(i).getScore() == allUsers.get(i - 1).getScore())
+                    rank--;
+                else
+                    rank = i + 1;
+            }
+            allUsers.get(i).setRank(rank);
+        }
     }
 
     public String toString() {
