@@ -1,9 +1,9 @@
 package models;
 
-import controller.duel.spells.NormalActivate;
-import controller.duel.spells.QuickPlays;
-import controller.duel.spells.RingOfDefense;
-import controller.duel.spells.SpellAbsorption;
+import controller.duel.effects.monsterseffect.spells.NormalActivate;
+import controller.duel.effects.monsterseffect.spells.QuickPlays;
+import controller.duel.effects.monsterseffect.spells.RingOfDefense;
+import controller.duel.effects.monsterseffect.spells.SpellAbsorption;
 import controller.duel.traps.MagicJammer;
 import controller.duel.traps.NormalTraps;
 import controller.duel.traps.SummonTraps;

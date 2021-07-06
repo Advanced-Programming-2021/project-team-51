@@ -1,4 +1,4 @@
-package controller.duel.monsterseffect;
+package controller.duel.effects.monsterseffect;
 
 import models.Board;
 import models.cards.Card;

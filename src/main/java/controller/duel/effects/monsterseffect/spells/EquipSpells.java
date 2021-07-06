@@ -1,4 +1,4 @@
-package controller.duel.spells;
+package controller.duel.effects.monsterseffect.spells;
 
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
