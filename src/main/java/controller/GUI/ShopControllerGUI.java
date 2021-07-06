@@ -133,25 +133,21 @@ public class ShopControllerGUI {
             for (MonsterCard monster: monsters) {
                 monster.getImage().setFitHeight(240);
                 monster.getImage().setFitWidth(160);
-                monster.getImage().setOnMouseClicked(event -> {
-                    setSelectedCard(monster, CardType.MONSTER);
-                });
+                monster.getImage().setOnMouseClicked(event -> setSelectedCard(monster, CardType.MONSTER));
                 monstersBox.getChildren().add(monster.getImage());
             }
             for (SpellTrapCard spellTrap: spells) {
                 spellTrap.getImage().setFitHeight(240);
                 spellTrap.getImage().setFitWidth(160);
-                spellTrap.getImage().setOnMouseClicked(event -> {
-                    setSelectedCard(spellTrap, CardType.SPELL);
-                });
+                spellTrap.getImage().setOnMouseClicked(event -> setSelectedCard(spellTrap, CardType.SPELL));
                 spellsBox.getChildren().add(spellTrap.getImage());
             }
             String scrollPaneStyleAddress = getClass().getResource("/css/scroll_pane.css").toExternalForm();
-            monstersPane.setLayoutY(60);
+            monstersPane.setLayoutY(70);
             monstersPane.setMaxWidth(800);
             monstersPane.setPrefHeight(260);
             monstersPane.getStylesheets().add(scrollPaneStyleAddress);
-            spellsPane.setLayoutY(330);
+            spellsPane.setLayoutY(340);
             spellsPane.setMaxWidth(800);
             spellsPane.setPrefHeight(260);
             spellsPane.getStylesheets().add(scrollPaneStyleAddress);
