@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.ProfileMenuControllerGUI">
+<AnchorPane onMouseClicked="#returnToProfileMenu" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.ProfileMenuControllerGUI">
    <children>
       <GridPane layoutX="69.0" layoutY="122.0" prefHeight="342.0" prefWidth="662.0">
         <columnConstraints>
@@ -78,6 +78,14 @@
       <ImageView fitHeight="98.0" fitWidth="87.0" layoutX="699.0" layoutY="513.0" onMouseClicked="#nextAvatarMenu" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/agt_forward.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="81.0" fitWidth="69.0" layoutX="697.0" layoutY="8.0" onMouseClicked="#returnToProfileMneu" onMouseEntered="#highlightBt" onMouseExited="#returnNormalBt" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/return_bt.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

@@ -2,6 +2,8 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -31,5 +33,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fx:id="sound" fitHeight="63.0" fitWidth="84.0" layoutX="721.0" layoutY="7.0" onMouseClicked="#muteAndUnmute" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/unmute.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

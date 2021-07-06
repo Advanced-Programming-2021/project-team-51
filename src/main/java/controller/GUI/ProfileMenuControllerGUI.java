@@ -11,10 +11,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import view.GUI.AlertBox;
 import view.StatusEnum;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ProfileMenuControllerGUI {
@@ -147,12 +150,38 @@ public class ProfileMenuControllerGUI {
     }
 
     public void highlightBt(MouseEvent event) {
+        String musicFile = "./src/main/resources/sound/bt.mp3";
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
         ImageView imageView = ((ImageView)event.getSource());
         double w = imageView.getFitWidth();
         double h = imageView.getFitHeight();
-        imageView.setFitHeight(h+2);
-        imageView.setFitWidth(w+2);
+        imageView.setFitHeight(h+5);
+        imageView.setFitWidth(w+5);
 
 
+    }
+
+    public void returnToStart(MouseEvent event) throws IOException {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main_menu.fxml"));
+        Pane pane = fxmlLoader.load();
+        stage.setScene(new Scene(pane));
+    }
+
+    public void returnNormalBt(MouseEvent event) {
+        ImageView imageView = ((ImageView)event.getSource());
+        double w = imageView.getFitWidth();
+        double h = imageView.getFitHeight();
+        imageView.setFitHeight(h-5);
+        imageView.setFitWidth(w-5);
+    }
+
+    public void returnToProfileMneu(MouseEvent event) throws IOException {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/profile_menu.fxml"));
+        Pane pane = fxmlLoader.load();
+        stage.setScene(new Scene(pane));
     }
 }

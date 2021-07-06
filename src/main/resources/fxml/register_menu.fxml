@@ -39,20 +39,31 @@
             <Font size="16.0" />
          </font>
       </TextField>
-      <ImageView fitHeight="70.0" fitWidth="138.0" layoutX="641.0" layoutY="4.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="70.0" fitWidth="138.0" layoutX="641.0" layoutY="4.0" onMouseClicked="#exit" onMouseEntered="#highlightBt" onMouseExited="#returnNormalBt" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/pngfind.com-black-button-png-49788.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
-      <ImageView fitHeight="81.0" fitWidth="69.0" layoutX="558.0" layoutY="3.0" onMouseClicked="#returnToStart" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="81.0" fitWidth="69.0" layoutX="558.0" layoutY="3.0" onMouseClicked="#returnToStart" onMouseEntered="#highlightBt" onMouseExited="#returnNormalBt" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/return_bt.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <Label layoutX="379.0" layoutY="97.0" prefHeight="74.0" prefWidth="386.0" text="Welcome to Yu Gi Oh. Please Register.">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
+      <ImageView fx:id="sound" fitHeight="63.0" fitWidth="84.0" onMouseClicked="#muteAndUnmute" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/unmute.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
