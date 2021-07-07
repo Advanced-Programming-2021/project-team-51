@@ -33,12 +33,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fitHeight="70.0" fitWidth="138.0" layoutX="652.0" layoutY="10.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="70.0" fitWidth="138.0" layoutX="652.0" layoutY="10.0" onMouseClicked="#exit" onMouseEntered="#highlightBt" onMouseExited="#returnNormalBt" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/pngfind.com-black-button-png-49788.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="81.0" fitWidth="69.0" layoutX="575.0" layoutY="9.0" onMouseClicked="#returnToStart" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="81.0" fitWidth="69.0" layoutX="575.0" layoutY="9.0" onMouseClicked="#returnToStart" onMouseEntered="#highlightBt" onMouseExited="#returnNormalBt" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/return_bt.png" />
          </image>

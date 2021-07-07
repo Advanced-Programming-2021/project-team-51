@@ -3,17 +3,21 @@ package controller.GUI;
 import controller.menucontroller.LoginMenuController;
 import controller.menucontroller.ProfileMenuController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.GUI.AlertBox;
 import view.StatusEnum;
@@ -23,43 +27,71 @@ import java.io.IOException;
 
 public class ProfileMenuControllerGUI {
 
-    public Label usernmae;
-    public Label nickname;
-    public Label score;
-    public Label money;
-    public ImageView avatar;
 
-
-    public TextField change_user;
-    public TextField old_pass;
-    public TextField new_pass;
     public TextField change_nickname;
-    public void initialize(){
+    public TextField new_pass;
+    public TextField old_pass;
+    public TextField change_user;
 
-    }
 
 
-    public void userInfoScene(ActionEvent actionEvent) throws IOException {
+
+    public static SceneController sceneController = new SceneController();
+
+
+
+    public void userInfoScene(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/userInfo.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
-        usernmae.setText(LoginMenuController.currentUser.getUserName());
+        Label username = new Label();
+        username.setText(LoginMenuController.currentUser.getUserName());
+        username.setLayoutY(80);
+        username.setLayoutX(300);
+        username.setFont(new Font(29));
+        username.setVisible(true);
+        Label nickname = new Label();
         nickname.setText(LoginMenuController.currentUser.getNickName());
+        nickname.setLayoutY(150);
+        nickname.setLayoutX(300);
+        nickname.setFont(new Font(29));
+        nickname.setVisible(true);
+        Label score = new Label();
         score.setText(String.valueOf(LoginMenuController.currentUser.getScore()));
+        score.setLayoutY(220);
+        score.setLayoutX(300);
+        score.setFont(new Font(29));
+        score.setVisible(true);
+        Label money = new Label();
         money.setText(String.valueOf(LoginMenuController.currentUser.getMoney()));
+        money.setLayoutY(290);
+        money.setLayoutX(300);
+        money.setFont(new Font(29));
+        money.setVisible(true);
         Image image = new Image(LoginMenuController.currentUser.getAvatar());
-        this.avatar = new ImageView(image);
+        ImageView avatar = new ImageView(image);
+        avatar.setLayoutX(500);
+        avatar.setLayoutY(50);
+        avatar.setFitWidth(233);
+        avatar.setFitHeight(310);
+        pane.getChildren().add(username);
+        pane.getChildren().add(nickname);
+        pane.getChildren().add(score);
+        pane.getChildren().add(money);
+        pane.getChildren().add(avatar);
+
 
     }//Todo
 
+
     public void changeUserScene(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/changeUser.fxml",actionEvent);
+        sceneController.switchScene("/fxml/changeUser.fxml",actionEvent);
 
     }
 
     public void changeAvatarScene(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/changeAvatar.fxml",actionEvent);
+        sceneController.switchScene("/fxml/changeAvatar.fxml",actionEvent);
     }//Todo
 
     public void exit(MouseEvent event) {
@@ -138,7 +170,18 @@ public class ProfileMenuControllerGUI {
            case "seven":LoginMenuController.currentUser.setAvatar("./image/Avatars/MaximillionPegasus-DULI.png");break;
            case "eight":LoginMenuController.currentUser.setAvatar("./image/Avatars/MakoTsunami-DULI.png");break;
 
+
+
+           case "nine":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds.png");break;
+           case "ten":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds7.png");break;
+           case "eleven":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds13.png");break;
+           case "twelve":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds21.png");break;
+           case "thirteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds24.png");break;
+           case "fourteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds33.png");break;
+           case "fifteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds35.png");break;
+           case "sisteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds20.png");break;
        }
+       AlertBox.display("Profile changed successfully!");
     }
 
     public void nextAvatarMenu(MouseEvent event) throws IOException {

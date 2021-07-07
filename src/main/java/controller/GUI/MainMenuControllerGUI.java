@@ -21,6 +21,8 @@ import java.io.IOException;
 public class MainMenuControllerGUI {
 
 
+    public static SceneController sceneController = new SceneController();
+
     public static ProfileMenuController profileMenuController = new ProfileMenuController(LoginMenuController.currentUser);
     public static ShopMenuController shopMenuController = new ShopMenuController(LoginMenuController.currentUser);
     public static ImportExportController importExportController = new ImportExportController();
@@ -39,7 +41,7 @@ public class MainMenuControllerGUI {
 
 
     public void enterProfileMenu(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/profile_menu.fxml",actionEvent);
+        sceneController.switchScene("/fxml/profile_menu.fxml",actionEvent);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -51,11 +53,11 @@ public class MainMenuControllerGUI {
         LoginControllerGUI.player = new MediaPlayer(sound);
         LoginControllerGUI.player.setCycleCount(MediaPlayer.INDEFINITE);
         LoginControllerGUI.player.play();
-        new SceneController().switchScene("/fxml/start.fxml",actionEvent);
+        sceneController.switchScene("/fxml/start.fxml",actionEvent);
     }
 
     public void enterShopMenu(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/shop_menu.fxml", actionEvent);
+        sceneController.switchScene("/fxml/shop_menu.fxml", actionEvent);
     }
 
     public void enterImportMenu(ActionEvent actionEvent) {
