@@ -23,10 +23,10 @@ public class ImportExportMenu {
         ImportExportController importExportController = new ImportExportController();
 
         Matcher matcher;
-        if ((matcher = Regex.getMatcher(command, Regex.IMPORT_CARD)).matches())
-            System.out.println(importExportController.importCard(matcher.group(1)));
-        else if ((matcher = Regex.getMatcher(command, Regex.EXPORT_CARD)).matches())
-            System.out.println(importExportController.exportCard(matcher.group(1)));
+        if ((matcher = Regex.getMatcher(command, Regex.IMPORT_CARD)).matches()){}
+            //System.out.println(importExportController.importCard(matcher.group(1)));
+        else if ((matcher = Regex.getMatcher(command, Regex.EXPORT_CARD)).matches()){}
+            //System.out.println(importExportController.exportCard(matcher.group(1)));
         else if (Regex.getMatcher(command, Regex.EXIT_MENU).matches())
             ProgramController.currentMenu = MenuEnum.MAIN_MENU;
         else if (Regex.getMatcher(command, Regex.ENTER_MENU).matches())
