@@ -62,8 +62,8 @@ public class MainMenuControllerGUI {
         //Todo
     }
 
-    public void enterDeckMenu(ActionEvent actionEvent) {
-        //Todo
+    public void enterDeckMenu(ActionEvent actionEvent) throws IOException {
+        new SceneController().switchScene("/fxml/deck_menu.fxml", actionEvent);
     }
 
     public void exit(MouseEvent event) {
@@ -127,6 +127,7 @@ public class MainMenuControllerGUI {
     }
 
 
-    public void scoreboradScene(ActionEvent actionEvent) {
+    public void scoreboardScene(ActionEvent actionEvent) throws IOException {
+        new SceneController().switchScene("/fxml/scoreboard.fxml", actionEvent);
     }
 }

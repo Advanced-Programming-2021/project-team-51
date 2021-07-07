@@ -42,14 +42,17 @@ public class ScoreboardControllerGUI {
         rank.setCellValueFactory(new PropertyValueFactory<>("rank"));
         rank.setResizable(false);
         rank.setSortable(false);
+        rank.setPrefWidth(70);
         TableColumn nickname = new TableColumn("Nickname");
         nickname.setCellValueFactory(new PropertyValueFactory<>("nickName"));
         nickname.setResizable(false);
         nickname.setSortable(false);
+        nickname.setPrefWidth(200);
         TableColumn score = new TableColumn("Score");
         score.setCellValueFactory(new PropertyValueFactory<>("score"));
         score.setResizable(false);
         score.setSortable(false);
+        score.setPrefWidth(100);
         scoreboard.getColumns().setAll(rank, nickname, score);
         scoreboard.getItems().setAll(users);
         scoreboard.setPrefWidth(rank.getPrefWidth() + nickname.getPrefWidth() + score.getPrefWidth());
@@ -74,7 +77,7 @@ public class ScoreboardControllerGUI {
 
         anchor.getChildren().add(scoreboard);
         for (int i = 0 ; i < users.size(); i++)
-            if ((nickname.getCellData(i)).equals(LoginMenuController.currentUser.getUserName())) {
+            if ((nickname.getCellData(i)).equals(LoginMenuController.currentUser.getNickName())) {
                 Rectangle rectangle = new Rectangle();
                 rectangle.setWidth(scoreboard.getPrefWidth());
                 rectangle.setHeight(scoreboard.getFixedCellSize());

@@ -4,6 +4,7 @@ import controller.menucontroller.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,8 +37,8 @@ public class ShopControllerGUI {
     private AnchorPane anchor;
 
     public static void setSelectedCard(Card card, CardType type) {
-        selectedCard = card;
         resetSelect();
+        selectedCard = card;
         updateAmount(LoginMenuController.currentUser.getCardAmount(selectedCard));
         updatePrice(selectedCard.getPrice());
         if (type == CardType.MONSTER)
@@ -57,16 +58,10 @@ public class ShopControllerGUI {
     }
 
     public static void resetSelect() {
-        try {
-            ArrayList<SpellTrapCard> spells = SpellTrapCard.getAllSpellTrapCardsToShow();
-            ArrayList<MonsterCard> monsters = MonsterCard.getAllMonsterCardsToShow();
-            for (MonsterCard monster: monsters)
-                monster.getImage().setEffect(null);
-            for (SpellTrapCard spell: spells)
-                spell.getImage().setEffect(null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (selectedCard instanceof MonsterCard)
+            ((MonsterCard) selectedCard).getImage().setEffect(null);
+        else if (selectedCard instanceof SpellTrapCard)
+            ((SpellTrapCard) selectedCard).getImage().setEffect(null);
     }
 
     public static void updateMoney(int amount) {
@@ -131,12 +126,14 @@ public class ShopControllerGUI {
             ScrollPane monstersPane = new ScrollPane();
             ScrollPane spellsPane = new ScrollPane();
             for (MonsterCard monster: monsters) {
+                monster.getImage().setCursor(Cursor.HAND);
                 monster.getImage().setFitHeight(240);
                 monster.getImage().setFitWidth(160);
                 monster.getImage().setOnMouseClicked(event -> setSelectedCard(monster, CardType.MONSTER));
                 monstersBox.getChildren().add(monster.getImage());
             }
             for (SpellTrapCard spellTrap: spells) {
+                spellTrap.getImage().setCursor(Cursor.HAND);
                 spellTrap.getImage().setFitHeight(240);
                 spellTrap.getImage().setFitWidth(160);
                 spellTrap.getImage().setOnMouseClicked(event -> setSelectedCard(spellTrap, CardType.SPELL));

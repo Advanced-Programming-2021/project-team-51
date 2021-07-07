@@ -37,7 +37,7 @@ public class User {
         setNickName(nickName);
         setPassword(password);
         setScore(0);
-        setMoney(50000);
+        setMoney(100000);
         avatar = "./image/Avatars/default_avatar.png";
     }
 
