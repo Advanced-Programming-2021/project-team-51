@@ -128,8 +128,7 @@ public class MainMenuControllerGUI {
         bt.setPrefSize(w-5,h-5);
     }
 
-
-    public void scoreboardScene(ActionEvent actionEvent) throws IOException {
+    public void scoreboradScene(ActionEvent actionEvent) throws IOException {
         new SceneController().switchScene("/fxml/scoreboard.fxml", actionEvent);
     }
 }
