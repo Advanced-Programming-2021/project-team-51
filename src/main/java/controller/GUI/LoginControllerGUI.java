@@ -64,7 +64,7 @@ public class LoginControllerGUI  {
                 AlertBox.display(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus());
             } else if (res.equals(StatusEnum.USER_LOGIN_SUCCESSFULLY.getStatus())) {
                 player.stop();
-                String musicFile = "./src/main/resources/sound/main_menu.mp3";
+                String musicFile = "./src/main/resources/sound/main2.mp3";
                 Media sound = new Media(new File(musicFile).toURI().toString());
                 player = new MediaPlayer(sound);
                 player.setCycleCount(MediaPlayer.INDEFINITE);
