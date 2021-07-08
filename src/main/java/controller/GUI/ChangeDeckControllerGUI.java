@@ -33,6 +33,7 @@ public class ChangeDeckControllerGUI {
     private static Card selectedCard;
     private static ImageView selectedImage;
     private static boolean isCardFromDeck;
+    private static boolean isCardFromMain;
 
     @FXML
     private AnchorPane anchor;
@@ -43,8 +44,9 @@ public class ChangeDeckControllerGUI {
     @FXML
     private ScrollPane cardsPane;
 
-    private void setSelectedCard(Card card, boolean isFromDeck, ImageView imageView) {
+    private void setSelectedCard(Card card, boolean isFromDeck, boolean isFromMain, ImageView imageView) {
         isCardFromDeck = isFromDeck;
+        isCardFromMain = isFromMain;
         resetSelect(selectedImage);
         selectedCard = card;
         selectedImage = imageView;
@@ -109,7 +111,7 @@ public class ChangeDeckControllerGUI {
                     deckControllerGUI.deckMenuController.addCard(currentDeck.getName(),
                             selectedCard.getName(), "side");
             }
-            setSelectedCard(null, false, null);
+            setSelectedCard(null, false, false, null);
             showDeck();
             showCards();
         }
@@ -121,8 +123,13 @@ public class ChangeDeckControllerGUI {
         else if (!isCardFromDeck)
             AlertBox.display("You should remove a card from your Deck");
         else {
-            currentDeck.removeCardFromDeck(selectedCard);
-            setSelectedCard(null, false, null);
+            if (isCardFromMain)
+                deckControllerGUI.deckMenuController.removeCardFromDeck(currentDeck.getName(),
+                    selectedCard.getName(), "main");
+            else
+                deckControllerGUI.deckMenuController.removeCardFromDeck(currentDeck.getName(),
+                        selectedCard.getName(), "side");
+            setSelectedCard(null, false, false, null);
             showDeck();
             showCards();
         }
@@ -141,7 +148,7 @@ public class ChangeDeckControllerGUI {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
                 imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getMainDeck().get(finalI), true, imageView));
+                        setSelectedCard(currentDeck.getMainDeck().get(finalI), true, true, imageView));
                 listCards[i / 10].getChildren().add(imageView);
             }
             else {
@@ -149,7 +156,7 @@ public class ChangeDeckControllerGUI {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
                 imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getMainDeck().get(finalI), true, imageView));
+                        setSelectedCard(currentDeck.getMainDeck().get(finalI), true, true, imageView));
                 listCards[i / 10].getChildren().add(imageView);
             }
         }
@@ -171,7 +178,7 @@ public class ChangeDeckControllerGUI {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
                 imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getSideDeck().get(finalI), true, imageView));
+                        setSelectedCard(currentDeck.getSideDeck().get(finalI), true, false, imageView));
                 listCards[i / 10].getChildren().add(imageView);
             }
             else {
@@ -179,7 +186,7 @@ public class ChangeDeckControllerGUI {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
                 imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getSideDeck().get(finalI), true, imageView));
+                        setSelectedCard(currentDeck.getSideDeck().get(finalI), true, false, imageView));
                 listCards[i / 10].getChildren().add(imageView);
             }
         }
@@ -226,7 +233,7 @@ public class ChangeDeckControllerGUI {
                 imageView.setFitHeight(60);
                 imageView.setFitWidth(40);
                 imageView.setOnMouseClicked(event -> {
-                    setSelectedCard(cards.get(finalI), false, imageView);
+                    setSelectedCard(cards.get(finalI), false, false, imageView);
                 });
                 rows[i / 7].getChildren().add(imageView);
             }
@@ -235,7 +242,7 @@ public class ChangeDeckControllerGUI {
                 imageView.setFitHeight(60);
                 imageView.setFitWidth(40);
                 imageView.setOnMouseClicked(event -> {
-                    setSelectedCard(cards.get(finalI), false, imageView);
+                    setSelectedCard(cards.get(finalI), false, false, imageView);
                 });
                 rows[i / 7].getChildren().add(imageView);
             }

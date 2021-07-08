@@ -254,17 +254,6 @@ public class Deck {
         }
     }
 
-    public void removeCardFromDeck(Card card) {
-        cardsAmount.put(card.getName(), cardsAmount.get(card.getName()) - 1);
-        if (card instanceof MonsterCard) {
-            mainDeckMonsters.remove(card);
-            sideDeckMonsters.remove(card);
-        } else {
-            mainDeckSpellTraps.remove(card);
-            sideDeckSpellTraps.remove(card);
-        }
-    }
-
     public void removeDeck() {
         Objects.requireNonNull(User.getUserByUserName(ownerName)).removeDeck(this);
         allDecks.remove(this);
