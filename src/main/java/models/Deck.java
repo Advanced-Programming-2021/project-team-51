@@ -79,7 +79,7 @@ public class Deck {
 
     public boolean hasEnoughSpace(Card card) {
         if (hasUsedBefore(card))
-            return getCardsAmount().get(card.getName()) <= 2;
+            return cardsAmount.get(card.getName()) <= 2;
 
         return true;
     }
@@ -251,6 +251,17 @@ public class Deck {
                         sideDeckSpellTraps.remove(i);
                         break;
                     }
+        }
+    }
+
+    public void removeCardFromDeck(Card card) {
+        cardsAmount.put(card.getName(), cardsAmount.get(card.getName()) - 1);
+        if (card instanceof MonsterCard) {
+            mainDeckMonsters.remove(card);
+            sideDeckMonsters.remove(card);
+        } else {
+            mainDeckSpellTraps.remove(card);
+            sideDeckSpellTraps.remove(card);
         }
     }
 
