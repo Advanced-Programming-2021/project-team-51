@@ -110,7 +110,7 @@ public class ProfileMenuControllerGUI {
     public void changeUser(ActionEvent actionEvent) {
         String name = change_user.getText();
         String res =  MainMenuControllerGUI.profileMenuController.changeUsername(name);
-        if (name == null){
+        if (name.equals("")){
             AlertBox.display("Please fill the related field!");
         }
         else if (res.equals("user with username " + name + " already exists")){
@@ -127,7 +127,7 @@ public class ProfileMenuControllerGUI {
         String oldP = old_pass.getText();
         String newP = new_pass.getText();
         String res = MainMenuControllerGUI.profileMenuController.changePass(oldP,newP);
-        if (oldP == null || newP == null){
+        if (oldP.equals("") || newP.equals("")){
             AlertBox.display("Please fill the related field!");
         }
         else if (res.equals(StatusEnum.CURRENT_PASSWORD_INVALIDITY.getStatus())){
@@ -146,7 +146,7 @@ public class ProfileMenuControllerGUI {
     public void changeNick(ActionEvent actionEvent) {
         String nick = change_nickname.getText();
         String res = MainMenuControllerGUI.profileMenuController.changeNickname(nick);
-        if (nick == null){
+        if (nick.equals("")){
             AlertBox.display("Please fill the related field!");
         }
         else if (res.equals("user with nickname " + nick + " already exists")){
