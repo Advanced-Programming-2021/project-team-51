@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="YuGiOh" />
         <module name="project-team-51" />
-        <module name="Yu-Gi-Oh" />
       </profile>
     </annotationProcessing>
   </component>

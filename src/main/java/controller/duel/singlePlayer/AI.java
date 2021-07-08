@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import controller.duel.GamePhase;
+import models.Board;
 import models.Deck;
 import models.Player;
-import models.Board;
 import models.cards.Card;
 import models.cards.CardType;
 import models.cards.monsters.Attribute;
@@ -319,13 +319,18 @@ abstract public class AI {
     }
 
     protected ReasonableLevel isTrapReasonableToActive(String name) {
-        return switch (name) {
-            case "Mind Crush" -> isReasonableToActiveMindCrush();
-            case "Call of The Haunted" -> isReasonableToActiveCallOfTheHaunted();
-            case "Vanity's Emptiness" -> isReasonableToActiveVanitysEmptiness();
-            case "Wall of Revealing Light" -> isReasonableToActiveWallOfRevealingLight();
-            default -> ReasonableLevel.NOT_REASONABLE;
-        };
+        switch (name) {
+            case "Mind Crush":
+                return isReasonableToActiveMindCrush();
+            case "Call of The Haunted":
+                return isReasonableToActiveCallOfTheHaunted();
+            case "Vanity's Emptiness":
+                return isReasonableToActiveVanitysEmptiness();
+            case "Wall of Revealing Light":
+                return isReasonableToActiveWallOfRevealingLight();
+            default:
+                return ReasonableLevel.NOT_REASONABLE;
+        }
     }
 
     public void destroyAllAttackingOpponentMonsters() {
@@ -449,7 +454,7 @@ abstract public class AI {
                             ArrayList<MonsterCard> aiMonsters = getAIMonsters();
                             ArrayList<MonsterCard> opponentMonsters = getOpponentMonsters();
                             switch (spell.getName()) {
-                                case "Yami" -> {
+                                case "Yami":
                                     for (MonsterCard monster : aiMonsters) {
                                         if (monster.getMonsterType() == MonsterType.FIEND
                                                 || monster.getMonsterType() == MonsterType.SPELL_CASTER)
@@ -467,8 +472,7 @@ abstract public class AI {
                                     if (counter * 200 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
-                                }
-                                case "Forest" -> {
+                                case "Forest":
                                     for (MonsterCard monster : aiMonsters)
                                         if (monster.getMonsterType() == MonsterType.INSECT
                                                 || monster.getMonsterType() == MonsterType.BEAST
@@ -482,8 +486,7 @@ abstract public class AI {
                                     if (counter * 200 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
-                                }
-                                case "Closed Forest" -> {
+                                case "Closed Forest":
                                     int monsterCounter = 0;
                                     for (Card graveyardCard : this.board.getGraveyardCards())
                                         if (graveyardCard.getCardType() == CardType.MONSTER)
@@ -494,8 +497,7 @@ abstract public class AI {
                                     if (counter * monsterCounter * 100 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
-                                }
-                                case "Umiiruka" -> {
+                                case "Umiiruka":
                                     for (MonsterCard monster : aiMonsters)
                                         if (monster.getAttribute() == Attribute.WATER)
                                             counter++;
@@ -505,7 +507,6 @@ abstract public class AI {
                                     if (counter * 500 > opponent.getPlayerBoard().getLifePoints())
                                         return ReasonableLevel.REASONABLE_FOR_HARD;
                                     return ReasonableLevel.REASONABLE_FOR_EASY;
-                                }
                             }
                         default:
                             return ReasonableLevel.REASONABLE_FOR_HARD;
@@ -516,11 +517,17 @@ abstract public class AI {
     }
 
     public ReasonableLevel isReasonableToActivePotOfGreed() {
-        return switch (this.board.getMainDeckCards().size()) {
-            case 0, 1, 2 -> ReasonableLevel.NOT_REASONABLE;
-            case 3, 4 -> ReasonableLevel.REASONABLE_FOR_EASY;
-            default -> ReasonableLevel.REASONABLE_FOR_HARD;
-        };
+        switch (this.board.getMainDeckCards().size()) {
+            case 0:
+            case 1:
+            case 2:
+                return ReasonableLevel.NOT_REASONABLE;
+            case 3:
+            case 4:
+                return ReasonableLevel.REASONABLE_FOR_EASY;
+            default:
+                return ReasonableLevel.REASONABLE_FOR_HARD;
+        }
     }
 
     public ReasonableLevel isReasonableToActiveRaigeki() {
@@ -605,10 +612,13 @@ abstract public class AI {
     }
 
     public ReasonableLevel isReasonableToActiveSupplySquad() {
-        return switch (this.board.getMainDeckCards().size()) {
-            case 0, 1 -> ReasonableLevel.NOT_REASONABLE;
-            default -> ReasonableLevel.REASONABLE_FOR_HARD;
-        };
+        switch (this.board.getMainDeckCards().size()) {
+            case 0:
+            case 1:
+                return ReasonableLevel.NOT_REASONABLE;
+            default:
+                return ReasonableLevel.REASONABLE_FOR_HARD;
+        }
     }
 
     public ReasonableLevel isReasonableToActiveMessengerOfPeace() {

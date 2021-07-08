@@ -1,12 +1,12 @@
 package controller.duel;
 
-import controller.duel.effects.monsterseffect.ContinuousEffects;
-import controller.duel.effects.monsterseffect.TurnEffects;
+import controller.duel.monsterseffect.ContinuousEffects;
+import controller.duel.monsterseffect.TurnEffects;
 import controller.duel.singlePlayer.AI;
-import controller.duel.effects.monsterseffect.spells.OnMonsterSpells;
-import controller.duel.effects.monsterseffect.spells.FiledSpells;
-import controller.duel.effects.monsterseffect.spells.MessengerOfPeace;
-import controller.duel.effects.monsterseffect.spells.TurnSpells;
+import controller.duel.spells.OnMonsterSpells;
+import controller.duel.spells.FiledSpells;
+import controller.duel.spells.MessengerOfPeace;
+import controller.duel.spells.TurnSpells;
 import models.Chain;
 import models.Player;
 import models.User;

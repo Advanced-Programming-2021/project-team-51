@@ -1,8 +1,7 @@
 package controller.duel;
 
-import controller.duel.effects.CustomEffect;
-import controller.duel.effects.CustomEffects;
 import controller.duel.singlePlayer.GameController;
+import controller.duel.spells.*;
 import controller.duel.traps.MagicJammer;
 import controller.duel.traps.NormalTraps;
 import controller.duel.traps.SummonTraps;
@@ -42,8 +41,6 @@ public class ActivationController {
     }
 
     public String activate() {
-        if (CustomEffects.activate(SelectionController.selectedCard, PhaseController.playerInTurn.getPlayerBoard(), PhaseController.playerAgainst.getPlayerBoard()))
-            return "Effect Activated";
         if (checkActivationConditions() != null)
             return checkActivationConditions();
         if (SelectionController.selectedCard.getCardType() == CardType.SPELL)

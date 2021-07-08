@@ -21,6 +21,10 @@ public class User {
     private String password;
     private int score;
     private int money;
+    private String avatar;    //Todo give a default avatar address to user
+
+    private int rank;
+
 
     static {
         allUsers = new ArrayList<>();
@@ -33,7 +37,16 @@ public class User {
         setNickName(nickName);
         setPassword(password);
         setScore(0);
-        setMoney(50000);
+        setMoney(100000);
+        avatar = "./image/default_avatar.png";
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public static void loadAllUsers(ArrayList<User> users) {
@@ -66,6 +79,7 @@ public class User {
 
     public static ArrayList<User> getSortedUsers() {
         sortUsers();
+        setRanks();
         return allUsers;
     }
 
@@ -199,8 +213,16 @@ public class User {
         return this.money;
     }
 
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public int getRank() {
+        return this.rank;
+    }
+
     public void addCard(Card card) {
-        if (card.getCardType() == CardType.MONSTER)
+        if (card instanceof MonsterCard)
             this.userMonsters.add((MonsterCard) card);
         else
             this.userSpellTraps.add((SpellTrapCard) card);
@@ -218,13 +240,25 @@ public class User {
         setPassword(password);
     }
 
+    private static void setRanks() {
+        for (int i = 0, rank = 1; i < allUsers.size(); i++,rank++) {
+            if (i > 0) {
+                if (allUsers.get(i).getScore() == allUsers.get(i - 1).getScore())
+                    rank--;
+                else
+                    rank = i + 1;
+            }
+            allUsers.get(i).setRank(rank);
+        }
+    }
+
     public String toString() {
         return this.nickName + ": " + this.score;
     }
 
     public int getCardAmount(Card card) {
         int counter = 0;
-        if (card.getCardType() == CardType.MONSTER) {
+        if (card instanceof MonsterCard) {
             for (MonsterCard monster: userMonsters)
                 if (monster.getName().equals(card.getName())) counter++;
         } else {

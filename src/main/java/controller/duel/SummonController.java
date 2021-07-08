@@ -1,7 +1,7 @@
 package controller.duel;
 
-import controller.duel.effects.monsterseffect.ContinuousEffects;
-import controller.duel.effects.monsterseffect.SummonEffects;
+import controller.duel.monsterseffect.ContinuousEffects;
+import controller.duel.monsterseffect.SummonEffects;
 import controller.duel.singlePlayer.GameController;
 import models.Board;
 import models.EffectsStatus;

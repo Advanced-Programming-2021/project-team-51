@@ -1,5 +1,7 @@
 package models.cards.spelltrap;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import models.cards.Card;
 import models.cards.CardType;
 
@@ -13,6 +15,7 @@ public class SpellTrapCard extends Card {
     private static final ArrayList<SpellTrapCard> allSpellTrapCardsToShow = new ArrayList<>();
     Icon icon;
     boolean isLimited;
+    private Image image;
 
     public SpellTrapCard(String name, String description, int price, CardType cardType, Icon icon, boolean isLimited) {
         this.setName(name);
@@ -21,6 +24,7 @@ public class SpellTrapCard extends Card {
         this.setCardType(cardType);
         this.setIcon(icon);
         this.setLimited(isLimited);
+        this.setImageByName(name);
         this.setCardNumber(++cardCounter);
         allSpellTrapCards.add(this);
         allCards.add(this);
@@ -33,12 +37,24 @@ public class SpellTrapCard extends Card {
         this.setCardType(cardType);
         this.setIcon(icon);
         this.setLimited(isLimited);
+        this.setImageByName(name);
         this.setCardNumber(cardNumber);
     }
 
     private SpellTrapCard(String name, int price) {
         this.setName(name);
         this.setPrice(price);
+        this.setImageByName(name);
+    }
+
+    public void setImageByName(String name) {
+        name = name.replaceAll("\\s", "").replaceAll(",", "");
+        String address = this.getClass().getResource("/image/Cards/" + name + ".jpg").toExternalForm();
+        this.image = new Image(address);
+    }
+
+    public Image getImage() {
+        return this.image;
     }
 
     public static ArrayList<SpellTrapCard> getAllSpellTrapCards() {

@@ -1,8 +1,8 @@
 package controller.duel.singlePlayer;
 
+import models.Board;
 import models.Deck;
 import controller.duel.GamePhase;
-import models.Board;
 import models.Player;
 import models.cards.monsters.MonsterCard;
 import models.cards.monsters.Mode;
