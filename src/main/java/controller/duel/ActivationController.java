@@ -1,11 +1,11 @@
 package controller.duel;
 
 import controller.duel.singlePlayer.GameController;
-import controller.duel.spells.*;
-import controller.duel.traps.MagicJammer;
-import controller.duel.traps.NormalTraps;
-import controller.duel.traps.SummonTraps;
-import controller.duel.traps.TimeSeal;
+import controller.duel.effect.spells.*;
+import controller.duel.effect.traps.MagicJammer;
+import controller.duel.effect.traps.NormalTraps;
+import controller.duel.effect.traps.SummonTraps;
+import controller.duel.effect.traps.TimeSeal;
 import models.Board;
 import models.cards.CardType;
 import models.cards.monsters.MonsterCard;

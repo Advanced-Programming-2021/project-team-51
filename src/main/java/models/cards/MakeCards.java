@@ -33,7 +33,7 @@ public class MakeCards {
             if (isFirstLine)
                 isFirstLine = false;
             else if (name.equals(values[0])) {
-                return new MonsterCard(name, values[7], Integer.parseInt(values[8]), Integer.parseInt(values[1]),
+                return new MonsterCard(name, values[7], Integer.parseInt(values[values.length - 1]), Integer.parseInt(values[1]),
                         Attribute.getByName(values[2]), MonsterType.getByName(values[3]), Integer.parseInt(values[5]),
                         Integer.parseInt(values[6]), Trait.getByName(values[4]));
             }
@@ -51,9 +51,9 @@ public class MakeCards {
                 isFirstLine = false;
             else if (name.equals(values[0])) {
                 if (values[4].equals("Limited"))
-                    return new SpellTrapCard(name, values[3], Integer.parseInt(values[5]), CardType.getByName(values[1]), Icon.getByName(values[2]), true);
+                    return new SpellTrapCard(name, values[3], Integer.parseInt(values[values.length - 1]), CardType.getByName(values[1]), Icon.getByName(values[2]), true);
                 else
-                    return new SpellTrapCard(name, values[3], Integer.parseInt(values[5]), CardType.getByName(values[1]), Icon.getByName(values[2]), false);
+                    return new SpellTrapCard(name, values[3], Integer.parseInt(values[values.length - 1]), CardType.getByName(values[1]), Icon.getByName(values[2]), false);
             }
         }
         return null;

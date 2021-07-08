@@ -1,13 +1,13 @@
 package models;
 
-import controller.duel.spells.NormalActivate;
-import controller.duel.spells.QuickPlays;
-import controller.duel.spells.RingOfDefense;
-import controller.duel.spells.SpellAbsorption;
-import controller.duel.traps.MagicJammer;
-import controller.duel.traps.NormalTraps;
-import controller.duel.traps.SummonTraps;
-import controller.duel.traps.TimeSeal;
+import controller.duel.effect.spells.NormalActivate;
+import controller.duel.effect.spells.QuickPlays;
+import controller.duel.effect.spells.RingOfDefense;
+import controller.duel.effect.spells.SpellAbsorption;
+import controller.duel.effect.traps.MagicJammer;
+import controller.duel.effect.traps.NormalTraps;
+import controller.duel.effect.traps.SummonTraps;
+import controller.duel.effect.traps.TimeSeal;
 import models.cards.CardType;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;

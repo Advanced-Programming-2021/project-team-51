@@ -1,3 +1,5 @@
+package controller.GUI;
+
 import controller.menucontroller.ImportExportController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -7,6 +9,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class ImportSceneController {
@@ -27,7 +30,7 @@ public class ImportSceneController {
             dragEvent.acceptTransferModes(TransferMode.ANY);
     }
 
-    public void goBack(ActionEvent actionEvent) {
+    public void goBack(ActionEvent actionEvent) throws IOException {
         new SceneController().switchScene("ImportExportScene.fxml", actionEvent);
     }
 

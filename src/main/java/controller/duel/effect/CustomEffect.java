@@ -1,4 +1,4 @@
-package controller.duel.effects;
+package controller.duel.effect;
 
 public enum CustomEffect {
     KILL_MONSTER,

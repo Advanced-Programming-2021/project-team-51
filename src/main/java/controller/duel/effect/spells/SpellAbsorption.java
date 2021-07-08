@@ -1,4 +1,4 @@
-package controller.duel.spells;
+package controller.duel.effect.spells;
 
 import models.Board;
 import models.cards.spelltrap.SpellTrapCard;

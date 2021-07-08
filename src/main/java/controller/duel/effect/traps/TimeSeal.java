@@ -1,4 +1,4 @@
-package controller.duel.traps;
+package controller.duel.effect.traps;
 
 import models.Board;
 import models.Chain;

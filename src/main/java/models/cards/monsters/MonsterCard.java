@@ -1,7 +1,6 @@
 package models.cards.monsters;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import models.cards.Card;
 import models.cards.CardType;
 

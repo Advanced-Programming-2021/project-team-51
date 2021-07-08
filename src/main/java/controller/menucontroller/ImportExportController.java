@@ -3,14 +3,6 @@ package controller.menucontroller;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import models.SaveData;
-import models.User;
-import models.cards.Card;
-import models.cards.monsters.Attribute;
-import models.cards.monsters.MonsterCard;
-import models.cards.monsters.MonsterType;
-import models.cards.monsters.Trait;
-import view.StatusEnum;
 
 import java.io.*;
 import java.nio.file.Files;

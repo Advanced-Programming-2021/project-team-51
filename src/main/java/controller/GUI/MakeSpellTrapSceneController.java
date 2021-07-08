@@ -1,3 +1,5 @@
+package controller.GUI;
+
 import controller.menucontroller.MakeCardController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -10,6 +12,7 @@ import javafx.scene.input.TransferMode;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -64,7 +67,7 @@ public class MakeSpellTrapSceneController implements Initializable {
         statusLabel.setText("Monster is made successfully");
     }
 
-    public void goBack(ActionEvent actionEvent) {
+    public void goBack(ActionEvent actionEvent) throws IOException {
         new SceneController().switchScene("MakeCardScene.fxml", actionEvent);
     }
 

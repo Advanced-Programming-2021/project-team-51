@@ -1,7 +1,7 @@
 package controller.duel;
 
-import controller.duel.monsterseffect.GetAttackedEffects;
-import controller.duel.traps.GetAttackedTraps;
+import controller.duel.effect.monsterseffect.GetAttackedEffects;
+import controller.duel.effect.traps.GetAttackedTraps;
 import controller.duel.singlePlayer.AI;
 import controller.duel.singlePlayer.GameController;
 import models.Player;

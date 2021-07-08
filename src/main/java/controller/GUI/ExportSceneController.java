@@ -1,3 +1,5 @@
+package controller.GUI;
+
 import controller.menucontroller.ImportExportController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -5,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 
 public class ExportSceneController {
 
@@ -15,7 +19,7 @@ public class ExportSceneController {
     public TextField cardName;
     public ImageView cardImageView;
 
-    public void goBack(ActionEvent actionEvent) {
+    public void goBack(ActionEvent actionEvent) throws IOException {
         new SceneController().switchScene("ImportExportScene.fxml", actionEvent);
     }
 

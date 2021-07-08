@@ -1,7 +1,7 @@
 package controller.menucontroller;
 
-import controller.duel.effects.CustomEffect;
-import controller.duel.effects.CustomEffects;
+import controller.duel.effect.CustomEffect;
+import controller.duel.effect.CustomEffects;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
