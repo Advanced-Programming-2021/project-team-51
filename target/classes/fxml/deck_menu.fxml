@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +11,5 @@
             <Image url="@../image/return_bt.png" />
          </image>
       </ImageView>
-      <ScrollPane prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: blue;" />
-      <ScrollPane layoutX="300.0" layoutY="50.0" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: blue;" />
    </children>
 </AnchorPane>
