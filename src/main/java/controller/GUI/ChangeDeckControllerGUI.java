@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Bloom;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -34,6 +35,10 @@ public class ChangeDeckControllerGUI {
     private static ImageView selectedImage;
     private static boolean isCardFromDeck;
     private static boolean isCardFromMain;
+
+    private static boolean isBig;
+
+    private final Pane cardPane = new Pane();
 
     @FXML
     private AnchorPane anchor;
@@ -68,6 +73,8 @@ public class ChangeDeckControllerGUI {
     }
 
     public void initialize() {
+        isBig = false;
+        hideCard();
         resetSelect(selectedImage);
         selectedImage = null;
         selectedCard = null;
@@ -230,12 +237,12 @@ public class ChangeDeckControllerGUI {
             int finalI = i;
             if (cards.get(i) instanceof MonsterCard) {
                 ImageView imageView = new ImageView(((MonsterCard) cards.get(i)).getImage());
+                rows[i / 7].getChildren().add(imageView);
                 imageView.setFitHeight(60);
                 imageView.setFitWidth(40);
                 imageView.setOnMouseClicked(event -> {
                     setSelectedCard(cards.get(finalI), false, false, imageView);
                 });
-                rows[i / 7].getChildren().add(imageView);
             }
             else {
                 ImageView imageView = new ImageView(((SpellTrapCard) cards.get(i)).getImage());
@@ -248,6 +255,12 @@ public class ChangeDeckControllerGUI {
             }
         }
         cardsNode.getChildren().addAll(rows);
+        for (HBox hBox: rows)
+            for (Node imageView: hBox.getChildren()) {
+                imageView.setOnMouseEntered(event -> showCard(event.getX() + imageView.getLayoutX(),
+                        event.getY() + imageView.getLayoutY(), (ImageView) imageView));
+                imageView.setOnMouseExited(event -> hideCard());
+            }
         return cardsNode;
     }
 
@@ -259,5 +272,20 @@ public class ChangeDeckControllerGUI {
         for (Card card: currentDeck.getSideDeck())
             cards.remove(card);
         cardsPane.setContent(getCards(cards));
+    }
+
+    public void showCard(double x, double y, ImageView imageView) {
+        anchor.getChildren().add(cardPane);
+        cardPane.getChildren().clear();
+        cardPane.setLayoutX(x + 455);
+        cardPane.setLayoutY(y + 5);
+        ImageView imageView1 = new ImageView(imageView.getImage());
+        imageView1.setFitWidth(imageView.getFitWidth() * 4);
+        imageView1.setFitHeight(imageView.getFitHeight() * 4);
+        cardPane.getChildren().add(imageView1);
+    }
+
+    public void hideCard() {
+        anchor.getChildren().remove(cardPane);
     }
 }

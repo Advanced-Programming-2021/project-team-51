@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.Deck;
+import models.cards.Card;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
 import view.GUI.AlertBox;
@@ -44,6 +46,8 @@ public class DeckControllerGUI {
 
     private final Pane deckInfo = new Pane();
 
+    private final ScrollPane infoPane = new ScrollPane();
+
     private void setSelectedDeck(Deck deck) {
         selectedDeck = deck;
         if (selectedDeck == null || LoginMenuController.currentUser.getActiveDeck() == null)
@@ -58,6 +62,39 @@ public class DeckControllerGUI {
         return selectedDeck;
     }
 
+    public HBox getInfo(Deck deck, double height) {
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.addAll(deck.getMainDeck());
+        cards.addAll(deck.getSideDeck());
+        HBox cardNodes = new HBox(1);
+        cardNodes.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        for (Card card: cards) {
+            ImageView imageView;
+            if (card instanceof MonsterCard)
+                imageView = new ImageView(((MonsterCard) card).getImage());
+            else
+                imageView = new ImageView(((SpellTrapCard) card).getImage());
+            imageView.setFitHeight(height);
+            imageView.setFitWidth((2.0 / 3) * height);
+            cardNodes.getChildren().add(imageView);
+        }
+        return cardNodes;
+    }
+
+    public void showInfo(double x, double y, double height, double width, Deck deck) {
+        infoPane.setLayoutX(x + 2);
+        infoPane.setLayoutY(y + 52);
+        infoPane.setPrefHeight(height);
+        infoPane.setPrefWidth(width);
+        infoPane.setVisible(true);
+        infoPane.setContent(getInfo(deck, height));
+        anchor.getChildren().add(infoPane);
+    }
+
+    public void hideInfo() {
+        anchor.getChildren().remove(infoPane);
+    }
+
     public void resetDeckList() {
         ArrayList<Deck> userDecks = LoginMenuController.currentUser.getUserDecks();
         VBox deckList = new VBox(20);
@@ -66,11 +103,14 @@ public class DeckControllerGUI {
         deckList.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         for (Deck deck: userDecks) {
             Button button = new Button(deck.toString());
+            deckList.getChildren().add(button);
             button.setOnAction(event ->{
                 setSelectedDeck(deck);
                 showDeck(deck);
             });
-            deckList.getChildren().add(button);
+            button.setOnMouseEntered(event -> showInfo(event.getX() + button.getLayoutX(),
+                    event.getY() + button.getLayoutY(), button.getHeight(), 200, deck));
+            button.setOnMouseExited(event -> hideInfo());
         }
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefHeight(550);
@@ -83,6 +123,7 @@ public class DeckControllerGUI {
     }
 
     public void initialize() {
+        hideInfo();
         setSelectedDeck(null);
         resetDeckList();
     }
