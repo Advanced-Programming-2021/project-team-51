@@ -1,5 +1,6 @@
 package models.cards.monsters;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import models.cards.Card;
 import models.cards.CardType;
@@ -22,7 +23,7 @@ public class MonsterCard extends Card {
     private Trait trait;
     private Mode mode;
     private boolean hasAttacked;
-    private ImageView image;
+    private Image image;
 
     public MonsterCard(String name, String description, int price, int level, Attribute attribute, MonsterType monsterType,
                        int attackPoint, int defensePoint, Trait trait) {
@@ -67,10 +68,10 @@ public class MonsterCard extends Card {
     public void setImageByName(String name) {
         name = name.replaceAll("\\s", "").replaceAll(",", "");
         String address = this.getClass().getResource("/image/Cards/" + name + ".jpg").toExternalForm();
-        this.image = new ImageView(address);
+        this.image = new Image(address);
     }
 
-    public ImageView getImage() {
+    public Image getImage() {
         return this.image;
     }
 

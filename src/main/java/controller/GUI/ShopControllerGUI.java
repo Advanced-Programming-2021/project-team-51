@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Bloom;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -28,24 +29,22 @@ public class ShopControllerGUI {
 
 
     static Card selectedCard = null;
+    static ImageView selectedImage = null;
 
-    private static Button buyButton;
+    private static ImageView buy;
     private static Label money;
     private static Label price;
     private static Label amount;
     @FXML
     private AnchorPane anchor;
 
-    public static void setSelectedCard(Card card, CardType type) {
-        resetSelect();
+    public static void setSelectedCard(Card card, CardType type, ImageView imageView) {
+        resetSelect(selectedImage);
         selectedCard = card;
+        selectedImage = imageView;
         updateAmount(LoginMenuController.currentUser.getCardAmount(selectedCard));
         updatePrice(selectedCard.getPrice());
-        if (type == CardType.MONSTER)
-            ((MonsterCard) selectedCard).getImage().setEffect(new Bloom());
-        else
-            ((SpellTrapCard) selectedCard).getImage().setEffect(new Bloom());
-
+        selectedImage.setEffect(new Bloom());
         resetButton();
     }
 
@@ -54,14 +53,12 @@ public class ShopControllerGUI {
     }
 
     public static void resetButton() {
-        buyButton.setVisible(getSelectedCard().getPrice() <= LoginMenuController.currentUser.getMoney());
+        buy.setVisible(getSelectedCard().getPrice() <= LoginMenuController.currentUser.getMoney());
     }
 
-    public static void resetSelect() {
-        if (selectedCard instanceof MonsterCard)
-            ((MonsterCard) selectedCard).getImage().setEffect(null);
-        else if (selectedCard instanceof SpellTrapCard)
-            ((SpellTrapCard) selectedCard).getImage().setEffect(null);
+    public static void resetSelect(ImageView imageView) {
+        if (imageView != null)
+            imageView.setEffect(null);
     }
 
     public static void updateMoney(int amount) {
@@ -91,17 +88,19 @@ public class ShopControllerGUI {
 
     public void initialize() {
         try {
-            resetSelect();
+            resetSelect(selectedImage);
+            selectedImage = null;
             selectedCard = null;
-            buyButton = new Button("Buy");
-            buyButton.setVisible(false);
-            buyButton.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
-            buyButton.setOnAction(event -> {
-                if (buyButton.isVisible())
+            buy = new ImageView(getClass().getResource("/image/buy.png").toExternalForm());
+            buy.setVisible(false);
+            buy.setOnMouseClicked(event -> {
+                if (buy.isVisible())
                     buyNewCard();
             });
-            buyButton.setLayoutX(670);
-            buyButton.setLayoutY(10);
+            buy.setLayoutX(630);
+            buy.setLayoutY(-18);
+            buy.setFitWidth(100);
+            buy.setFitHeight(90);
             price = new Label();
             price.getStylesheets().add(getClass().getResource("/css/shop_money.css").toExternalForm());
             price.setLayoutX(270);
@@ -116,7 +115,7 @@ public class ShopControllerGUI {
             money.setLayoutY(10);
             anchor.getChildren().add(price);
             anchor.getChildren().add(amount);
-            anchor.getChildren().add(buyButton);
+            anchor.getChildren().add(buy);
             anchor.getChildren().add(money);
             updateMoney(LoginMenuController.currentUser.getMoney());
             ArrayList<MonsterCard> monsters = MonsterCard.getAllMonsterCardsToShow();
@@ -126,18 +125,20 @@ public class ShopControllerGUI {
             ScrollPane monstersPane = new ScrollPane();
             ScrollPane spellsPane = new ScrollPane();
             for (MonsterCard monster: monsters) {
-                monster.getImage().setCursor(Cursor.HAND);
-                monster.getImage().setFitHeight(240);
-                monster.getImage().setFitWidth(160);
-                monster.getImage().setOnMouseClicked(event -> setSelectedCard(monster, CardType.MONSTER));
-                monstersBox.getChildren().add(monster.getImage());
+                ImageView imageView = new ImageView(monster.getImage());
+                imageView.setCursor(Cursor.HAND);
+                imageView.setFitHeight(240);
+                imageView.setFitWidth(160);
+                imageView.setOnMouseClicked(event -> setSelectedCard(monster, CardType.MONSTER, imageView));
+                monstersBox.getChildren().add(imageView);
             }
             for (SpellTrapCard spellTrap: spells) {
-                spellTrap.getImage().setCursor(Cursor.HAND);
-                spellTrap.getImage().setFitHeight(240);
-                spellTrap.getImage().setFitWidth(160);
-                spellTrap.getImage().setOnMouseClicked(event -> setSelectedCard(spellTrap, CardType.SPELL));
-                spellsBox.getChildren().add(spellTrap.getImage());
+                ImageView imageView = new ImageView(spellTrap.getImage());
+                imageView.setCursor(Cursor.HAND);
+                imageView.setFitHeight(240);
+                imageView.setFitWidth(160);
+                imageView.setOnMouseClicked(event -> setSelectedCard(spellTrap, CardType.SPELL, imageView));
+                spellsBox.getChildren().add(imageView);
             }
             String scrollPaneStyleAddress = getClass().getResource("/css/scroll_pane.css").toExternalForm();
             monstersPane.setLayoutY(70);
