@@ -51,27 +51,28 @@ public class LoginControllerGUI  {
     public void login(ActionEvent actionEvent) throws IOException {
         String name = login_Username.getText();
         String pass = loign_Password.getText();
-        String res = new LoginMenuController().loginUSer(name,pass);
         if(name.equals("") || pass.equals("")){
             AlertBox.display("Please fill the empty fields!");
         }
-        else if (res.equals("There is no user with username " + name)){
-            String msg = "There is no user with username " + name;
-            AlertBox.display(msg);
-        }
-        else if (res.equals(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus())){
-            AlertBox.display(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus());
-        }
-        else if (res.equals(StatusEnum.USER_LOGIN_SUCCESSFULLY.getStatus())){
-            player.stop();
-            String musicFile = "./src/main/resources/sound/main_menu.mp3";
-            Media sound = new Media(new File(musicFile).toURI().toString());
-            player = new MediaPlayer(sound);
-            player.setCycleCount(MediaPlayer.INDEFINITE);
-            player.play();
-            new SceneController().switchScene("/fxml/main_menu.fxml",actionEvent);
+        else {
+            String res = new LoginMenuController().loginUSer(name,pass);
+
+            if (res.equals("There is no user with username " + name)) {
+                String msg = "There is no user with username " + name;
+                AlertBox.display(msg);
+            } else if (res.equals(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus())) {
+                AlertBox.display(StatusEnum.USERNAME_AND_PASSWORD_MISMATCH.getStatus());
+            } else if (res.equals(StatusEnum.USER_LOGIN_SUCCESSFULLY.getStatus())) {
+                player.stop();
+                String musicFile = "./src/main/resources/sound/main_menu.mp3";
+                Media sound = new Media(new File(musicFile).toURI().toString());
+                player = new MediaPlayer(sound);
+                player.setCycleCount(MediaPlayer.INDEFINITE);
+                player.play();
+                new SceneController().switchScene("/fxml/main_menu.fxml", actionEvent);
 
 
+            }
         }
     }
 
@@ -83,22 +84,24 @@ public class LoginControllerGUI  {
         String name = register_username.getText();
         String nick = register_nickname.getText();
         String pass = register_pass.getText();
-        String res = new LoginMenuController().createUser(name,nick,pass);
+
         if(name.equals("") || pass.equals("") || nick.equals("")){
             AlertBox.display("Please fill the empty fields!");
         }
-        else if (res.equals("user with username " + name + " already exists")){
-            AlertBox.display("user with username " + name + " already exists");
+        else {
+            String res = new LoginMenuController().createUser(name,nick,pass);
+            if (res.equals("user with username " + name + " already exists")) {
+                AlertBox.display("user with username " + name + " already exists");
+            } else if (res.equals("user with nickname " + nick + " already exists")) {
+                AlertBox.display("user with nickname " + nick + " already exists");
+            } else if (res.equals(StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus())) {
+                AlertBox.display(StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus());
+                register_username.clear();
+                register_nickname.clear();
+                register_pass.clear();
+            }
         }
-        else if (res.equals("user with nickname " + nick + " already exists")){
-            AlertBox.display("user with nickname " + nick + " already exists");
-        }
-        else if(res.equals(StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus())){
-            AlertBox.display(StatusEnum.USER_CREATE_SUCCESSFULLY.getStatus());
-            register_username.clear();
-            register_nickname.clear();
-            register_pass.clear();
-        }
+
     }
 
     public void returnToStart(MouseEvent inputEvent) throws IOException {
