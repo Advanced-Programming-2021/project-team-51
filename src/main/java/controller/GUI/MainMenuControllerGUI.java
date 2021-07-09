@@ -2,18 +2,12 @@ package controller.GUI;
 
 import controller.menucontroller.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
-import models.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,12 +25,10 @@ public class MainMenuControllerGUI {
     public ImageView mainsound;
 
     public void initialize(){
-        if (LoginControllerGUI.player.isMute()){
+        if (LoginControllerGUI.player.isMute())
             mainsound.setImage(new Image("./image/mute.jpg"));
-        }
-        else{
+        else
             mainsound.setImage(new Image("./image/unmute.jpg"));
-        }
     }
 
 
@@ -60,8 +52,8 @@ public class MainMenuControllerGUI {
         sceneController.switchScene("/fxml/shop_menu.fxml", actionEvent);
     }
 
-    public void enterImportMenu(ActionEvent actionEvent) {
-        //Todo
+    public void enterImportMenu(ActionEvent actionEvent) throws IOException {
+        new SceneController().switchScene("/fxml/ImportExportScene.fxml", actionEvent);
     }
 
     public void enterDeckMenu(ActionEvent actionEvent) throws IOException {
@@ -73,9 +65,6 @@ public class MainMenuControllerGUI {
         LoginMenuController.isLoggedOn = false;
         System.exit(0);
     }
-
-
-
 
     public void enterDuelMenu(ActionEvent actionEvent) {
         //Todo
@@ -130,5 +119,9 @@ public class MainMenuControllerGUI {
 
     public void scoreboradScene(ActionEvent actionEvent) throws IOException {
         new SceneController().switchScene("/fxml/scoreboard.fxml", actionEvent);
+    }
+
+    public void enterMakeCardMenu(ActionEvent actionEvent) throws IOException {
+        new SceneController().switchScene("/fxml/MakeCardScene.fxml", actionEvent);
     }
 }

@@ -1,4 +1,4 @@
-package controller.duel.effects;
+package controller.duel.effect;
 
 import models.Board;
 import models.cards.Card;
@@ -15,18 +15,18 @@ public class CustomEffects {
     private static final LinkedList<String> increaseAttackPoints = new LinkedList<>();
     private static final LinkedList<String> increaseDefensePoints = new LinkedList<>();
 
-    public static void addEffect(CustomEffect customEffect, String cardName) {
-        if (customEffect == CustomEffect.KILL_MONSTER)
+    public static void addEffect(controller.duel.effects.CustomEffect customEffect, String cardName) {
+        if (customEffect == controller.duel.effects.CustomEffect.KILL_MONSTER)
             killMonsters.add(cardName);
-        else if (customEffect == CustomEffect.KILL_SPELL_TRAP)
+        else if (customEffect == controller.duel.effects.CustomEffect.KILL_SPELL_TRAP)
             killSpellTraps.add(cardName);
-        else if (customEffect == CustomEffect.INCREASE_LIFE_POINT)
+        else if (customEffect == controller.duel.effects.CustomEffect.INCREASE_LIFE_POINT)
             increaseLife.add(cardName);
-        else if (customEffect == CustomEffect.DECREASE_LIFE_POINT)
+        else if (customEffect == controller.duel.effects.CustomEffect.DECREASE_LIFE_POINT)
             decreaseLife.add(cardName);
-        else if (customEffect == CustomEffect.INCREASE_ATTACK_POINT)
+        else if (customEffect == controller.duel.effects.CustomEffect.INCREASE_ATTACK_POINT)
             increaseAttackPoints.add(cardName);
-        else if (customEffect == CustomEffect.INCREASE_DEFENSE_POINT)
+        else if (customEffect == controller.duel.effects.CustomEffect.INCREASE_DEFENSE_POINT)
             increaseDefensePoints.add(cardName);
     }
 

@@ -20,7 +20,7 @@ public class ExportSceneController {
     public ImageView cardImageView;
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("ImportExportScene.fxml", actionEvent);
+        new SceneController().switchScene("/fxml/ImportExportScene.fxml", actionEvent);
     }
 
     public void export(ActionEvent actionEvent) {

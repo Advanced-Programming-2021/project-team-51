@@ -31,12 +31,12 @@ public class ImportSceneController {
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("ImportExportScene.fxml", actionEvent);
+        new SceneController().switchScene("/fxml/ImportExportScene.fxml", actionEvent);
     }
 
     public void importCard() {
         String cardName = importExportController.importCard(file, statusLabel, dragHereLabel);
         if (statusLabel.getText().equals("card imported successfully"))
-            cardImage.setImage(new Image(cardName + ".png"));
+            cardImage.setImage(new Image("/resources/image/Cards/" + cardName + ".png"));
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Main extends Application {
     public static Stage primaryStage;
@@ -20,9 +21,10 @@ public class Main extends Application {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         LoginControllerGUI.player = mediaPlayer;
         mediaPlayer.play();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/start.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/start.fxml")));
         stage.setTitle("Yu Gi Oh");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         primaryStage = stage;
         stage.show();
     }
