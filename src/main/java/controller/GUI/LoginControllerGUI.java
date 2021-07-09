@@ -145,4 +145,8 @@ public class LoginControllerGUI {
         imageView.setFitHeight(h-5);
         imageView.setFitWidth(w-5);
     }
+
+    public void creditScene(ActionEvent actionEvent) throws IOException {
+        sceneController.switchScene("/fxml/credit.fxml",actionEvent);
+    }
 }
