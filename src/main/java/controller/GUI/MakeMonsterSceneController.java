@@ -19,10 +19,12 @@ import java.util.ResourceBundle;
 
 public class MakeMonsterSceneController implements Initializable {
     MakeCardController makeCardController = new MakeCardController();
+    private Image image = null;
 
-    public ImageView cardImage = null;
-    public TextField cardName = null;
-    public TextArea cardDescription = null;
+    public Label pullImageLabel;
+    public ImageView cardImage;
+    public TextField cardName;
+    public TextArea cardDescription;
     public Spinner<Integer> attackPointSpinner;
     public Spinner<Integer> defensePointSpinner;
     public ChoiceBox<String> attributeChoiceBox;
@@ -41,8 +43,10 @@ public class MakeMonsterSceneController implements Initializable {
     public void handleDroppedImage(DragEvent dragEvent) {
         List<File> files = dragEvent.getDragboard().getFiles();
         try {
-            Image image = new Image(new FileInputStream(files.get(files.size() - 1)));
+            image = new Image(new FileInputStream(files.get(files.size() - 1)));
             cardImage.setImage(image);
+            pullImageLabel.setText("");
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -54,7 +58,7 @@ public class MakeMonsterSceneController implements Initializable {
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("MakeCardScene.fxml", actionEvent);
+        new SceneController().switchScene("/fxml/Make_CardScene.fxml", actionEvent);
     }
 
     public void calculate() {
@@ -68,9 +72,9 @@ public class MakeMonsterSceneController implements Initializable {
     public void makeMonster() {
         CheckBox[] effects = {killMonsterCheckBox, killSpellCheckBox, increaseLPCheckBox, decreaseLPCheckBox,
                 increaseAttackCheckBox, increaseDefenseCheckBox};
-        if (makeCardController.doesHaveProblemMakingMonster(cardImage, cardName, cardDescription, attackPointSpinner,
+        if (makeCardController.doesHaveProblemMakingMonster(image, cardName, cardDescription, attackPointSpinner,
                 defensePointSpinner, effects) != null) {
-            statusLabel.setText(makeCardController.doesHaveProblemMakingMonster(cardImage, cardName, cardDescription, attackPointSpinner,
+            statusLabel.setText(makeCardController.doesHaveProblemMakingMonster(image, cardName, cardDescription, attackPointSpinner,
                     defensePointSpinner, effects));
             return;
         }
@@ -91,10 +95,13 @@ public class MakeMonsterSceneController implements Initializable {
         monsterTypeChoiceBox.getItems().addAll(monsterTypes);
         monsterTypeChoiceBox.setValue("Warrior");
         //attack point & defense point
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 4000);
-        valueFactory.increment(50);
-        valueFactory.setValue(100);
-        attackPointSpinner.setValueFactory(valueFactory);
-        defensePointSpinner.setValueFactory(valueFactory);
+        SpinnerValueFactory<Integer> attValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 4000);
+        attValueFactory.increment(50);
+        attValueFactory.setValue(100);
+        SpinnerValueFactory<Integer> defValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 4000);
+        defValueFactory.increment(50);
+        defValueFactory.setValue(100);
+        attackPointSpinner.setValueFactory(attValueFactory);
+        defensePointSpinner.setValueFactory(defValueFactory);
     }
 }

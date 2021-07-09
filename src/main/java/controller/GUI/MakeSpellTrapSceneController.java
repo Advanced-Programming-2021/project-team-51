@@ -21,6 +21,7 @@ public class MakeSpellTrapSceneController implements Initializable {
 
     MakeCardController makeCardController = new MakeCardController();
 
+    public Label pullImageLabel;
     public TextField cardName = null;
     public ImageView cardImage = null;
     public TextArea cardDescription = null;
@@ -39,6 +40,7 @@ public class MakeSpellTrapSceneController implements Initializable {
         try {
             Image image = new Image(new FileInputStream(files.get(files.size() - 1)));
             cardImage.setImage(image);
+            pullImageLabel.setText("");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -68,7 +70,7 @@ public class MakeSpellTrapSceneController implements Initializable {
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("MakeCardScene.fxml", actionEvent);
+        new SceneController().switchScene("/fxml/Make_CardScene.fxml", actionEvent);
     }
 
     @Override

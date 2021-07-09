@@ -33,7 +33,7 @@ public class DuelControllerGUI {
 
     public static SceneController sceneController = new SceneController();
     public static DuelMenuController duelMenuController = new DuelMenuController();
-
+    public static MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()));
 
     public TextField secondUsernameForMulti;
     public TextField roundsMulti;
@@ -45,9 +45,7 @@ public class DuelControllerGUI {
     public CheckBox roundTwo;
 
     public void highlightBt(MouseEvent event) {
-        String musicFile = "./src/main/resources/sound/bt.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()));
         mediaPlayer.play();
         ImageView imageView = ((ImageView)event.getSource());
         double w = imageView.getFitWidth();
@@ -69,17 +67,11 @@ public class DuelControllerGUI {
 
 
     public void multiplayerScene(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/multiplayerStart.fxml"));
-        Pane pane = fxmlLoader.load();
-        stage.setScene(new Scene(pane));
+        sceneController.switchSceneMouse("/fxml/multiplayerStart.fxml",event);
     }
 
     public void singleplayerScene(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/singlePlayerStart.fxml"));
-        Pane pane = fxmlLoader.load();
-        stage.setScene(new Scene(pane));
+        sceneController.switchSceneMouse("/fxml/singlePlayerStart.fxml",event);
     }
 
     public void multiPlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException, InterruptedException {
@@ -154,10 +146,7 @@ public class DuelControllerGUI {
     }
 
     public void gameStartScene(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameField.fxml"));
-        Pane pane = fxmlLoader.load();
-        stage.setScene(new Scene(pane));
+        sceneController.switchSceneMouse("/fxml/gameField.fxml",event);
     }
 
     public void singlePlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException {
@@ -250,5 +239,19 @@ public class DuelControllerGUI {
 
 
 
+    }
+
+    public void exit(MouseEvent event) {
+        LoginMenuController.currentUser = null;
+        LoginMenuController.isLoggedOn = false;
+        System.exit(0);
+    }
+
+    public void returnToDuelMenu(MouseEvent event) throws IOException {
+        sceneController.switchSceneMouse("/fxml/duel_start_view.fxml",event);
+    }
+
+    public void returnToMain(MouseEvent event) throws IOException {
+        sceneController.switchSceneMouse("/fxml/mainMenu.fxml",event);
     }
 }

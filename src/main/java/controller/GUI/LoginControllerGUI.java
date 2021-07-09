@@ -16,7 +16,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import models.User;
 import view.GUI.AlertBox;
 import view.StatusEnum;
 
@@ -24,9 +23,11 @@ import view.StatusEnum;
 import java.io.File;
 import java.io.IOException;
 
-public class LoginControllerGUI  {
+public class LoginControllerGUI {
 
     public static MediaPlayer player;
+
+    public static SceneController sceneController = new SceneController();
 
     public TextField login_Username;
     public TextField loign_Password;
@@ -34,6 +35,9 @@ public class LoginControllerGUI  {
     public TextField register_nickname;
     public TextField register_pass;
     public ImageView sound;
+
+    public static MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()) );
+
 
     public void initialize(){
         if (player.isMute()){
@@ -45,7 +49,7 @@ public class LoginControllerGUI  {
     }
 
     public void enterLoginMenu(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/login_menu.fxml",actionEvent);
+        sceneController.switchScene("/fxml/login_menu.fxml",actionEvent);
     }
 
     public void login(ActionEvent actionEvent) throws IOException {
@@ -69,7 +73,7 @@ public class LoginControllerGUI  {
                 player = new MediaPlayer(sound);
                 player.setCycleCount(MediaPlayer.INDEFINITE);
                 player.play();
-                new SceneController().switchScene("/fxml/main_menu.fxml", actionEvent);
+                new SceneController().switchScene("/fxml/mainMenu.fxml", actionEvent);
 
 
             }
@@ -77,7 +81,7 @@ public class LoginControllerGUI  {
     }
 
     public void enterRegisterMenu(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/register_menu.fxml",actionEvent);
+        sceneController.switchScene("/fxml/register_menu.fxml",actionEvent);
     }
 
     public void register(ActionEvent actionEvent) {
@@ -105,10 +109,7 @@ public class LoginControllerGUI  {
     }
 
     public void returnToStart(MouseEvent inputEvent) throws IOException {
-        Stage stage = (Stage) ((Node)inputEvent.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/start.fxml"));
-        Pane pane = fxmlLoader.load();
-        stage.setScene(new Scene(pane));
+        sceneController.switchSceneMouse("/fxml/start.fxml",inputEvent);
     }
 
     public void exit(MouseEvent event) {
@@ -127,9 +128,7 @@ public class LoginControllerGUI  {
     }
 
     public void highlightBt(MouseEvent event) {
-        String musicFile = "./src/main/resources/sound/bt.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()) );
         mediaPlayer.play();
         ImageView imageView = ((ImageView)event.getSource());
         double w = imageView.getFitWidth();

@@ -1,9 +1,10 @@
 package controller.menucontroller;
 
-import controller.duel.effect.CustomEffect;
 import controller.duel.effect.CustomEffects;
+import controller.duel.effect.CustomEffect;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import models.User;
 
@@ -17,7 +18,7 @@ import java.nio.file.StandardOpenOption;
 
 public class MakeCardController {
 
-    private User user;//TODO how to get user
+    private final User user = LoginMenuController.currentUser;
 
     public String calculateMonsterLevel(Spinner<Integer> attackPointSpinner, Spinner<Integer> defensePointSpinner, CheckBox[] effects) {
         int level = 1;
@@ -48,10 +49,10 @@ public class MakeCardController {
         return "Normal";
     }
 
-    public String doesHaveProblemMakingMonster(ImageView cardImage, TextField cardName, TextArea cardDescription, Spinner<Integer> attackPointSpinner, Spinner<Integer> defensePointSpinner, CheckBox[] effects) {
-        if (cardName == null)
+    public String doesHaveProblemMakingMonster(Image cardImage, TextField cardName, TextArea cardDescription, Spinner<Integer> attackPointSpinner, Spinner<Integer> defensePointSpinner, CheckBox[] effects) {
+        if (cardName.getText().equals(""))
             return "You should choose a name for the card";
-        if (cardDescription == null)
+        if (cardDescription.getText().equals(""))
             return "You should write some description for the card";
         if (cardImage == null)
             return "You should choose an image for the card";
@@ -71,7 +72,7 @@ public class MakeCardController {
         String csvData = "\n" + cardName.getText() + "," + level + "," + attributeChoiceBox.getValue() + "," +
                 monsterTypeChoiceBox.getValue() +  "," + cardType + "," + attackPointSpinner.getValue() + "," +
                 defensePointSpinner.getValue() + "," + cardDescription.getText() + "," + price;
-        File outputFile = new File("C:/YuGiOhData/");
+        File outputFile = new File("/resources/image/Cards");
         BufferedImage bImage = SwingFXUtils.fromFXImage(cardImage.getImage(), null);
         try {
             Files.write(Paths.get("Monster.csv"), csvData.getBytes(), StandardOpenOption.APPEND);
@@ -119,10 +120,10 @@ public class MakeCardController {
             status = "Unlimited";
         String csvData = "\n" + cardName.getText() + "," + type + "," + iconChoiceBox.getValue() + "," +
                 cardDescription.getText() + "," + status + "," + price;
-        File outputFile = new File("C:/YuGiOhData/");
+        File outputFile = new File("/resources/image/Cards");
         BufferedImage bImage = SwingFXUtils.fromFXImage(cardImage.getImage(), null);
         try {
-            Files.write(Paths.get("Monster.csv"), csvData.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get("SpellTrap.csv"), csvData.getBytes(), StandardOpenOption.APPEND);
             ImageIO.write(bImage, "png", outputFile);
 
         } catch (IOException e) {

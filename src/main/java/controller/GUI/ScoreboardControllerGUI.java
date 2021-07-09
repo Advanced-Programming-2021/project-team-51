@@ -30,7 +30,7 @@ public class ScoreboardControllerGUI {
 
     public void back(MouseEvent event) throws IOException {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main_menu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
     }

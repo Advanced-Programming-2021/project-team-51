@@ -8,14 +8,14 @@ import java.io.IOException;
 public class MakeCardSceneController {
 
     public void makeMonster(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("MakeMonsterScene.fxml", actionEvent);
+        new SceneController().switchScene("/fxml/Make_MonsterScene.fxml", actionEvent);
     }
 
     public void makeSpellTrap(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("MakeSpellTrapScene.fxml", actionEvent);
+        new SceneController().switchScene("/fxml/Make_SpellTrapScene.fxml", actionEvent);
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("MainMenuScene.fxml", actionEvent);
+        new SceneController().switchScene("/fxml/mainMenu.fxml", actionEvent);
     }
 }

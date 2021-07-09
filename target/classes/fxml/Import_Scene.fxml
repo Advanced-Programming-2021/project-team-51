@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ImportSceneController">
+<AnchorPane onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.ImportSceneController">
    <children>
       <Label fx:id="dragHereLabel" layoutX="346.0" layoutY="253.0" prefHeight="66.0" prefWidth="119.0" text="drag your file here" />
       <Button layoutX="36.0" layoutY="544.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="119.0" text="back" />

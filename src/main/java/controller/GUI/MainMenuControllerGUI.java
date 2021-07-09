@@ -2,18 +2,15 @@ package controller.GUI;
 
 import controller.menucontroller.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
-import models.User;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +21,6 @@ public class MainMenuControllerGUI {
     public static SceneController sceneController = new SceneController();
 
     public static ProfileMenuController profileMenuController = new ProfileMenuController(LoginMenuController.currentUser);
-    public static ShopMenuController shopMenuController = new ShopMenuController(LoginMenuController.currentUser);
     public static ImportExportController importExportController = new ImportExportController();
     public static DeckMenuController deckMenuController = new DeckMenuController(LoginMenuController.currentUser);
     public static DuelMenuController duelMenuController = new DuelMenuController();
@@ -129,10 +125,10 @@ public class MainMenuControllerGUI {
     }
 
     public void scoreboradScene(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/scoreboard.fxml", actionEvent);
+        sceneController.switchScene("/fxml/scoreboard.fxml", actionEvent);
     }
 
     public void enterMakeCardMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/MakeCardScene.fxml",actionEvent);
+        sceneController.switchScene("/fxml/Make_CardScene.fxml",actionEvent);
     }
 }
