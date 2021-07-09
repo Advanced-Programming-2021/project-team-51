@@ -65,7 +65,7 @@ public class MainMenuControllerGUI {
     }
 
     public void enterDeckMenu(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/deck_menu.fxml", actionEvent);
+        sceneController.switchScene("/fxml/deck_menu.fxml", actionEvent);
     }
 
     public void exit(MouseEvent event) {
@@ -77,8 +77,8 @@ public class MainMenuControllerGUI {
 
 
 
-    public void enterDuelMenu(ActionEvent actionEvent) {
-        //Todo
+    public void enterDuelMenu(ActionEvent actionEvent) throws IOException {
+        sceneController.switchScene("/fxml/duel_start_view.fxml", actionEvent);
     }
     public void muteAndUnmute(MouseEvent event) {
         if (LoginControllerGUI.player.isMute()){
@@ -130,5 +130,9 @@ public class MainMenuControllerGUI {
 
     public void scoreboradScene(ActionEvent actionEvent) throws IOException {
         new SceneController().switchScene("/fxml/scoreboard.fxml", actionEvent);
+    }
+
+    public void enterMakeCardMenu(ActionEvent actionEvent) throws IOException {
+        sceneController.switchScene("/fxml/MakeCardScene.fxml",actionEvent);
     }
 }

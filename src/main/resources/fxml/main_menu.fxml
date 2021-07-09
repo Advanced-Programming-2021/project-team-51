@@ -77,5 +77,13 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Button layoutX="596.0" layoutY="473.0" mnemonicParsing="false" onAction="#enterMakeCardMenu" onMouseEntered="#highlightBt2" onMouseExited="#returnNormalBt2" prefHeight="65.0" prefWidth="198.0" style="-fx-background-color: purple;" text="Make Card" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
