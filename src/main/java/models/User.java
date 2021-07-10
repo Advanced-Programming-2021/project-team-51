@@ -21,7 +21,8 @@ public class User {
     private String password;
     private int score;
     private int money;
-    private String avatar;    //Todo give a default avatar address to user
+    private String avatar;
+    private String miniAvatar;
 
     private int rank;
 
@@ -39,14 +40,20 @@ public class User {
         setScore(0);
         setMoney(100000);
         avatar = "./image/default_avatar.png";
+        miniAvatar = "./image/default_avatar.png";
     }
 
     public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(String avatar,String miniAvatar) {
         this.avatar = avatar;
+        this.miniAvatar = miniAvatar;
+    }
+
+    public String getMiniAvatar() {
+        return miniAvatar;
     }
 
     public static void loadAllUsers(ArrayList<User> users) {

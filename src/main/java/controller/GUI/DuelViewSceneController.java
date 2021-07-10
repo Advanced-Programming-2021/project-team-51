@@ -212,8 +212,9 @@ public class DuelViewSceneController implements Initializable {
         rivalUserName.setText(GameController.bot.getName());
         myDeck.setImage(unknownCardImage);
         rivalDeck.setImage(unknownCardImage);
-        //TODO myAvatar.setImage();
-        //TODO rivalAvatar.setImage();
+        myAvatar.setImage(new Image(GameController.player.getUser().getMiniAvatar()));
+        rivalAvatar.setImage(new Image("./image/Avatars/bot.png"));
+
     }
 
     public void setDefense(MouseEvent mouseEvent) {

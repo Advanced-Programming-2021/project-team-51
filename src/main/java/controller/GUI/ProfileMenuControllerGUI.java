@@ -157,25 +157,25 @@ public class ProfileMenuControllerGUI {
     public void setAvatar(MouseEvent event) {
        String avatar = ((ImageView)event.getSource()).getId();
        switch (avatar){
-           case "one":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiYugi-DULI.png");break;
-           case "two":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiMarik-DULI.png");break;
-           case "three":LoginMenuController.currentUser.setAvatar("./image/Avatars/WeevilUnderwood-DULI.png");break;
-           case "four":LoginMenuController.currentUser.setAvatar("./image/Avatars/sss.png");break;
-           case "five":LoginMenuController.currentUser.setAvatar("./image/Avatars/SetoKaiba-DL.png");break;
-           case "six":LoginMenuController.currentUser.setAvatar("./image/Avatars/RexRaptor-DULI.png");break;
-           case "seven":LoginMenuController.currentUser.setAvatar("./image/Avatars/MaximillionPegasus-DULI.png");break;
-           case "eight":LoginMenuController.currentUser.setAvatar("./image/Avatars/MakoTsunami-DULI.png");break;
+           case "one":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiYugi-DULI.png","./image/Avatars/three.png");break;
+           case "two":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiMarik-DULI.png","./image/Avatars/eight.png");break;
+           case "three":LoginMenuController.currentUser.setAvatar("./image/Avatars/WeevilUnderwood-DULI.png","./image/Avatars/twelve.png");break;
+           case "four":LoginMenuController.currentUser.setAvatar("./image/Avatars/sss.png","./image/Avatars/four.png");break;
+           case "five":LoginMenuController.currentUser.setAvatar("./image/Avatars/SetoKaiba-DL.png","./image/Avatars/eleven.png");break;
+           case "six":LoginMenuController.currentUser.setAvatar("./image/Avatars/RexRaptor-DULI.png","./image/Avatars/seven.png");break;
+           case "seven":LoginMenuController.currentUser.setAvatar("./image/Avatars/MaximillionPegasus-DULI.png","./image/Avatars/fourteen.png");break;
+           case "eight":LoginMenuController.currentUser.setAvatar("./image/Avatars/MakoTsunami-DULI.png","./image/Avatars/fifteen.png");break;
 
 
 
-           case "nine":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds.png");break;
-           case "ten":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds7.png");break;
-           case "eleven":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds13.png");break;
-           case "twelve":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds21.png");break;
-           case "thirteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds24.png");break;
-           case "fourteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds33.png");break;
-           case "fifteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds35.png");break;
-           case "sisteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds20.png");break;
+           case "nine":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds.png","./image/Avatars/thirteen.png");break;
+           case "ten":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds7.png","./image/Avatars/sisteen.png");break;
+           case "eleven":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds13.png","./image/Avatars/two.png");break;
+           case "twelve":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds21.png","./image/Avatars/six.png");break;
+           case "thirteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds24.png","./image/Avatars/five.png");break;
+           case "fourteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds33.png","./image/Avatars/ten.png");break;
+           case "fifteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds35.png","./image/Avatars/nine.png");break;
+           case "sisteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds20.png","./image/Avatars/one.png");break;
        }
        AlertBox.display("Profile changed successfully!");
     }
