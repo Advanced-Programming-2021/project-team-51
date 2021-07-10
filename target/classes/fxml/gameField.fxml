@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="700.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.DuelViewSceneController">
+   <children>
+      <ImageView fx:id="backGround" fitHeight="644.0" fitWidth="647.0" layoutX="388.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Field/fie_normal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="myMonster5" fitHeight="94.0" fitWidth="94.0" layoutX="491.0" layoutY="368.0" onDragDetected="#handleDragMonster5" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster3" fitHeight="94.0" fitWidth="94.0" layoutX="572.0" layoutY="368.0" onDragDetected="#handleDragMonster3" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster1" fitHeight="94.0" fitWidth="94.0" layoutX="656.0" layoutY="368.0" onDragDetected="#handleDragMonster1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster2" fitHeight="94.0" fitWidth="94.0" layoutX="740.0" layoutY="368.0" onDragDetected="#handleDragMonster2" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster4" fitHeight="94.0" fitWidth="88.0" layoutX="834.0" layoutY="368.0" onDragDetected="#handleDragMonster4" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="mySpell5" fitHeight="94.0" fitWidth="88.0" layoutX="494.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="mySpell3" fitHeight="94.0" fitWidth="88.0" layoutX="575.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="mySpell1" fitHeight="94.0" fitWidth="88.0" layoutX="659.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="mySpell2" fitHeight="94.0" fitWidth="88.0" layoutX="743.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="mySpell4" fitHeight="94.0" fitWidth="88.0" layoutX="831.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myHand1" fitHeight="94.0" fitWidth="88.0" layoutX="491.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myHand2" fitHeight="94.0" fitWidth="88.0" layoutX="575.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myHand3" fitHeight="94.0" fitWidth="88.0" layoutX="659.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myHand4" fitHeight="94.0" fitWidth="88.0" layoutX="743.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myHand5" fitHeight="94.0" fitWidth="88.0" layoutX="831.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalMonster4" fitHeight="94.0" fitWidth="88.0" layoutX="494.0" layoutY="239.0" onDragDropped="#handleAttackOnMonster4" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalMonster2" fitHeight="94.0" fitWidth="88.0" layoutX="575.0" layoutY="239.0" onDragDropped="#handleAttackOnMonster2" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalMonster1" fitHeight="94.0" fitWidth="88.0" layoutX="659.0" layoutY="239.0" onDragDropped="#handleAttackOnMonster1" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalMonster3" fitHeight="94.0" fitWidth="88.0" layoutX="743.0" layoutY="239.0" onDragDropped="#handleAttackOnMonster3" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalMonster5" fitHeight="94.0" fitWidth="88.0" layoutX="831.0" layoutY="239.0" onDragDropped="#handleAttackOnMonster5" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalSpell5" fitHeight="94.0" fitWidth="88.0" layoutX="831.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalSpell13" fitHeight="94.0" fitWidth="88.0" layoutX="743.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalSpell1" fitHeight="94.0" fitWidth="88.0" layoutX="659.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalSpell2" fitHeight="94.0" fitWidth="88.0" layoutX="575.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalSpell4" fitHeight="94.0" fitWidth="88.0" layoutX="491.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="94.0" fitWidth="88.0" layoutX="491.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalHand4" fitHeight="94.0" fitWidth="88.0" layoutX="575.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalHand3" fitHeight="94.0" fitWidth="88.0" layoutX="659.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalHand2" fitHeight="94.0" fitWidth="88.0" layoutX="743.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalHand1" fitHeight="94.0" fitWidth="88.0" layoutX="831.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myGraveyard" fitHeight="94.0" fitWidth="88.0" layoutX="406.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalGraveyard" fitHeight="94.0" fitWidth="88.0" layoutX="912.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myDeck" fitHeight="94.0" fitWidth="88.0" layoutX="912.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalDeck" fitHeight="94.0" fitWidth="88.0" layoutX="423.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="selectedCard" fitHeight="401.0" fitWidth="308.0" layoutX="80.0" layoutY="150.0" onDragDone="#handleAttackOnMonster1" pickOnBounds="true" preserveRatio="true" />
+      <ProgressBar fx:id="myLP" layoutX="80.0" layoutY="584.0" prefHeight="30.0" prefWidth="308.0" progress="0.0" />
+      <ProgressBar fx:id="rivalLP" layoutX="80.0" layoutY="100.0" prefHeight="30.0" prefWidth="308.0" progress="0.0" />
+      <Label layoutX="80.0" layoutY="614.0" prefHeight="50.0" prefWidth="88.0" text="nick name:" />
+      <Label layoutX="80.0" layoutY="49.0" prefHeight="50.0" prefWidth="88.0" text="nick name:" />
+      <Label fx:id="rivalName" layoutX="166.0" layoutY="64.0" prefHeight="20.0" prefWidth="220.0" text="Label" />
+      <Label fx:id="myName" layoutX="160.0" layoutY="629.0" prefHeight="20.0" prefWidth="231.0" text="Label" />
+      <Label layoutX="80.0" layoutY="49.0" prefHeight="18.0" prefWidth="88.0" text="username:" />
+      <Label fx:id="rivalUserName" layoutX="168.0" layoutY="49.0" prefHeight="18.0" prefWidth="88.0" text="Label" />
+      <Label layoutX="80.0" layoutY="649.0" prefHeight="18.0" prefWidth="88.0" text="username:" />
+      <Label fx:id="myUserName" layoutX="160.0" layoutY="649.0" prefHeight="18.0" prefWidth="88.0" text="Label" />
+      <Label fx:id="rivalLPLabel" layoutX="232.0" layoutY="562.0" prefHeight="18.0" prefWidth="88.0" text="8000" />
+      <Label layoutX="80.0" layoutY="562.0" prefHeight="18.0" prefWidth="88.0" text="LP:" />
+      <Label layoutX="80.0" layoutY="131.0" prefHeight="18.0" prefWidth="88.0" text="LP:" />
+      <Label fx:id="myLPLabel1" layoutX="204.0" layoutY="131.0" prefHeight="18.0" prefWidth="88.0" text="8000" />
+      <ImageView fx:id="myAvatar" fitHeight="84.0" fitWidth="102.0" layoutX="262.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rivalAvatar" fitHeight="84.0" fitWidth="102.0" layoutX="269.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="386.0" layoutY="500.0" mnemonicParsing="false" onAction="#changePhase" prefHeight="72.0" prefWidth="102.0" text="change phase" />
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="29.0" onMouseClicked="#directAttack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/directAttack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="102.0" onMouseClicked="#specialSummon" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/GUI_T_DuelButtonActIcon1_3.dds.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="179.0" onMouseClicked="#normalSummon" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/GUI_T_DuelButtonActIcon1_5.dds.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="257.0" onMouseClicked="#flipSummon" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/GUI_T_DuelButtonActIcon1_6.dds.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="331.0" onMouseClicked="#activateEffect" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/GUI_T_DuelButtonActIcon1_4.dds.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="411.0" onMouseClicked="#changePosition" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/GUI_T_DuelButtonActIcon1_10.dds.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="496.0" onMouseClicked="#setAttack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/GUI_T_DuelButtonActIcon1_7.dds.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="571.0" onMouseClicked="#setDefense" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/DuelButtons/GUI_T_DuelButtonActIcon1_11.dds.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</AnchorPane>
