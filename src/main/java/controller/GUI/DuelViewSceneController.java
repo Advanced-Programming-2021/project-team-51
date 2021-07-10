@@ -1,6 +1,7 @@
 package controller.GUI;
 
 
+import controller.duel.SelectionController;
 import controller.duel.SettingController;
 import controller.duel.singlePlayer.GameController;
 import javafx.event.ActionEvent;
@@ -65,6 +66,8 @@ public class DuelViewSceneController implements Initializable {
     public ImageView myAvatar;
     public ImageView rivalAvatar;
     public AnchorPane pane;
+
+    public static SelectionController selectionController = new SelectionController();
 
     public void handleDragOver(DragEvent dragEvent) {
         if (dragEvent.getDragboard().hasFiles())
@@ -132,6 +135,70 @@ public class DuelViewSceneController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         myLP.setProgress(1);
         rivalLP.setProgress(1);
+        setSelections();
+    }
+
+    public void setSelections() {
+        setSelectMyMonster(myMonster1, "1");
+        setSelectMyMonster(myMonster2, "2");
+        setSelectMyMonster(myMonster3, "3");
+        setSelectMyMonster(myMonster4, "4");
+        setSelectMyMonster(myMonster5, "5");
+        setSelectRivalMonster(rivalMonster1, "1");
+        setSelectRivalMonster(rivalMonster2, "2");
+        setSelectRivalMonster(rivalMonster3, "3");
+        setSelectRivalMonster(rivalMonster4, "4");
+        setSelectRivalMonster(rivalMonster5, "5");
+        setSelectMySpell(mySpell1, "1");
+        setSelectMySpell(mySpell2, "2");
+        setSelectMySpell(mySpell3, "3");
+        setSelectMySpell(mySpell4, "4");
+        setSelectMySpell(mySpell5, "5");
+        setSelectRivalSpell(rivalSpell1, "1");
+        setSelectRivalSpell(rivalSpell2, "2");
+        setSelectRivalSpell(rivalSpell13, "3");
+        setSelectRivalSpell(rivalSpell4, "4");
+        setSelectRivalSpell(rivalSpell5, "5");
+        setSelectMyHand(myHand1, "1");
+        setSelectMyHand(myHand2, "2");
+        setSelectMyHand(myHand3, "3");
+        setSelectMyHand(myHand4, "4");
+        setSelectMyHand(myHand5, "5");
+    }
+
+    public void setSelectMyMonster(ImageView imageView, String index) {
+        imageView.setOnMouseClicked(event -> {
+            selectionController.selectMyMonster(index);
+            selectedCard.setImage(imageView.getImage());
+        });
+    }
+
+    public void setSelectRivalMonster(ImageView imageView, String index) {
+        imageView.setOnMouseClicked(event -> {
+            selectionController.selectRivalMonster(index);
+            selectedCard.setImage(imageView.getImage());
+        });
+    }
+
+    public void setSelectMySpell(ImageView imageView, String index) {
+        imageView.setOnMouseClicked(event -> {
+            selectionController.selectMySpell(index);
+            selectedCard.setImage(imageView.getImage());
+        });
+    }
+
+    public void setSelectRivalSpell(ImageView imageView, String index) {
+        imageView.setOnMouseClicked(event -> {
+            selectionController.selectRivalSpell(index);
+            selectedCard.setImage(imageView.getImage());
+        });
+    }
+
+    public void setSelectMyHand(ImageView imageView, String index) {
+        imageView.setOnMouseClicked(event -> {
+            selectionController.selectHandCard(index);
+            selectedCard.setImage(imageView.getImage());
+        });
     }
 
     public void changePhase(ActionEvent actionEvent) {

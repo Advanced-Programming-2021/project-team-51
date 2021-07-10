@@ -134,6 +134,13 @@ public class ChangeDeckControllerGUI {
                             selectedCard.getName(), "main");
                     mainImages.add(selectedImage);
                     cardImages.remove(selectedImage);
+                    ImageView imageView = mainImages.get(mainImages.size() - 1);
+                    Card card = selectedCard;
+                    imageView.setOnMouseClicked(event ->
+                            setSelectedCard(card, true, true,
+                                    imageView));
+                    imageView.setOnMouseEntered(event -> hideCard());
+                    imageView.setOnMouseExited(event -> hideCard());
                 }
             }
             else {
@@ -146,6 +153,13 @@ public class ChangeDeckControllerGUI {
                             selectedCard.getName(), "side");
                     sideImages.add(selectedImage);
                     cardImages.remove(selectedImage);
+                    ImageView imageView = sideImages.get(sideImages.size() - 1);
+                    Card card = selectedCard;
+                    imageView.setOnMouseClicked(event ->
+                            setSelectedCard(card, true, false,
+                                    imageView));
+                    imageView.setOnMouseEntered(event -> hideCard());
+                    imageView.setOnMouseExited(event -> hideCard());
                 }
             }
             setSelectedCard(null, false, false, null);
@@ -165,12 +179,36 @@ public class ChangeDeckControllerGUI {
                         selectedCard.getName(), "main");
                 mainImages.remove(selectedImage);
                 cardImages.add(selectedImage);
+                ImageView imageView = cardImages.get(cardImages.size() - 1);
+                Card card = selectedCard;
+                imageView.setOnMouseClicked(event ->
+                        setSelectedCard(card,
+                        false, false, imageView));
+                imageView.setOnMouseEntered(event ->
+                        showCard(event.getX() +
+                                        imageView.getLayoutX(),
+                                event.getY() +
+                                        imageView.getLayoutY(),
+                                imageView));
+                imageView.setOnMouseExited(event -> hideCard());
             }
             else {
                 deckControllerGUI.deckMenuController.removeCardFromDeck(currentDeck.getName(),
                         selectedCard.getName(), "side");
                 sideImages.remove(selectedImage);
                 cardImages.add(selectedImage);
+                ImageView imageView = cardImages.get(cardImages.size() - 1);
+                Card card = selectedCard;
+                imageView.setOnMouseClicked(event ->
+                        setSelectedCard(card,
+                                false, false, imageView));
+                imageView.setOnMouseEntered(event ->
+                        showCard(event.getX() +
+                                        imageView.getLayoutX(),
+                                event.getY() +
+                                        imageView.getLayoutY(),
+                                imageView));
+                imageView.setOnMouseExited(event -> hideCard());
             }
             setSelectedCard(null, false, false, null);
             showDeck();
