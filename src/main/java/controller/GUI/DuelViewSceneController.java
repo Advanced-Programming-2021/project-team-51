@@ -1,16 +1,23 @@
 package controller.GUI;
 
+
+import controller.duel.SettingController;
+import controller.duel.singlePlayer.GameController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DuelViewSceneController implements Initializable {
+
+    private static final Image unknownCardImage = new Image("./image/Unknown.jpg");
 
     public ImageView myMonster5;
     public ImageView myMonster3;
@@ -57,6 +64,7 @@ public class DuelViewSceneController implements Initializable {
     public Label myLPLabel1;
     public ImageView myAvatar;
     public ImageView rivalAvatar;
+    public AnchorPane pane;
 
     public void handleDragOver(DragEvent dragEvent) {
         if (dragEvent.getDragboard().hasFiles())
@@ -64,6 +72,7 @@ public class DuelViewSceneController implements Initializable {
     }
 
     public void handleAttackOnMonster4(DragEvent dragEvent) {
+
     }
 
     public void handleAttackOnMonster2(DragEvent dragEvent) {
@@ -121,10 +130,48 @@ public class DuelViewSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        myLP.setProgress(1);
+        rivalLP.setProgress(1);
     }
 
     public void changePhase(ActionEvent actionEvent) {
+
+    }
+
+    public void setPreparations() {
+        myUserName.setText(GameController.player.getUserName());
+        rivalName.setText(GameController.bot.getName());
+        myName.setText(GameController.player.getNickName());
+        rivalUserName.setText(GameController.bot.getName());
+        myDeck.setImage(unknownCardImage);
+        rivalDeck.setImage(unknownCardImage);
+        //TODO myAvatar.setImage();
+        //TODO rivalAvatar.setImage();
+    }
+
+    public void setDefense(MouseEvent mouseEvent) {
+    }
+
+    public void setAttack(MouseEvent mouseEvent) {
+    }
+
+    public void changePosition(MouseEvent mouseEvent) {
+        new SettingController().changePosition();
+    }
+
+    public void activateEffect(MouseEvent mouseEvent) {
+    }
+
+    public void flipSummon(MouseEvent mouseEvent) {
+    }
+
+    public void normalSummon(MouseEvent mouseEvent) {
+    }
+
+    public void specialSummon(MouseEvent mouseEvent) {
+    }
+
+    public void directAttack(MouseEvent mouseEvent) {
 
     }
 }

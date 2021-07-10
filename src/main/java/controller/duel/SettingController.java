@@ -62,7 +62,7 @@ public class SettingController {
         return "set successfully";
     }
 
-    public String setPosition(String position) {
+    public String changePosition() {
         if (SelectionController.selectedCard == null)
             return "no card is selected yet";
         if (DuelView.isMultiPlayer) {
@@ -77,10 +77,6 @@ public class SettingController {
                 return "you can't do this action in this phase";
         }
         MonsterCard selectedMonster = (MonsterCard) SelectionController.selectedCard;
-        if (selectedMonster.getMode().getLabel().equals(position))
-            return "this card is already in the wanted position";
-        if (selectedMonster.getIsSwitched())
-            return "you already changed this card position in this turn";
         if (selectedMonster.getMode() == Mode.ATTACK)
             selectedMonster.setMode(Mode.DEFENSE);
         else

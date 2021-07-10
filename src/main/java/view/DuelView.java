@@ -205,7 +205,7 @@ public class DuelView {
         if (!matcher.find())
             return;
         isCommandValid = true;
-        System.out.println(settingController.setPosition(matcher.group(2)));
+        //System.out.println(settingController.setPosition(matcher.group(2)));
     }
 
     private void attack(String command) {
