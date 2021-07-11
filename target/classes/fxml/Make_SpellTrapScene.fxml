@@ -10,7 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.MakeSpellTrapSceneController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../css/makeMS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.MakeSpellTrapSceneController">
    <children>
       <Label layoutX="249.0" layoutY="59.0" prefHeight="38.0" prefWidth="42.0" text="name:" />
       <TextField fx:id="cardName" layoutX="296.0" layoutY="65.0" prefHeight="26.0" prefWidth="237.0" />
@@ -22,10 +22,10 @@
       <Button layoutX="634.0" layoutY="507.0" mnemonicParsing="false" onAction="#makeSpellTrap" prefHeight="38.0" prefWidth="150.0" text="make spell or trap" />
       <Button layoutX="46.0" layoutY="507.0" mnemonicParsing="false" onAction="#goBack" prefHeight="38.0" prefWidth="150.0" text="back" />
       <Label layoutX="559.0" layoutY="177.0" prefHeight="38.0" prefWidth="89.0" text="effects:" />
-      <CheckBox fx:id="killMonsterCheckBox" layoutX="563.0" layoutY="214.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="218.0" text="kill the most expensive rival monster" />
-      <CheckBox fx:id="killSpellCheckBox" layoutX="563.0" layoutY="245.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="229.0" text="kill the most expensive rival spell trap" />
-      <CheckBox fx:id="increaseLPCheckBox" layoutX="563.0" layoutY="271.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="229.0" text="increase life point by 500" />
-      <CheckBox fx:id="decreaseLPCheckBox" layoutX="563.0" layoutY="301.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="229.0" text="decrease rival life point by 500" />
+      <CheckBox fx:id="killMonsterCheckBox" layoutX="563.0" layoutY="214.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="218.0" text="kill the most expensive rival monster" textFill="WHITE" />
+      <CheckBox fx:id="killSpellCheckBox" layoutX="563.0" layoutY="245.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="229.0" text="kill the most expensive rival spell trap" textFill="WHITE" />
+      <CheckBox fx:id="increaseLPCheckBox" layoutX="563.0" layoutY="271.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="229.0" text="increase life point by 500" textFill="WHITE" />
+      <CheckBox fx:id="decreaseLPCheckBox" layoutX="563.0" layoutY="301.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="229.0" text="decrease rival life point by 500" textFill="WHITE" />
       <Label fx:id="statusLabel" layoutX="298.0" layoutY="33.0" prefHeight="18.0" prefWidth="218.0" />
       <Label layoutX="357.0" layoutY="576.0" prefHeight="38.0" prefWidth="50.0" text="price: " />
       <Label fx:id="priceLabel" layoutX="415.0" layoutY="576.0" prefHeight="38.0" prefWidth="80.0" text="0" />

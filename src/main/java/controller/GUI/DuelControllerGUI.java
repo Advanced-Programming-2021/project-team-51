@@ -44,6 +44,12 @@ public class DuelControllerGUI {
     public CheckBox roundOne;
     public CheckBox roundTwo;
 
+    public static Image image1 = new Image("./image/saw.gif");
+
+    public static Image image3 = new Image("image/xxx.png");
+
+
+
     public void highlightBt(MouseEvent event) {
         mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()));
         mediaPlayer.play();
@@ -184,9 +190,7 @@ public class DuelControllerGUI {
                     image2 = new Image("./image/x2.jpg");
                 }
 
-                Image image1 = new Image("./image/saw.gif");
 
-                Image image3 = new Image("image/xxx.png");
                 ImageView coinR = new ImageView();
                 ImageView start = new ImageView();
 
