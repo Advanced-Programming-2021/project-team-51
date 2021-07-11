@@ -17,6 +17,7 @@ import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
 import view.menus.DuelMenu;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -359,4 +360,7 @@ public class DuelViewSceneController implements Initializable {
         rivalLP.setProgress((double) GameController.bot.getBoard().getLifePoints() / 8000.0);
     }
 
+    public void openSettingScene(ActionEvent actionEvent) throws IOException {
+        new SceneController().switchScene("/fxml/setting.fxml",actionEvent);
+    }
 }

@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import models.Deck;
+import models.User;
+import models.cards.Card;
 
 import java.io.File;
 
@@ -27,6 +30,35 @@ public class Main extends Application {
         stage.show();
     }
     public static void main(String[] args) {
+        User mamad = new User("a","a","a");
+        mamad.addCard(Card.getCardByName("Magic Jammer"));
+        mamad.addCard(Card.getCardByName("Magic Jammer"));
+        mamad.addCard(Card.getCardByName("Magic Jammer"));
+
+        mamad.addCard(Card.getCardByName("Battle OX"));
+        mamad.addCard(Card.getCardByName("Battle OX"));
+        mamad.addCard(Card.getCardByName("Battle OX"));
+
+        mamad.addCard(Card.getCardByName("Suijin"));
+        mamad.addCard(Card.getCardByName("Suijin"));
+        mamad.addCard(Card.getCardByName("Suijin"));
+
+        mamad.addCard(Card.getCardByName("Bitron"));
+        mamad.addCard(Card.getCardByName("Bitron"));
+        mamad.addCard(Card.getCardByName("Bitron"));
+
+        mamad.addDeck(new Deck("s","a"));
+        for (Card cards: mamad.getUserCards()
+             ) {
+            mamad.getUserDeckByName("s").addCardToDeck(true,cards);
+        }
+        mamad.setActiveDeck(mamad.getUserDeckByName("S"));
+
+
+
+
+
+
         launch(args);
     }
 }

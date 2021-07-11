@@ -147,7 +147,12 @@ public class DuelControllerGUI {
 
     public void gameStartScene(MouseEvent event) throws IOException {
         sceneController.switchSceneMouse("/fxml/gameField.fxml",event);
-    }
+        LoginControllerGUI.player.stop();
+        String musicFile = "./src/main/resources/sound/duelSong.mp3";
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        LoginControllerGUI.player = new MediaPlayer(sound);
+        LoginControllerGUI.player.setCycleCount(MediaPlayer.INDEFINITE);
+        LoginControllerGUI.player.play();    }
 
     public void singlePlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException {
 

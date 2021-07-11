@@ -71,7 +71,7 @@
          <font>
             <Font size="6.0" />
          </font></Button>
-      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="29.0" onMouseClicked="#directAttack" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="8.0" layoutY="35.0" onMouseClicked="#directAttack" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/DuelButtons/directAttack.png" />
          </image>
@@ -147,5 +147,10 @@
       <ImageView fx:id="rivalHand10" fitHeight="94.0" fitWidth="88.0" layoutX="902.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="rivalFieldSpell" fitHeight="94.0" fitWidth="88.0" layoutX="919.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="myFieldSpell" fitHeight="94.0" fitWidth="88.0" layoutX="406.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="-3.0" layoutY="-4.0" mnemonicParsing="false" onAction="#openSettingScene" prefHeight="41.0" prefWidth="80.0" text="Setting">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
