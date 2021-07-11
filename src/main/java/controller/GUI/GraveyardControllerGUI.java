@@ -1,5 +1,6 @@
 package controller.GUI;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -10,6 +11,7 @@ import models.cards.Card;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GraveyardControllerGUI {
@@ -40,5 +42,9 @@ public class GraveyardControllerGUI {
         cards.getChildren().setAll(rows);
         cards.setAlignment(Pos.CENTER);
         return cards;
+    }
+
+    public void back(ActionEvent actionEvent) throws IOException {
+        new SceneController().switchScene("/fxml/gameField.fxml", actionEvent);
     }
 }
