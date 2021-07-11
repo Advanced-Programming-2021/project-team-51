@@ -3,7 +3,6 @@ package controller.GUI;
 
 import controller.duel.*;
 import controller.duel.singlePlayer.GameController;
-import controller.menucontroller.CheatMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -13,9 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import models.cards.Card;
+import models.cards.CardImage;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
-import view.menus.DuelMenu;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +24,7 @@ import java.util.ResourceBundle;
 public class DuelViewSceneController implements Initializable {
 
     private static final Image unknownCardImage = new Image("./image/Unknown.jpg");
+    public static boolean isMultiPlayer = true;
 
     public ImageView myMonster5;
     public ImageView myMonster3;
@@ -85,6 +85,8 @@ public class DuelViewSceneController implements Initializable {
     public ImageView rivalHand10;
     public ImageView rivalFieldSpell;
     public ImageView myFieldSpell;
+    public Label status;
+    public Label currentPhase;
 
     public static SelectionController selectionController = new SelectionController();
     public static SummonController summonController = new SummonController();
@@ -99,31 +101,31 @@ public class DuelViewSceneController implements Initializable {
     }
 
     public void handleAttackOnMonster4(DragEvent dragEvent) {
-        attackController.attackMonsterToMonster("4");
+        status.setText(attackController.attackMonsterToMonster("4"));
         setCards();
         setLifePoint();
     }
 
     public void handleAttackOnMonster2(DragEvent dragEvent) {
-        attackController.attackMonsterToMonster("2");
+        status.setText(attackController.attackMonsterToMonster("2"));
         setCards();
         setLifePoint();
     }
 
     public void handleAttackOnMonster1(DragEvent dragEvent) {
-        attackController.attackMonsterToMonster("1");
+        status.setText(attackController.attackMonsterToMonster("1"));
         setCards();
         setLifePoint();
     }
 
     public void handleAttackOnMonster3(DragEvent dragEvent) {
-        attackController.attackMonsterToMonster("3");
+        status.setText(attackController.attackMonsterToMonster("3"));
         setCards();
         setLifePoint();
     }
 
     public void handleAttackOnMonster5(DragEvent dragEvent) {
-        attackController.attackMonsterToMonster("5");
+        status.setText(attackController.attackMonsterToMonster("5"));
         setCards();
         setLifePoint();
     }
@@ -137,11 +139,11 @@ public class DuelViewSceneController implements Initializable {
     }
 
     public void handleDragMonster1(MouseEvent mouseEvent) {
-      Dragboard dragboard = myMonster1.startDragAndDrop(TransferMode.ANY);
-      ClipboardContent clipboard = new ClipboardContent();
-      clipboard.putImage(myMonster1.getImage());
-      dragboard.setContent(clipboard);
-      mouseEvent.consume();
+        Dragboard dragboard = myMonster1.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent clipboard = new ClipboardContent();
+        clipboard.putImage(myMonster1.getImage());
+        dragboard.setContent(clipboard);
+        mouseEvent.consume();
     }
 
     public void handleDragMonster3(MouseEvent mouseEvent) {
@@ -170,9 +172,15 @@ public class DuelViewSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        myLP.setProgress((double) GameController.player.getPlayerBoard().getLifePoints() / 8000.0);
-        rivalLP.setProgress((double) GameController.bot.getBoard().getLifePoints() / 8000.0);
+        if (isMultiPlayer) {
+            myLP.setProgress((double) PhaseController.playerInTurn.getPlayerBoard().getLifePoints() / 8000.0);
+            rivalLP.setProgress((double) PhaseController.playerAgainst.getPlayerBoard().getLifePoints() / 8000.0);
+        } else {
+            myLP.setProgress((double) GameController.player.getPlayerBoard().getLifePoints() / 8000.0);
+            rivalLP.setProgress((double) GameController.bot.getBoard().getLifePoints() / 8000.0);
+        }
         setSelections();
+        setLifePoint();
     }
 
     public void setSelections() {
@@ -240,92 +248,123 @@ public class DuelViewSceneController implements Initializable {
 
     public void changePhase(ActionEvent actionEvent) {
         phaseController.changePhase();
+        currentPhase.setText(PhaseController.currentPhase.getLabel());
+        if (isMultiPlayer) {
+            myUserName.setText(PhaseController.playerInTurn.getUserName());
+            myName.setText(PhaseController.playerInTurn.getNickName());
+            rivalUserName.setText(PhaseController.playerAgainst.getUserName());
+            rivalName.setText(PhaseController.playerAgainst.getNickName());
+        }
         setCards();
         setLifePoint();
     }
 
     public void setPreparations() {
-        myUserName.setText(GameController.player.getUserName());
-        rivalName.setText(GameController.bot.getName());
-        myName.setText(GameController.player.getNickName());
-        rivalUserName.setText(GameController.bot.getName());
+        if (isMultiPlayer) {
+            myUserName.setText(PhaseController.playerInTurn.getUserName());
+            myName.setText(PhaseController.playerInTurn.getNickName());
+            rivalUserName.setText(PhaseController.playerAgainst.getUserName());
+            rivalName.setText(PhaseController.playerAgainst.getNickName());
+        } else {
+            myUserName.setText(GameController.player.getUserName());
+            rivalName.setText(GameController.bot.getName());
+            myName.setText(GameController.player.getNickName());
+            rivalUserName.setText(GameController.bot.getName());
+        }
         myDeck.setImage(unknownCardImage);
         rivalDeck.setImage(unknownCardImage);
-        myAvatar.setImage(new Image(GameController.player.getUser().getMiniAvatar()));
-        rivalAvatar.setImage(new Image("./image/Avatars/bot.png"));
+        setCards();
+        //TODO myAvatar.setImage();
+        //TODO rivalAvatar.setImage();
     }
 
     public void setDefense(MouseEvent mouseEvent) {
-        settingController.set();
+        status.setText(settingController.set());
         setCards();
     }
 
     public void setAttack(MouseEvent mouseEvent) {
-        settingController.set();
+        status.setText(settingController.set());
         setCards();
     }
 
     public void changePosition(MouseEvent mouseEvent) {
-        new SettingController().changePosition();
+        status.setText(settingController.changePosition());
         setCards();
     }
 
     public void activateEffect(MouseEvent mouseEvent) {
-        activationController.activate();
+        status.setText(activationController.activate());
         setCards();
         setLifePoint();
     }
 
     public void flipSummon(MouseEvent mouseEvent) {
-        summonController.flipSummon();
+        status.setText(summonController.flipSummon());
         setCards();
         setLifePoint();
     }
 
     public void normalSummon(MouseEvent mouseEvent) {
-        summonController.summon();
+        status.setText(summonController.summon());
         setCards();
         setLifePoint();
     }
 
     public void specialSummon(MouseEvent mouseEvent) {
-        summonController.specialSummon();
+        status.setText(summonController.specialSummon());
         setCards();
         setLifePoint();
     }
 
     public void directAttack(MouseEvent mouseEvent) {
-        attackController.directAttack();
+        status.setText(attackController.directAttack());
         setCards();
         setLifePoint();
     }
 
     public void setCards() {
         ImageView[] myHands = {myHand1, myHand2, myHand3, myHand4, myHand5, myHand6, myHand7, myHand8, myHand9, myHand10};
-        setCardImages(myHands, GameController.player.getPlayerBoard().getHandCards());
         ImageView[] rivalHands = {rivalHand1, rivalHand2, rivalHand3, rivalHand4, rivalHand5, rivalHand6, rivalHand7,
                 rivalHand8, rivalHand9, rivalHand10};
-        setCardImages(rivalHands, GameController.bot.getBoard().getHandCards());
         ImageView[] myMonsters = {myMonster1, myMonster2, myMonster3, myMonster4, myMonster5};
-        setMonsterCardImages(myMonsters, GameController.player.getPlayerBoard().getMonsters());
         ImageView[] rivalMonsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
-        setMonsterCardImages(rivalMonsters, GameController.bot.getAIMonsters());
         ImageView[] mySpellTraps = {mySpell1, mySpell2, mySpell3, mySpell4, mySpell5};
-        setSpellTrapCardImages(mySpellTraps, GameController.player.getPlayerBoard().getSpellTraps());
         ImageView[] rivalSpellTraps = {rivalSpell1, rivalSpell2, rivalSpell3, rivalSpell4, rivalSpell5};
-        setSpellTrapCardImages(rivalSpellTraps, GameController.bot.getAISpellTraps());
-        if (GameController.player.getPlayerBoard().getFieldZone() != null)
-            myFieldSpell.setImage(new Image("./image/Cards/" + GameController.player.getPlayerBoard().getFieldZone().getName() + ".png"));
-        if (GameController.bot.getBoard().getFieldZone() != null)
-            myFieldSpell.setImage(new Image("./image/Cards/" + GameController.bot.getBoard().getFieldZone().getName() + ".png"));
+        if (isMultiPlayer) {
+            setMyHandImages(myHands, PhaseController.playerInTurn.getPlayerBoard().getHandCards());
+            setRivalHandImages(rivalHands, PhaseController.playerAgainst.getPlayerBoard().getHandCards());
+            setMonsterCardImages(myMonsters, PhaseController.playerInTurn.getPlayerBoard().getMonsters());
+            setMonsterCardImages(rivalMonsters, PhaseController.playerAgainst.getPlayerBoard().getMonsters());
+            setSpellTrapCardImages(mySpellTraps, PhaseController.playerInTurn.getPlayerBoard().getSpellTraps());
+            setSpellTrapCardImages(rivalSpellTraps, PhaseController.playerAgainst.getPlayerBoard().getSpellTraps());
+            if (PhaseController.playerInTurn.getPlayerBoard().getFieldZone() != null)
+                myFieldSpell.setImage(CardImage.getImageByName(PhaseController.playerInTurn.getPlayerBoard().getFieldZone().getName()));
+            if (PhaseController.playerAgainst.getPlayerBoard().getFieldZone() != null)
+                myFieldSpell.setImage(CardImage.getImageByName(PhaseController.playerAgainst.getPlayerBoard().getFieldZone().getName()));
+        } else {
+            setMyHandImages(myHands, GameController.player.getPlayerBoard().getHandCards());
+            setRivalHandImages(rivalHands, GameController.bot.getBoard().getHandCards());
+            setMonsterCardImages(myMonsters, GameController.player.getPlayerBoard().getMonsters());
+            setMonsterCardImages(rivalMonsters, GameController.bot.getAIMonsters());
+            setSpellTrapCardImages(mySpellTraps, GameController.player.getPlayerBoard().getSpellTraps());
+            setSpellTrapCardImages(rivalSpellTraps, GameController.bot.getAISpellTraps());
+            if (GameController.player.getPlayerBoard().getFieldZone() != null)
+                myFieldSpell.setImage(CardImage.getImageByName(GameController.player.getPlayerBoard().getFieldZone().getName()));
+            if (GameController.bot.getBoard().getFieldZone() != null)
+                myFieldSpell.setImage(CardImage.getImageByName(GameController.bot.getBoard().getFieldZone().getName()));
+        }
     }
 
-    private void setCardImages(ImageView[] imageViews, ArrayList<Card> cards) {
+    private void setRivalHandImages(ImageView[] imageViews, ArrayList<Card> cards) {
+        for (int i = 0; i < cards.size(); i++)
+            imageViews[i].setImage(unknownCardImage);
+    }
+
+    private void setMyHandImages(ImageView[] imageViews, ArrayList<Card> cards) {
         for (int i = 0; i < cards.size(); i++) {
-            if (!cards.get(i).getIsHidden()) {
-                String name = cards.get(i).getName();
-                imageViews[i].setImage(new Image("./image/Cards/" + name + ".png"));
-            }
+            if (!cards.get(i).getIsHidden())
+                imageViews[i].setImage(CardImage.getImageByName(cards.get(i).getName()));
             else
                 imageViews[i].setImage(unknownCardImage);
         }
@@ -333,10 +372,8 @@ public class DuelViewSceneController implements Initializable {
 
     private void setMonsterCardImages(ImageView[] imageViews, ArrayList<MonsterCard> cards) {
         for (int i = 0; i < cards.size(); i++) {
-            if (!cards.get(i).getIsHidden()) {
-                String name = cards.get(i).getName();
-                imageViews[i].setImage(new Image("./image/Cards/" + name + ".png"));
-            }
+            if (!cards.get(i).getIsHidden())
+                imageViews[i].setImage(CardImage.getImageByName(cards.get(i).getName()));
             else
                 imageViews[i].setImage(unknownCardImage);
         }
@@ -344,23 +381,28 @@ public class DuelViewSceneController implements Initializable {
 
     private void setSpellTrapCardImages(ImageView[] imageViews, ArrayList<SpellTrapCard> cards) {
         for (int i = 0; i < cards.size(); i++) {
-            if (!cards.get(i).getIsHidden()) {
-                String name = cards.get(i).getName();
-                imageViews[i].setImage(new Image("./image/Cards/" + name + ".png"));
-            }
+            if (!cards.get(i).getIsHidden())
+                imageViews[i].setImage(CardImage.getImageByName(cards.get(i).getName()));
             else
                 imageViews[i].setImage(unknownCardImage);
         }
     }
 
     private void setLifePoint() {
-        myLPLabel1.setText(String.valueOf(GameController.player.getPlayerBoard().getLifePoints()));
-        myLP.setProgress((double) GameController.player.getPlayerBoard().getLifePoints() / 8000.0);
-        rivalLPLabel.setText(String.valueOf(GameController.bot.getBoard().getLifePoints()));
-        rivalLP.setProgress((double) GameController.bot.getBoard().getLifePoints() / 8000.0);
+        if (isMultiPlayer) {
+            myLPLabel1.setText(String.valueOf(PhaseController.playerInTurn.getPlayerBoard().getLifePoints()));
+            myLP.setProgress((double) PhaseController.playerInTurn.getPlayerBoard().getLifePoints() / 8000.0);
+            rivalLPLabel.setText(String.valueOf(PhaseController.playerAgainst.getPlayerBoard().getLifePoints()));
+            rivalLP.setProgress((double) PhaseController.playerAgainst.getPlayerBoard().getLifePoints() / 8000.0);
+        } else {
+            myLPLabel1.setText(String.valueOf(GameController.player.getPlayerBoard().getLifePoints()));
+            myLP.setProgress((double) GameController.player.getPlayerBoard().getLifePoints() / 8000.0);
+            rivalLPLabel.setText(String.valueOf(GameController.bot.getBoard().getLifePoints()));
+            rivalLP.setProgress((double) GameController.bot.getBoard().getLifePoints() / 8000.0);
+        }
     }
-
     public void openSettingScene(ActionEvent actionEvent) throws IOException {
         new SceneController().switchScene("/fxml/setting.fxml",actionEvent);
     }
+
 }

@@ -47,63 +47,61 @@ public class DuelControllerGUI {
     public void highlightBt(MouseEvent event) {
         mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()));
         mediaPlayer.play();
-        ImageView imageView = ((ImageView)event.getSource());
+        ImageView imageView = ((ImageView) event.getSource());
         double w = imageView.getFitWidth();
         double h = imageView.getFitHeight();
-        imageView.setFitHeight(h+5);
-        imageView.setFitWidth(w+5);
+        imageView.setFitHeight(h + 5);
+        imageView.setFitWidth(w + 5);
 
 
     }
+
     public void returnNormalBt(MouseEvent event) {
-        ImageView imageView = ((ImageView)event.getSource());
+        ImageView imageView = ((ImageView) event.getSource());
         double w = imageView.getFitWidth();
         double h = imageView.getFitHeight();
-        imageView.setFitHeight(h-5);
-        imageView.setFitWidth(w-5);
+        imageView.setFitHeight(h - 5);
+        imageView.setFitWidth(w - 5);
     }
-
-
 
 
     public void multiplayerScene(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/multiplayerStart.fxml",event);
+        sceneController.switchSceneMouse("/fxml/multiplayerStart.fxml", event);
     }
 
     public void singleplayerScene(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/singlePlayerStart.fxml",event);
+        sceneController.switchSceneMouse("/fxml/singlePlayerStart.fxml", event);
     }
 
     public void multiPlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException, InterruptedException {
         String name = secondUsernameForMulti.getText();
         String rounds = roundsMulti.getText();
-        if (name.equals("")||rounds.equals("")){
+        if (name.equals("") || rounds.equals("")) {
             AlertBox.display("Please fill the empty fields!");
-        }
-        else{
-            String res = duelMenuController.startTwoPlayer(LoginMenuController.currentUser,name,rounds);
-            if (!res.equals("")){
+        } else {
+            String res = duelMenuController.startTwoPlayer(LoginMenuController.currentUser, name, rounds);
+            if (!res.equals("")) {
                 AlertBox.display(res);
-            }
-            else{
-                Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            } else {
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/coinS.fxml"));
                 Pane pane = fxmlLoader.load();
                 stage.setScene(new Scene(pane));
                 Image image2;
 
-                if (PhaseController.playerInTurn == Player.getFirstPlayer()){
+                if (PhaseController.playerInTurn == Player.getFirstPlayer()) {
                     image2 = new Image("./image/x1.jpg");
-                }
-                else{
+                } else {
                     image2 = new Image("./image/x2.jpg");
                 }
 
                 Image image1 = new Image("./image/saw.gif");
 
                 Image image3 = new Image("image/xxx.png");
-                ImageView coinR =  new ImageView();
+                ImageView coinR = new ImageView();
                 ImageView start = new ImageView();
+
+                DuelViewSceneController.isMultiPlayer = true;
 
                 coinR.setFitHeight(156);
                 coinR.setFitWidth(150);
@@ -132,7 +130,7 @@ public class DuelControllerGUI {
                 timeline.play();
 
                 Timeline t = new Timeline(
-                        new KeyFrame(Duration.seconds(6),new KeyValue(start.imageProperty(),image3))
+                        new KeyFrame(Duration.seconds(6), new KeyValue(start.imageProperty(), image3))
                 );
                 t.play();
 
@@ -140,68 +138,56 @@ public class DuelControllerGUI {
                 pane.getChildren().add(start);
             }
         }
-
 
 
     }
 
     public void gameStartScene(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/gameField.fxml",event);
-        LoginControllerGUI.player.stop();
-        String musicFile = "./src/main/resources/sound/duelSong.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        LoginControllerGUI.player = new MediaPlayer(sound);
-        LoginControllerGUI.player.setCycleCount(MediaPlayer.INDEFINITE);
-        LoginControllerGUI.player.play();    }
+        sceneController.switchSceneMouse("/fxml/gameField.fxml", event);
+    }
 
     public void singlePlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException {
 
-        if (!easyCheck.isSelected() && !hardCheck.isSelected()){
+        if (!easyCheck.isSelected() && !hardCheck.isSelected()) {
             AlertBox.display("Please choose difficulty before start!");
-        }
-        else if (!roundOne.isSelected() && !roundTwo.isSelected()){
+        } else if (!roundOne.isSelected() && !roundTwo.isSelected()) {
             AlertBox.display("Please choose rounds before start!");
-        }
-        else if ((easyCheck.isSelected() && hardCheck.isSelected()) || (roundOne.isSelected() && roundTwo.isSelected())){
+        } else if ((easyCheck.isSelected() && hardCheck.isSelected()) || (roundOne.isSelected() && roundTwo.isSelected())) {
             AlertBox.display("Please check only one box!");
-        }
-        else{
+        } else {
             String difficulty;
             String rounds;
-            if (roundOne.isSelected()){
+            if (roundOne.isSelected()) {
                 rounds = "1";
-            }
-            else{
+            } else {
                 rounds = "3";
             }
-            if (easyCheck.isSelected()){
+            if (easyCheck.isSelected()) {
                 difficulty = "easy";
-            }
-            else{
+            } else {
                 difficulty = "hard";
             }
-            String res = MainMenuControllerGUI.duelMenuController.startSinglePlayer(LoginMenuController.currentUser,rounds,difficulty);
-            if (!res.equals("")){
+            String res = MainMenuControllerGUI.duelMenuController.startSinglePlayer(LoginMenuController.currentUser, rounds, difficulty);
+            if (!res.equals("")) {
                 AlertBox.display(res);
-            }
-            else{
-                Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            } else {
+                DuelViewSceneController.isMultiPlayer = false;
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/coinS.fxml"));
                 Pane pane = fxmlLoader.load();
                 stage.setScene(new Scene(pane));
                 Image image2;
 
-                if (GameController.isPlayerTurn){
+                if (GameController.isPlayerTurn) {
                     image2 = new Image("./image/x1.jpg");
-                }
-                else{
+                } else {
                     image2 = new Image("./image/x2.jpg");
                 }
 
                 Image image1 = new Image("./image/saw.gif");
 
                 Image image3 = new Image("image/xxx.png");
-                ImageView coinR =  new ImageView();
+                ImageView coinR = new ImageView();
                 ImageView start = new ImageView();
 
                 coinR.setFitHeight(156);
@@ -231,7 +217,7 @@ public class DuelControllerGUI {
                 timeline.play();
 
                 Timeline t = new Timeline(
-                        new KeyFrame(Duration.seconds(6),new KeyValue(start.imageProperty(),image3))
+                        new KeyFrame(Duration.seconds(6), new KeyValue(start.imageProperty(), image3))
                 );
                 t.play();
 
@@ -240,9 +226,6 @@ public class DuelControllerGUI {
             }
 
         }
-
-
-
 
     }
 
@@ -253,10 +236,10 @@ public class DuelControllerGUI {
     }
 
     public void returnToDuelMenu(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/duel_start_view.fxml",event);
+        sceneController.switchSceneMouse("/fxml/duel_start_view.fxml", event);
     }
 
     public void returnToMain(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/mainMenu.fxml",event);
+        sceneController.switchSceneMouse("/fxml/mainMenu.fxml", event);
     }
 }
