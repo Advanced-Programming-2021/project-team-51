@@ -1,21 +1,14 @@
 package controller.GUI;
 
 
-
-
 import controller.menucontroller.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
 import view.GUI.AlertBox;
 import view.StatusEnum;
 
@@ -27,7 +20,6 @@ public class LoginControllerGUI {
 
     public static MediaPlayer player;
 
-    public static SceneController sceneController = new SceneController();
 
     public TextField login_Username;
     public TextField loign_Password;
@@ -36,30 +28,28 @@ public class LoginControllerGUI {
     public TextField register_pass;
     public ImageView sound;
 
-    public static MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()) );
+    public static MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()));
 
 
-    public void initialize(){
-        if (player.isMute()){
+    public void initialize() {
+        if (player.isMute()) {
             sound.setImage(new Image("./image/mute.jpg"));
-        }
-        else{
+        } else {
             sound.setImage(new Image("./image/unmute.jpg"));
         }
     }
 
     public void enterLoginMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/login_menu.fxml",actionEvent);
+        SceneController.switchScene("/fxml/login_menu.fxml", actionEvent);
     }
 
     public void login(ActionEvent actionEvent) throws IOException {
         String name = login_Username.getText();
         String pass = loign_Password.getText();
-        if(name.equals("") || pass.equals("")){
+        if (name.equals("") || pass.equals("")) {
             AlertBox.display("Please fill the empty fields!");
-        }
-        else {
-            String res = new LoginMenuController().loginUSer(name,pass);
+        } else {
+            String res = new LoginMenuController().loginUSer(name, pass);
 
             if (res.equals("There is no user with username " + name)) {
                 String msg = "There is no user with username " + name;
@@ -73,7 +63,7 @@ public class LoginControllerGUI {
                 player = new MediaPlayer(sound);
                 player.setCycleCount(MediaPlayer.INDEFINITE);
                 player.play();
-                new SceneController().switchScene("/fxml/mainMenu.fxml", actionEvent);
+                SceneController.switchScene("/fxml/mainMenu.fxml", actionEvent);
 
 
             }
@@ -81,7 +71,7 @@ public class LoginControllerGUI {
     }
 
     public void enterRegisterMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/register_menu.fxml",actionEvent);
+        SceneController.switchScene("/fxml/register_menu.fxml", actionEvent);
     }
 
     public void register(ActionEvent actionEvent) {
@@ -89,11 +79,10 @@ public class LoginControllerGUI {
         String nick = register_nickname.getText();
         String pass = register_pass.getText();
 
-        if(name.equals("") || pass.equals("") || nick.equals("")){
+        if (name.equals("") || pass.equals("") || nick.equals("")) {
             AlertBox.display("Please fill the empty fields!");
-        }
-        else {
-            String res = new LoginMenuController().createUser(name,nick,pass);
+        } else {
+            String res = new LoginMenuController().createUser(name, nick, pass);
             if (res.equals("user with username " + name + " already exists")) {
                 AlertBox.display("user with username " + name + " already exists");
             } else if (res.equals("user with nickname " + nick + " already exists")) {
@@ -109,7 +98,7 @@ public class LoginControllerGUI {
     }
 
     public void returnToStart(MouseEvent inputEvent) throws IOException {
-        sceneController.switchSceneMouse("/fxml/start.fxml",inputEvent);
+        SceneController.switchSceneMouse("/fxml/start.fxml", inputEvent);
     }
 
     public void exit(MouseEvent event) {
@@ -117,36 +106,36 @@ public class LoginControllerGUI {
     }
 
     public void muteAndUnmute(MouseEvent event) {
-        if (player.isMute()){
+        if (player.isMute()) {
             player.setMute(false);
             sound.setImage(new Image("./image/unmute.jpg"));
-        }
-        else{
+        } else {
             player.setMute(true);
             sound.setImage(new Image("./image/mute.jpg"));
         }
     }
 
     public void highlightBt(MouseEvent event) {
-        mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()) );
+        mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()));
         mediaPlayer.play();
-        ImageView imageView = ((ImageView)event.getSource());
+        ImageView imageView = ((ImageView) event.getSource());
         double w = imageView.getFitWidth();
         double h = imageView.getFitHeight();
-        imageView.setFitHeight(h+5);
-        imageView.setFitWidth(w+5);
+        imageView.setFitHeight(h + 5);
+        imageView.setFitWidth(w + 5);
 
 
     }
+
     public void returnNormalBt(MouseEvent event) {
-        ImageView imageView = ((ImageView)event.getSource());
+        ImageView imageView = ((ImageView) event.getSource());
         double w = imageView.getFitWidth();
         double h = imageView.getFitHeight();
-        imageView.setFitHeight(h-5);
-        imageView.setFitWidth(w-5);
+        imageView.setFitHeight(h - 5);
+        imageView.setFitWidth(w - 5);
     }
 
     public void creditScene(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/credit.fxml",actionEvent);
+        SceneController.switchScene("/fxml/credit.fxml", actionEvent);
     }
 }

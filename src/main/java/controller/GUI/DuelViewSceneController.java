@@ -13,6 +13,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import models.cards.Card;
 import models.cards.CardImage;
+import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
 
@@ -23,6 +24,10 @@ import java.util.ResourceBundle;
 
 public class DuelViewSceneController implements Initializable {
 
+    private Image firstPlayerImage;
+    private Image secondPlayerImage;
+
+    public static double opacity = 0;
     private static final Image unknownCardImage = new Image("./image/Unknown.jpg");
     public static boolean isMultiPlayer = true;
 
@@ -100,31 +105,31 @@ public class DuelViewSceneController implements Initializable {
             dragEvent.acceptTransferModes(TransferMode.ANY);
     }
 
-    public void handleAttackOnMonster4(DragEvent dragEvent) {
+    public void handleAttackOnMonster4() {
         status.setText(attackController.attackMonsterToMonster("4"));
         setCards();
         setLifePoint();
     }
 
-    public void handleAttackOnMonster2(DragEvent dragEvent) {
+    public void handleAttackOnMonster2() {
         status.setText(attackController.attackMonsterToMonster("2"));
         setCards();
         setLifePoint();
     }
 
-    public void handleAttackOnMonster1(DragEvent dragEvent) {
+    public void handleAttackOnMonster1() {
         status.setText(attackController.attackMonsterToMonster("1"));
         setCards();
         setLifePoint();
     }
 
-    public void handleAttackOnMonster3(DragEvent dragEvent) {
+    public void handleAttackOnMonster3() {
         status.setText(attackController.attackMonsterToMonster("3"));
         setCards();
         setLifePoint();
     }
 
-    public void handleAttackOnMonster5(DragEvent dragEvent) {
+    public void handleAttackOnMonster5() {
         status.setText(attackController.attackMonsterToMonster("5"));
         setCards();
         setLifePoint();
@@ -209,6 +214,11 @@ public class DuelViewSceneController implements Initializable {
         setSelectMyHand(myHand3, "3");
         setSelectMyHand(myHand4, "4");
         setSelectMyHand(myHand5, "5");
+        setSelectMyHand(myHand6, "6");
+        setSelectMyHand(myHand7, "7");
+        setSelectMyHand(myHand8, "8");
+        setSelectMyHand(myHand9, "9");
+        setSelectMyHand(myHand10, "10");
     }
 
     public void setSelectMyMonster(ImageView imageView, String index) {
@@ -246,7 +256,7 @@ public class DuelViewSceneController implements Initializable {
         });
     }
 
-    public void changePhase(ActionEvent actionEvent) {
+    public void changePhase() {
         phaseController.changePhase();
         currentPhase.setText(PhaseController.currentPhase.getLabel());
         if (isMultiPlayer) {
@@ -254,6 +264,17 @@ public class DuelViewSceneController implements Initializable {
             myName.setText(PhaseController.playerInTurn.getNickName());
             rivalUserName.setText(PhaseController.playerAgainst.getUserName());
             rivalName.setText(PhaseController.playerAgainst.getNickName());
+            if (PhaseController.currentPhase == GamePhase.DRAW || PhaseController.currentPhase == GamePhase.MAIN2 ||
+                    PhaseController.currentPhase == GamePhase.RIVAL_TURN) {
+                if (myAvatar.getImage().equals(firstPlayerImage)) {
+                    myAvatar.setImage(secondPlayerImage);
+                    rivalAvatar.setImage(firstPlayerImage);
+                }
+                else {
+                    myAvatar.setImage(firstPlayerImage);
+                    rivalAvatar.setImage(secondPlayerImage);
+                }
+            }
         }
         setCards();
         setLifePoint();
@@ -265,59 +286,63 @@ public class DuelViewSceneController implements Initializable {
             myName.setText(PhaseController.playerInTurn.getNickName());
             rivalUserName.setText(PhaseController.playerAgainst.getUserName());
             rivalName.setText(PhaseController.playerAgainst.getNickName());
+            firstPlayerImage = new Image(PhaseController.playerInTurn.getUser().getMiniAvatar());
+            secondPlayerImage = new Image(PhaseController.playerAgainst.getUser().getMiniAvatar());
+            myAvatar.setImage(firstPlayerImage);
+            rivalAvatar.setImage(secondPlayerImage);
         } else {
             myUserName.setText(GameController.player.getUserName());
             rivalName.setText(GameController.bot.getName());
             myName.setText(GameController.player.getNickName());
             rivalUserName.setText(GameController.bot.getName());
+            myAvatar.setImage(new Image(GameController.player.getUser().getMiniAvatar()));
+            rivalAvatar.setImage(new Image("./image/Avatars/bot.png"));
         }
         myDeck.setImage(unknownCardImage);
         rivalDeck.setImage(unknownCardImage);
         setCards();
-        //TODO myAvatar.setImage();
-        //TODO rivalAvatar.setImage();
     }
 
-    public void setDefense(MouseEvent mouseEvent) {
+    public void setDefense() {
         status.setText(settingController.set());
         setCards();
     }
 
-    public void setAttack(MouseEvent mouseEvent) {
+    public void setAttack() {
         status.setText(settingController.set());
         setCards();
     }
 
-    public void changePosition(MouseEvent mouseEvent) {
+    public void changePosition() {
         status.setText(settingController.changePosition());
         setCards();
     }
 
-    public void activateEffect(MouseEvent mouseEvent) {
+    public void activateEffect() {
         status.setText(activationController.activate());
         setCards();
         setLifePoint();
     }
 
-    public void flipSummon(MouseEvent mouseEvent) {
+    public void flipSummon() {
         status.setText(summonController.flipSummon());
         setCards();
         setLifePoint();
     }
 
-    public void normalSummon(MouseEvent mouseEvent) {
+    public void normalSummon() {
         status.setText(summonController.summon());
         setCards();
         setLifePoint();
     }
 
-    public void specialSummon(MouseEvent mouseEvent) {
+    public void specialSummon() {
         status.setText(summonController.specialSummon());
         setCards();
         setLifePoint();
     }
 
-    public void directAttack(MouseEvent mouseEvent) {
+    public void directAttack() {
         status.setText(attackController.directAttack());
         setCards();
         setLifePoint();
@@ -357,35 +382,51 @@ public class DuelViewSceneController implements Initializable {
     }
 
     private void setRivalHandImages(ImageView[] imageViews, ArrayList<Card> cards) {
-        for (int i = 0; i < cards.size(); i++)
+        int i;
+        for (i = 0; i < cards.size(); i++)
             imageViews[i].setImage(unknownCardImage);
+        for (int j = i; j < imageViews.length; j++)
+            imageViews[j].setImage(null);
     }
 
     private void setMyHandImages(ImageView[] imageViews, ArrayList<Card> cards) {
-        for (int i = 0; i < cards.size(); i++) {
+        int i;
+        for (i = 0; i < cards.size(); i++) {
             if (!cards.get(i).getIsHidden())
                 imageViews[i].setImage(CardImage.getImageByName(cards.get(i).getName()));
             else
                 imageViews[i].setImage(unknownCardImage);
         }
+        for (int j = i; j < imageViews.length; j++)
+            imageViews[j].setImage(null);
     }
 
     private void setMonsterCardImages(ImageView[] imageViews, ArrayList<MonsterCard> cards) {
-        for (int i = 0; i < cards.size(); i++) {
+        int i;
+        for (i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getMode() == Mode.DEFENSE)
+                imageViews[i].setRotate(90);
             if (!cards.get(i).getIsHidden())
                 imageViews[i].setImage(CardImage.getImageByName(cards.get(i).getName()));
             else
                 imageViews[i].setImage(unknownCardImage);
+        }
+        for (int j = i; j < imageViews.length; j++) {
+            imageViews[i].setRotate(0);
+            imageViews[j].setImage(null);
         }
     }
 
     private void setSpellTrapCardImages(ImageView[] imageViews, ArrayList<SpellTrapCard> cards) {
-        for (int i = 0; i < cards.size(); i++) {
+        int i;
+        for (i = 0; i < cards.size(); i++) {
             if (!cards.get(i).getIsHidden())
                 imageViews[i].setImage(CardImage.getImageByName(cards.get(i).getName()));
             else
                 imageViews[i].setImage(unknownCardImage);
         }
+        for (int j = i; j < imageViews.length; j++)
+            imageViews[j].setImage(null);
     }
 
     private void setLifePoint() {
@@ -402,7 +443,10 @@ public class DuelViewSceneController implements Initializable {
         }
     }
     public void openSettingScene(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/setting.fxml",actionEvent);
+        SceneController.switchScene("/fxml/setting.fxml",actionEvent);
     }
 
+    public void showMyGraveYard(MouseEvent mouseEvent) throws IOException {
+        SceneController.switchSceneMouse("/fxml/graveyard.fxml", mouseEvent);
+    }
 }

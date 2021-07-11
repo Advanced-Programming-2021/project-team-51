@@ -27,11 +27,11 @@
       <Button layoutX="624.0" layoutY="497.0" mnemonicParsing="false" onAction="#makeMonster" prefHeight="38.0" prefWidth="150.0" text="make monster" />
       <ChoiceBox fx:id="attributeChoiceBox" layoutX="624.0" layoutY="68.0" prefWidth="150.0" />
       <ChoiceBox fx:id="monsterTypeChoiceBox" layoutX="35.0" layoutY="200.0" prefWidth="150.0" />
-      <Label layoutX="22.0" layoutY="561.0" prefHeight="38.0" prefWidth="74.0" text="cardType:" textFill="#5e00ff" />
+      <Label layoutX="22.0" layoutY="561.0" prefHeight="38.0" prefWidth="74.0" text="cardType:" textFill="WHITE" />
       <Label layoutX="37.0" layoutY="167.0" prefHeight="38.0" prefWidth="89.0" text="monster type:" />
       <Label layoutX="549.0" layoutY="167.0" prefHeight="38.0" prefWidth="89.0" text="effects:" />
       <Label layoutX="630.0" layoutY="36.0" prefHeight="38.0" prefWidth="89.0" text="attribute:" />
-      <Label fx:id="cardTypeLabel" layoutX="93.0" layoutY="561.0" prefHeight="38.0" prefWidth="109.0" text="Normal" textFill="#2200ff" />
+      <Label fx:id="cardTypeLabel" layoutX="93.0" layoutY="561.0" prefHeight="38.0" prefWidth="109.0" text="Normal" textFill="WHITE" />
       <Label layoutX="365.0" layoutY="561.0" prefHeight="38.0" prefWidth="34.0" text="level:" />
       <Label fx:id="levelLabel" layoutX="405.0" layoutY="561.0" prefHeight="38.0" prefWidth="25.0" text="1" />
       <Label layoutX="650.0" layoutY="561.0" prefHeight="38.0" prefWidth="42.0" text="price: " />

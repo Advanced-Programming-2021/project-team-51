@@ -70,7 +70,7 @@ public class MakeSpellTrapSceneController implements Initializable {
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/Make_CardScene.fxml", actionEvent);
+        SceneController.switchScene("/fxml/Make_CardScene.fxml", actionEvent);
     }
 
     @Override

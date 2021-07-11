@@ -45,6 +45,6 @@ public class GraveyardControllerGUI {
     }
 
     public void back(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/gameField.fxml", actionEvent);
+        SceneController.switchScene("/fxml/gameField.fxml", actionEvent);
     }
 }

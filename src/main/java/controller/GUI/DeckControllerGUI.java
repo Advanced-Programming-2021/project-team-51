@@ -237,7 +237,7 @@ public class DeckControllerGUI {
     public void changeDeck(Deck deck, ActionEvent actionEvent) {
         ChangeDeckControllerGUI.currentDeck = deck;
         try {
-            new SceneController().switchScene("/fxml/change_deck.fxml", actionEvent);
+            SceneController.switchScene("/fxml/change_deck.fxml", actionEvent);
         } catch (IOException e) {
             e.printStackTrace();
         }

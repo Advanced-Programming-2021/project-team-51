@@ -7,12 +7,12 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../css/setting.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.SettingControllerGUI">
    <children>
-      <Label layoutX="191.0" layoutY="185.0" prefHeight="74.0" prefWidth="151.0" text="Volume:">
+      <Label layoutX="191.0" layoutY="185.0" prefHeight="74.0" prefWidth="151.0" text="Volume:" textFill="WHITE">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-      <Label layoutX="446.0" layoutY="185.0" prefHeight="74.0" prefWidth="176.0" text="Brightness:">
+      <Label layoutX="446.0" layoutY="185.0" prefHeight="74.0" prefWidth="176.0" text="Brightness:" textFill="WHITE">
          <font>
             <Font size="34.0" />
          </font>
@@ -40,6 +40,11 @@
       <Button layoutX="209.0" layoutY="415.0" mnemonicParsing="false" onAction="#mute" prefHeight="74.0" prefWidth="87.0" text="Mute/Unmute">
          <font>
             <Font size="11.0" />
+         </font>
+      </Button>
+      <Button layoutX="663.0" layoutY="25.0" mnemonicParsing="false" onAction="#goBack" prefHeight="78.0" prefWidth="87.0" style="-fx-background-radius: 100;" text="Back">
+         <font>
+            <Font name="Stencil" size="21.0" />
          </font>
       </Button>
    </children>

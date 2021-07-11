@@ -1,26 +1,36 @@
 package controller.GUI;
 
-import controller.menucontroller.LoginMenuController;
 import javafx.event.ActionEvent;
 
+import java.io.IOException;
+
 public class SettingControllerGUI {
-    public void volumeUp(ActionEvent actionEvent) {
+
+    public void volumeUp() {
         double currentVolume = LoginControllerGUI.player.getVolume();
-        LoginControllerGUI.player.setVolume(currentVolume+1);
+        if (currentVolume == 1)
+            return;
+        LoginControllerGUI.player.setVolume(currentVolume + 0.1);
     }
 
-    public void volumeDown(ActionEvent actionEvent) {
+    public void volumeDown() {
         double currentVolume = LoginControllerGUI.player.getVolume();
-        LoginControllerGUI.player.setVolume(currentVolume-1);
+        if (currentVolume <= 0)
+            return;
+        LoginControllerGUI.player.setVolume(currentVolume - 0.1);
     }
 
-    public void brightnessUp(ActionEvent actionEvent) {
+    public void brightnessUp() {
     }
 
-    public void brightnessDown(ActionEvent actionEvent) {
+    public void brightnessDown() {
     }
 
-    public void mute(ActionEvent actionEvent) {
+    public void mute() {
         LoginControllerGUI.player.setMute(!LoginControllerGUI.player.isMute());
+    }
+
+    public void goBack(ActionEvent actionEvent) throws IOException {
+        SceneController.switchScene("/fxml/gameField.fxml", actionEvent);
     }
 }

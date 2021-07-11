@@ -30,14 +30,8 @@ public class ProfileMenuControllerGUI {
     public TextField change_user;
 
 
-
-
-    public static SceneController sceneController = new SceneController();
-
-
-
     public void userInfoScene(ActionEvent actionEvent) throws Exception {
-        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/userInfo.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
@@ -76,28 +70,26 @@ public class ProfileMenuControllerGUI {
         pane.getChildren().add(score);
         pane.getChildren().add(money);
         pane.getChildren().add(avatar);
-
-
-    }//Todo
+    }
 
 
     public void changeUserScene(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/changeUser.fxml",actionEvent);
+        SceneController.switchScene("/fxml/changeUser.fxml", actionEvent);
 
     }
 
     public void changeAvatarScene(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/changeAvatar.fxml",actionEvent);
-    }//Todo
+        SceneController.switchScene("/fxml/changeAvatar.fxml", actionEvent);
+    }
 
-    public void exit(MouseEvent event) {
+    public void exit() {
         LoginMenuController.currentUser = null;
         LoginMenuController.isLoggedOn = false;
         System.exit(0);
     }
 
     public void returnToProfileMenu(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/profile_menu.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
@@ -105,14 +97,12 @@ public class ProfileMenuControllerGUI {
 
     public void changeUser(ActionEvent actionEvent) {
         String name = change_user.getText();
-        String res =  MainMenuControllerGUI.profileMenuController.changeUsername(name);
-        if (name.equals("")){
+        String res = MainMenuControllerGUI.profileMenuController.changeUsername(name);
+        if (name.equals("")) {
             AlertBox.display("Please fill the related field!");
-        }
-        else if (res.equals("user with username " + name + " already exists")){
+        } else if (res.equals("user with username " + name + " already exists")) {
             AlertBox.display("user with username " + name + " already exists");
-        }
-        else if (res.equals(StatusEnum.CHANGE_USERNAME_SUCCESSFULLY.getStatus())){
+        } else if (res.equals(StatusEnum.CHANGE_USERNAME_SUCCESSFULLY.getStatus())) {
             AlertBox.display(res);
             change_user.clear();
         }
@@ -122,17 +112,14 @@ public class ProfileMenuControllerGUI {
     public void changePass(ActionEvent actionEvent) {
         String oldP = old_pass.getText();
         String newP = new_pass.getText();
-        String res = MainMenuControllerGUI.profileMenuController.changePass(oldP,newP);
-        if (oldP.equals("") || newP.equals("")){
+        String res = MainMenuControllerGUI.profileMenuController.changePass(oldP, newP);
+        if (oldP.equals("") || newP.equals("")) {
             AlertBox.display("Please fill the related field!");
-        }
-        else if (res.equals(StatusEnum.CURRENT_PASSWORD_INVALIDITY.getStatus())){
+        } else if (res.equals(StatusEnum.CURRENT_PASSWORD_INVALIDITY.getStatus())) {
             AlertBox.display(StatusEnum.CURRENT_PASSWORD_INVALIDITY.getStatus());
-        }
-        else if (res.equals(StatusEnum.ENTER_A_NEW_PASSWORD.getStatus())){
+        } else if (res.equals(StatusEnum.ENTER_A_NEW_PASSWORD.getStatus())) {
             AlertBox.display(StatusEnum.ENTER_A_NEW_PASSWORD.getStatus());
-        }
-        else if (res.equals(StatusEnum.CHANGE_PASSWORD_SUCCESSFULLY.getStatus())){
+        } else if (res.equals(StatusEnum.CHANGE_PASSWORD_SUCCESSFULLY.getStatus())) {
             AlertBox.display(StatusEnum.CHANGE_PASSWORD_SUCCESSFULLY.getStatus());
             old_pass.clear();
             new_pass.clear();
@@ -142,53 +129,82 @@ public class ProfileMenuControllerGUI {
     public void changeNick(ActionEvent actionEvent) {
         String nick = change_nickname.getText();
         String res = MainMenuControllerGUI.profileMenuController.changeNickname(nick);
-        if (nick.equals("")){
+        if (nick.equals("")) {
             AlertBox.display("Please fill the related field!");
-        }
-        else if (res.equals("user with nickname " + nick + " already exists")){
+        } else if (res.equals("user with nickname " + nick + " already exists")) {
             AlertBox.display("user with nickname " + nick + " already exists");
-        }
-        else if (res.equals(StatusEnum.CHANGE_NICKNAME_SUCCESSFULLY.getStatus())){
+        } else if (res.equals(StatusEnum.CHANGE_NICKNAME_SUCCESSFULLY.getStatus())) {
             AlertBox.display(StatusEnum.CHANGE_NICKNAME_SUCCESSFULLY.getStatus());
             change_nickname.clear();
         }
     }
 
     public void setAvatar(MouseEvent event) {
-       String avatar = ((ImageView)event.getSource()).getId();
-       switch (avatar){
-           case "one":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiYugi-DULI.png","./image/Avatars/three.png");break;
-           case "two":LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiMarik-DULI.png","./image/Avatars/eight.png");break;
-           case "three":LoginMenuController.currentUser.setAvatar("./image/Avatars/WeevilUnderwood-DULI.png","./image/Avatars/twelve.png");break;
-           case "four":LoginMenuController.currentUser.setAvatar("./image/Avatars/sss.png","./image/Avatars/four.png");break;
-           case "five":LoginMenuController.currentUser.setAvatar("./image/Avatars/SetoKaiba-DL.png","./image/Avatars/eleven.png");break;
-           case "six":LoginMenuController.currentUser.setAvatar("./image/Avatars/RexRaptor-DULI.png","./image/Avatars/seven.png");break;
-           case "seven":LoginMenuController.currentUser.setAvatar("./image/Avatars/MaximillionPegasus-DULI.png","./image/Avatars/fourteen.png");break;
-           case "eight":LoginMenuController.currentUser.setAvatar("./image/Avatars/MakoTsunami-DULI.png","./image/Avatars/fifteen.png");break;
+        String avatar = ((ImageView) event.getSource()).getId();
+        switch (avatar) {
+            case "one":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiYugi-DULI.png", "./image/Avatars/three.png");
+                break;
+            case "two":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/YamiMarik-DULI.png", "./image/Avatars/eight.png");
+                break;
+            case "three":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/WeevilUnderwood-DULI.png", "./image/Avatars/twelve.png");
+                break;
+            case "four":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/sss.png", "./image/Avatars/four.png");
+                break;
+            case "five":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/SetoKaiba-DL.png", "./image/Avatars/eleven.png");
+                break;
+            case "six":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/RexRaptor-DULI.png", "./image/Avatars/seven.png");
+                break;
+            case "seven":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/MaximillionPegasus-DULI.png", "./image/Avatars/fourteen.png");
+                break;
+            case "eight":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/MakoTsunami-DULI.png", "./image/Avatars/fifteen.png");
+                break;
 
 
-
-           case "nine":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds.png","./image/Avatars/thirteen.png");break;
-           case "ten":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds7.png","./image/Avatars/sisteen.png");break;
-           case "eleven":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds13.png","./image/Avatars/two.png");break;
-           case "twelve":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds21.png","./image/Avatars/six.png");break;
-           case "thirteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds24.png","./image/Avatars/five.png");break;
-           case "fourteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds33.png","./image/Avatars/ten.png");break;
-           case "fifteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds35.png","./image/Avatars/nine.png");break;
-           case "sisteen":LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds20.png","./image/Avatars/one.png");break;
-       }
-       AlertBox.display("Profile changed successfully!");
+            case "nine":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds.png", "./image/Avatars/thirteen.png");
+                break;
+            case "ten":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds7.png", "./image/Avatars/sisteen.png");
+                break;
+            case "eleven":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds13.png", "./image/Avatars/two.png");
+                break;
+            case "twelve":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds21.png", "./image/Avatars/six.png");
+                break;
+            case "thirteen":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds24.png", "./image/Avatars/five.png");
+                break;
+            case "fourteen":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds33.png", "./image/Avatars/ten.png");
+                break;
+            case "fifteen":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds35.png", "./image/Avatars/nine.png");
+                break;
+            case "sisteen":
+                LoginMenuController.currentUser.setAvatar("./image/Avatars/Chara002.dds20.png", "./image/Avatars/one.png");
+                break;
+        }
+        AlertBox.display("Profile changed successfully!");
     }
 
     public void nextAvatarMenu(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/changeAvatar2.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
     }
 
     public void previousAvatarMenu(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/changeAvatar.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
@@ -199,32 +215,32 @@ public class ProfileMenuControllerGUI {
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
-        ImageView imageView = ((ImageView)event.getSource());
+        ImageView imageView = ((ImageView) event.getSource());
         double w = imageView.getFitWidth();
         double h = imageView.getFitHeight();
-        imageView.setFitHeight(h+5);
-        imageView.setFitWidth(w+5);
+        imageView.setFitHeight(h + 5);
+        imageView.setFitWidth(w + 5);
 
 
     }
 
     public void returnToStart(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
     }
 
     public void returnNormalBt(MouseEvent event) {
-        ImageView imageView = ((ImageView)event.getSource());
+        ImageView imageView = ((ImageView) event.getSource());
         double w = imageView.getFitWidth();
         double h = imageView.getFitHeight();
-        imageView.setFitHeight(h-5);
-        imageView.setFitWidth(w-5);
+        imageView.setFitHeight(h - 5);
+        imageView.setFitWidth(w - 5);
     }
 
     public void returnToProfileMneu(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/profile_menu.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));

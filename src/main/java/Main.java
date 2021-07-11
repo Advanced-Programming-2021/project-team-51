@@ -31,7 +31,12 @@ public class Main extends Application {
         stage.show();
     }
     public static void main(String[] args) {
-        User mamad = new User("a","a","a");
+        makeUserTest("a");
+        makeUserTest("b");
+        launch(args);
+    }
+    private static void makeUserTest(String name) {
+        User mamad = new User(name, name, name);
         mamad.addCard(MakeCards.makeCard("Magic Jammer"));
         mamad.addCard(MakeCards.makeCard("Magic Jammer"));
         mamad.addCard(MakeCards.makeCard("Magic Jammer"));
@@ -51,16 +56,9 @@ public class Main extends Application {
 
         mamad.addDeck(new Deck("s","a"));
         for (Card cards: mamad.getUserCards()
-             ) {
+        ) {
             mamad.getUserDeckByName("s").addCardToDeck(true,cards);
         }
         mamad.setActiveDeck(mamad.getUserDeckByName("s"));
-
-
-
-
-
-
-        launch(args);
     }
 }

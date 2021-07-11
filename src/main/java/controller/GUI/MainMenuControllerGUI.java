@@ -18,11 +18,7 @@ import java.io.IOException;
 public class MainMenuControllerGUI {
 
 
-    public static SceneController sceneController = new SceneController();
-
     public static ProfileMenuController profileMenuController = new ProfileMenuController(LoginMenuController.currentUser);
-    public static ImportExportController importExportController = new ImportExportController();
-    public static DeckMenuController deckMenuController = new DeckMenuController(LoginMenuController.currentUser);
     public static DuelMenuController duelMenuController = new DuelMenuController();
     public ImageView mainsound;
 
@@ -37,7 +33,7 @@ public class MainMenuControllerGUI {
 
 
     public void enterProfileMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/profile_menu.fxml",actionEvent);
+        SceneController.switchScene("/fxml/profile_menu.fxml",actionEvent);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -49,22 +45,22 @@ public class MainMenuControllerGUI {
         LoginControllerGUI.player = new MediaPlayer(sound);
         LoginControllerGUI.player.setCycleCount(MediaPlayer.INDEFINITE);
         LoginControllerGUI.player.play();
-        sceneController.switchScene("/fxml/start.fxml",actionEvent);
+        SceneController.switchScene("/fxml/start.fxml",actionEvent);
     }
 
     public void enterShopMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/shop_menu.fxml", actionEvent);
+        SceneController.switchScene("/fxml/shop_menu.fxml", actionEvent);
     }
 
-    public void enterImportMenu(ActionEvent actionEvent) {
-        //Todo
+    public void enterImportMenu(ActionEvent actionEvent) throws IOException {
+        SceneController.switchScene("/fxml/ImportExport_Scene.fxml", actionEvent);
     }
 
     public void enterDeckMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/deck_menu.fxml", actionEvent);
+        SceneController.switchScene("/fxml/deck_menu.fxml", actionEvent);
     }
 
-    public void exit(MouseEvent event) {
+    public void exit() {
         LoginMenuController.currentUser = null;
         LoginMenuController.isLoggedOn = false;
         System.exit(0);
@@ -74,7 +70,7 @@ public class MainMenuControllerGUI {
 
 
     public void enterDuelMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/duel_start_view.fxml", actionEvent);
+        SceneController.switchScene("/fxml/duel_start_view.fxml", actionEvent);
     }
     public void muteAndUnmute(MouseEvent event) {
         if (LoginControllerGUI.player.isMute()){
@@ -125,10 +121,10 @@ public class MainMenuControllerGUI {
     }
 
     public void scoreboradScene(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/scoreboard.fxml", actionEvent);
+        SceneController.switchScene("/fxml/scoreboard.fxml", actionEvent);
     }
 
     public void enterMakeCardMenu(ActionEvent actionEvent) throws IOException {
-        sceneController.switchScene("/fxml/Make_CardScene.fxml",actionEvent);
+        SceneController.switchScene("/fxml/Make_CardScene.fxml",actionEvent);
     }
 }

@@ -31,7 +31,6 @@ import java.io.IOException;
 
 public class DuelControllerGUI {
 
-    public static SceneController sceneController = new SceneController();
     public static DuelMenuController duelMenuController = new DuelMenuController();
     public static MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("./src/main/resources/sound/bt.mp3").toURI().toString()));
 
@@ -47,7 +46,6 @@ public class DuelControllerGUI {
     public static Image image1 = new Image("./image/saw.gif");
 
     public static Image image3 = new Image("image/xxx.png");
-
 
 
     public void highlightBt(MouseEvent event) {
@@ -72,11 +70,11 @@ public class DuelControllerGUI {
 
 
     public void multiplayerScene(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/multiplayerStart.fxml", event);
+        SceneController.switchSceneMouse("/fxml/multiplayerStart.fxml", event);
     }
 
     public void singleplayerScene(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/singlePlayerStart.fxml", event);
+        SceneController.switchSceneMouse("/fxml/singlePlayerStart.fxml", event);
     }
 
     public void multiPlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException, InterruptedException {
@@ -149,7 +147,13 @@ public class DuelControllerGUI {
     }
 
     public void gameStartScene(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/gameField.fxml", event);
+        SceneController.switchSceneMouse("/fxml/gameField.fxml", event);
+        LoginControllerGUI.player.stop();
+        String musicFile = "./src/main/resources/sound/duelSong.mp3";
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        LoginControllerGUI.player = new MediaPlayer(sound);
+        LoginControllerGUI.player.setCycleCount(MediaPlayer.INDEFINITE);
+        LoginControllerGUI.player.play();
     }
 
     public void singlePlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException {
@@ -233,17 +237,17 @@ public class DuelControllerGUI {
 
     }
 
-    public void exit(MouseEvent event) {
+    public void exit() {
         LoginMenuController.currentUser = null;
         LoginMenuController.isLoggedOn = false;
         System.exit(0);
     }
 
     public void returnToDuelMenu(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/duel_start_view.fxml", event);
+        SceneController.switchSceneMouse("/fxml/duel_start_view.fxml", event);
     }
 
     public void returnToMain(MouseEvent event) throws IOException {
-        sceneController.switchSceneMouse("/fxml/mainMenu.fxml", event);
+        SceneController.switchSceneMouse("/fxml/mainMenu.fxml", event);
     }
 }

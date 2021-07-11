@@ -31,7 +31,7 @@ public class ImportSceneController {
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new SceneController().switchScene("/fxml/ImportExport_Scene.fxml", actionEvent);
+        SceneController.switchScene("/fxml/ImportExport_Scene.fxml", actionEvent);
     }
 
     public void importCard() {

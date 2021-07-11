@@ -13,9 +13,11 @@ import java.io.IOException;
 
 public class SceneController {
 
-    public void switchScene(String sceneName, ActionEvent inputEvent) throws IOException {
+    private SceneController() {}
+
+    public static void switchScene(String sceneName, ActionEvent inputEvent) throws IOException {
         Stage stage = (Stage) ((Node)inputEvent.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneName));
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneController.class.getResource(sceneName));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
         if (fxmlLoader.getController() instanceof DuelViewSceneController) {
@@ -24,9 +26,9 @@ public class SceneController {
         }
     }
 
-    public void switchSceneMouse(String sceneName, MouseEvent inputEvent) throws IOException {
+    public static void switchSceneMouse(String sceneName, MouseEvent inputEvent) throws IOException {
         Stage stage = (Stage) ((Node)inputEvent.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneName));
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneController.class.getResource(sceneName));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
         if (fxmlLoader.getController() instanceof DuelViewSceneController) {
