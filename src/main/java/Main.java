@@ -54,7 +54,7 @@ public class Main extends Application {
              ) {
             mamad.getUserDeckByName("s").addCardToDeck(true,cards);
         }
-        mamad.setActiveDeck(mamad.getUserDeckByName("S"));
+        mamad.setActiveDeck(mamad.getUserDeckByName("s"));
 
 
 
