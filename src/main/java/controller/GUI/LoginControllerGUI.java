@@ -3,9 +3,12 @@ package controller.GUI;
 
 import controller.menucontroller.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -16,7 +19,7 @@ import view.StatusEnum;
 import java.io.File;
 import java.io.IOException;
 
-public class LoginControllerGUI {
+public class LoginControllerGUI{
 
     public static MediaPlayer player;
 
@@ -138,4 +141,6 @@ public class LoginControllerGUI {
     public void creditScene(ActionEvent actionEvent) throws IOException {
         SceneController.switchScene("/fxml/credit.fxml", actionEvent);
     }
+
+
 }

@@ -4,6 +4,7 @@ package controller.GUI;
 import controller.duel.*;
 import controller.duel.singlePlayer.GameController;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -449,4 +450,6 @@ public class DuelViewSceneController implements Initializable {
     public void showMyGraveYard(MouseEvent mouseEvent) throws IOException {
         SceneController.switchSceneMouse("/fxml/graveyard.fxml", mouseEvent);
     }
+
+
 }

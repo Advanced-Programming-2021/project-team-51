@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -46,6 +47,17 @@ public class Main extends Application {
         stage.setTitle("Yu Gi Oh");
         stage.setScene(new Scene(root));
         primaryStage = stage;
+        stage.getScene().setOnKeyPressed(e->{
+            if (e.getCode()==KeyCode.ENTER) {
+                mediaPlayer1.stop();
+                try {
+                    goToStartScene();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+        });
         stage.show();
     }
     public static void main(String[] args) {
@@ -80,15 +92,7 @@ public class Main extends Application {
         mamad.setActiveDeck(mamad.getUserDeckByName("s"));
     }
 
-    public void goToStartScene(MouseEvent event) throws IOException {
-        String musicFile = "./src/main/resources/sound/main.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        LoginControllerGUI.player = mediaPlayer;
-        mediaPlayer.play();
-        SceneController.switchSceneMouse("/fxml/start.fxml",event);
-    }
+
     public void goToStartScene() throws IOException {
         String musicFile = "./src/main/resources/sound/main.mp3";
         Media sound = new Media(new File(musicFile).toURI().toString());
