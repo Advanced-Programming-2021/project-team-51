@@ -1,7 +1,9 @@
+import controller.GUI.DuelViewSceneController;
 import controller.GUI.LoginControllerGUI;
 import controller.GUI.SceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -28,9 +30,16 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         MediaView mediaView = new MediaView(mediaPlayer1);
-        mediaPlayer1.play();
+        mediaPlayer1.setAutoPlay(true);
         mediaView.setFitHeight(600);
         mediaView.setFitWidth(800);
+        mediaPlayer1.setOnEndOfMedia(() -> {
+            try {
+                goToStartScene();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        });
 
         Pane root = FXMLLoader.load(getClass().getResource("/fxml/pre_start.fxml"));
         root.getChildren().add(mediaView);
@@ -72,7 +81,6 @@ public class Main extends Application {
     }
 
     public void goToStartScene(MouseEvent event) throws IOException {
-        mediaPlayer1.setVolume(0);
         String musicFile = "./src/main/resources/sound/main.mp3";
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -81,4 +89,21 @@ public class Main extends Application {
         mediaPlayer.play();
         SceneController.switchSceneMouse("/fxml/start.fxml",event);
     }
+    public void goToStartScene() throws IOException {
+        String musicFile = "./src/main/resources/sound/main.mp3";
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        LoginControllerGUI.player = mediaPlayer;
+        mediaPlayer.play();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneController.class.getResource("/fxml/start.fxml"));
+        Pane pane = fxmlLoader.load();
+        primaryStage.setScene(new Scene(pane));
+        if (fxmlLoader.getController() instanceof DuelViewSceneController) {
+            DuelViewSceneController gamePage = fxmlLoader.getController();
+            gamePage.setPreparations();
+        }
+    }
+
 }
