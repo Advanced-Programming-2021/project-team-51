@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import models.SaveData;
 
 
 import java.io.File;
@@ -63,6 +64,7 @@ public class MainMenuControllerGUI {
     public void exit() {
         LoginMenuController.currentUser = null;
         LoginMenuController.isLoggedOn = false;
+        SaveData.save();
         System.exit(0);
     }
 

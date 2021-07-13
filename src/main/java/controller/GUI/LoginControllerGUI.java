@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import models.SaveData;
 import view.GUI.AlertBox;
 import view.StatusEnum;
 
@@ -102,6 +103,7 @@ public class LoginControllerGUI {
     }
 
     public void exit(MouseEvent event) {
+        SaveData.save();
         System.exit(0);
     }
 

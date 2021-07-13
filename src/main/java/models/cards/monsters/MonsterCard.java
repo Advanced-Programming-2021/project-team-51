@@ -2,6 +2,7 @@ package models.cards.monsters;
 
 import javafx.scene.image.Image;
 import models.cards.Card;
+import models.cards.CardImage;
 import models.cards.CardType;
 
 import java.io.BufferedReader;
@@ -22,7 +23,6 @@ public class MonsterCard extends Card {
     private Trait trait;
     private Mode mode;
     private boolean hasAttacked;
-    private Image image;
 
     public MonsterCard(String name, String description, int price, int level, Attribute attribute, MonsterType monsterType,
                        int attackPoint, int defensePoint, Trait trait) {
@@ -37,7 +37,6 @@ public class MonsterCard extends Card {
         this.setDefensePoint(defensePoint);
         this.setCardNumber(++cardCounter);
         this.setTrait(trait);
-        this.setImageByName(name);
         allMonsterCards.add(this);
         allCards.add(this);
     }
@@ -54,24 +53,16 @@ public class MonsterCard extends Card {
         this.setAttackPoint(attackPoint);
         this.setDefensePoint(defensePoint);
         this.setTrait(trait);
-        this.setImageByName(name);
         this.setCardNumber(cardNumber);
     }
 
     private MonsterCard(String name, int price) {
         this.setPrice(price);
         this.setName(name);
-        this.setImageByName(name);
-    }
-
-    public void setImageByName(String name) {
-        name = name.replaceAll("\\s", "").replaceAll(",", "");
-        String address = this.getClass().getResource("/image/Cards/" + name + ".jpg").toExternalForm();
-        this.image = new Image(address);
     }
 
     public Image getImage() {
-        return this.image;
+        return CardImage.getImageByName(getName());
     }
 
     public static ArrayList<MonsterCard> getAllMonsterCards() {
@@ -96,7 +87,11 @@ public class MonsterCard extends Card {
     }
 
     public static void setAllMonsterCards(ArrayList<MonsterCard> cards) {
-        allCards.addAll(cards);
+        try {
+            allCards.addAll(cards);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         allMonsterCards = cards;
     }
 

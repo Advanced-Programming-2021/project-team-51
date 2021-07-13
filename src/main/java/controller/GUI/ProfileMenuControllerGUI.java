@@ -15,6 +15,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import models.SaveData;
 import view.GUI.AlertBox;
 import view.StatusEnum;
 
@@ -85,6 +86,7 @@ public class ProfileMenuControllerGUI {
     public void exit() {
         LoginMenuController.currentUser = null;
         LoginMenuController.isLoggedOn = false;
+        SaveData.save();
         System.exit(0);
     }
 

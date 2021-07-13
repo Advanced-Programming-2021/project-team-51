@@ -3,8 +3,6 @@ import controller.GUI.LoginControllerGUI;
 import controller.GUI.SceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -12,10 +10,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import models.Deck;
-import models.User;
-import models.cards.Card;
-import models.cards.MakeCards;
+import models.SaveData;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,35 +44,13 @@ public class Main extends Application {
         stage.show();
     }
     public static void main(String[] args) {
-        makeUserTest("a");
-        makeUserTest("b");
-        launch(args);
-    }
-    private static void makeUserTest(String name) {
-        User mamad = new User(name, name, name);
-        mamad.addCard(MakeCards.makeCard("Magic Jammer"));
-        mamad.addCard(MakeCards.makeCard("Magic Jammer"));
-        mamad.addCard(MakeCards.makeCard("Magic Jammer"));
-
-        mamad.addCard(MakeCards.makeCard("Battle OX"));
-        mamad.addCard(MakeCards.makeCard("Battle OX"));
-        mamad.addCard(MakeCards.makeCard("Battle OX"));
-
-        mamad.addCard(MakeCards.makeCard("Suijin"));
-        mamad.addCard(MakeCards.makeCard("Suijin"));
-        mamad.addCard(MakeCards.makeCard("Suijin"));
-
-
-        mamad.addCard(MakeCards.makeCard("Bitron"));
-        mamad.addCard(MakeCards.makeCard("Bitron"));
-        mamad.addCard(MakeCards.makeCard("Bitron"));
-
-        mamad.addDeck(new Deck("s","a"));
-        for (Card cards: mamad.getUserCards()
-        ) {
-            mamad.getUserDeckByName("s").addCardToDeck(true,cards);
+        try {
+            SaveData.load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        mamad.setActiveDeck(mamad.getUserDeckByName("s"));
+        launch(args);
+        SaveData.save();
     }
 
     public void goToStartScene(MouseEvent event) throws IOException {

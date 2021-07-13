@@ -2,6 +2,7 @@ package models.cards.spelltrap;
 
 import javafx.scene.image.Image;
 import models.cards.Card;
+import models.cards.CardImage;
 import models.cards.CardType;
 
 import java.io.BufferedReader;
@@ -14,7 +15,6 @@ public class SpellTrapCard extends Card {
     private static final ArrayList<SpellTrapCard> allSpellTrapCardsToShow = new ArrayList<>();
     Icon icon;
     boolean isLimited;
-    private Image image;
 
     public SpellTrapCard(String name, String description, int price, CardType cardType, Icon icon, boolean isLimited) {
         this.setName(name);
@@ -23,7 +23,6 @@ public class SpellTrapCard extends Card {
         this.setCardType(cardType);
         this.setIcon(icon);
         this.setLimited(isLimited);
-        this.setImageByName(name);
         this.setCardNumber(++cardCounter);
         allSpellTrapCards.add(this);
         allCards.add(this);
@@ -36,24 +35,16 @@ public class SpellTrapCard extends Card {
         this.setCardType(cardType);
         this.setIcon(icon);
         this.setLimited(isLimited);
-        this.setImageByName(name);
         this.setCardNumber(cardNumber);
     }
 
     private SpellTrapCard(String name, int price) {
         this.setName(name);
         this.setPrice(price);
-        this.setImageByName(name);
-    }
-
-    public void setImageByName(String name) {
-        name = name.replaceAll("\\s", "").replaceAll(",", "");
-        String address = this.getClass().getResource("/image/Cards/" + name + ".jpg").toExternalForm();
-        this.image = new Image(address);
     }
 
     public Image getImage() {
-        return this.image;
+        return CardImage.getImageByName(getName());
     }
 
     public static ArrayList<SpellTrapCard> getAllSpellTrapCards() {
@@ -78,7 +69,11 @@ public class SpellTrapCard extends Card {
     }
 
     public static void setAllSpellTrapCards(ArrayList<SpellTrapCard> cards) {
-        allCards.addAll(cards);
+        try {
+            allCards.addAll(cards);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         allSpellTrapCards = cards;
     }
 

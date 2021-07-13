@@ -24,6 +24,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Player;
+import models.SaveData;
 import view.GUI.AlertBox;
 
 import java.io.File;
@@ -240,6 +241,7 @@ public class DuelControllerGUI {
     public void exit() {
         LoginMenuController.currentUser = null;
         LoginMenuController.isLoggedOn = false;
+        SaveData.save();
         System.exit(0);
     }
 

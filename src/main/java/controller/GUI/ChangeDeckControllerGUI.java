@@ -24,6 +24,7 @@ import view.GUI.AlertBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ChangeDeckControllerGUI {
 
@@ -43,10 +44,15 @@ public class ChangeDeckControllerGUI {
     private final VBox sideDeck = new VBox(2);
     private final VBox deckInfo = new VBox(10);
     private final VBox cardsBox = new VBox(1);
+    private final HBox[] mainBoxes = new HBox[6];
+    private final HBox[] sideBoxes = new HBox[2];
+    private final HBox[] cardsBoxes = new HBox[(int) Math.ceil
+            (LoginMenuController.currentUser.getUserCards().size() / 7.0)];
+    private final HBox buttons = new HBox(5);
 
     private final Pane cardPane = new Pane();
 
-    private ImageView bigImage = new ImageView();
+    private final ImageView bigImage = new ImageView();
 
     @FXML
     private AnchorPane anchor;
@@ -73,7 +79,10 @@ public class ChangeDeckControllerGUI {
     }
 
     public void initialize() {
+        getMainList();
+        getSideList();
         deckPane.getChildren().setAll(deckInfo);
+        createHBoxes();
         initCardImages();
         hideCard();
         resetSelect(selectedImage);
@@ -96,15 +105,22 @@ public class ChangeDeckControllerGUI {
         bigImage.setFitWidth(160);
         bigImage.setFitHeight(240);
 
-        ArrayList<Card> cards = new ArrayList<>();
-        cards.addAll(LoginMenuController.currentUser.getUserCards());
+        ArrayList<Card> cards = new ArrayList<>(LoginMenuController.currentUser.getUserCards());
         for (Card card: currentDeck.getMainDeck())
-            cards.remove(card);
+            for (Card card2 : cards)
+                if (card2.getName().equals(card.getName())) {
+                    cards.remove(card2);
+                    break;
+                }
         for (Card card: currentDeck.getSideDeck())
-            cards.remove(card);
-        cardsPane.setContent(getCards(cards));
+            for (Card card2 : cards)
+                if (card2.getName().equals(card.getName())) {
+                    cards.remove(card2);
+                    break;
+                }
+        getCards(cards);
+        showCards();
 
-        HBox buttons = new HBox(5);
         Button addMain = new Button("Add to Main");
         addMain.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
         addMain.setOnAction(event -> addCard(true));
@@ -114,9 +130,8 @@ public class ChangeDeckControllerGUI {
         Button remove = new Button("Remove Card");
         remove.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
         remove.setOnAction(event -> removeCard());
-        buttons.getChildren().addAll(addMain, addSide, remove);
-        deckInfo.getChildren().addAll(getMainList(),
-                getSideList(), buttons);
+        buttons.getChildren().setAll(addMain, addSide, remove);
+        showDeck();
     }
 
     public void back(MouseEvent event) throws IOException {
@@ -224,161 +239,122 @@ public class ChangeDeckControllerGUI {
         }
     }
 
-    public VBox getMainList() {
-        VBox main = new VBox(2);
-        main.getChildren().add(new Label("Main Deck:"));
-        HBox[] listCards = new HBox[(int) Math.ceil(currentDeck.getMainDeck().size() / 10.0)];
+    public void getMainList() {
         for (int i = 0 ; i < currentDeck.getMainDeck().size(); i++) {
-            if (i % 10 == 0)
-                listCards[i / 10] = new HBox(2);
-            int finalI = i;
+            Card card = currentDeck.getMainDeck().get(i);
             if (currentDeck.getMainDeck().get(i) instanceof MonsterCard) {
                 ImageView imageView = new ImageView(((MonsterCard) currentDeck.getMainDeck().get(i)).getImage());
                 mainImages.add(imageView);
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
-                imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getMainDeck().get(finalI), true, true, imageView));
-                listCards[i / 10].getChildren().add(imageView);
+                imageView.setOnMouseClicked(event -> setSelectedCard(card, true, true, imageView));
             }
             else {
                 ImageView imageView = new ImageView(((SpellTrapCard) currentDeck.getMainDeck().get(i)).getImage());
                 mainImages.add(imageView);
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
-                imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getMainDeck().get(finalI), true, true, imageView));
-                listCards[i / 10].getChildren().add(imageView);
+                imageView.setOnMouseClicked(event -> setSelectedCard(card, true, true, imageView));
             }
         }
-        main.getChildren().addAll(listCards);
-        main.getStylesheets().add(getClass().getResource("/css/deck.css").toExternalForm());
-        return main;
     }
 
-    public VBox getSideList() {
-        VBox side = new VBox(2);
-        side.getChildren().add(new Label("Side Deck:"));
-        HBox[] listCards = new HBox[(int) Math.ceil(currentDeck.getSideDeck().size() / 10.0)];
+    public void getSideList() {
         for (int i = 0 ; i < currentDeck.getSideDeck().size(); i++) {
-            if (i % 10 == 0)
-                listCards[i / 10] = new HBox(2);
-            int finalI = i;
+            Card card = currentDeck.getSideDeck().get(i);
             if (currentDeck.getSideDeck().get(i) instanceof MonsterCard) {
                 ImageView imageView = new ImageView(((MonsterCard) currentDeck.getSideDeck().get(i)).getImage());
                 sideImages.add(imageView);
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
-                imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getSideDeck().get(finalI), true, false, imageView));
-                listCards[i / 10].getChildren().add(imageView);
+                imageView.setOnMouseClicked(event -> setSelectedCard(card, true, false, imageView));
             }
             else {
                 ImageView imageView = new ImageView(((SpellTrapCard) currentDeck.getSideDeck().get(i)).getImage());
                 sideImages.add(imageView);
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
-                imageView.setOnMouseClicked(event ->
-                        setSelectedCard(currentDeck.getSideDeck().get(finalI), true, false, imageView));
-                listCards[i / 10].getChildren().add(imageView);
+                imageView.setOnMouseClicked(event -> setSelectedCard(card, true, false, imageView));
             }
         }
-        side.getChildren().addAll(listCards);
-        side.getStylesheets().add(getClass().getResource("/css/deck.css").toExternalForm());
-        return side;
     }
 
     public VBox updateMainDeck() {
         mainDeck.getChildren().clear();
         mainDeck.getChildren().add(new Label("Main Deck:"));
-        HBox[] listCards = new HBox[(int) Math.ceil(currentDeck.getMainDeck().size() / 10.0)];
-        for (int i = 0 ; i < currentDeck.getMainDeck().size(); i++) {
-            if (i % 10 == 0)
-                listCards[i / 10] = new HBox(2);
-            listCards[i / 10].getChildren().add(mainImages.get(i));
-        }
-        mainDeck.getChildren().addAll(listCards);
+        for (HBox box: mainBoxes)
+            box.getChildren().clear();
+        for (int i = 0 ; i < currentDeck.getMainDeck().size(); i++)
+            mainBoxes[i / 10].getChildren().add(mainImages.get(i));
+        mainDeck.getChildren().addAll(mainBoxes);
         return mainDeck;
     }
 
     public VBox updateSideDeck() {
         sideDeck.getChildren().clear();
         sideDeck.getChildren().add(new Label("Side Deck:"));
-        HBox[] listCards = new HBox[(int) Math.ceil(currentDeck.getSideDeck().size() / 10.0)];
+        for (HBox box: sideBoxes)
+            box.getChildren().clear();
         for (int i = 0 ; i < currentDeck.getSideDeck().size(); i++) {
-            if (i % 10 == 0)
-                listCards[i / 10] = new HBox(2);
-            listCards[i / 10].getChildren().add(sideImages.get(i));
+            sideBoxes[i / 10].getChildren().add(sideImages.get(i));
         }
-        sideDeck.getChildren().addAll(listCards);
+        sideDeck.getChildren().addAll(sideBoxes);
         return sideDeck;
     }
 
+    public void createHBoxes() {
+        for (int i = 0 ; i < 6; i++)
+            mainBoxes[i] = new HBox(2);
+        for (int i = 0 ; i < 2 ; i++)
+            sideBoxes[i] = new HBox(2);
+        for (int i = 0 ; i < cardsBoxes.length; i++)
+            cardsBoxes[i] = new HBox(1);
+    }
+
     public void showDeck() {
-        HBox buttons = new HBox(5);
-        Button addMain = new Button("Add to Main");
-        addMain.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
-        addMain.setOnAction(event -> addCard(true));
-        Button addSide = new Button("Add to Side");
-        addSide.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
-        addSide.setOnAction(event -> addCard(false));
-        Button remove = new Button("Remove Card");
-        remove.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
-        remove.setOnAction(event -> removeCard());
-        buttons.getChildren().addAll(addMain, addSide, remove);
         deckInfo.getChildren().setAll(updateMainDeck(),
                 updateSideDeck(), buttons);
     }
 
-    public VBox getCards(ArrayList<Card> cards) {
-        cardsBox.getChildren().clear();
-        cardsBox.getChildren().add(new Label("Your Cards:"));
-        HBox[] rows = new HBox[(int) Math.ceil(cards.size() / 7.0)];
+    public void getCards(ArrayList<Card> cards) {
+        for (HBox box: cardsBoxes)
+            box.getChildren().clear();
         for (int i = 0 ; i < cards.size(); i++) {
-            if (i % 7 == 0)
-                rows[i / 7] = new HBox(1);
-            int finalI = i;
+            Card card = cards.get(i);
             if (cards.get(i) instanceof MonsterCard) {
                 ImageView imageView = new ImageView(((MonsterCard) cards.get(i)).getImage());
-                rows[i / 7].getChildren().add(imageView);
                 cardImages.add(imageView);
                 imageView.setFitHeight(60);
                 imageView.setFitWidth(40);
-                imageView.setOnMouseClicked(event -> {
-                    setSelectedCard(cards.get(finalI), false, false, imageView);
-                });
+                imageView.setOnMouseClicked(event ->
+                    setSelectedCard(card, false, false, imageView));
+                imageView.setOnMouseEntered(event -> showCard(event.getX() + imageView.getLayoutX(),
+                        event.getY() + imageView.getLayoutY(), imageView));
+                imageView.setOnMouseExited(event -> hideCard());
             }
             else {
                 ImageView imageView = new ImageView(((SpellTrapCard) cards.get(i)).getImage());
                 cardImages.add(imageView);
                 imageView.setFitHeight(60);
                 imageView.setFitWidth(40);
-                imageView.setOnMouseClicked(event -> {
-                    setSelectedCard(cards.get(finalI), false, false, imageView);
-                });
-                rows[i / 7].getChildren().add(imageView);
-            }
-        }
-        cardsBox.getChildren().addAll(rows);
-        for (HBox hBox: rows)
-            for (Node imageView: hBox.getChildren()) {
+                imageView.setOnMouseClicked(event ->
+                    setSelectedCard(card, false, false, imageView));
                 imageView.setOnMouseEntered(event -> showCard(event.getX() + imageView.getLayoutX(),
-                        event.getY() + imageView.getLayoutY(), (ImageView) imageView));
+                        event.getY() + imageView.getLayoutY(), imageView));
                 imageView.setOnMouseExited(event -> hideCard());
             }
-        return cardsBox;
+        }
     }
 
     public void showCards() {
         cardsBox.getChildren().clear();
         cardsBox.getChildren().add(new Label("Your Cards:"));
-        HBox[] rows = new HBox[(int) Math.ceil(cardImages.size() / 7.0)];
+        for (HBox box: cardsBoxes)
+            box.getChildren().clear();
         for (int i = 0 ; i < cardImages.size(); i++) {
-            if (i % 7 == 0)
-                rows[i / 7] = new HBox(1);
-            rows[i / 7].getChildren().add(cardImages.get(i));
+            cardsBoxes[i / 7].getChildren().add(cardImages.get(i));
         }
-        cardsBox.getChildren().addAll(rows);
+        cardsBox.getChildren().addAll(cardsBoxes);
         cardsPane.setContent(cardsBox);
     }
 
