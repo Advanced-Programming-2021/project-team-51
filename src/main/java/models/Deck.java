@@ -111,7 +111,7 @@ public class Deck {
     }
 
     public boolean isDeckValid() {
-        return getMainDeck().size() > 9;
+        return getMainDeck().size() > 39;
     }
 
     public static ArrayList<Deck> getAllDecks() {

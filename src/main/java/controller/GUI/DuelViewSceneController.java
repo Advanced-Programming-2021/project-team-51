@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.Bloom;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -225,36 +226,79 @@ public class DuelViewSceneController implements Initializable {
     public void setSelectMyMonster(ImageView imageView, String index) {
         imageView.setOnMouseClicked(event -> {
             selectionController.selectMyMonster(index);
+            resetEffects();
             selectedCard.setImage(imageView.getImage());
+            imageView.setEffect(new Bloom());
         });
     }
 
     public void setSelectRivalMonster(ImageView imageView, String index) {
         imageView.setOnMouseClicked(event -> {
             selectionController.selectRivalMonster(index);
+            resetEffects();
             selectedCard.setImage(imageView.getImage());
+            imageView.setEffect(new Bloom());
         });
     }
 
     public void setSelectMySpell(ImageView imageView, String index) {
         imageView.setOnMouseClicked(event -> {
             selectionController.selectMySpell(index);
+            resetEffects();
             selectedCard.setImage(imageView.getImage());
+            imageView.setEffect(new Bloom());
         });
     }
 
     public void setSelectRivalSpell(ImageView imageView, String index) {
         imageView.setOnMouseClicked(event -> {
             selectionController.selectRivalSpell(index);
+            resetEffects();
             selectedCard.setImage(imageView.getImage());
+            imageView.setEffect(new Bloom());
         });
     }
 
     public void setSelectMyHand(ImageView imageView, String index) {
         imageView.setOnMouseClicked(event -> {
             selectionController.selectHandCard(index);
+            resetEffects();
             selectedCard.setImage(imageView.getImage());
+            imageView.setEffect(new Bloom());
         });
+    }
+
+    public void resetEffects() {
+        myMonster1.setEffect(null);
+        myMonster2.setEffect(null);
+        myMonster3.setEffect(null);
+        myMonster4.setEffect(null);
+        myMonster5.setEffect(null);
+        rivalMonster1.setEffect(null);
+        rivalMonster2.setEffect(null);
+        rivalMonster3.setEffect(null);
+        rivalMonster4.setEffect(null);
+        rivalMonster5.setEffect(null);
+        mySpell1.setEffect(null);
+        mySpell2.setEffect(null);
+        mySpell3.setEffect(null);
+        mySpell4.setEffect(null);
+        mySpell5.setEffect(null);
+        rivalSpell1.setEffect(null);
+        rivalSpell2.setEffect(null);
+        rivalSpell3.setEffect(null);
+        rivalSpell4.setEffect(null);
+        rivalSpell5.setEffect(null);
+        myHand1.setEffect(null);
+        myHand2.setEffect(null);
+        myHand3.setEffect(null);
+        myHand4.setEffect(null);
+        myHand5.setEffect(null);
+        myHand6.setEffect(null);
+        myHand7.setEffect(null);
+        myHand8.setEffect(null);
+        myHand9.setEffect(null);
+        myHand10.setEffect(null);
     }
 
     public void changePhase() {
@@ -350,6 +394,7 @@ public class DuelViewSceneController implements Initializable {
     }
 
     public void setCards() {
+        resetEffects();
         ImageView[] myHands = {myHand1, myHand2, myHand3, myHand4, myHand5, myHand6, myHand7, myHand8, myHand9, myHand10};
         ImageView[] rivalHands = {rivalHand1, rivalHand2, rivalHand3, rivalHand4, rivalHand5, rivalHand6, rivalHand7,
                 rivalHand8, rivalHand9, rivalHand10};
@@ -449,6 +494,10 @@ public class DuelViewSceneController implements Initializable {
 
     public void showMyGraveYard(MouseEvent mouseEvent) throws IOException {
         SceneController.switchSceneMouse("/fxml/graveyard.fxml", mouseEvent);
+        if (isMultiPlayer)
+            new GraveyardControllerGUI().showCards(PhaseController.playerInTurn.getPlayerBoard().getGraveyardCards());
+        else
+            new GraveyardControllerGUI().showCards(GameController.player.getPlayerBoard().getGraveyardCards());
     }
 
 
