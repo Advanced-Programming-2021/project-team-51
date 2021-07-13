@@ -64,7 +64,7 @@ public class DuelView {
         surrender(command);
         //cheat
         if (!isCommandValid)
-            cheatMenuController.run(command);
+             cheatMenuController.run(command);
         //switch cards between games
         switchCards(command);
         if (shouldDrawBoard)
