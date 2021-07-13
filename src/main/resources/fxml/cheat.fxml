@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.CheatControllerGUI">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../css/chaet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.CheatControllerGUI">
    <children>
       <TextField fx:id="cheatBox" layoutX="146.0" layoutY="223.0" onKeyPressed="#commitCheat" prefHeight="65.0" prefWidth="485.0" promptText="Write Cheat Here. Then Press ENTER.">
          <font>
