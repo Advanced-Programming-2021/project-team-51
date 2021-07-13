@@ -17,6 +17,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -148,7 +149,25 @@ public class DuelControllerGUI {
     }
 
     public void gameStartScene(MouseEvent event) throws IOException {
-        SceneController.switchSceneMouse("/fxml/gameField.fxml", event);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneController.class.getResource("/fxml/gameField.fxml"));
+        Pane pane = fxmlLoader.load();
+        stage.setScene(new Scene(pane));
+        stage.getScene().setOnKeyPressed(e->{
+            if (e.getCode() == KeyCode.BACK_QUOTE){
+                FXMLLoader fxmlLoader2 = new FXMLLoader(SceneController.class.getResource("/fxml/cheat.fxml"));
+                try {
+                    Pane pane2 = fxmlLoader2.load();
+                    stage.setScene(new Scene(pane2));
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        if (fxmlLoader.getController() instanceof DuelViewSceneController) {
+            DuelViewSceneController gamePage = fxmlLoader.getController();
+            gamePage.setPreparations();
+        }
         LoginControllerGUI.player.stop();
         String musicFile = "./src/main/resources/sound/duelSong.mp3";
         Media sound = new Media(new File(musicFile).toURI().toString());
