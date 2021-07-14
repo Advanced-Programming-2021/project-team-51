@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.ExportSceneController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root2" stylesheets="@../css/import.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUI.ExportSceneController">
    <children>
       <Label fx:id="statusLabel" layoutX="233.0" layoutY="25.0" prefHeight="43.0" prefWidth="334.0" />
       <ToggleButton fx:id="asJsonToggleButton" layoutX="57.0" layoutY="181.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="as json" />
