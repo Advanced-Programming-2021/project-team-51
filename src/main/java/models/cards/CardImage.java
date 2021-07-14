@@ -13,7 +13,7 @@ public class CardImage {
     private final Image image;
     private static final ArrayList<CardImage> allCardImages = new ArrayList<>();
 
-    private CardImage(String name, Image image) {
+    public CardImage(String name, Image image) {
         this.name = name;
         this.image = image;
         allCardImages.add(this);

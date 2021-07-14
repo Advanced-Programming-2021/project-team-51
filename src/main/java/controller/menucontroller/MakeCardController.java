@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import models.User;
+import models.cards.CardImage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -72,12 +73,12 @@ public class MakeCardController {
         String csvData = "\n" + cardName.getText() + "," + level + "," + attributeChoiceBox.getValue() + "," +
                 monsterTypeChoiceBox.getValue() +  "," + cardType + "," + attackPointSpinner.getValue() + "," +
                 defensePointSpinner.getValue() + "," + cardDescription.getText() + "," + price;
-        File outputFile = new File("/resources/image/Cards");
+        File outputFile = new File("./image/Cards/");
         BufferedImage bImage = SwingFXUtils.fromFXImage(cardImage.getImage(), null);
+        new CardImage( cardName.getText(), cardImage.getImage());
         try {
             Files.write(Paths.get("Monster.csv"), csvData.getBytes(), StandardOpenOption.APPEND);
-            ImageIO.write(bImage, "png", outputFile);
-
+            ImageIO.write(bImage, "jpg", outputFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,11 +121,12 @@ public class MakeCardController {
             status = "Unlimited";
         String csvData = "\n" + cardName.getText() + "," + type + "," + iconChoiceBox.getValue() + "," +
                 cardDescription.getText() + "," + status + "," + price;
-        File outputFile = new File("/resources/image/Cards");
+        File outputFile = new File("./image/Cards/");
         BufferedImage bImage = SwingFXUtils.fromFXImage(cardImage.getImage(), null);
+        new CardImage( cardName.getText(), cardImage.getImage());
         try {
             Files.write(Paths.get("SpellTrap.csv"), csvData.getBytes(), StandardOpenOption.APPEND);
-            ImageIO.write(bImage, "png", outputFile);
+            ImageIO.write(bImage, "jpg", outputFile);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -4,15 +4,17 @@ package controller.GUI;
 import controller.duel.*;
 import controller.duel.singlePlayer.GameController;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.Bloom;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import models.cards.Card;
 import models.cards.CardImage;
 import models.cards.monsters.Mode;
@@ -29,10 +31,10 @@ public class DuelViewSceneController implements Initializable {
     private Image firstPlayerImage;
     private Image secondPlayerImage;
 
-    public static double opacity = 0;
     private static final Image unknownCardImage = new Image("./image/Unknown.jpg");
     public static boolean isMultiPlayer = true;
 
+    public Label myLPLabel;
     public ImageView myMonster5;
     public ImageView myMonster3;
     public ImageView myMonster1;
@@ -75,7 +77,6 @@ public class DuelViewSceneController implements Initializable {
     public Label rivalUserName;
     public Label myUserName;
     public Label rivalLPLabel;
-    public Label myLPLabel1;
     public ImageView myAvatar;
     public ImageView rivalAvatar;
     public AnchorPane pane;
@@ -101,41 +102,32 @@ public class DuelViewSceneController implements Initializable {
     public static PhaseController phaseController = new PhaseController();
     public static AttackController attackController = new AttackController();
     public static ActivationController activationController = new ActivationController();
+    public static GameController gameController = new GameController();
+
+    private static final Pane rivalMonsterPane = new Pane();
+    private static final ImageView rivalMonsterSelect1 = new ImageView();
+    private static final ImageView rivalMonsterSelect2 = new ImageView();
+    private static final ImageView rivalMonsterSelect3 = new ImageView();
+    private static final ImageView rivalMonsterSelect4 = new ImageView();
+    private static final ImageView rivalMonsterSelect5 = new ImageView();
+
+    private static final Rectangle backgroundRectangle = new Rectangle();
+
+    private static DuelViewSceneController instance;
+
+    public static void setInstance(DuelViewSceneController duelViewSceneController) {
+        instance = duelViewSceneController;
+    }
+
+    public static DuelViewSceneController getInstance() {
+        return instance;
+    }
 
     public void handleDragOver(DragEvent dragEvent) {
         if (dragEvent.getDragboard().hasFiles())
             dragEvent.acceptTransferModes(TransferMode.ANY);
     }
 
-    public void handleAttackOnMonster4() {
-        status.setText(attackController.attackMonsterToMonster("4"));
-        setCards();
-        setLifePoint();
-    }
-
-    public void handleAttackOnMonster2() {
-        status.setText(attackController.attackMonsterToMonster("2"));
-        setCards();
-        setLifePoint();
-    }
-
-    public void handleAttackOnMonster1() {
-        status.setText(attackController.attackMonsterToMonster("1"));
-        setCards();
-        setLifePoint();
-    }
-
-    public void handleAttackOnMonster3() {
-        status.setText(attackController.attackMonsterToMonster("3"));
-        setCards();
-        setLifePoint();
-    }
-
-    public void handleAttackOnMonster5() {
-        status.setText(attackController.attackMonsterToMonster("5"));
-        setCards();
-        setLifePoint();
-    }
 
     public void handleDragMonster5(MouseEvent mouseEvent) {
         Dragboard dragboard = myMonster5.startDragAndDrop(TransferMode.ANY);
@@ -179,6 +171,13 @@ public class DuelViewSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        backgroundRectangle.setFill(Color.BLACK);
+        backgroundRectangle.setOpacity(0.5);
+        backgroundRectangle.setWidth(backGround.getFitWidth());
+        backgroundRectangle.setHeight(backGround.getFitHeight());
+        rivalMonsterPane.setLayoutX(backGround.getLayoutX());
+        rivalMonsterPane.setLayoutY(backGround.getLayoutY());
+        rivalMonsterPane.setPrefSize(backGround.getFitWidth(), backGround.getFitHeight());
         if (isMultiPlayer) {
             myLP.setProgress((double) PhaseController.playerInTurn.getPlayerBoard().getLifePoints() / 8000.0);
             rivalLP.setProgress((double) PhaseController.playerAgainst.getPlayerBoard().getLifePoints() / 8000.0);
@@ -302,9 +301,9 @@ public class DuelViewSceneController implements Initializable {
     }
 
     public void changePhase() {
-        phaseController.changePhase();
-        currentPhase.setText(PhaseController.currentPhase.getLabel());
         if (isMultiPlayer) {
+            phaseController.changePhase();
+            currentPhase.setText(PhaseController.currentPhase.getLabel());
             myUserName.setText(PhaseController.playerInTurn.getUserName());
             myName.setText(PhaseController.playerInTurn.getNickName());
             rivalUserName.setText(PhaseController.playerAgainst.getUserName());
@@ -321,11 +320,16 @@ public class DuelViewSceneController implements Initializable {
                 }
             }
         }
+        else {
+            gameController.changePhase();
+            currentPhase.setText(GameController.currentPhase.getLabel());
+        }
         setCards();
         setLifePoint();
     }
 
     public void setPreparations() {
+        setInstance(this);
         if (isMultiPlayer) {
             myUserName.setText(PhaseController.playerInTurn.getUserName());
             myName.setText(PhaseController.playerInTurn.getNickName());
@@ -345,11 +349,6 @@ public class DuelViewSceneController implements Initializable {
         }
         myDeck.setImage(unknownCardImage);
         rivalDeck.setImage(unknownCardImage);
-        setCards();
-    }
-
-    public void setDefense() {
-        status.setText(settingController.set());
         setCards();
     }
 
@@ -395,6 +394,7 @@ public class DuelViewSceneController implements Initializable {
 
     public void setCards() {
         resetEffects();
+        pane.getChildren().remove(rivalMonsterPane);
         ImageView[] myHands = {myHand1, myHand2, myHand3, myHand4, myHand5, myHand6, myHand7, myHand8, myHand9, myHand10};
         ImageView[] rivalHands = {rivalHand1, rivalHand2, rivalHand3, rivalHand4, rivalHand5, rivalHand6, rivalHand7,
                 rivalHand8, rivalHand9, rivalHand10};
@@ -452,6 +452,8 @@ public class DuelViewSceneController implements Initializable {
         for (i = 0; i < cards.size(); i++) {
             if (cards.get(i).getMode() == Mode.DEFENSE)
                 imageViews[i].setRotate(90);
+            else
+                imageViews[i].setRotate(0);
             if (!cards.get(i).getIsHidden())
                 imageViews[i].setImage(CardImage.getImageByName(cards.get(i).getName()));
             else
@@ -477,12 +479,12 @@ public class DuelViewSceneController implements Initializable {
 
     private void setLifePoint() {
         if (isMultiPlayer) {
-            myLPLabel1.setText(String.valueOf(PhaseController.playerInTurn.getPlayerBoard().getLifePoints()));
+            myLPLabel.setText(String.valueOf(PhaseController.playerInTurn.getPlayerBoard().getLifePoints()));
             myLP.setProgress((double) PhaseController.playerInTurn.getPlayerBoard().getLifePoints() / 8000.0);
             rivalLPLabel.setText(String.valueOf(PhaseController.playerAgainst.getPlayerBoard().getLifePoints()));
             rivalLP.setProgress((double) PhaseController.playerAgainst.getPlayerBoard().getLifePoints() / 8000.0);
         } else {
-            myLPLabel1.setText(String.valueOf(GameController.player.getPlayerBoard().getLifePoints()));
+            myLPLabel.setText(String.valueOf(GameController.player.getPlayerBoard().getLifePoints()));
             myLP.setProgress((double) GameController.player.getPlayerBoard().getLifePoints() / 8000.0);
             rivalLPLabel.setText(String.valueOf(GameController.bot.getBoard().getLifePoints()));
             rivalLP.setProgress((double) GameController.bot.getBoard().getLifePoints() / 8000.0);
@@ -501,4 +503,51 @@ public class DuelViewSceneController implements Initializable {
     }
 
 
+    public void attack() {
+        pane.getChildren().remove(rivalMonsterPane);
+        if (isMultiPlayer) {
+            if (PhaseController.currentPhase == GamePhase.BATTLE && PhaseController.playerInTurn
+            .getPlayerBoard().getMonsters().contains(SelectionController.selectedCard) &&
+            PhaseController.playerAgainst.getPlayerBoard().getMonsters().size() > 0) {
+                ImageView[] newMonsters = {rivalMonsterSelect1, rivalMonsterSelect2, rivalMonsterSelect3, rivalMonsterSelect4, rivalMonsterSelect5};
+                ImageView[] monsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
+                setRivalMonstersOnNewPane(newMonsters, monsters);
+            }
+        } else {
+            if (GameController.currentPhase == GamePhase.BATTLE && GameController.player.getPlayerBoard()
+            .getMonsters().contains(SelectionController.selectedCard) && GameController.bot.getBoard()
+            .getMonsters().size() > 0) {
+                ImageView[] newMonsters = {rivalMonsterSelect1, rivalMonsterSelect2, rivalMonsterSelect3, rivalMonsterSelect4, rivalMonsterSelect5};
+                ImageView[] monsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
+                setRivalMonstersOnNewPane(newMonsters, monsters);
+            }
+        }
+    }
+    private void setRivalMonstersOnNewPane(ImageView[] newMonsters, ImageView[] monsters) {
+        DuelViewSceneController.rivalMonsterPane.getChildren().clear();
+        rivalMonsterPane.getChildren().add(backgroundRectangle);
+        for (int i = 0; i < monsters.length; i++) {
+            newMonsters[i].setPreserveRatio(true);
+            newMonsters[i].setLayoutX(monsters[i].getLayoutX() - rivalMonsterPane.getLayoutX());
+            newMonsters[i].setLayoutY(monsters[i].getLayoutY() - rivalMonsterPane.getLayoutY());
+            newMonsters[i].setImage(monsters[i].getImage());
+            newMonsters[i].setFitWidth(monsters[i].getFitWidth());
+            newMonsters[i].setFitHeight(monsters[i].getFitHeight());
+            DuelViewSceneController.rivalMonsterPane.getChildren().add(newMonsters[i]);
+            int index = i + 1;
+            newMonsters[i].setOnMouseClicked(E -> attackHandler(index));
+        }
+        pane.getChildren().add(rivalMonsterPane);
+    }
+
+    private void attackHandler(int index) {
+        status.setText(attackController.attackMonsterToMonster("" + index + ""));
+        setCards();
+        setLifePoint();
+    }
+
+    public void showChangesForBot() {
+        setCards();
+        setLifePoint();
+    }
 }

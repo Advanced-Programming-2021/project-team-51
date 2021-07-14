@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import models.cards.Card;
 import models.cards.CardImage;
 import models.cards.CardType;
+import models.cards.MakeCards;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -97,8 +98,7 @@ public class MonsterCard extends Card {
 
     @Override
     public Object clone() {
-        return new MonsterCard(this.getName(), this.getDescription(), this.getPrice(), this.getLevel(), this.getAttribute(),
-                this.getMonsterType(), this.getAttackPoint(), this.getDefensePoint(), this.getTrait(), this.getCardNumber());
+        return MakeCards.makeCard(getName());
     }
 
     public void setLevel(int level) {

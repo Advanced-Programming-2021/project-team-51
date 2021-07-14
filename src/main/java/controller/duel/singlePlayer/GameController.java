@@ -1,5 +1,6 @@
 package controller.duel.singlePlayer;
 
+import controller.GUI.DuelViewSceneController;
 import controller.duel.*;
 import controller.duel.effect.monsterseffect.ContinuousEffects;
 import controller.duel.effect.monsterseffect.TurnEffects;
@@ -7,6 +8,10 @@ import controller.duel.effect.spells.FiledSpells;
 import controller.duel.effect.spells.MessengerOfPeace;
 import controller.duel.effect.spells.OnMonsterSpells;
 import controller.duel.effect.spells.TurnSpells;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import models.Chain;
 import models.Player;
 import models.User;
@@ -211,60 +216,56 @@ public class GameController {
     private void runBot() {
         bot.resetAttacks();
         if (bot.getName().equals("EasyBot")) {
-            ((EasyBot) bot).summonBestMonster();
-            bot.summonSpellTrapIfCan();
-            System.out.println(printBoard());
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ((EasyBot) bot).checkSpellForActivate(currentPhase);
-            ((EasyBot) bot).checkTrapForActivate();
-            System.out.println(printBoard());
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ((EasyBot) bot).attack();
-            System.out.println(printBoard());
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Timeline timeline = new Timeline();
+            KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(1), event -> {
+                ((EasyBot) bot).summonBestMonster();
+                bot.summonSpellTrapIfCan();
+                if (!isFirstPlay)
+                    DuelViewSceneController.getInstance().showChangesForBot();
+            });
+            KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), event -> {
+                ((EasyBot) bot).checkSpellForActivate(currentPhase);
+                ((EasyBot) bot).checkTrapForActivate();
+                if (!isFirstPlay)
+                    DuelViewSceneController.getInstance().showChangesForBot();
+            });
+            KeyFrame keyFrame3 = new KeyFrame(Duration.seconds(1), event -> {
+                ((EasyBot) bot).attack();
+                if (!isFirstPlay)
+                    DuelViewSceneController.getInstance().showChangesForBot();
+            });
+            timeline.getKeyFrames().setAll(keyFrame1, keyFrame2, keyFrame3);
+            timeline.setCycleCount(1);
+            timeline.play();
         } else {
-            ((HardBot) bot).summonBestMonster();
-            bot.summonSpellTrapIfCan();
-            System.out.println(printBoard());
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ((HardBot) bot).checkSpellForActivate(currentPhase);
-            ((HardBot) bot).checkTrapForActivate();
-            System.out.println(printBoard());
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ((HardBot) bot).attack();
-            System.out.println(printBoard());
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Timeline timeline = new Timeline();
+            KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(1), event -> {
+                ((HardBot) bot).summonBestMonster();
+                bot.summonSpellTrapIfCan();
+                if (!isFirstPlay)
+                    DuelViewSceneController.getInstance().showChangesForBot();
+            });
+            KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), event -> {
+                ((HardBot) bot).checkSpellForActivate(currentPhase);
+                ((HardBot) bot).checkTrapForActivate();
+                if (!isFirstPlay)
+                    DuelViewSceneController.getInstance().showChangesForBot();
+            });
+            KeyFrame keyFrame3 = new KeyFrame(Duration.seconds(1), event -> {
+                ((HardBot) bot).attack();
+                if (!isFirstPlay)
+                    DuelViewSceneController.getInstance().showChangesForBot();
+            });
+            timeline.getKeyFrames().setAll(keyFrame1, keyFrame2, keyFrame3);
+            timeline.setCycleCount(1);
+            timeline.play();
         }
         if (bot.getOpponent().getPlayerBoard().getLifePoints() <= 0)
             endGame("bot");
         if (bot.getBoard().getLifePoints() <= 0)
             endGame("player");
         boolean isFirst = isFirstPlay;
-        currentPhase = GamePhase.MAIN2;
+        currentPhase = GamePhase.BATTLE;
         System.out.println(changePhase());
         if (isFirst)
             System.out.println(printBoard());

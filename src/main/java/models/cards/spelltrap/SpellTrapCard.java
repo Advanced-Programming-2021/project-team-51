@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import models.cards.Card;
 import models.cards.CardImage;
 import models.cards.CardType;
+import models.cards.MakeCards;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -79,8 +80,7 @@ public class SpellTrapCard extends Card {
 
     @Override
     public Object clone() {
-        return new SpellTrapCard(this.getName(), this.getDescription(), this.getPrice(), this.getCardType(),
-                this.getIcon(), this.getLimited(), this.getCardNumber());
+        return MakeCards.makeCard(getName());
     }
 
     private void setIcon(Icon icon) {
