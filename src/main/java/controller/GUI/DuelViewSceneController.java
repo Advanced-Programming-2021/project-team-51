@@ -101,6 +101,7 @@ public class DuelViewSceneController implements Initializable {
     public static PhaseController phaseController = new PhaseController();
     public static AttackController attackController = new AttackController();
     public static ActivationController activationController = new ActivationController();
+    public static GameController gameController = new GameController();
 
     public void handleDragOver(DragEvent dragEvent) {
         if (dragEvent.getDragboard().hasFiles())
