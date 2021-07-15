@@ -46,16 +46,7 @@ public class GetAttackedEffects {
     }
 
     private static boolean affectSuijin(MonsterCard attackedCard) {
-        Scanner scanner = new Scanner(System.in);
         if (hasBeenAttacked.contains(attackedCard))
-            return false;
-        System.out.println("Do you want to activate Suijin?(y/n)");
-        String answer = scanner.nextLine();
-        while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to activate Suijin?(y/n)");
-            answer = scanner.nextLine();
-        }
-        if (answer.equals("n"))
             return false;
         attackedCard.setLocation(Location.FIELD);
         hasBeenAttacked.add(attackedCard);

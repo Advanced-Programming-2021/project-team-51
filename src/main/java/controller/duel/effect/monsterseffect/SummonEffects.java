@@ -22,15 +22,6 @@ public class SummonEffects {
     }
 
     private static void affectTerratiger(Board myBoard) {
-        System.out.println("Do you want to summon a monster?(y/n)");
-        Scanner scanner = new Scanner(System.in);
-        String answer = scanner.nextLine();
-        while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to summon a monster?(y/n)");
-            answer = scanner.nextLine();
-        }
-        if (answer.equals("n"))
-            return;
         myBoard.getEffectsStatus().setSpecialSummonStatus(SpecialSummonStatus.NORMAL_LEVEL4L_FROM_HAND);
     }
 
@@ -53,23 +44,9 @@ public class SummonEffects {
     }
 
     private static void affectManEaterBug(Board rivalBoard) {
-        System.out.println("Do you want to destroy one of rivals card?(y/n)");
-        Scanner scanner = new Scanner(System.in);
-        String answer = scanner.nextLine();
-        while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to destroy one of rivals card?(y/n)");
-            answer = scanner.nextLine();
-        }
-        if (answer.equals("n"))
+        if (rivalBoard.getMonsters().size() < 1)
             return;
-        System.out.println("enter monster index:");
-        String index = scanner.nextLine();
-        while (!index.matches("(\\d)") || Integer.parseInt(index) >= rivalBoard.getMonsters().size()
-                || rivalBoard.getMonsters().get(Integer.parseInt(index)) == null) {
-            System.out.println("enter monster index:");
-            index = scanner.nextLine();
-        }
-        rivalBoard.getMonsters().get(Integer.parseInt(index)).setLocation(Location.GRAVEYARD);
-        rivalBoard.removeMonster(Integer.parseInt(index));
+        rivalBoard.getMonsters().get(1).setLocation(Location.GRAVEYARD);
+        rivalBoard.removeMonster(1);
     }
 }

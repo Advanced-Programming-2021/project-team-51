@@ -22,44 +22,19 @@ public class TurnEffects {
     private static void affectHeraldOfCreation(Board myBoard) {
         if (!isAnyMonsterInGrave(myBoard))
             return;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to summon one of your dead monsters?(y/n)");
-        String answer = scanner.nextLine();
-        while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to summon one of your dead monsters?(y/n)");
-            answer = scanner.nextLine();
-        }
-        if (answer.equals("n"))
+        if (myBoard.getHandCards().size() < 1)
             return;
-        System.out.println("enter sacrificed card from hand index:");
-        String index = scanner.nextLine();
-        while (!index.matches("(\\d)") || Integer.parseInt(index) >= myBoard.getHandCards().size()
-                || myBoard.getHandCards().get(Integer.parseInt(index)) == null) {
-            System.out.println("enter sacrificed card from hand index:");
-            index = scanner.nextLine();
-        }
-        myBoard.getHandCards().get(Integer.parseInt(index)).setLocation(Location.GRAVEYARD);
-        myBoard.removeCardsFromHand(Integer.parseInt(index));
+        myBoard.getHandCards().get(1).setLocation(Location.GRAVEYARD);
+        myBoard.removeCardsFromHand(1);
         myBoard.getEffectsStatus().setSpecialSummonStatus(SpecialSummonStatus.LEVEL7H_FROM_GRAVE);
     }
 
     private static void affectScanner(Board rivalBoard, MonsterCard scannerCard) {
         if (!isAnyMonsterInGrave(rivalBoard))
             return;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to turn into a rival dead monster?(y/n)");
-        String answer = scanner.nextLine();
-        while (!answer.equals("y") && !answer.equals("n")) {
-            System.out.println("Do you want to turn into a rival dead monster?(y/n)");
-            answer = scanner.nextLine();
-        }
-        if (answer.equals("n"))
-            return;
-        System.out.println("choose a card from rival graveyard");
-        String cardName = scanner.nextLine();
         for (Card graveyardCard : rivalBoard.getGraveyardCards()) {
             MonsterCard graveyardMonster;
-            if (graveyardCard instanceof MonsterCard && cardName.equals(graveyardCard.getName())) {
+            if (graveyardCard instanceof MonsterCard) {
                 graveyardMonster = (MonsterCard) graveyardCard;
                 scannerCard.setName(graveyardMonster.getName());
                 scannerCard.setDescription(graveyardMonster.getDescription());
@@ -71,6 +46,7 @@ public class TurnEffects {
                 scannerCard.setAttackPoint(graveyardMonster.getAttackPoint());
                 scannerCard.setDefensePoint(graveyardMonster.getDefensePoint());
                 scannerCard.setTrait(graveyardMonster.getTrait());
+                break;
             }
         }
     }

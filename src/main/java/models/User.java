@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javafx.scene.image.Image;
 import models.cards.Card;
 import models.cards.CardType;
 import models.cards.monsters.MonsterCard;
@@ -23,6 +24,7 @@ public class User {
     private int money;
     private String avatar;
     private String miniAvatar;
+    private Image avatarImage = null;
 
     private int rank;
 
@@ -43,11 +45,19 @@ public class User {
         miniAvatar = "./image/default_avatar.png";
     }
 
+    public void setAvatar(Image image) {
+        this.avatarImage = image;
+    }
+
+    public Image getAvatarImage() {
+        return this.avatarImage;
+    }
+
     public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar,String miniAvatar) {
+    public void setAvatar(String avatar, String miniAvatar) {
         this.avatar = avatar;
         this.miniAvatar = miniAvatar;
     }
@@ -128,7 +138,7 @@ public class User {
 
     public ArrayList<Deck> getUserDecks() {
         ArrayList<Deck> decks = new ArrayList<>();
-        for (String deckName: userDecks)
+        for (String deckName : userDecks)
             decks.add(Deck.getDeckByName(deckName));
         decks.sort(Comparator.comparing(Deck::getName));
         return decks;
@@ -224,10 +234,6 @@ public class User {
         this.rank = rank;
     }
 
-    public int getRank() {
-        return this.rank;
-    }
-
     public void addCard(Card card) {
         if (card instanceof MonsterCard)
             this.userMonsters.add((MonsterCard) card);
@@ -248,7 +254,7 @@ public class User {
     }
 
     private static void setRanks() {
-        for (int i = 0, rank = 1; i < allUsers.size(); i++,rank++) {
+        for (int i = 0, rank = 1; i < allUsers.size(); i++, rank++) {
             if (i > 0) {
                 if (allUsers.get(i).getScore() == allUsers.get(i - 1).getScore())
                     rank--;
@@ -266,10 +272,10 @@ public class User {
     public int getCardAmount(Card card) {
         int counter = 0;
         if (card instanceof MonsterCard) {
-            for (MonsterCard monster: userMonsters)
+            for (MonsterCard monster : userMonsters)
                 if (monster.getName().equals(card.getName())) counter++;
         } else {
-            for (SpellTrapCard spellTrap: userSpellTraps)
+            for (SpellTrapCard spellTrap : userSpellTraps)
                 if (spellTrap.getName().equals(card.getName())) counter++;
         }
         return counter;

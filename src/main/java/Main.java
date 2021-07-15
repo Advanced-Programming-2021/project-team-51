@@ -46,10 +46,10 @@ public class Main extends Application {
         stage.setTitle("Yu Gi Oh");
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        stage.getIcons().add(new Image("./image/icon.png"));
+       // stage.getIcons().add(new Image("./image/icon.png"));
         primaryStage = stage;
-        stage.getScene().setOnKeyPressed(e->{
-            if (e.getCode()==KeyCode.ENTER) {
+        stage.getScene().setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
                 mediaPlayer1.stop();
                 try {
                     goToStartScene();
@@ -61,6 +61,7 @@ public class Main extends Application {
         });
         stage.show();
     }
+
     public static void main(String[] args) {
         try {
             SaveData.load();

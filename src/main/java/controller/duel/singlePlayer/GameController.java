@@ -251,18 +251,7 @@ public class GameController {
                     DuelViewSceneController.getInstance().showChangesForBot();
                 }
             });
-            KeyFrame keyFrame4 = new KeyFrame(Duration.seconds(1), e -> {
-                if (bot.getOpponent().getPlayerBoard().getLifePoints() <= 0)
-                    endGame("bot", event);
-                if (bot.getBoard().getLifePoints() <= 0)
-                    endGame("player", event);
-                boolean isFirst = isFirstPlay;
-                currentPhase = GamePhase.BATTLE;
-                System.out.println(changePhase(event));
-                if (isFirst)
-                    System.out.println(printBoard());
-            });
-            timeline.getKeyFrames().setAll(keyFrame1, keyFrame2, keyFrame3, keyFrame4);
+            timeline.getKeyFrames().setAll(keyFrame1, keyFrame2, keyFrame3);
             timeline.setCycleCount(1);
             timeline.play();
         } else {
@@ -285,20 +274,18 @@ public class GameController {
                     DuelViewSceneController.getInstance().showChangesForBot();
                 }
             });
-            KeyFrame keyFrame4 = new KeyFrame(Duration.seconds(1), e -> {
-                if (bot.getOpponent().getPlayerBoard().getLifePoints() <= 0)
-                    endGame("bot", event);
-                if (bot.getBoard().getLifePoints() <= 0)
-                    endGame("player", event);
-                boolean isFirst = isFirstPlay;
-                currentPhase = GamePhase.BATTLE;
-                System.out.println(changePhase(event));
-                if (isFirst)
-                    System.out.println(printBoard());
-            });
-            timeline.getKeyFrames().setAll(keyFrame1, keyFrame2, keyFrame3, keyFrame4);
+            timeline.getKeyFrames().setAll(keyFrame1, keyFrame2, keyFrame3);
             timeline.setCycleCount(1);
             timeline.play();
         }
+        if (bot.getOpponent().getPlayerBoard().getLifePoints() <= 0)
+            endGame("bot", event);
+        if (bot.getBoard().getLifePoints() <= 0)
+            endGame("player", event);
+        boolean isFirst = isFirstPlay;
+        currentPhase = GamePhase.BATTLE;
+        System.out.println(changePhase(event));
+        if (isFirst)
+            System.out.println(printBoard());
     }
 }

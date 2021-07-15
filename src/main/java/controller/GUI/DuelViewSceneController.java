@@ -31,6 +31,8 @@ public class DuelViewSceneController implements Initializable {
 
     private static Image firstPlayerImage;
     private static Image secondPlayerImage;
+    private static Image keepMyImage = null;
+    private static Image keepRivalImage = null;
 
     private static final Image closedForestFiled = new Image("./image/Field/fie_closed_forest.png");
     private static final Image forestFiled = new Image("./image/Field/fie_forest.png");
@@ -155,8 +157,14 @@ public class DuelViewSceneController implements Initializable {
             myName.setText(PhaseController.playerInTurn.getNickName());
             rivalUserName.setText(PhaseController.playerAgainst.getUserName());
             rivalName.setText(PhaseController.playerAgainst.getNickName());
-            firstPlayerImage = new Image(PhaseController.playerInTurn.getUser().getMiniAvatar());
-            secondPlayerImage = new Image(PhaseController.playerAgainst.getUser().getMiniAvatar());
+            if (PhaseController.playerInTurn.getUser().getAvatarImage() == null)
+                firstPlayerImage = new Image(PhaseController.playerInTurn.getUser().getMiniAvatar());
+            else
+                firstPlayerImage = PhaseController.playerInTurn.getUser().getAvatarImage();
+            if (PhaseController.playerAgainst.getUser().getAvatarImage() == null)
+                secondPlayerImage = new Image(PhaseController.playerAgainst.getUser().getMiniAvatar());
+            else
+                secondPlayerImage = PhaseController.playerAgainst.getUser().getAvatarImage();
             myAvatar.setImage(firstPlayerImage);
             rivalAvatar.setImage(secondPlayerImage);
             currentPhase.setText(PhaseController.currentPhase.getLabel());
@@ -165,7 +173,10 @@ public class DuelViewSceneController implements Initializable {
             rivalName.setText(GameController.bot.getName());
             myName.setText(GameController.player.getNickName());
             rivalUserName.setText(GameController.bot.getName());
-            myAvatar.setImage(new Image(GameController.player.getUser().getMiniAvatar()));
+            if (GameController.player.getUser().getAvatarImage() == null)
+                myAvatar.setImage(new Image(GameController.player.getUser().getMiniAvatar()));
+            else
+                myAvatar.setImage(GameController.player.getUser().getAvatarImage());
             rivalAvatar.setImage(new Image("./image/Avatars/bot.png"));
             currentPhase.setText(GameController.currentPhase.getLabel());
         }
@@ -211,7 +222,7 @@ public class DuelViewSceneController implements Initializable {
         imageView.setOnMouseClicked(event -> {
             selectionController.selectMyMonster(index);
             resetEffects();
-            selectedCard.setImage(imageView.getImage());
+            selectedCard.setImage(CardImage.getImageByName(SelectionController.selectedCard.getName()));
             imageView.setEffect(new Bloom());
         });
     }
@@ -229,7 +240,7 @@ public class DuelViewSceneController implements Initializable {
         imageView.setOnMouseClicked(event -> {
             selectionController.selectMySpell(index);
             resetEffects();
-            selectedCard.setImage(imageView.getImage());
+            selectedCard.setImage(CardImage.getImageByName(SelectionController.selectedCard.getName()));
             imageView.setEffect(new Bloom());
         });
     }
@@ -502,7 +513,7 @@ public class DuelViewSceneController implements Initializable {
     }
 
 
-    public void attack() {
+    public void attack(MouseEvent event) {
         pane.getChildren().remove(rivalMonsterPane);
         if (isMultiPlayer) {
             if (PhaseController.currentPhase == GamePhase.BATTLE && PhaseController.playerInTurn
@@ -510,7 +521,7 @@ public class DuelViewSceneController implements Initializable {
                     PhaseController.playerAgainst.getPlayerBoard().getMonsters().size() > 0) {
                 ImageView[] newMonsters = {rivalMonsterSelect1, rivalMonsterSelect2, rivalMonsterSelect3, rivalMonsterSelect4, rivalMonsterSelect5};
                 ImageView[] monsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
-                setRivalMonstersOnNewPane(newMonsters, monsters);
+                setRivalMonstersOnNewPane(newMonsters, monsters, true, event);
             }
         } else {
             if (GameController.currentPhase == GamePhase.BATTLE && GameController.player.getPlayerBoard()
@@ -518,12 +529,12 @@ public class DuelViewSceneController implements Initializable {
                     .getMonsters().size() > 0) {
                 ImageView[] newMonsters = {rivalMonsterSelect1, rivalMonsterSelect2, rivalMonsterSelect3, rivalMonsterSelect4, rivalMonsterSelect5};
                 ImageView[] monsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
-                setRivalMonstersOnNewPane(newMonsters, monsters);
+                setRivalMonstersOnNewPane(newMonsters, monsters, true, event);
             }
         }
     }
 
-    private void setRivalMonstersOnNewPane(ImageView[] newMonsters, ImageView[] monsters) {
+    private void setRivalMonstersOnNewPane(ImageView[] newMonsters, ImageView[] monsters, boolean isAttack, MouseEvent event) {
         DuelViewSceneController.rivalMonsterPane.getChildren().clear();
         rivalMonsterPane.getChildren().add(backgroundRectangle);
         for (int i = 0; i < monsters.length; i++) {
@@ -535,19 +546,51 @@ public class DuelViewSceneController implements Initializable {
             newMonsters[i].setFitHeight(monsters[i].getFitHeight());
             DuelViewSceneController.rivalMonsterPane.getChildren().add(newMonsters[i]);
             int index = i + 1;
-            newMonsters[i].setOnMouseClicked(E -> attackHandler(index));
+            if (isAttack)
+                newMonsters[i].setOnMouseClicked(E -> attackHandler(index, event));
+            else
+                newMonsters[i].setOnMouseClicked(E -> activateOnMonsterHandler(index, event));
         }
         pane.getChildren().add(rivalMonsterPane);
     }
 
-    private void attackHandler(int index) {
+    private void activateOnMonsterHandler(int index, MouseEvent event) {
+        status.setText(activationController.activateOnMonster(index));
+        setCards();
+        setLifePoint();
+        attackController.checkEndGame(event);
+    }
+
+    private void attackHandler(int index, MouseEvent event) {
         status.setText(attackController.attackMonsterToMonster("" + index + ""));
         setCards();
         setLifePoint();
+        attackController.checkEndGame(event);
     }
 
     public void showChangesForBot() {
         setCards();
         setLifePoint();
+    }
+
+    public void activateOnMonster(MouseEvent event) {
+        pane.getChildren().remove(rivalMonsterPane);
+        if (isMultiPlayer) {
+            if (PhaseController.currentPhase == GamePhase.BATTLE && PhaseController.playerInTurn
+                    .getPlayerBoard().getMonsters().contains(SelectionController.selectedCard) &&
+                    PhaseController.playerAgainst.getPlayerBoard().getMonsters().size() > 0) {
+                ImageView[] newMonsters = {rivalMonsterSelect1, rivalMonsterSelect2, rivalMonsterSelect3, rivalMonsterSelect4, rivalMonsterSelect5};
+                ImageView[] monsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
+                setRivalMonstersOnNewPane(newMonsters, monsters, false, event);
+            }
+        } else {
+            if (GameController.currentPhase == GamePhase.BATTLE && GameController.player.getPlayerBoard()
+                    .getMonsters().contains(SelectionController.selectedCard) && GameController.bot.getBoard()
+                    .getMonsters().size() > 0) {
+                ImageView[] newMonsters = {rivalMonsterSelect1, rivalMonsterSelect2, rivalMonsterSelect3, rivalMonsterSelect4, rivalMonsterSelect5};
+                ImageView[] monsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
+                setRivalMonstersOnNewPane(newMonsters, monsters, false, event);
+            }
+        }
     }
 }

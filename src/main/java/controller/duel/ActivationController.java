@@ -1,5 +1,6 @@
 package controller.duel;
 
+import controller.duel.effect.CustomEffects;
 import controller.duel.singlePlayer.GameController;
 import controller.duel.effect.spells.*;
 import controller.duel.effect.traps.MagicJammer;
@@ -43,6 +44,15 @@ public class ActivationController {
     public String activate() {
         if (checkActivationConditions() != null)
             return checkActivationConditions();
+        if (DuelView.isMultiPlayer) {
+            if (CustomEffects.activate(SelectionController.selectedCard, PhaseController.playerInTurn.getPlayerBoard(),
+                    PhaseController.playerAgainst.getPlayerBoard()))
+                return "spell activated";
+        } else {
+            if (CustomEffects.activate(SelectionController.selectedCard, GameController.player.getPlayerBoard(),
+                    GameController.bot.getBoard()))
+                return "spell activated";
+        }
         if (SelectionController.selectedCard.getCardType() == CardType.SPELL)
             return activateSpell();
         else

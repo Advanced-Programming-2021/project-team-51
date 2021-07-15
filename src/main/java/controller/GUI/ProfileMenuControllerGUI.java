@@ -68,8 +68,13 @@ public class ProfileMenuControllerGUI {
         money.setLayoutX(300);
         money.setFont(new Font(29));
         money.setVisible(true);
-        Image image = new Image(LoginMenuController.currentUser.getAvatar());
-        ImageView avatar = new ImageView(image);
+        ImageView avatar;
+        if (LoginMenuController.currentUser.getAvatarImage() == null) {
+            Image image = new Image(LoginMenuController.currentUser.getAvatar());
+            avatar = new ImageView(image);
+        }
+        else
+            avatar = new ImageView(LoginMenuController.currentUser.getAvatarImage());
         avatar.setLayoutX(500);
         avatar.setLayoutY(50);
         avatar.setFitWidth(233);
@@ -266,8 +271,7 @@ public class ProfileMenuControllerGUI {
             File outputFile = new File("./image/Avatars/");
             BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
             ImageIO.write(bImage, "png", outputFile);
-            String avatarAddress = "./image/Avatars/" + LoginMenuController.currentUser.getUserName() + ".png";
-            LoginMenuController.currentUser.setAvatar(avatarAddress, avatarAddress);
+            LoginMenuController.currentUser.setAvatar(image);
         } catch (IOException e) {
             e.printStackTrace();
         }
