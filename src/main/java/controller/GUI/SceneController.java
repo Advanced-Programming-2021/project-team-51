@@ -20,10 +20,6 @@ public class SceneController {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneController.class.getResource(sceneName));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
-        if (fxmlLoader.getController() instanceof DuelViewSceneController) {
-            DuelViewSceneController gamePage = fxmlLoader.getController();
-            gamePage.setPreparations();
-        }
     }
 
     public static void switchSceneMouse(String sceneName, MouseEvent inputEvent) throws IOException {
@@ -31,9 +27,5 @@ public class SceneController {
         FXMLLoader fxmlLoader = new FXMLLoader(SceneController.class.getResource(sceneName));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
-        if (fxmlLoader.getController() instanceof DuelViewSceneController) {
-            DuelViewSceneController gamePage = fxmlLoader.getController();
-            gamePage.setPreparations();
-        }
     }
 }

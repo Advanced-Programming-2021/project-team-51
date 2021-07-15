@@ -3,12 +3,9 @@ package controller.GUI;
 
 import controller.menucontroller.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -20,7 +17,7 @@ import view.StatusEnum;
 import java.io.File;
 import java.io.IOException;
 
-public class LoginControllerGUI{
+public class LoginControllerGUI {
 
     public static MediaPlayer player;
 
@@ -78,7 +75,7 @@ public class LoginControllerGUI{
         SceneController.switchScene("/fxml/register_menu.fxml", actionEvent);
     }
 
-    public void register(ActionEvent actionEvent) {
+    public void register() {
         String name = register_username.getText();
         String nick = register_nickname.getText();
         String pass = register_pass.getText();
@@ -105,12 +102,12 @@ public class LoginControllerGUI{
         SceneController.switchSceneMouse("/fxml/start.fxml", inputEvent);
     }
 
-    public void exit(MouseEvent event) {
+    public void exit() {
         SaveData.save();
         System.exit(0);
     }
 
-    public void muteAndUnmute(MouseEvent event) {
+    public void muteAndUnmute() {
         if (player.isMute()) {
             player.setMute(false);
             sound.setImage(new Image("./image/unmute.jpg"));

@@ -22,7 +22,10 @@ public class FiledSpells {
     }
 
     private static void activate(Board myBoard, Board rivalBoard) {
-        for (SpellTrapCard spellTrapCard : myBoard.getSpellTraps()) {
+        SpellTrapCard[] fields = {myBoard.getFieldZone(), rivalBoard.getFieldZone()};
+        for (SpellTrapCard spellTrapCard : fields) {
+            if (spellTrapCard == null)
+                continue;
             if (activatedFieldSpells.contains(spellTrapCard))
                 continue;
             if (spellTrapCard.getName().equals("Yami"))

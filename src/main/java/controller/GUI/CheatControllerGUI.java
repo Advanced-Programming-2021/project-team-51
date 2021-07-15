@@ -13,21 +13,19 @@ import java.io.IOException;
 public class CheatControllerGUI {
     public TextField cheatBox;
 
-    private CheatMenuController cheatMenuController = new CheatMenuController();
+    private final CheatMenuController cheatMenuController = new CheatMenuController();
 
     public void commitCheat(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER){
+        if (keyEvent.getCode() == KeyCode.ENTER) {
             String cheatCommand = cheatBox.getText();
             String res = cheatMenuController.run(cheatCommand);
-            if (cheatCommand.equals("")){
+            if (cheatCommand.equals("")) {
                 AlertBox.display("Please write a cheat command!");
-            }
-            else{
-                if (res.equals(StatusEnum.INVALID_COMMAND.getStatus())){
+            } else {
+                if (res.equals(StatusEnum.INVALID_COMMAND.getStatus())) {
                     AlertBox.display("Please write a valid cheat code!");
-                }
-                else{
-                    AlertBox.display(res);
+                } else {
+                    AlertBox.display("cheat activated");
                 }
                 cheatBox.clear();
             }

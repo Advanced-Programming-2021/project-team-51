@@ -1,9 +1,11 @@
 package controller.duel;
 
+import controller.GUI.DuelViewSceneController;
 import controller.duel.effect.monsterseffect.GetAttackedEffects;
 import controller.duel.effect.traps.GetAttackedTraps;
 import controller.duel.singlePlayer.AI;
 import controller.duel.singlePlayer.GameController;
+import javafx.scene.input.MouseEvent;
 import models.Player;
 import models.cards.monsters.Mode;
 import models.cards.monsters.MonsterCard;
@@ -265,17 +267,17 @@ public class AttackController {
         return false;
     }
 
-    public void checkEndGame() {
-        if (DuelView.isMultiPlayer) {
+    public void checkEndGame(MouseEvent event) {
+        if (DuelViewSceneController.isMultiPlayer) {
             if (Player.getFirstPlayer().getPlayerBoard().getLifePoints() <= 0)
-                phaseController.endGame(Player.getSecondPlayer(), Player.getFirstPlayer());
+                phaseController.endGame(Player.getSecondPlayer(), Player.getFirstPlayer(), event);
             else if (Player.getSecondPlayer().getPlayerBoard().getLifePoints() <= 0)
-                phaseController.endGame(Player.getFirstPlayer(), Player.getSecondPlayer());
+                phaseController.endGame(Player.getFirstPlayer(), Player.getSecondPlayer(), event);
         } else {
             if (GameController.player.getPlayerBoard().getLifePoints() <= 0)
-                gameController.endGame("bot");
+                gameController.endGame("bot", event);
             else if (GameController.bot.getBoard().getLifePoints() <= 0)
-                gameController.endGame("human");
+                gameController.endGame("human", event);
         }
     }
 

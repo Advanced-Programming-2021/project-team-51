@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -79,7 +78,7 @@ public class DuelControllerGUI {
         SceneController.switchSceneMouse("/fxml/singlePlayerStart.fxml", event);
     }
 
-    public void multiPlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException, InterruptedException {
+    public void multiPlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException {
         String name = secondUsernameForMulti.getText();
         String rounds = roundsMulti.getText();
         if (name.equals("") || rounds.equals("")) {
@@ -149,12 +148,14 @@ public class DuelControllerGUI {
     }
 
     public void gameStartScene(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SceneController.class.getResource("/fxml/gameField.fxml"));
         Pane pane = fxmlLoader.load();
+        DuelViewSceneController game = fxmlLoader.getController();
+        game.setPreperations();
         stage.setScene(new Scene(pane));
-        stage.getScene().setOnKeyPressed(e->{
-            if (e.getCode() == KeyCode.BACK_QUOTE){
+        stage.getScene().setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.BACK_QUOTE) {
                 FXMLLoader fxmlLoader2 = new FXMLLoader(SceneController.class.getResource("/fxml/cheat.fxml"));
                 try {
                     Pane pane2 = fxmlLoader2.load();
@@ -164,10 +165,6 @@ public class DuelControllerGUI {
                 }
             }
         });
-        if (fxmlLoader.getController() instanceof DuelViewSceneController) {
-            DuelViewSceneController gamePage = fxmlLoader.getController();
-            gamePage.setPreparations();
-        }
         LoginControllerGUI.player.stop();
         String musicFile = "./src/main/resources/sound/duelSong.mp3";
         Media sound = new Media(new File(musicFile).toURI().toString());
@@ -176,7 +173,7 @@ public class DuelControllerGUI {
         LoginControllerGUI.player.play();
     }
 
-    public void singlePlayerStart(ActionEvent actionEvent) throws CloneNotSupportedException, IOException {
+    public void singlePlayerStart(MouseEvent event) throws CloneNotSupportedException, IOException {
 
         if (!easyCheck.isSelected() && !hardCheck.isSelected()) {
             AlertBox.display("Please choose difficulty before start!");
@@ -197,12 +194,12 @@ public class DuelControllerGUI {
             } else {
                 difficulty = "hard";
             }
-            String res = MainMenuControllerGUI.duelMenuController.startSinglePlayer(LoginMenuController.currentUser, rounds, difficulty);
+            String res = MainMenuControllerGUI.duelMenuController.startSinglePlayer(LoginMenuController.currentUser, rounds, difficulty, event);
             if (!res.equals("")) {
                 AlertBox.display(res);
             } else {
                 DuelViewSceneController.isMultiPlayer = false;
-                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/coinS.fxml"));
                 Pane pane = fxmlLoader.load();
                 stage.setScene(new Scene(pane));
@@ -228,9 +225,9 @@ public class DuelControllerGUI {
                 start.setLayoutX(270);
                 start.setLayoutY(450);
 
-                start.setOnMouseClicked(event -> {
+                start.setOnMouseClicked(e -> {
                     try {
-                        gameStartScene(event);
+                        gameStartScene(e);
                     } catch (IOException exception) {
                         exception.printStackTrace();
                     }

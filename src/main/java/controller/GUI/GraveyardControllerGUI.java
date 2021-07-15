@@ -27,10 +27,10 @@ public class GraveyardControllerGUI {
     public VBox getList(ArrayList<Card> graveyard) {
         VBox cards = new VBox(10);
         HBox[] rows = new HBox[(int) Math.ceil(graveyard.size() / 8.0)];
-        for (int i = 0 ; i < graveyard.size() ; i++) {
+        for (int i = 0; i < graveyard.size(); i++) {
             if (i % 8 == 0)
                 rows[i / 8] = new HBox(10);
-            ImageView imageView = null;
+            ImageView imageView;
             if (graveyard.get(i) instanceof MonsterCard)
                 imageView = new ImageView(((MonsterCard) graveyard.get(i)).getImage());
             else

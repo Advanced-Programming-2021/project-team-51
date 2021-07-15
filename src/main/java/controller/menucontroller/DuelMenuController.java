@@ -4,6 +4,7 @@ import controller.duel.PhaseController;
 import controller.duel.singlePlayer.EasyBot;
 import controller.duel.singlePlayer.GameController;
 import controller.duel.singlePlayer.HardBot;
+import javafx.scene.input.MouseEvent;
 import models.Player;
 import models.User;
 import view.DuelView;
@@ -41,7 +42,7 @@ public class DuelMenuController {
         return "";
     }
 
-    public String startSinglePlayer(User currentUser, String rounds, String difficulty) throws CloneNotSupportedException {
+    public String startSinglePlayer(User currentUser, String rounds, String difficulty, MouseEvent event) throws CloneNotSupportedException {
         if (currentUser.getActiveDeck() == null)
             return currentUser.getUserName() + " has no active deck";
         if (!currentUser.getActiveDeck().isDeckValid())
@@ -57,7 +58,7 @@ public class DuelMenuController {
         else
             new HardBot(player);
         ProgramController.currentMenu = MenuEnum.DUEL_VIEW;
-        gameController.startTheGame();
+        gameController.startTheGame(event);
         return "";
     }
 }

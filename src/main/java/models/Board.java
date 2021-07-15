@@ -20,7 +20,7 @@ public class Board {
     private final ArrayList<Card> cardsInHand = new ArrayList<>();
     private Player owner;
     private AI botOwner;
-    private Card fieldZone;
+    private SpellTrapCard fieldZone = null;
     private Deck deck;
     private ArrayList<Card> mainDeckCards;
     private ArrayList<Card> sideDeckCards;
@@ -30,7 +30,6 @@ public class Board {
     public Board(Player owner) throws CloneNotSupportedException {
         setOwner(owner);
         setBotOwner(null);
-        setFieldZone(null);
         setDeck((Deck) owner.getPlayerDeck().clone());
         setLifePoints(8000);
         initializeZones();
@@ -44,7 +43,6 @@ public class Board {
     public Board(AI bot) throws CloneNotSupportedException {
         setOwner(null);
         setBotOwner(bot);
-        setFieldZone(null);
         setDeck((Deck) bot.getDeck().clone());
         setLifePoints(8000);
         initializeZones();
@@ -60,6 +58,7 @@ public class Board {
         spellAndTrapBoard.clear();
         graveyard.clear();
         cardsInHand.clear();
+        fieldZone = null;
         for (int i = 0; i < 5; i++) {
             monsterBoard.add(null);
             spellAndTrapBoard.add(null);
@@ -144,11 +143,12 @@ public class Board {
         return this.spellAndTrapBoard;
     }
 
-    public void setFieldZone(Card fieldZone) {
+    public void setFieldZone(SpellTrapCard fieldZone) {
         this.fieldZone = fieldZone;
+        removeCardsFromHand(getCardIndexInHand(fieldZone));
     }
 
-    public Card getFieldZone() {
+    public SpellTrapCard getFieldZone() {
         return this.fieldZone;
     }
 

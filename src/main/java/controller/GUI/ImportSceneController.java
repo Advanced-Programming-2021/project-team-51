@@ -3,10 +3,10 @@ package controller.GUI;
 import controller.menucontroller.ImportExportController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import models.cards.CardImage;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +37,6 @@ public class ImportSceneController {
     public void importCard() {
         String cardName = importExportController.importCard(file, statusLabel, dragHereLabel);
         if (statusLabel.getText().equals("card imported successfully"))
-            cardImage.setImage(new Image("/resources/image/Cards/" + cardName + ".png"));
+            cardImage.setImage(CardImage.getImageByName(cardName));
     }
 }

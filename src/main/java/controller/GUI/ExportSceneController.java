@@ -5,8 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import models.cards.CardImage;
 
 import java.io.IOException;
 
@@ -23,9 +23,9 @@ public class ExportSceneController {
         SceneController.switchScene("/fxml/ImportExport_Scene.fxml", actionEvent);
     }
 
-    public void export(ActionEvent actionEvent) {
+    public void export() {
         importExportController.exportCard(cardName, asJsonToggleButton, statusLabel);
         if (statusLabel.getText().equals("card exported successfully"))
-            cardImageView.setImage(new Image(cardName.getText() + ".png"));
+            cardImageView.setImage(CardImage.getImageByName(cardName.getText()));
     }
 }

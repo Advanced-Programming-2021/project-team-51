@@ -1,5 +1,6 @@
 package controller.duel;
 
+import controller.GUI.DuelViewSceneController;
 import controller.duel.effect.monsterseffect.ContinuousEffects;
 import controller.duel.effect.monsterseffect.TurnEffects;
 import controller.duel.singlePlayer.AI;
@@ -7,6 +8,8 @@ import controller.duel.effect.spells.OnMonsterSpells;
 import controller.duel.effect.spells.FiledSpells;
 import controller.duel.effect.spells.MessengerOfPeace;
 import controller.duel.effect.spells.TurnSpells;
+import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import models.Chain;
 import models.Player;
 import models.User;
@@ -15,6 +18,8 @@ import view.DuelView;
 import view.MenuEnum;
 import view.ProgramController;
 import view.StatusEnum;
+
+import java.io.IOException;
 
 public class PhaseController {
     public static Player playerInTurn;
@@ -52,7 +57,7 @@ public class PhaseController {
             return secondBoard + middleLine + firstBoard;
     }
 
-    public String changePhase() {
+    public String changePhase(MouseEvent event) {
         findNextPhase();
         AttackController.alreadyAttackedCards.clear();
         AttackController.isBattleHappened = false;
@@ -65,7 +70,7 @@ public class PhaseController {
             if (playerAgainst.getPlayerBoard().getEffectsStatus().getCanRivalPickCard()) {
                 Card card = playerInTurn.getPlayerBoard().drawCard();
                 if (card == null)
-                    endGame(playerAgainst, playerInTurn);
+                    endGame(playerAgainst, playerInTurn, event);
                 assert card != null;
                 result.append("\nnew card added to hand: ").append(card.getName());
             }
@@ -98,7 +103,7 @@ public class PhaseController {
             SelectionController.selectedCard = null;
             resetSomeEffects();
             SummonController.hasSummonedInThisTurn = false;
-            System.out.println(changePhase());
+            System.out.println(changePhase(event));
             isFirstPlay = false;
         }
         else if (currentPhase == GamePhase.SWITCH_CARDS1) {
@@ -144,7 +149,7 @@ public class PhaseController {
             currentPhase = GamePhase.DRAW;
     }
 
-    public void endGame(Player winner, Player looser) {
+    public void endGame(Player winner, Player looser, MouseEvent event) {
         User winnerUser = winner.getUser();
         User loserUser = looser.getUser();
         if (DuelView.rounds == 1) {
@@ -156,6 +161,11 @@ public class PhaseController {
             Player.removePlayers();
             System.out.println(winnerUser.getUserName() + " won the whole match with score: 1-0");
             DuelView.shouldDrawBoard = false;
+            try {
+                DuelViewSceneController.end(winnerUser, event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else {
             if (winner.equals(Player.getFirstPlayer()))
@@ -174,6 +184,11 @@ public class PhaseController {
                 System.out.println(winnerUser.getUserName() + " won the whole match with score: " +
                         DuelView.player1Wins + "-" + DuelView.player2Wins);
                 DuelView.shouldDrawBoard = false;
+                try {
+                    DuelViewSceneController.end(winnerUser, event);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             else {
                 System.out.println(winnerUser.getUserName() + "won the game and the score is: " +

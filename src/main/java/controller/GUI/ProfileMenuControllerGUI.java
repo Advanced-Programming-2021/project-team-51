@@ -1,6 +1,7 @@
 package controller.GUI;
 
 import controller.menucontroller.LoginMenuController;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,7 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -19,8 +22,12 @@ import models.SaveData;
 import view.GUI.AlertBox;
 import view.StatusEnum;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class ProfileMenuControllerGUI {
 
@@ -29,6 +36,7 @@ public class ProfileMenuControllerGUI {
     public TextField new_pass;
     public TextField old_pass;
     public TextField change_user;
+    public ImageView profileImage;
 
 
     public void userInfoScene(ActionEvent actionEvent) throws Exception {
@@ -97,7 +105,7 @@ public class ProfileMenuControllerGUI {
         stage.setScene(new Scene(pane));
     }
 
-    public void changeUser(ActionEvent actionEvent) {
+    public void changeUser() {
         String name = change_user.getText();
         String res = MainMenuControllerGUI.profileMenuController.changeUsername(name);
         if (name.equals("")) {
@@ -111,7 +119,7 @@ public class ProfileMenuControllerGUI {
 
     }
 
-    public void changePass(ActionEvent actionEvent) {
+    public void changePass() {
         String oldP = old_pass.getText();
         String newP = new_pass.getText();
         String res = MainMenuControllerGUI.profileMenuController.changePass(oldP, newP);
@@ -128,7 +136,7 @@ public class ProfileMenuControllerGUI {
         }
     }
 
-    public void changeNick(ActionEvent actionEvent) {
+    public void changeNick() {
         String nick = change_nickname.getText();
         String res = MainMenuControllerGUI.profileMenuController.changeNickname(nick);
         if (nick.equals("")) {
@@ -222,8 +230,6 @@ public class ProfileMenuControllerGUI {
         double h = imageView.getFitHeight();
         imageView.setFitHeight(h + 5);
         imageView.setFitWidth(w + 5);
-
-
     }
 
     public void returnToStart(MouseEvent event) throws IOException {
@@ -246,5 +252,29 @@ public class ProfileMenuControllerGUI {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/profile_menu.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));
+    }
+
+    public void chooseFromPC(ActionEvent actionEvent) throws IOException {
+        SceneController.switchScene("/fxml/changeAvatar3.fxml", actionEvent);
+    }
+
+    public void handleDroppedImage(DragEvent dragEvent) {
+        List<File> files = dragEvent.getDragboard().getFiles();
+        try {
+            Image image = new Image(new FileInputStream(files.get(files.size() - 1)));
+            profileImage.setImage(image);
+            File outputFile = new File("./image/Avatars/");
+            BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+            ImageIO.write(bImage, "png", outputFile);
+            String avatarAddress = "./image/Avatars/" + LoginMenuController.currentUser.getUserName() + ".png";
+            LoginMenuController.currentUser.setAvatar(avatarAddress, avatarAddress);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleDragOver(DragEvent dragEvent) {
+        if (dragEvent.getDragboard().hasFiles())
+            dragEvent.acceptTransferModes(TransferMode.ANY);
     }
 }

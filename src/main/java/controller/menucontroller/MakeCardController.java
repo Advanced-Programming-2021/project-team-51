@@ -71,13 +71,14 @@ public class MakeCardController {
         user.setMoney(user.getMoney() - (Integer.parseInt(price) / 10));
         addEffects(effects, cardName);
         String csvData = "\n" + cardName.getText() + "," + level + "," + attributeChoiceBox.getValue() + "," +
-                monsterTypeChoiceBox.getValue() +  "," + cardType + "," + attackPointSpinner.getValue() + "," +
+                monsterTypeChoiceBox.getValue() + "," + cardType + "," + attackPointSpinner.getValue() + "," +
                 defensePointSpinner.getValue() + "," + cardDescription.getText() + "," + price;
         File outputFile = new File("./image/Cards/");
         BufferedImage bImage = SwingFXUtils.fromFXImage(cardImage.getImage(), null);
-        new CardImage( cardName.getText(), cardImage.getImage());
+        new CardImage(cardName.getText(), cardImage.getImage());
         try {
             Files.write(Paths.get("Monster.csv"), csvData.getBytes(), StandardOpenOption.APPEND);
+            String fileName = cardName.getText().replaceAll(" ", "") + ".jpg";
             ImageIO.write(bImage, "jpg", outputFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -123,11 +124,11 @@ public class MakeCardController {
                 cardDescription.getText() + "," + status + "," + price;
         File outputFile = new File("./image/Cards/");
         BufferedImage bImage = SwingFXUtils.fromFXImage(cardImage.getImage(), null);
-        new CardImage( cardName.getText(), cardImage.getImage());
+        new CardImage(cardName.getText(), cardImage.getImage());
         try {
             Files.write(Paths.get("SpellTrap.csv"), csvData.getBytes(), StandardOpenOption.APPEND);
+            String fileName = cardName.getText().replaceAll(" ", "") + ".jpg";
             ImageIO.write(bImage, "jpg", outputFile);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

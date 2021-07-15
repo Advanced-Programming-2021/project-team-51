@@ -41,7 +41,7 @@
             <Font size="33.0" />
          </font>
       </CheckBox>
-      <Button layoutX="123.0" layoutY="456.0" mnemonicParsing="false" onAction="#singlePlayerStart" prefHeight="91.0" prefWidth="228.0" text="Start">
+      <Button layoutX="123.0" layoutY="456.0" mnemonicParsing="false" onMouseClicked="#singlePlayerStart" prefHeight="91.0" prefWidth="228.0" text="Start">
          <font>
             <Font size="49.0" />
          </font>

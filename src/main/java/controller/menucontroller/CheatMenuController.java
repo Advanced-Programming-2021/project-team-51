@@ -25,18 +25,15 @@ public class CheatMenuController {
             cheater = GameController.player;
         Matcher matcher;
         if ((matcher = Regex.getMatcher(command, Regex.CHEAT_INCREASE_MONEY)).matches())
-            increaseMoney(Integer.parseInt(matcher.group(2)), cheater);
-        else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_SET_WINNER)).matches())
-            setWinner(matcher.group(1), cheater);
+            return increaseMoney(Integer.parseInt(matcher.group(2)), cheater);
         else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_INCREASE_LP)).matches())
-            increaseLP(Integer.parseInt(matcher.group(2)), cheater);
+            return increaseLP(Integer.parseInt(matcher.group(2)), cheater);
         else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_SELECT_MORE_CARDS_1)).matches())
-            selectCardForce(matcher.group(2), cheater);
+            return selectCardForce(matcher.group(2), cheater);
         else if ((matcher = Regex.getMatcher(command, Regex.CHEAT_SELECT_MORE_CARDS_2)).matches())
-            selectCardForce(matcher.group(3), cheater);
+            return selectCardForce(matcher.group(3), cheater);
         else
             return StatusEnum.INVALID_COMMAND.getStatus();
-        return "";
     }
 
 
@@ -50,26 +47,6 @@ public class CheatMenuController {
     private String increaseLP(int amount, Player cheater) {
         cheater.getPlayerBoard().setLifePoints(cheater.getPlayerBoard().getLifePoints() + amount);
         return "Cheat Activated Successfully";
-    }
-
-    private String setWinner(String nickname, Player cheater) {
-        if (!DuelView.isMultiPlayer) {
-            if (cheater.getNickName().equals(nickname))
-                gameController.endGame(nickname);
-            else
-                gameController.endGame("bot");
-        } else {
-            if (cheater.getNickName().equals(nickname)) {
-                phaseController.endGame(cheater, PhaseController.playerAgainst);
-                return "Cheat Activated Successfully";
-            }
-            else if (PhaseController.playerAgainst.getNickName().equals(nickname)) {
-                phaseController.endGame(PhaseController.playerAgainst, cheater);
-                return "Cheat Activated Successfully";
-            }
-        }
-        return "";
-
     }
 
     private String selectCardForce(String cardName, Player cheater) {

@@ -15,6 +15,6 @@ public class GameWinOrLooseControllerGUI {
         LoginControllerGUI.player = new MediaPlayer(sound);
         LoginControllerGUI.player.setCycleCount(MediaPlayer.INDEFINITE);
         LoginControllerGUI.player.play();
-        SceneController.switchScene("/fxml/mainMenu.fxml",actionEvent);
+        SceneController.switchScene("/fxml/mainMenu.fxml", actionEvent);
     }
 }

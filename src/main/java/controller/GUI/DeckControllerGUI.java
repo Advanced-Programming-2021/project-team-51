@@ -26,13 +26,14 @@ import view.GUI.AlertBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DeckControllerGUI {
 
     private static Deck selectedDeck;
 
-    private final Image activatedImage = new Image(getClass().getResource("/image/activated.png").toExternalForm());
-    private final Image defaultImage = new Image(getClass().getResource("/image/set-activate.png").toExternalForm());
+    private final Image activatedImage = new Image(Objects.requireNonNull(getClass().getResource("/image/activated.png")).toExternalForm());
+    private final Image defaultImage = new Image(Objects.requireNonNull(getClass().getResource("/image/set-activate.png")).toExternalForm());
 
     DeckMenuController deckMenuController = new DeckMenuController(LoginMenuController.currentUser);
 
@@ -67,7 +68,7 @@ public class DeckControllerGUI {
         cards.addAll(deck.getSideDeck());
         HBox cardNodes = new HBox(1);
         cardNodes.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        for (Card card: cards) {
+        for (Card card : cards) {
             ImageView imageView;
             if (card instanceof MonsterCard)
                 imageView = new ImageView(((MonsterCard) card).getImage());
@@ -100,10 +101,10 @@ public class DeckControllerGUI {
         deckList.setPrefWidth(250);
         deckList.setPrefHeight(550);
         deckList.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        for (Deck deck: userDecks) {
+        for (Deck deck : userDecks) {
             Button button = new Button(deck.toString());
             deckList.getChildren().add(button);
-            button.setOnAction(event ->{
+            button.setOnAction(event -> {
                 setSelectedDeck(deck);
                 showDeck(deck);
             });
@@ -117,7 +118,7 @@ public class DeckControllerGUI {
         scrollPane.setLayoutX(0);
         scrollPane.setLayoutY(50);
         scrollPane.setContent(deckList);
-        scrollPane.getStylesheets().add(getClass().getResource("/css/scroll_pane.css").toExternalForm());
+        scrollPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/scroll_pane.css")).toExternalForm());
         anchor.getChildren().add(scrollPane);
     }
 
@@ -135,8 +136,7 @@ public class DeckControllerGUI {
         if (deckName.getText().length() > 10) {
             AlertBox.display("Deck name should be Shorter!");
             return;
-        }
-        else
+        } else
             AlertBox.display(deckMenuController.createDeck(deckName.getText()));
 
         resetDeckList();
@@ -168,7 +168,7 @@ public class DeckControllerGUI {
         VBox main = new VBox(2);
         main.getChildren().add(new Label("Main Deck:"));
         HBox[] listCards = new HBox[(int) Math.ceil(deck.getMainDeck().size() / 10.0)];
-        for (int i = 0 ; i < deck.getMainDeck().size(); i++) {
+        for (int i = 0; i < deck.getMainDeck().size(); i++) {
             if (i % 10 == 0)
                 listCards[i / 10] = new HBox(2);
             if (deck.getMainDeck().get(i) instanceof MonsterCard) {
@@ -176,8 +176,7 @@ public class DeckControllerGUI {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
                 listCards[i / 10].getChildren().add(imageView);
-            }
-            else {
+            } else {
                 ImageView imageView = new ImageView(((SpellTrapCard) deck.getMainDeck().get(i)).getImage());
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
@@ -185,7 +184,7 @@ public class DeckControllerGUI {
             }
         }
         main.getChildren().addAll(listCards);
-        main.getStylesheets().add(getClass().getResource("/css/deck.css").toExternalForm());
+        main.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/deck.css")).toExternalForm());
         return main;
     }
 
@@ -193,7 +192,7 @@ public class DeckControllerGUI {
         VBox side = new VBox(2);
         side.getChildren().add(new Label("Side Deck:"));
         HBox[] listCards = new HBox[(int) Math.ceil(deck.getSideDeck().size() / 10.0)];
-        for (int i = 0 ; i < deck.getSideDeck().size(); i++) {
+        for (int i = 0; i < deck.getSideDeck().size(); i++) {
             if (i % 10 == 0)
                 listCards[i / 10] = new HBox(2);
             if (deck.getSideDeck().get(i) instanceof MonsterCard) {
@@ -201,8 +200,7 @@ public class DeckControllerGUI {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
                 listCards[i / 10].getChildren().add(imageView);
-            }
-            else {
+            } else {
                 ImageView imageView = new ImageView(((SpellTrapCard) deck.getSideDeck().get(i)).getImage());
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(60);
@@ -210,20 +208,20 @@ public class DeckControllerGUI {
             }
         }
         side.getChildren().addAll(listCards);
-        side.getStylesheets().add(getClass().getResource("/css/deck.css").toExternalForm());
+        side.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/deck.css")).toExternalForm());
         return side;
     }
 
     public void showDeck(Deck deck) {
         if (getSelectedDeck() != null) {
             deckInfo.getChildren().clear();
-            deckInfo.getStylesheets().add(getClass().getResource("/css/scroll_pane.css").toExternalForm());
+            deckInfo.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/scroll_pane.css")).toExternalForm());
             deckInfo.setLayoutX(300);
             deckInfo.setLayoutY(50);
             deckInfo.setPrefHeight(550);
             deckInfo.setPrefWidth(420);
             Button button = new Button("Change Deck");
-            button.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
+            button.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/button.css")).toExternalForm());
             button.setOnAction(event -> changeDeck(deck, event));
             VBox deckCards = new VBox(10);
             deckCards.getChildren().addAll(getMainList(deck), getSideList(deck), button);
@@ -244,7 +242,7 @@ public class DeckControllerGUI {
     }
 
     public void back(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
         Pane pane = fxmlLoader.load();
         stage.setScene(new Scene(pane));

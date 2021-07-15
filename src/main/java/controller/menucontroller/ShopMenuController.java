@@ -16,7 +16,7 @@ public class ShopMenuController {
 
     private final User currentUser;
 
-    public ShopMenuController(User currentUser){
+    public ShopMenuController(User currentUser) {
         this.currentUser = currentUser;
     }
 
@@ -30,11 +30,12 @@ public class ShopMenuController {
 
         Card card = MakeCards.makeCard(cardName);
         currentUser.addCard(card);
+        assert card != null;
         currentUser.setMoney(currentUser.getMoney() - card.getPrice());
         return StatusEnum.CARD_BOUGHT_SUCCESSFULLY.getStatus();
     }
 
-    private boolean doesUserHaveEnoughMoney(Card card){
+    private boolean doesUserHaveEnoughMoney(Card card) {
         return currentUser.getMoney() >= card.getPrice();
     }
 

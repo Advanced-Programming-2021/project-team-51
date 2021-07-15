@@ -16,13 +16,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.cards.Card;
-import models.cards.CardType;
 import models.cards.MakeCards;
 import models.cards.monsters.MonsterCard;
 import models.cards.spelltrap.SpellTrapCard;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ShopControllerGUI {
 
@@ -37,7 +37,7 @@ public class ShopControllerGUI {
     @FXML
     private AnchorPane anchor;
 
-    public static void setSelectedCard(Card card, CardType type, ImageView imageView) {
+    public static void setSelectedCard(Card card, ImageView imageView) {
         resetSelect(selectedImage);
         selectedCard = card;
         selectedImage = imageView;
@@ -90,7 +90,7 @@ public class ShopControllerGUI {
             resetSelect(selectedImage);
             selectedImage = null;
             selectedCard = null;
-            buy = new ImageView(getClass().getResource("/image/buy.png").toExternalForm());
+            buy = new ImageView(Objects.requireNonNull(getClass().getResource("/image/buy.png")).toExternalForm());
             buy.setVisible(false);
             buy.setOnMouseClicked(event -> {
                 if (buy.isVisible())
@@ -101,15 +101,15 @@ public class ShopControllerGUI {
             buy.setFitWidth(100);
             buy.setFitHeight(90);
             price = new Label();
-            price.getStylesheets().add(getClass().getResource("/css/shop_money.css").toExternalForm());
+            price.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/shop_money.css")).toExternalForm());
             price.setLayoutX(270);
             price.setLayoutY(10);
             amount = new Label();
-            amount.getStylesheets().add(getClass().getResource("/css/shop_money.css").toExternalForm());
+            amount.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/shop_money.css")).toExternalForm());
             amount.setLayoutX(470);
             amount.setLayoutY(10);
             money = new Label();
-            money.getStylesheets().add(getClass().getResource("/css/shop_money.css").toExternalForm());
+            money.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/shop_money.css")).toExternalForm());
             money.setLayoutX(10);
             money.setLayoutY(10);
             anchor.getChildren().add(price);
@@ -128,7 +128,7 @@ public class ShopControllerGUI {
                 imageView.setCursor(Cursor.HAND);
                 imageView.setFitHeight(240);
                 imageView.setFitWidth(160);
-                imageView.setOnMouseClicked(event -> setSelectedCard(monster, CardType.MONSTER, imageView));
+                imageView.setOnMouseClicked(event -> setSelectedCard(monster, imageView));
                 monstersBox.getChildren().add(imageView);
             }
             for (SpellTrapCard spellTrap: spells) {
@@ -136,10 +136,10 @@ public class ShopControllerGUI {
                 imageView.setCursor(Cursor.HAND);
                 imageView.setFitHeight(240);
                 imageView.setFitWidth(160);
-                imageView.setOnMouseClicked(event -> setSelectedCard(spellTrap, CardType.SPELL, imageView));
+                imageView.setOnMouseClicked(event -> setSelectedCard(spellTrap, imageView));
                 spellsBox.getChildren().add(imageView);
             }
-            String scrollPaneStyleAddress = getClass().getResource("/css/scroll_pane.css").toExternalForm();
+            String scrollPaneStyleAddress = Objects.requireNonNull(getClass().getResource("/css/scroll_pane.css")).toExternalForm();
             monstersPane.setLayoutY(70);
             monstersPane.setMaxWidth(800);
             monstersPane.setPrefHeight(260);

@@ -64,7 +64,7 @@ public class DuelView {
         surrender(command);
         //cheat
         if (!isCommandValid)
-             cheatMenuController.run(command);
+            System.out.println(cheatMenuController.run(command));
         //switch cards between games
         switchCards(command);
         if (shouldDrawBoard)
@@ -214,7 +214,7 @@ public class DuelView {
             return;
         isCommandValid = true;
         System.out.println(attackController.attackMonsterToMonster(matcher.group(1)));
-        attackController.checkEndGame();
+        //attackController.checkEndGame();
     }
 
     private void directAttack(String command) {
@@ -222,7 +222,7 @@ public class DuelView {
             return;
         isCommandValid = true;
         System.out.println(attackController.directAttack());
-        attackController.checkEndGame();
+        //attackController.checkEndGame();
     }
 
     private void activate(String command) {
@@ -250,20 +250,20 @@ public class DuelView {
         if (!Regex.getMatcher(command, Regex.SWITCH_PHASE).find())
             return;
         isCommandValid = true;
-        if (isMultiPlayer)
-            System.out.println(phaseController.changePhase());
-        else
-            System.out.println(gameController.changePhase());
+        //if (isMultiPlayer)
+          //  System.out.println(phaseController.changePhase());
+        //else
+          //  System.out.println(gameController.changePhase());
     }
 
     private void surrender(String command) {
         if (!Regex.getMatcher(command, Regex.SURRENDER).find())
             return;
         isCommandValid = true;
-        if (isMultiPlayer)
-            phaseController.endGame(PhaseController.playerAgainst, PhaseController.playerInTurn);
-        else
-            gameController.endGame("bot");
+        //if (isMultiPlayer)
+            //phaseController.endGame(PhaseController.playerAgainst, PhaseController.playerInTurn, event);
+        //else
+            //gameController.endGame("bot");
     }
 
     private void switchCards(String command) {

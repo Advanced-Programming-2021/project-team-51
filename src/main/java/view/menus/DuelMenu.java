@@ -2,6 +2,7 @@ package view.menus;
 
 import controller.menucontroller.DuelMenuController;
 import controller.menucontroller.LoginMenuController;
+import javafx.scene.input.MouseEvent;
 import models.User;
 import view.MenuEnum;
 import view.ProgramController;
@@ -109,7 +110,7 @@ public class DuelMenu {
             difficulty = matcher.group(2);
         }else return;
         isCommandValid = true;
-        System.out.println(duelMenuController.startSinglePlayer(currentUser, rounds, difficulty));
+        //System.out.println(duelMenuController.startSinglePlayer(currentUser, rounds, difficulty);
     }
 
     public void showMenu(String command) {

@@ -16,11 +16,11 @@
             <Image url="@../image/Field/fie_normal.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="myMonster5" fitHeight="94.0" fitWidth="94.0" layoutX="504.0" layoutY="368.0" onDragDetected="#handleDragMonster5" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="myMonster3" fitHeight="94.0" fitWidth="94.0" layoutX="582.0" layoutY="368.0" onDragDetected="#handleDragMonster3" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="myMonster1" fitHeight="94.0" fitWidth="94.0" layoutX="673.0" layoutY="368.0" onDragDetected="#handleDragMonster1" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="myMonster2" fitHeight="94.0" fitWidth="94.0" layoutX="755.0" layoutY="368.0" onDragDetected="#handleDragMonster2" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="myMonster4" fitHeight="94.0" fitWidth="88.0" layoutX="841.0" layoutY="368.0" onDragDetected="#handleDragMonster4" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster5" fitHeight="94.0" fitWidth="94.0" layoutX="504.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster3" fitHeight="94.0" fitWidth="94.0" layoutX="582.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster1" fitHeight="94.0" fitWidth="94.0" layoutX="673.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster2" fitHeight="94.0" fitWidth="94.0" layoutX="755.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="myMonster4" fitHeight="94.0" fitWidth="88.0" layoutX="841.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="mySpell5" fitHeight="94.0" fitWidth="88.0" layoutX="507.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="mySpell3" fitHeight="94.0" fitWidth="88.0" layoutX="585.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="mySpell1" fitHeight="94.0" fitWidth="88.0" layoutX="666.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true" />
@@ -67,7 +67,7 @@
       <Label fx:id="rivalLPLabel" layoutX="204.0" layoutY="131.0" prefHeight="18.0" prefWidth="88.0" text="8000" />
       <ImageView fx:id="myAvatar" fitHeight="84.0" fitWidth="102.0" layoutX="262.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="rivalAvatar" fitHeight="84.0" fitWidth="102.0" layoutX="269.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="10.0" layoutY="633.0" mnemonicParsing="false" onAction="#changePhase" prefHeight="58.0" prefWidth="58.0" style="-fx-background-radius: 30; -fx-background-color: #09314FFF;" text="NP" textFill="WHITE">
+      <Button layoutX="10.0" layoutY="633.0" mnemonicParsing="false" onMouseClicked="#changePhase" prefHeight="58.0" prefWidth="58.0" style="-fx-background-radius: 30; -fx-background-color: #09314FFF;" text="NP" textFill="WHITE">
          <font>
             <Font name="Georgia Bold" size="16.0" />
          </font></Button>
