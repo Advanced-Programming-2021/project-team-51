@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.Bloom;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -105,6 +106,7 @@ public class DuelViewSceneController implements Initializable {
     public ImageView myFieldSpell;
     public Label status;
     public Label currentPhase;
+    public TextField killOwnMonsters;
 
     public static SelectionController selectionController = new SelectionController();
     public static SummonController summonController = new SummonController();
@@ -353,7 +355,15 @@ public class DuelViewSceneController implements Initializable {
     }
 
     public void normalSummon(MouseEvent event) {
-        status.setText(summonController.summon());
+        if (SelectionController.selectedCard == null)
+            return;
+        if (SelectionController.selectedCard instanceof SpellTrapCard)
+            return;
+        if (((MonsterCard) SelectionController.selectedCard).getLevel() < 5)
+            status.setText(summonController.summon());
+        else {
+            killOwnMonsters.setVisible(true);
+        }
         setCards();
         setLifePoint();
         attackController.checkEndGame(event);
@@ -591,6 +601,14 @@ public class DuelViewSceneController implements Initializable {
                 ImageView[] monsters = {rivalMonster1, rivalMonster2, rivalMonster3, rivalMonster4, rivalMonster5};
                 setRivalMonstersOnNewPane(newMonsters, monsters, false, event);
             }
+        }
+    }
+
+    public void tributeOrRitualSummon(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            String monstersToKill = killOwnMonsters.getText();
+            status.setText(summonController.tributeSummon(monstersToKill));
+            killOwnMonsters.setVisible(false);
         }
     }
 }
